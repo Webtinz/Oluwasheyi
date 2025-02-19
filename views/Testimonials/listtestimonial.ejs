@@ -1,0 +1,94 @@
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Testimonials</h3>
+            <div class="card-tools">
+                <a href="/backoffice/addtestimonial" class="btn btn-primary"><i class="fas fa-plus"></i>Add
+                    Testmonials</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <table id="myTable" class="display table table-striped projects">
+                <thead>
+                    <tr>
+                        <th>sk</th>
+                        <th>Duration</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Setup Fee</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Les lignes seront insérées ici via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.13.7/i18n/fr-FR.json"
+            }
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Utiliser Axios pour récupérer les témoignages
+        axios.get('/api/getalltestimonials')
+            .then(response => {
+                const data = response.data;
+                if (data.length > 0) {
+                    const tableBody = document.querySelector('#myTable tbody');
+                    tableBody.innerHTML = '';  // Vider le tableau avant de le remplir
+
+                    // Remplir le tableau avec les témoignages
+                    data.forEach(testimonial => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${testimonial.titre}</td>
+                            <td>${testimonial.createdAt}</td>
+                            <td>${testimonial.nom} ${testimonial.prenom}</td>
+                            <td>${testimonial.description}</td>
+                            <td>${testimonial.address}</td>
+                            <td>
+                                <a class="btn btn-primary btn-sm" href="/backoffice/testimonial/${testimonial.id}">
+                                    <i class="fas fa-folder"></i> View
+                                </a>
+                                <a class="btn btn-info btn-sm" href="/backoffice/edit-testimonial/${testimonial.id}">
+                                    <i class="fas fa-pencil-alt"></i> Edit
+                                </a>
+                                <a class="btn btn-danger btn-sm delete-plan-btn" data-plan-id="${testimonial.id}">
+                                    <i class="fas fa-trash"></i> Delete
+                                </a>
+                            </td>
+                        `;
+
+                        // Ajouter l'image (si elle existe)
+                        if (testimonial.photo) {
+                            const actionsCell = row.querySelector('td:last-child');
+                            const imageElement = document.createElement('img');
+                            imageElement.src = `/uploads/${testimonial.photo}`;
+                            imageElement.alt = 'Image du témoignage';
+                            imageElement.width = 50;  // Taille de l'image
+                            imageElement.height = 50;
+                            actionsCell.prepend(imageElement); // Insérer l'image dans la cellule des actions
+                        }
+
+                        tableBody.appendChild(row);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Erreur lors de la récupération des témoignages:', error);
+            });
+    });
+</script>
