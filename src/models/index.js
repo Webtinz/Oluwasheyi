@@ -10,8 +10,6 @@ const MedicalProgram = require('./MedicalProgram')(sequelize, DataTypes);
 const Certification = require('./Certification')(sequelize, DataTypes);
 
 
-
-
 // Exportation des modèles pour les utiliser dans toute l'application
 module.exports = {
   sequelize,

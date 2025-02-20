@@ -17,6 +17,8 @@
     content="bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, colorlibhq, colorlibhq dashboard, colorlibhq admin dashboard" />
   <!--end::Primary Meta Tags-->
   <!--begin::Fonts-->
+  <link rel="icon" type="image/png" href="../../uploads/image 1.png">
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css"
     integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q=" crossorigin="anonymous" />
   <!--end::Fonts-->
@@ -38,23 +40,23 @@
     // Fonction pour gérer le formulaire de login
     document.addEventListener('DOMContentLoaded', function () {
       const form = document.querySelector('form');
-  
+
       form.addEventListener('submit', async function (event) {
         event.preventDefault(); // Empêcher le rechargement de la page
-  
+
         const email = document.querySelector('input[type="email"]').value;
         const password = document.querySelector('input[type="password"]').value;
-        console.log(email,password);
-  
+        console.log(email, password);
+
         // Envoi des données vers le backend avec Axios
         try {
           const response = await axios.post('/api/login', {
             email,
             password
           });
-  
+
           const data = response.data;
-  
+
           if (response.status === 200) {
             // Si l'authentification est réussie
             alert('Connexion réussie');
@@ -68,12 +70,12 @@
           }
         } catch (error) {
           console.error('Erreur de connexion:', error);
-          alert('Erreur réseau, veuillez réessayer plus tard',error);
+          alert('Erreur réseau, veuillez réessayer plus tard', error);
         }
       });
     });
   </script>
-  
+
 </head>
 <!--end::Head-->
 <!--begin::Body-->
