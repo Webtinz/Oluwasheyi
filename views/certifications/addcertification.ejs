@@ -1,0 +1,61 @@
+<div class="row">
+    <section class="content">
+      <div class="row">
+        <div class="col p-5">
+          <div class="card card-primary p-4">
+            <h3>Nouvelle Certification</h3>
+            <div class="card-body">
+              <form id="certificationForm">
+                <div class="form-group mb-3">
+                  <label for="name">Nom de la Certification</label>
+                  <input type="text" class="form-control" name="name" id="name" required />
+                </div>
+                <div class="form-group mb-3">
+                  <label for="description">Description</label>
+                  <textarea class="form-control" name="description" id="description" required></textarea>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="date_obtention">Date d'obtention</label>
+                  <input type="date" class="form-control" name="date_obtention" id="date_obtention" required />
+                </div>
+                <div class="form-group mb-3">
+                  <label for="photo">Photo</label>
+                  <input type="file" class="form-control" name="photo" id="photo" accept="image/*" required />
+                </div>
+                <button type="submit" class="btn btn-primary">Ajouter la Certification</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  // Récupérer le formulaire
+  const form = document.getElementById('certificationForm');
+  
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();  // Empêcher la soumission classique du formulaire
+  
+    const formData = new FormData(form);
+  
+    try {
+      const response = await axios.post('/api/addcertification', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+  
+      if (response.status === 201) {
+        alert(response.data.message);  // Afficher un message de succès
+        window.location.href = '/backoffice/listcertifications';  // Rediriger vers la page des certifications
+      } else {
+        alert('Error: ' + response.data.message);
+      }
+    } catch (error) {
+      console.error('Erreur lors de l\'ajout de la certification:', error.response || error);
+      alert('Erreur lors de l\'ajout de la certification');
+    }
+  });
+</script>

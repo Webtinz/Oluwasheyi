@@ -1,17 +1,51 @@
 const multer = require('multer');
 const path = require('path');
 
-// Définir un stockage pour multer
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './uploads'); // Assure-toi que le dossier 'uploads' existe
+// Dossier pour les services
+const serviceStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, '../../uploads/services'));
   },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname)); // Nomme le fichier avec un timestamp
-  }
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
 });
 
-// Middleware d'upload
-const upload = multer({ storage: storage });
+// Dossier pour les témoignages
+const temoigneStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, '../../uploads/temoigne'));
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
+});
 
-module.exports = upload;
+// for medical programs
+const medicalProgramStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, '../../uploads/MedicalProgram'));
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
+});
+
+// for medical programs
+const certificationStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, '../../uploads/certifications'));
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
+});
+
+const uploadService = multer({ storage: serviceStorage });
+const uploadTemoigne = multer({ storage: temoigneStorage });
+const uploadMedicalProgram = multer({ storage: medicalProgramStorage });
+const uploadCertification = multer({ storage: certificationStorage });
+
+
+
+module.exports = { uploadService, uploadTemoigne, uploadMedicalProgram , uploadCertification};

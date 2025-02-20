@@ -1,0 +1,170 @@
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Programmes d'aide médicale</h3>
+            <div class="card-tools">
+                <a href="/backoffice/addmedicalprogram" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter un programme</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <table id="medicalProgramTable" class="display table table-striped projects">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom du programme</th>
+                        <th>Contact</th>
+                        <th>Description</th>
+                        <th>Bénéficiaires</th>
+                        <th>Photo</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Les lignes seront insérées ici via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- View/Edit Modal -->
+<div class="modal fade" id="medicalProgramModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Détails du programme</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="medicalProgramForm">
+                    <input type="hidden" id="programId">
+                    <div class="form-group">
+                        <label>Nom du programme</label>
+                        <input type="text" id="programName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Contact</label>
+                        <input type="text" id="programContact" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="programDescription" class="form-control" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Bénéficiaires</label>
+                        <input type="text" id="programBeneficiaries" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Photo</label>
+                        <input type="file" id="programPhoto" class="form-control">
+                        <img id="currentProgramPhoto" src="#" alt="Photo du programme" width="100" style="margin-top: 10px; display: none;">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        axios.get('/api/getallprograms')
+            .then(response => {
+                const data = response.data;
+                const tableBody = document.querySelector('#medicalProgramTable tbody');
+                tableBody.innerHTML = '';
+
+                data.forEach(program => {
+                    const row = `
+                    <tr>
+                        <td>${program.id}</td>
+                        <td>${program.name}</td>
+                        <td>${program.contact}</td>
+                        <td>${program.description}</td>
+                        <td>${program.beneficiaries}</td>
+                        <td><img src="/uploads/MedicalProgram/${program.photo}" width="50" height="50" alt="Photo du programme"></td>
+                        <td>
+                            <button class="btn btn-primary btn-sm view-btn" data-id="${program.id}">Modifier</button>
+                            <button class="btn btn-danger btn-sm delete-btn" data-id="${program.id}">Supprimer</button>
+                        </td>
+                    </tr>`;
+                    tableBody.innerHTML += row;
+                });
+
+                // Initialize DataTable
+                $('#medicalProgramTable').DataTable({
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/1.13.7/i18n/fr-FR.json"
+                    }
+                });
+            })
+            .catch(error => console.error('Erreur lors de la récupération des programmes :', error));
+
+        // View program details in modal
+        document.body.addEventListener('click', function (e) {
+            if (e.target.classList.contains('view-btn')) {
+                const id = e.target.dataset.id;
+                axios.get(`/api/getprogram/${id}`)
+                    .then(response => {
+                        const program = response.data;
+                        document.getElementById('programId').value = program.id;
+                        document.getElementById('programName').value = program.name;
+                        document.getElementById('programContact').value = program.contact;
+                        document.getElementById('programDescription').value = program.description;
+                        document.getElementById('programBeneficiaries').value = program.beneficiaries;
+
+                        const photoElement = document.getElementById('currentProgramPhoto');
+                        if (program.photo) {
+                            photoElement.src = `/uploads/MedicalProgram/${program.photo}`;
+                            photoElement.style.display = 'block';
+                        } else {
+                            photoElement.style.display = 'none';
+                        }
+
+                        $('#medicalProgramModal').modal('show');
+                    })
+                    .catch(error => console.error('Erreur lors de la récupération du programme :', error));
+            }
+        });
+
+        // Update program
+        document.getElementById('medicalProgramForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const id = document.getElementById('programId').value;
+            const formData = new FormData();
+            formData.append('nom', document.getElementById('programName').value);
+            formData.append('contact', document.getElementById('programContact').value);
+            formData.append('description', document.getElementById('programDescription').value);
+            formData.append('beneficiaires', document.getElementById('programBeneficiaries').value);
+            if (document.getElementById('programPhoto').files[0]) {
+                formData.append('photo', document.getElementById('programPhoto').files[0]);
+            }
+
+            axios.put(`/api/updateprogram/${id}`, formData)
+                .then(() => {
+                    $('#medicalProgramModal').modal('hide');
+                    location.reload();
+                })
+                .catch(error => console.error('Erreur lors de la mise à jour du programme :', error));
+        });
+
+        // Delete program
+        document.body.addEventListener('click', function (e) {
+            if (e.target.classList.contains('delete-btn')) {
+                const id = e.target.dataset.id;
+                if (confirm('Voulez-vous vraiment supprimer ce programme ?')) {
+                    axios.delete(`/api/deleteprogram/${id}`)
+                        .then(() => location.reload())
+                        .catch(error => console.error('Erreur lors de la suppression du programme :', error));
+                }
+            }
+        });
+    });
+</script>
