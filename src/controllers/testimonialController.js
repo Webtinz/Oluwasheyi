@@ -86,6 +86,8 @@ exports.deletetestimonials = async (req, res) => {
 exports.getalltestimonials = async (req, res) => {
   try {
     const testimonials = await Testimonial.findAll();
+    console.log('Requête reçue pour récupérer les témoignages');
+    console.log('Témoignages:', testimonials);
     res.status(200).json(testimonials);
   } catch (error) {
     console.error(error);

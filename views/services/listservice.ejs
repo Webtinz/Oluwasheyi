@@ -1,0 +1,171 @@
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Services</h3>
+            <div class="card-tools">
+                <a href="/backoffice/addservice" class="btn btn-primary"><i class="fas fa-plus"></i> Add Service</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <table id="serviceTable" class="display table table-striped projects">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Description</th>
+                        <th>Photo</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Les lignes seront insérées ici via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- View/Edit Modal -->
+<div class="modal fade" id="serviceModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Service Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="serviceForm">
+                    <input type="hidden" id="serviceId">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="serviceName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="text" id="servicePhone" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="serviceEmail" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="serviceDescription" class="form-control" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Photo</label>
+                        <input type="file" id="servicePhoto" class="form-control">
+                        <img id="currentPhoto" src="#" alt="Current Photo" width="100" style="margin-top: 10px; display: none;">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        axios.get('/api/getallservices')
+            .then(response => {
+                const data = response.data;
+                const tableBody = document.querySelector('#serviceTable tbody');
+                tableBody.innerHTML = '';
+
+                data.forEach(service => {
+                    const row = `
+                    <tr>
+                        <td>${service.id}</td>
+                        <td>${service.nom}</td>
+                        <td>${service.phone}</td>
+                        <td>${service.email}</td>
+                        <td>${service.description}</td>
+                        <td><img src="/uploads/services/${service.photo}" width="50" height="50" alt="Service Photo"></td>
+                        <td>
+                            <button class="btn btn-primary btn-sm view-btn" data-id="${service.id}">Edit</button>
+                            <button class="btn btn-danger btn-sm delete-btn" data-id="${service.id}">Delete</button>
+                        </td>
+                    </tr>`;
+                    tableBody.innerHTML += row;
+                });
+
+                // Initialize DataTable
+                $('#serviceTable').DataTable({
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/1.13.7/i18n/fr-FR.json"
+                    }
+                });
+            })
+            .catch(error => console.error('Error fetching services:', error));
+
+        // View service details in modal
+        document.body.addEventListener('click', function (e) {
+            if (e.target.classList.contains('view-btn')) {
+                const id = e.target.dataset.id;
+                axios.get(`/api/getservice/${id}`)
+                    .then(response => {
+                        const service = response.data;
+                        document.getElementById('serviceId').value = service.id;
+                        document.getElementById('serviceName').value = service.nom;
+                        document.getElementById('servicePhone').value = service.phone;
+                        document.getElementById('serviceEmail').value = service.email;
+                        document.getElementById('serviceDescription').value = service.description;
+                        
+                        const photoElement = document.getElementById('currentPhoto');
+                        if (service.photo) {
+                            photoElement.src = `/uploads/services/${service.photo}`;
+                            photoElement.style.display = 'block';
+                        } else {
+                            photoElement.style.display = 'none';
+                        }
+
+                        $('#serviceModal').modal('show');
+                    })
+                    .catch(error => console.error('Error fetching service:', error));
+            }
+        });
+
+        // Update service
+        document.getElementById('serviceForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const id = document.getElementById('serviceId').value;
+            const formData = new FormData();
+            formData.append('nom', document.getElementById('serviceName').value);
+            formData.append('phone', document.getElementById('servicePhone').value);
+            formData.append('email', document.getElementById('serviceEmail').value);
+            formData.append('description', document.getElementById('serviceDescription').value);
+            if (document.getElementById('servicePhoto').files[0]) {
+                formData.append('photo', document.getElementById('servicePhoto').files[0]);
+            }
+
+            axios.put(`/api/updateservice/${id}`, formData)
+                .then(() => {
+                    $('#serviceModal').modal('hide');
+                    location.reload();
+                })
+                .catch(error => console.error('Error updating service:', error));
+        });
+
+        // Delete service
+        document.body.addEventListener('click', function (e) {
+            if (e.target.classList.contains('delete-btn')) {
+                const id = e.target.dataset.id;
+                if (confirm('Are you sure you want to delete this service?')) {
+                    axios.delete(`/api/deleteservice/${id}`)
+                        .then(() => location.reload())
+                        .catch(error => console.error('Error deleting service:', error));
+                }
+            }
+        });
+    });
+</script>

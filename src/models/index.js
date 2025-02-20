@@ -6,6 +6,11 @@ const { DataTypes } = require('sequelize');
 const Testimonial = require('./Testimonial')(sequelize, DataTypes);
 const User = require('./User')(sequelize, DataTypes);
 const Content = require('./Content')(sequelize, DataTypes);
+const Service = require('./Service')(sequelize, DataTypes);
+const MedicalProgram = require('./MedicalProgram')(sequelize, DataTypes);
+const Certification = require('./Certification')(sequelize, DataTypes);
+
+
 
 
 // Exportation des modèles pour les utiliser dans toute l'application
@@ -13,5 +18,8 @@ module.exports = {
   sequelize,
   Testimonial,
   Content,
-  User
+  User,
+  Service,
+  MedicalProgram,
+  Certification
 };
