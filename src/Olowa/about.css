@@ -149,17 +149,20 @@
   }
 
   /* Meet */
-  .modal{
-    --bs-modal-width: 55vw !important;
+  .modal-content{
+    --bs-modal-width: 40vw !important;
     --bs-modal-padding: 0rem;
     --bs-modal-bg: none;
     --bs-modal-border-width: none;
   }
+  .modal {
+    background: #17416FCC; /* Assombrit l'arrière-plan */
+  }
   .color{
     background-color: white;
-    padding: 20px;
+    padding: 80px;
     border-top-right-radius: 50px;
-    width: 53vw;
+    width: 35vw;
   }
   .poop{
     position: absolute;

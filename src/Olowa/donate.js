@@ -29,6 +29,36 @@ const Home = () => {
             backgroundColor: '#047F1B',
             logo: Logo,
             title: 'Surgical Aid Program',
+        },
+        {
+            backgroundColor: '#AF215D',
+            logo: Logo,
+            title: 'Cancer Treatment Support',
+        },
+        {
+            backgroundColor: '#3030BB',
+            logo: Logo,
+            title: 'Maternal and Newborn Health',
+        },
+        {
+            backgroundColor: '#005D9A',
+            logo: Logo,
+            title: 'Medical Equipment Fund',
+        },
+        {
+            backgroundColor: '#0A3E82',
+            logo: Logo,
+            title: 'Elderly Care Assistance',
+        },
+        {
+            backgroundColor: '#B25F14',
+            logo: Logo,
+            title: 'Community Health Outreach',
+        },
+        {
+            backgroundColor: '#13AB9C',
+            logo: Logo,
+            title: 'Others',
         }
     ];
 

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../index.css"; // Fichier CSS pour les styles
 import nurseImage from "../../assets/male-nurse-working-clinic-b 1.png"; // Importation de l'image
 import { Star } from "lucide-react";
+import Select from './select';
 
 const FeedbackSection = () => {
   const [selectedDoctor, setSelectedDoctor] = useState(null);
@@ -33,7 +34,7 @@ const FeedbackSection = () => {
         <div className="row" style={{marginLeft:'20%'}}>
           <div className="col-lg-7">
             <h2 className="text-white feedback-title">Feedback and Suggestion</h2>
-            <br />
+            <br /> 
             <a
               href="#"
               className="btn btn-wht text-white"
@@ -78,14 +79,28 @@ const FeedbackSection = () => {
                           Name <span className="text-red-500">*</span>
                         </label>
                         <input
-                          type="text"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleChange}
-                          required
-                          className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                          placeholder="Name"
+                            type="text"
+                            name="name"
+                            value={formData.name}
+                            style={{
+                                border: '1px solid #17416F', 
+                                borderRadius: '0.25rem',  // équivalent à `rounded`
+                                padding: '0.5rem',        // équivalent à `p-2`
+                                width: '100%',            // équivalent à `w-full`
+                                outline: 'none',
+                                transition: 'box-shadow 0.2s ease-in-out',
+                            }}
+                            onFocus={(e) => {
+                                e.target.style.boxShadow = '0 0 0 2px #17416F';
+                            }}
+                            onBlur={(e) => {
+                                e.target.style.boxShadow = 'none';
+                            }}
+                            onChange={handleChange}
+                            required
+                            placeholder="Name"
                         />
+
                       </div>
 
                       <div className="space-y-2">
@@ -93,19 +108,34 @@ const FeedbackSection = () => {
                           Email Address <span className="text-red-500">*</span>
                         </label>
                         <input
-                          type="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleChange}
-                          required
-                          className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                          placeholder="Email Address"
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            style={{
+                                border: '1px solid #17416F', 
+                                borderRadius: '0.25rem',  // équivalent à `rounded`
+                                padding: '0.5rem',        // équivalent à `p-2`
+                                width: '100%',            // équivalent à `w-full`
+                                outline: 'none',
+                                transition: 'box-shadow 0.2s ease-in-out',
+                            }}
+                            onFocus={(e) => {
+                                e.target.style.boxShadow = '0 0 0 2px #17416F';
+                            }}
+                            onBlur={(e) => {
+                                e.target.style.boxShadow = 'none';
+                            }}
+                            onChange={handleChange}
+                            required
+                            placeholder="Email Address"
                         />
+
                       </div>
 
                       <div className="space-y-2">
                         <label className="block text-blue-900">How was your experience</label>
-                        <div className="flex gap-1">
+                        <Select/>
+                        {/* <div className="flex gap-1">
                           {[1, 2, 3, 4, 5].map((rating) => (
                             <button
                               key={rating}
@@ -118,16 +148,9 @@ const FeedbackSection = () => {
                                     ? 'fill-yellow-400 text-yellow-400'
                                     : 'text-gray-300'
                                 }`}></i>
-                              {/* <Star
-                                className={`w-6 h-6 ${
-                                  rating <= formData.experience
-                                    ? 'fill-yellow-400 text-yellow-400'
-                                    : 'text-gray-300'
-                                }`}
-                              /> */}
                             </button>
                           ))}
-                        </div>
+                        </div> */}
                       </div>
 
                       <div className="space-y-2">
@@ -135,10 +158,26 @@ const FeedbackSection = () => {
                         <textarea
                           name="suggestions"
                           value={formData.suggestions}
+                          style={{
+                              border: '1px solid #17416F',
+                              borderRadius: '0.25rem',  // équivalent à `rounded`
+                              padding: '0.5rem',        // équivalent à `p-2`
+                              width: '100%',            // équivalent à `w-full`
+                              height: '8rem',           // équivalent à `h-32`
+                              resize: 'none',           // équivalent à `resize-none`
+                              outline: 'none',
+                              transition: 'box-shadow 0.2s ease-in-out',
+                          }}
+                          onFocus={(e) => {
+                              e.target.style.boxShadow = '0 0 0 2px #17416F';
+                          }}
+                          onBlur={(e) => {
+                              e.target.style.boxShadow = 'none';
+                          }}
                           onChange={handleChange}
-                          className="w-full p-2 border border-gray-300 rounded h-32 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
                           placeholder="Type here"
-                        />
+                      />
+
                       </div>
 
                       <div className="d-flex justify-content-center">
