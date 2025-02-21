@@ -1,0 +1,66 @@
+<div class="row">
+  <section class="content">
+    <div class="row">
+      <div class="col p-5">
+        <div class="card card-primary p-4">
+          <h3>Add a New Content</h3>
+          <div class="card-body">
+            <form id="contentForm">
+              <div class="form-group mb-3">
+                <label for="titre">Title</label>
+                <input type="text" class="form-control" name="title" id="titre" required />
+              </div>
+              <div class="form-group mb-3">
+                <label for="description">English Content</label>
+                <textarea class="form-control" name="content_en" id="content_en"></textarea>
+              </div>
+              <div class="form-group mb-3">
+                <label for="description">French Content</label>
+                <textarea class="form-control" name="content_fr" id="content_fr"></textarea>
+              </div>
+              <div class="form-group mb-3">
+                <label for="image">Image</label>
+                <input type="file" class="form-control" name="image" id="image" />
+              </div>
+              <button type="submit" class="btn btn-primary">Add Content</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  // Récupérer le formulaire
+  const form = document.getElementById('contentForm');  // Ajout de la récupération du formulaire
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();  // Empêcher la soumission classique du formulaire
+
+    const formData = new FormData(form);
+
+    // Log les données du formulaire avant de les envoyer
+    // console.log('FormData:', [...formData.entries()]);
+
+    try {
+      const response = await axios.post('/api/addcontent', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      // console.log('Réponse de l\'API:', response);
+      if (response.status === 201) {
+        alert(response.data.message);  // Afficher un message de succès
+        // window.location.href = '/backoffice/listcontents';
+        // form.reset();  // Réinitialiser le formulaire
+      } else {
+        alert('Error: ' + response.data.message);  // Afficher un message d'erreur
+      }
+    } catch (error) {
+      console.log('Erreur lors de l\'ajout du témoignage:', error.response || error);
+      alert('Erreur lors de l\'ajout du témoignage');
+    }
+  });
+</script>

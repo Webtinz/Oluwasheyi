@@ -21,6 +21,14 @@ router.get('/addtestimonial', (req, res) => {
   res.render('Testimonials/addtestimonial', { title: 'Addtestimonial Page' });
 });
 
+// content
+router.get('/listcontents', (req, res) => {
+  res.render('contents/listcontent', { title: 'Listcontent Page' });
+});
+router.get('/addcontent', (req, res) => {
+  res.render('contents/addcontent', { title: 'Addcontent Page' });
+});
+
 // Services
 router.get('/listservices', (req, res) => {
   res.render('services/listservice', { title: 'Listservice Page' });

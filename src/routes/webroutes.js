@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/UserController');
 const testimonialController = require('../controllers/testimonialController');
+const contentController = require('../controllers/contentController');
 const MedicalProgramController = require('../controllers/MedicalProgramController');
 const CertificationController = require('../controllers/CertificationController');
-const { uploadService,uploadTemoigne, uploadMedicalProgram , uploadCertification } = require('../middleware/fileupload');
+const { uploadService, uploadTemoigne, uploadMedicalProgram, uploadCertification, uploadContent } = require('../middleware/fileupload');
 const ServiceController = require('../controllers/ServiceController');
 
 
@@ -17,6 +18,13 @@ router.put('/updatetestimonial/:id', uploadTemoigne.single('photo'), testimonial
 router.get('/getalltestimonials', testimonialController.getalltestimonials);
 router.delete('/deletetestimonial/:id', testimonialController.deletetestimonials);
 router.get('/gettestimonial/:id', testimonialController.gettestimonial);
+
+// Content
+router.post('/addcontent', uploadContent.single('image'), contentController.addcontent); // Middleware upload utilisé ici
+router.put('/updatecontent/:id', uploadContent.single('image'), contentController.updatecontent);
+router.get('/getallcontents', contentController.getallcontents);
+router.delete('/deletecontent/:id', contentController.deletecontents);
+router.get('/getcontent/:id', contentController.getcontent);
 
 // Service
 router.post('/addservice', uploadService.single('photo'), ServiceController.addservice); // Middleware upload utilisé ici

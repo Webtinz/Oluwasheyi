@@ -1,0 +1,176 @@
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"
+    rel="stylesheet">
+<script
+    src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Contents</h3>
+            <div class="card-tools">
+                <a href="/backoffice/addcontent" class="btn btn-primary"><i
+                        class="fas fa-plus"></i>Add
+                    Contents</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <table id="myTable" class="display table table-striped projects">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Image</th>
+                        <th>English Content</th>
+                        <th>French Content</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Les lignes seront insérées ici via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- View/Edit Modal -->
+<div class="modal fade" id="contentModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Content Details</h5>
+                <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="contentForm">
+                    <input type="hidden" id="contentId">
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" id="contentTitle"
+                            class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>English Content</label>
+                        <textarea id="contentEnglish"
+                            class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>French Content</label>
+                        <textarea id="contentFrench"
+                            class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Image</label>
+                        <input type="file" class="form-control"
+                            name="image" id="newImage">
+                        <div id="contentImage">
+                            <!-- Image preview will go here -->
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save
+                        Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        axios.get('/api/getallcontents')
+            .then(response => {
+                const data = response.data;
+                const tableBody = document.querySelector('#myTable tbody');
+                tableBody.innerHTML = '';
+
+                data.forEach(content => {
+                    const row = `
+                    <tr>
+                        <td>${content.id}</td>
+                        <td>${content.title} </td>
+                        <td><img src="/uploads/content/${content.image}" width="50" height="50" alt="Image"></td>
+                        <td>${content.content_en}</td>
+                        <td>${content.content_fr}</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm view-btn" data-id="${content.id}">Edit</button>
+                            <button class="btn btn-danger btn-sm delete-btn" data-id="${content.id}">Delete</button>
+                        </td>
+                    </tr>`;
+                    tableBody.innerHTML += row;
+                });
+
+                // Initialize DataTable
+                $('#myTable').DataTable({
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/1.13.7/i18n/fr-FR.json"
+                    }
+                });
+            })
+            .catch(error => console.error('Error fetching contents:', error));
+
+        // View content details in modal
+        document.body.addEventListener('click', function (e) {
+            if (e.target.classList.contains('view-btn')) {
+                const id = e.target.dataset.id;
+                axios.get(`/api/getcontent/${id}`)
+                    .then(response => {
+                        const content = response.data;
+                        document.getElementById('contentId').value = content.id;
+                        document.getElementById('contentTitle').value = content.title;
+                        document.getElementById('contentEnglish').value = content.content_en;
+                        document.getElementById('contentFrench').value = content.content_fr;
+
+                        // Display the current image in the modal
+                        const imageUrl = `/uploads/content/${content.image}`;
+                        document.getElementById('contentImage').innerHTML = `
+                    <img src="${imageUrl}" width="100" height="100" alt="Content Image" class="img-thumbnail">
+                `;
+
+                        $('#contentModal').modal('show');
+                    })
+                    .catch(error => console.error('Error fetching content:', error));
+            }
+        });
+
+        // Update content
+        document.getElementById('contentForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const id = document.getElementById('contentId').value;
+            const data = {
+                title: document.getElementById('contentTitle').value.split(' ')[0],
+                content_en: document.getElementById('contentEnglish').value,
+                content_fr: document.getElementById('contentFrench').value,
+                image: document.getElementById('newImage').files[0]
+            };
+            console.log(data);
+            
+            axios.put(`/api/updatecontent/${id}`, data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+                .then(() => {
+                    $('#contentModal').modal('hide');
+                    location.reload();
+                })
+                .catch(error => console.error('Error updating content:', error));
+        });
+
+        // Delete content
+        document.body.addEventListener('click', function (e) {
+            if (e.target.classList.contains('delete-btn')) {
+                const id = e.target.dataset.id;
+                if (confirm('Are you sure you want to delete this content?')) {
+                    axios.delete(`/api/deletecontent/${id}`)
+                        .then(() => location.reload())
+                        .catch(error => console.error('Error deleting content:', error));
+                }
+            }
+        });
+    });
+</script>
