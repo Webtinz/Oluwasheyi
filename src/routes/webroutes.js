@@ -25,6 +25,7 @@ router.put('/updatecontent/:id', uploadContent.single('image'), contentControlle
 router.get('/getallcontents', contentController.getallcontents);
 router.delete('/deletecontent/:id', contentController.deletecontents);
 router.get('/getcontent/:id', contentController.getcontent);
+router.get('/getcontentbytitle', contentController.getcontentbytitle);
 
 // Service
 router.post('/addservice', uploadService.single('photo'), ServiceController.addservice); // Middleware upload utilisé ici

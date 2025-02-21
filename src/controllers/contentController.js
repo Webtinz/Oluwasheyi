@@ -107,3 +107,30 @@ exports.getcontent = async (req, res) => {
   }
 };
 
+// Get contents by title
+exports.getcontentbytitle = async (req, res) => {
+  try {
+
+    const contents = await Content.findAll();
+
+    // Transform the array into an object keyed by title
+    const contentsByTitle = contents.reduce((acc, content) => {
+      acc[content.title] = content; // Use the title as the key
+      return acc;
+    }, {});
+
+    // console.log(contentsByTitle);
+
+    res.status(200).json({
+      status: 'success',
+      data: contentsByTitle,
+    });
+  } catch (error) {
+    console.error('Error fetching contents:', error);
+    res.status(500).json({
+      status: 'error',
+      message: 'An error occurred while fetching contents.',
+      details: error.message,
+    });
+  }
+};
