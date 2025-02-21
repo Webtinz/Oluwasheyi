@@ -1,26 +1,32 @@
-.menu-icon {
+/* .menu-icon {
     font-size: 30px;
     color: black;
     cursor: pointer;
-  }
+  } */
   
   /* Style pour le menu (par défaut, il est masqué) */
   .menu {
     display: none;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     background-color: #17416F;
     position: absolute;
     top: 100%;
-    left: 0;
-    width: 30%;
+    left: -12px;
+    width: 50%;
+    height: 80vh;
     padding: 20px;
     z-index: 1000;
-    border-radius: 5px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
   }
   @media (max-width: 767px) {
     .menu {
       width: 100%;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
   }
   

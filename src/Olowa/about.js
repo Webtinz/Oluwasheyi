@@ -144,7 +144,7 @@ const Home = () => {
                 <div className="row mt-4">
                 {values.map((value, index) => (
                     <div key={index} className="col-12 col-md-6 col-lg-3 mb-4 mx-auto">
-                        <div className="p-3 text-white cvc" style={{ backgroundColor: '#13AB9C', borderTopRightRadius: '30px', height:'25vh' }}>
+                        <div className="p-3 text-white cvc" style={{ backgroundColor: '#13AB9C', borderTopRightRadius: '30px', height:'280px' }}>
                             <p style={{ fontSize: '20px' }}><strong>{value.title}</strong></p>
                             <p style={{ fontWeight: '100' }}>{value.description}</p>
                             <p className="text-end" style={{ fontWeight: '700', fontSize: '5rem', color: '#FFFFFF4D', marginBottom: '0px' }}>
@@ -192,6 +192,7 @@ const Home = () => {
                 <div className="arrow" onClick={() => navigate(1)}><i className="bi bi-chevron-right"></i></div>
             </div>
         </section>
+        <br/><br/>
         <div>
             <Feedback/>
         </div>

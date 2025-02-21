@@ -34,7 +34,7 @@ const CustomCarousel = () => {
   return (
     <div className="container">
         <h2 class="text-center" 
-            style={{textTransform:'uppercase', color:'#17416F', fontWeight:'700', fontSize:'28px'}}>
+            style={{textTransform:'uppercase', color:'#17416F', fontWeight:'700', fontSize:'36px'}}>
             equipment Gallery
         </h2>
       <div className="mt-5">

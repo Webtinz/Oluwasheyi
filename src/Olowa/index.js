@@ -35,7 +35,7 @@ const Home = () => {
         <div className="container">
             <h2
                 className="text-center"
-                style={{ color: '#17416F', textTransform: 'uppercase', fontWeight: '700', fontSize:'30px'}}
+                style={{ color: '#17416F', textTransform: 'uppercase', fontWeight: '700', fontSize:'36px'}}
             >
                 360 Virtual tour
             </h2>
@@ -115,7 +115,6 @@ const Home = () => {
         <div>
             <WelcomeSection/>
         </div>
-        <br/><br/>
         <div>
             <Feedback/>
         </div>

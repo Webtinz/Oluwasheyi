@@ -68,7 +68,7 @@ const PatientTestimonials = () => {
         <div className='container p-3'>
             <div className="flex flex-col md:flex-row gap-8 p-6">
                 <div className="md:w-1/4">
-                    <h2 className="text-2xl font-bold text-blue-900 mb-4" style={{fontSize:'30px'}}>
+                    <h2 className="text-2xl font-bold text-blue-900 mb-4" style={{fontSize:'36px'}}>
                       WHAT OUR PATIENTS ARE SAYING
                     </h2>
                     <div className="flex gap-2">

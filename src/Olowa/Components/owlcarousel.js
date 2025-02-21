@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Img1 from '../../assets/o1.png';
 import Img2 from '../../assets/o2.png';
 import Img3 from '../../assets/o3.png';
+import '../index.css';
 
 const ServicesCarousel = () => {
   const services = [
@@ -84,7 +85,7 @@ const ServicesCarousel = () => {
     <div className="container mx-auto px-4">
       <div className="flex justify-between items-center gap-4 relative mb-8" style={{margin:'30px 10px'}}>
         <div>
-          <h2 className="text-2xl font-bold" style={{fontSize:'30px', color:'#17416F'}}>OUR SERVICES</h2>
+          <h2 className="text-2xl font-bold" style={{fontSize:'36px', color:'#17416F'}}>OUR SERVICES</h2>
         </div>
         <div className="flex gap-4">
           <button
@@ -131,7 +132,7 @@ const ServicesCarousel = () => {
               style={{ width: `${100 / extendedServices.length}%` }}
             >
               <div 
-                className="overflow-hidden h-full mx-2 p-3"
+                className="overflow-hidden h-full mx-2 p-3 back"
                 style={{ backgroundColor: service.color , borderTopRightRadius:'30px'}}
               >
                 <div className="relative aspect-video">

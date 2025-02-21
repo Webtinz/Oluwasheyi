@@ -49,11 +49,12 @@ const LogoCarousel = () => {
       <div className="d-flex align-items-center ms-md-5 ms-0">
         <h1 
           className="position-relative title-certifications" 
-          style={{ textTransform: "uppercase", fontSize: '28px', fontWeight: '700' }}
+          style={{ textTransform: "uppercase", fontSize: '30px', fontWeight: '700' }}
         >
           community engagement
         </h1>
       </div>
+      <br/>
       <div className="mt-8">
         <div className="relative px-4">
           <button 

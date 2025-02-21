@@ -93,9 +93,9 @@ const Home = () => {
                     <a href="#" onClick={(e) => { e.preventDefault(); setSelectedDoctor(doctor); }}>
                     <img src={doctor.image} alt={doctor.name} className="img-fluid w-100" style={{ borderTopRightRadius: "30px" }} />
                     </a>
-                    <h4 className="text-center mt-3" style={{ color: "#17416F", fontWeight: 700, textTransform: "uppercase" }}>
+                    <h3 className="text-center mt-3" style={{ color: "#17416F", fontWeight: 700, textTransform: "uppercase" }}>
                     {doctor.name}
-                    </h4>
+                    </h3>
                     <p className="text-center" style={{ color: "#13AB9C" }}>{doctor.specialty}</p>
                     
                     <span className="d-block mt-3" style={{ borderBottom: "1px solid #17416F33" }}></span>
@@ -121,7 +121,7 @@ const Home = () => {
                                     </div>
                                     <div className="col-12 col-lg-8 mx-auto mb-4">
                                         <h2 style={{ fontSize: "25px", color: "#17416F", fontWeight: 800 }}>{selectedDoctor.name}</h2>
-                                        <p style={{ color: "#13AB9C" }}>Cardiologist, MD, 10+ years experience.</p>
+                                        <p style={{ color: "#13AB9C", fontWeight:'600' }}>Cardiologist, MD, 10+ years experience.</p>
                                         <span className="my-4 d-block" style={{ borderBottom: "1px solid #17416F33" }}></span>
                                         <p style={{ color: "#17416F" }}>
                                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla maximus pellentesque ultrices.

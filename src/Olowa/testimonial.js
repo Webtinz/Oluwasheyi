@@ -13,21 +13,21 @@ const Home = () => {
     const testimonials = [
         {
             quote: "Highly Recommended!!",
-            text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut smest pretium placerat faucibus faucibus faucibus. Sit quis consequat eget nulla fusce dignissim. Nulla accumsan convallis augue ut tempor.",
+            text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut smest pretium placerat faucibus faucibus faucibus.",
             name: "Jane Cooper",
             location: "Cotonou",
             imageSrc: Testi, // Assurez-vous que 'Testi' est bien importé
         },
         {
             quote: "Amazing",
-            text: "The doctors were amazing! 10/10 service!",
+            text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut smest pretium placerat faucibus faucibus faucibus.",
             name: "John Doe",
             location: "Lagos",
             imageSrc: Testi, // Remplacez si vous avez différentes images
         },
         {
             quote: "Highly Recommended!!",
-            text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut smest pretium placerat faucibus faucibus faucibus. Sit quis consequat eget nulla fusce dignissim. Nulla accumsan convallis augue ut tempor.",
+            text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut smest pretium placerat faucibus faucibus faucibus.",
             name: "Jane Cooper",
             location: "Cotonou",
             imageSrc: Testi, // Assurez-vous que 'Testi' est bien importé
@@ -68,19 +68,20 @@ const Home = () => {
         </section>
         <br /><br /><br />
         <section className="container">
-            <h2 className='text-center' style={{fontSize:'30px', color:'#17416F', fontWeight:'700'}}>20,000+ Satisfied patients</h2>
+            <h2 className='text-center' style={{fontSize:'36px', color:'#17416F', fontWeight:'700'}}>20,000+ Satisfied patients</h2>
             <br /><br /><br />
             <div className="row g-4">
                 {testimonials.map((testimonial, index) => (
                     <div key={index} className="col-12 col-md-6 col-lg-4">
-                        <div className="p-3 scur" style={{border: '1px solid #17416F', borderTopRightRadius: '30px', minHeight:'25vh'}}>
+                        <div className="p-3 scur" style={{border: '1px solid #17416F', borderTopRightRadius: '30px'}}>
                             <div><strong style={{color: '#13AB9C', fontSize: '120px'}}>"</strong></div>
-                            <h2 className="ms-2" style={{color: '#17416F', fontWeight: '700', marginTop: '-4rem'}}>{testimonial.quote}</h2>
+                            <h2 className="ms-2" style={{color: '#17416F', fontWeight: '700', marginTop: '-4rem',fontSize:'27px'}}>{testimonial.quote}</h2>
+                            <br/>
                             <p className="ms-2" style={{fontWeight: '100', color: '#17416F'}}>
                                 {testimonial.text}
                             </p>
                             <span className="my-4 d-flex" style={{borderBottom: '1px solid #B5B5B580'}}></span>
-                            <div className="d-flex">
+                            <div className="d-flex mb-3">
                                 <div>
                                     <img src={testimonial.imageSrc} className="img-fluid" style={{width: '80px', height: '80px', borderRadius: '50%'}} alt={testimonial.name} />
                                 </div>

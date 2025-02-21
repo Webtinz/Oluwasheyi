@@ -71,7 +71,7 @@ const HealthAdviceCarousel = () => {
     <div className="container-fluid py-4" style={{paddingLeft:'0px', paddingRight:'0px'}}>
         <div className='hhe'>
             <div className='container py-3'>
-              <h2 className='text-center mb-5' style={{textTransform:'uppercase', fontSize:'30px', fontWeight:'700', color:'#17416F'}}>health advices</h2>
+              <h2 className='text-center mb-5' style={{textTransform:'uppercase', fontSize:'36px', fontWeight:'700', color:'#17416F'}}>health advices</h2>
                 <div className="relative px-8">
                     {/* Navigation Buttons */}
                     <button 

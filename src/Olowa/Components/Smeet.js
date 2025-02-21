@@ -148,7 +148,7 @@ const DoctorCarousel = () => {
             <button
               key={index}
               className={`w-2 h-2 rounded-full transition-colors ${
-                index === currentIndex ? 'bg-teal-500' : 'bg-gray-300'
+                index === currentIndex ? 'bg-secondary' : 'bg-success'
               }`}
               onClick={() => goToSlide(index)}
             />

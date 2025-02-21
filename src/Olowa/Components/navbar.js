@@ -54,33 +54,33 @@ const Navbar = () => {
 
           {/* Menu Section */}
           <div className={`menu ${isMenuActive ? 'active' : ''}`} id="menu">
-            <ul className='list-unstyled'>
+            <ul className='list-unstyled' style={{lineHeight:'45px'}}>
               <li>
-                  <Link to="/about" className="text-white" style={{ backgroundColor: '#13AB9C',fontWeight:'600', fontSize:'20px', textTransform:'uppercase'}}>About us</Link>
+                  <Link to="/about" className="text-white" style={{fontWeight:'700', fontSize:'24px', textTransform:'uppercase'}}>About us</Link>
               </li>
               <li>
-                <Link to="/community" style={{ textTransform: 'uppercase',fontWeight:'600', fontSize:'20px', }}>Community</Link>
+                <Link to="/community" style={{ textTransform: 'uppercase',fontWeight:'700', fontSize:'24px', }}>Community</Link>
               </li>
               <li>
-                <Link to="/meet" style={{ textTransform: 'uppercase',fontWeight:'600', fontSize:'20px', }}>Meet</Link>
+                <Link to="/meet" style={{ textTransform: 'uppercase',fontWeight:'700', fontSize:'24px', }}>Meet</Link>
               </li>
               <li>
-                <Link to="/department" style={{ textTransform: 'uppercase',fontWeight:'600', fontSize:'20px', }}>Departements</Link>
+                <Link to="/department" style={{ textTransform: 'uppercase',fontWeight:'700', fontSize:'24px', }}>Departements</Link>
               </li>
               <li>
-                <Link to="/testimonial" style={{ textTransform: 'uppercase',fontWeight:'600', fontSize:'20px', }}>Testimonials</Link>
+                <Link to="/testimonial" style={{ textTransform: 'uppercase',fontWeight:'700', fontSize:'24px', }}>Testimonials</Link>
               </li>
               <li>
-                <Link to="/service" style={{ textTransform: 'uppercase',fontWeight:'600', fontSize:'20px', }}>Service</Link>
+                <Link to="/service" style={{ textTransform: 'uppercase',fontWeight:'700', fontSize:'24px', }}>Service</Link>
               </li>
               <li>
-                <Link to="/sugery" style={{ textTransform: 'uppercase',fontWeight:'600', fontSize:'20px', }}>Service Sugery</Link>
+                <Link to="/sugery" style={{ textTransform: 'uppercase',fontWeight:'700', fontSize:'24px', }}>Service Sugery</Link>
               </li>
             </ul>
 
             <div className="d-lg-none">
               <div className="d-flex flex-column">
-                <div className="me-2 position-relative">
+                {/* <div className="me-2 position-relative">
                   <input
                     type="search"
                     className="form-control ppoo"
@@ -90,12 +90,12 @@ const Navbar = () => {
                   <a href="" className="text-decoration-none text-dark position-absolute ppo-container">
                     <i className="bi bi-search ppo"></i>
                   </a>
-                </div>
+                </div> */}
                 <div className="d-flex mt-4">
                   <div>
                     <Link to="/donate"
-                      className="btn btn-white px-4"
-                      style={{ backgroundColor: '#13AB9C', color: 'white', fontWeight: 600 }}
+                      className="btn btn-white px-5"
+                      style={{ backgroundColor: '#13AB9C', color: 'white', fontWeight: 700, fontSize:'22px' }}
                     >
                       Donate
                     </Link>
