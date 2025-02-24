@@ -67,7 +67,7 @@ const EventsCarousel = () => {
 
   return (
     <div className="bg-blue-900 p-5">
-      <div className="max-w-6xl mx-auto">
+      <div className="">
         {/* Header with title and navigation buttons */}
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-white text-2xl font-bold" style={{fontSize:'30px'}}>UPCOMING EVENTS</h2>
@@ -177,26 +177,28 @@ const EventsCarousel = () => {
                 >
                     {events.map((event, index) => (
                         <div
-                            key={event.id}
-                            className={`${
-                                isMobile ? 'w-100' : 'w-50'
-                            } flex-shrink-0 transition-opacity duration-500 mx-auto`}
-                            style={{
-                                opacity: isMobile
-                                    ? index === currentSlide
-                                        ? 1
-                                        : 0
-                                    : index === currentSlide || index === currentSlide + 1
-                                        ? 1
-                                        : 0,
-                                pointerEvents: isMobile
-                                    ? index === currentSlide
-                                        ? 'auto'
-                                        : 'none'
-                                    : index === currentSlide || index === currentSlide + 1
-                                        ? 'auto'
-                                        : 'none'
-                            }}
+                        key={event.id}
+                        style={{
+                          width: isMobile ? '100%' : '48%',
+                          flexShrink: 0,
+                          transition: 'opacity 0.5s',
+                          marginLeft: 'auto',
+                          marginRight: 'auto',
+                          opacity: isMobile
+                            ? index === currentSlide
+                              ? 1
+                              : 0
+                            : index === currentSlide || index === currentSlide + 1
+                              ? 1
+                              : 0,
+                          pointerEvents: isMobile
+                            ? index === currentSlide
+                              ? 'auto'
+                              : 'none'
+                            : index === currentSlide || index === currentSlide + 1
+                              ? 'auto'
+                              : 'none',
+                        }}
                         >
                             <div className="bg-white overflow-hidden h-100 shadow p-4" style={{borderTopRightRadius:'30px'}}>
                                 <div className='row'>

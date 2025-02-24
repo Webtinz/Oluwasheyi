@@ -10,12 +10,12 @@ const Footer = () => {
         <div className="row text-center text-md-start p-4">
           {/* Section Abonnement Email */}
           <div className="col-md-4 mb-4 mb-md-0">
-            <h5 className="footer-title" style={{fontWeight:'700'}}>Subscribe Email</h5>
+            <h5 className="footer-title" style={{fontWeight:'700', fontSize:'25px'}}>Subscribe Email</h5>
             <p className="footer-text mt-3">Stay Updated on Health Tips and Hospital News</p>
             <div className="me-2 position-relative mt-3">
-              <input type="search" className="form-control ppoo" placeholder="Email Address" />
+              <input type="search" className="form-control py-2" placeholder="Email Address" style={{border:'1px solid #17416F'}} />
               <a href="#" className="text-decoration-none text-dark position-absolute poss">
-                <i className="bi bi-chevron-right ppo"></i>
+                <i className="bi bi-chevron-right ppo" style={{background:'#13AB9C', color:'white'}}></i>
               </a>
             </div>
             <div className="d-flex mt-3">
@@ -28,7 +28,7 @@ const Footer = () => {
 
           {/* Section Contact */}
           <div className="col-md-3 mb-4 mb-md-0">
-            <h5 className="footer-title" style={{fontWeight:'700'}}>Contact Us</h5>
+            <h5 className="footer-title" style={{fontWeight:'700', fontSize:'25px'}}>Contact Us</h5>
             <p className="footer-text mt-3">
               <i className="bi bi-whatsapp me-2"></i> +229 554 29999
             </p>
@@ -39,15 +39,15 @@ const Footer = () => {
 
           {/* Section Horaires */}
           <div className="col-md-2 mb-4 mb-md-0">
-            <h5 className="footer-title" style={{fontWeight:'700'}}>Hours</h5>
+            <h5 className="footer-title" style={{fontWeight:'700', fontSize:'25px'}}>Hours</h5>
             <p className="footer-text mt-3">Mon - Sat : 9AM - 5PM</p>
             <p className="footer-text">Sun : Closed</p>
             <p className="footer-text mt-3">Emergency 24X7 Open</p>
           </div>
 
           {/* Section À propos */}
-          <div className="col-md-2 mb-4 mb-md-0">
-            <h5 className="footer-title" style={{fontWeight:'700'}}>About</h5>
+          <div className="col-md-3 mb-4 mb-md-0">
+            <h5 className="footer-title" style={{fontWeight:'700', fontSize:'25px'}}>About</h5>
             <ul className="list-unstyled mt-3">
               <li className="footer-text">About us</li>
               <li className="footer-text">Community engagement</li>

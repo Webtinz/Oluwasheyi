@@ -25,15 +25,34 @@ const ServicesCarousel = () => {
       title: 'Ophthalmology',
       image: Img3,
       color: '#13AB9C'
+    },
+    {
+      id: 4,
+      title: 'Sugery',
+      image: Img3,
+      color: '#13AB9C'
+    },
+    {
+      id: 5,
+      title: 'Ophthalmology',
+      image: Img3,
+      color: '#13AB9C'
+    },
+    {
+      id: 6,
+      title: 'Pediatry',
+      image: Img3,
+      color: '#13AB9C'
     }
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
   const [visibleCount, setVisibleCount] = useState(3);
   const [activeButton, setActiveButton] = useState(null);
+  const [animationDirection, setAnimationDirection] = useState(null);
+  const [isAnimating, setIsAnimating] = useState(false);
 
-  const extendedServices = [...services, ...services, ...services];
+  const totalPages = Math.ceil(services.length / visibleCount);
 
   useEffect(() => {
     const handleResize = () => {
@@ -44,45 +63,76 @@ const ServicesCarousel = () => {
       } else {
         setVisibleCount(1);
       }
+      // Réinitialiser l'index si nécessaire après redimensionnement
+      setCurrentIndex(prev => Math.min(prev, Math.ceil(services.length / visibleCount) - 1));
     };
 
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const handleTransitionEnd = useCallback(() => {
-    setIsTransitioning(false);
-    
-    if (currentIndex >= services.length) {
-      setIsTransitioning(true);
-      setCurrentIndex(0);
-    } else if (currentIndex < 0) {
-      setIsTransitioning(true);
-      setCurrentIndex(services.length - 1);
-    }
-  }, [currentIndex, services.length]);
+  }, [services.length]);
 
   const handlePrevious = () => {
-    if (!isTransitioning) {
-      setIsTransitioning(true);
+    if (isAnimating || currentIndex <= 0) return;
+    
+    setIsAnimating(true);
+    setAnimationDirection('prev');
+    setActiveButton("prev");
+    
+    setTimeout(() => {
       setCurrentIndex(prev => prev - 1);
-      setActiveButton("prev");
-    }
+      setIsAnimating(false);
+      setAnimationDirection(null);
+      setActiveButton(null);
+    }, 300);
   };
 
   const handleNext = () => {
-    if (!isTransitioning) {
-      setIsTransitioning(true);
+    if (isAnimating || currentIndex >= totalPages - 1) return;
+    
+    setIsAnimating(true);
+    setAnimationDirection('next');
+    setActiveButton("next");
+    
+    setTimeout(() => {
       setCurrentIndex(prev => prev + 1);
-      setActiveButton("next");
-    }
+      setIsAnimating(false);
+      setAnimationDirection(null);
+      setActiveButton(null);
+    }, 300);
   };
 
-  const translateX = -(currentIndex * (100 / visibleCount));
+  const goToPage = (pageIndex) => {
+    if (isAnimating || pageIndex === currentIndex) return;
+    
+    setIsAnimating(true);
+    setAnimationDirection(pageIndex > currentIndex ? 'next' : 'prev');
+    
+    setTimeout(() => {
+      setCurrentIndex(pageIndex);
+      setIsAnimating(false);
+      setAnimationDirection(null);
+    }, 300);
+  };
+
+  // Calculer les services à afficher
+  const getVisibleServices = () => {
+    const startIdx = currentIndex * visibleCount;
+    const endIdx = Math.min(startIdx + visibleCount, services.length);
+    return services.slice(startIdx, endIdx);
+  };
+
+  const visibleServices = getVisibleServices();
+
+  // Animation CSS classes
+  const getAnimationClass = () => {
+    if (!animationDirection) return '';
+    return animationDirection === 'next' ? 'slide-left' : 'slide-right';
+  };
 
   return (
     <div className="container mx-auto px-4">
+      {/* Header avec titre et boutons de navigation */}
       <div className="flex justify-between items-center gap-4 relative mb-8" style={{margin:'30px 10px'}}>
         <div>
           <h2 className="text-2xl font-bold" style={{fontSize:'36px', color:'#17416F'}}>OUR SERVICES</h2>
@@ -95,8 +145,11 @@ const ServicesCarousel = () => {
             style={{
               backgroundColor: activeButton === "prev" ? "#13AB9C" : "#E3E3E3",
               color: activeButton === "prev" ? "white" : "black",
+              cursor: currentIndex === 0 ? 'not-allowed' : 'pointer',
+              opacity: currentIndex === 0 ? 0.6 : 1
             }}
             aria-label="Previous service"
+            disabled={currentIndex === 0 || isAnimating}
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
@@ -108,32 +161,56 @@ const ServicesCarousel = () => {
             style={{
               backgroundColor: activeButton === "next" ? "#13AB9C" : "#E3E3E3",
               color: activeButton === "next" ? "white" : "black",
+              cursor: currentIndex === totalPages - 1 ? 'not-allowed' : 'pointer',
+              opacity: currentIndex === totalPages - 1 ? 0.6 : 1
             }}
             aria-label="Next service"
+            disabled={currentIndex === totalPages - 1 || isAnimating}
           >
             <ChevronRight className="w-6 h-6" />
           </button>
         </div>
       </div>
 
+      {/* CSS pour les animations */}
+      <style jsx>{`
+        @keyframes slideLeft {
+          from { transform: translateX(100%); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideRight {
+          from { transform: translateX(-100%); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .slide-left {
+          animation: slideLeft 300ms ease-out forwards;
+        }
+        
+        .slide-right {
+          animation: slideRight 300ms ease-out forwards;
+        }
+      `}</style>
+
+      {/* Conteneur des cartes */}
       <div className="relative overflow-hidden">
         <div 
-          className="flex transition-transform duration-300 ease-in-out"
+          className={`grid transition-opacity duration-300 ${getAnimationClass()}`}
           style={{
-            transform: `translateX(${translateX}%)`,
-            width: `${(100 * extendedServices.length) / visibleCount}%`
+            gridTemplateColumns: `repeat(${visibleCount}, 1fr)`,
+            gap: '1rem',
+            opacity: isAnimating ? 0.5 : 1
           }}
-          onTransitionEnd={handleTransitionEnd}
         >
-          {extendedServices.map((service, index) => (
+          {visibleServices.map((service, index) => (
             <div
-              key={`${service.id}-${index}`}
-              className="flex-shrink-0"
-              style={{ width: `${100 / extendedServices.length}%` }}
+              key={`${service.id}-${currentIndex}-${index}`}
+              className="w-full px-3"
             >
               <div 
-                className="overflow-hidden h-full mx-2 p-3 back"
-                style={{ backgroundColor: service.color , borderTopRightRadius:'30px'}}
+                className="h-full p-3 back"
+                style={{ backgroundColor: service.color, borderTopRightRadius:'30px'}}
               >
                 <div className="relative aspect-video">
                   <img
@@ -148,19 +225,37 @@ const ServicesCarousel = () => {
                     {service.title}
                   </h3>
                   <Link 
-                    // to={`/services/${service.id}`}
                     to="/service"
                     type="button"
                     className="text-white hover:opacity-80 transition-opacity"
                     aria-label={`View ${service.title} details`}
                   >
-                    <i class="bi bi-arrow-right-circle" style={{fontSize:'24px'}}></i>
+                    <i className="bi bi-arrow-right-circle" style={{fontSize:'24px'}}></i>
                   </Link>
                 </div>
               </div>
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Pagination */}
+      <div className="flex justify-center mt-6 gap-2">
+        {Array.from({ length: totalPages }).map((_, index) => (
+          <button
+            key={index}
+            onClick={() => goToPage(index)}
+            className="w-3 h-3 rounded-full transition-colors focus:outline-none"
+            style={{
+              backgroundColor: currentIndex === index ? '#13AB9C' : '#E3E3E3',
+              cursor: isAnimating || currentIndex === index ? 'not-allowed' : 'pointer',
+              opacity: isAnimating ? 0.6 : 1
+            }}
+            aria-label={`Go to page ${index + 1}`}
+            aria-current={currentIndex === index ? 'page' : undefined}
+            disabled={isAnimating || currentIndex === index}
+          />
+        ))}
       </div>
     </div>
   );

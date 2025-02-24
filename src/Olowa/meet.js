@@ -14,6 +14,7 @@ import Doc2 from '../assets/3.png';
 import Doc3 from '../assets/4.png';
 import LinkedIn from '../assets/linkedin.png';
 import Mask from '../assets/Mask group.png';
+import Mask1 from '../assets/Fr1.png';
 
 const doctors = [
     { id: 1, image: Doc, name: "Docteurs Name", specialty: "Gynecologist" },
@@ -40,6 +41,9 @@ const Home = () => {
             <div className="position-absolute bottom-0 start-0">
                 <img src={Group1} alt="" />
             </div>
+            <div className="position-absolute top-0 end-0">
+                <img src={Mask1} alt="" />
+            </div>
         </section>
         <br/><br/><br/>
         <section className="container mt-4">
@@ -60,7 +64,7 @@ const Home = () => {
         </section>
         <br /><br/><br/>
         <section className="container my-4" style={{ backgroundColor: "#13AB9C", padding: "80px 0px" }}>
-            <h2 className="text-center" style={{ color: "white", fontWeight: 700, textTransform: "uppercase", fontSize:'25px' }}>
+            <h2 className="text-center" style={{ color: "white", fontWeight: 700, textTransform: "uppercase", fontSize:'clamp(25px, 8vw, 36px)' }}>
                 Directors
             </h2>
             <br />
@@ -70,11 +74,11 @@ const Home = () => {
                 <div key={director.id} className="col-lg-4 mx-auto mb-md-0 mb-3">
                     <div className="p-3">
                     <img src={director.image} alt={director.name} className="img-fluid w-100" style={{maxHeight:'80vh', objectFit:'cover'}}/>
-                    <h4 className="text-center mt-4" style={{ color: "white", fontWeight: 700, textTransform: "uppercase" }}>
+                    <h4 className="text-center mt-4" style={{ color: "white", fontWeight: 700, textTransform: "uppercase", fontSize:'clamp(18px, 8vw, 24px)' }}>
                         {director.name}
                     </h4>
-                    <p className="text-white text-center mt-3">Directors</p>
-                    <span className="d-block mt-4" style={{ borderBottom: "1px solid white" }}></span>
+                    <p className="text-white text-center mt-3" style={{fontSize:'clamp(16px, 8vw, 20px)'}}>Directors</p>
+                    <span className="d-block mt-4" style={{ borderBottom: ".3px solid white" }}></span>
                     </div>
                 </div>
                 ))}
@@ -93,10 +97,10 @@ const Home = () => {
                     <a href="#" onClick={(e) => { e.preventDefault(); setSelectedDoctor(doctor); }}>
                     <img src={doctor.image} alt={doctor.name} className="img-fluid w-100" style={{ borderTopRightRadius: "30px" }} />
                     </a>
-                    <h3 className="text-center mt-3" style={{ color: "#17416F", fontWeight: 700, textTransform: "uppercase" }}>
+                    <h3 className="text-center mt-3" style={{ color: "#17416F", fontWeight: 700, textTransform: "uppercase",fontSize:'clamp(18px, 8vw, 25px)' }}>
                     {doctor.name}
                     </h3>
-                    <p className="text-center" style={{ color: "#13AB9C" }}>{doctor.specialty}</p>
+                    <p className="text-center mt-3" style={{ color: "#13AB9C", fontSize:'clamp(16px, 8vw, 20px)' }}>{doctor.specialty}</p>
                     
                     <span className="d-block mt-3" style={{ borderBottom: "1px solid #17416F33" }}></span>
                 </div>
@@ -109,9 +113,9 @@ const Home = () => {
                 <div className="modal-dialog modal-dialog-centered">
                     <div className="modal-content">
                         <div className="modal-body position-relative">
-                            <div className='color'>
+                            <div className='color1'>
                                 <div className="row">
-                                    <div className="col-12 col-lg-4 mx-auto mb-4">
+                                    <div className="col-12 col-lg-5 mx-auto mb-4">
                                         <div className="position-relative">
                                         <img src={selectedDoctor.image} alt={selectedDoctor.name} className="img-fluid w-100" style={{ borderTopRightRadius: "30px" }} />
                                         <div className="poop">
@@ -119,7 +123,7 @@ const Home = () => {
                                         </div>
                                         </div>
                                     </div>
-                                    <div className="col-12 col-lg-8 mx-auto mb-4">
+                                    <div className="col-12 col-lg-7 mx-auto mb-4">
                                         <h2 style={{ fontSize: "25px", color: "#17416F", fontWeight: 800 }}>{selectedDoctor.name}</h2>
                                         <p style={{ color: "#13AB9C", fontWeight:'600' }}>Cardiologist, MD, 10+ years experience.</p>
                                         <span className="my-4 d-block" style={{ borderBottom: "1px solid #17416F33" }}></span>
@@ -141,7 +145,7 @@ const Home = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col1">
+                            <div className="col2">
                             <button onClick={() => setSelectedDoctor(null)} className="btn-close text-white fs-4 fw-bold bg-white"></button>
                             </div>
                         </div>
@@ -154,18 +158,16 @@ const Home = () => {
         <br /><br/><br/>
         <section className="container">
             <div className="row">
-                <div className="col-12 col-md-6 mx-auto mb-3 mb-md-0">
-                <img src={Mask} alt="Staff Members" className="img-fluid w-100" style={{maxHeight:'70vh', objectFit:'cover', borderTopRightRadius:'30px'}}/>
+                <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
+                <img src={Mask} alt="Staff Members" className="img-fluid w-100" style={{ objectFit:'cover', borderTopRightRadius:'30px'}}/>
                 </div>
                 <div className="col-12 col-md-6 mx-auto mb-3 mb-md-0 p-5 align-self-center">
-                <h2 style={{ textTransform: "uppercase", color: "#17416F",fontWeight:'700', fontSize:'30px' }}>Staff Members</h2>
-                <p className="mt-3" style={{ color: "#17416F", fontSize: "14px" }}>
+                <h2 style={{ textTransform: "uppercase", color: "#17416F",fontWeight:'700', fontSize:'clamp(25px, 8vw, 36px)' }}>Staff Members</h2>
+                <p className="mt-3" style={{ color: "#17416F" }}>
                     Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio. Proin sed nunc quis ex faucibus volutpat.
                     <br /><br />
                     Nam molestie erat at ex volutpat tempus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed vitae leo massa. Mauris lobortis dui tellus, sed vestibulum ex tristique id. Duis condimentum eget velit at congue. Donec ut pulvinar lacus. Suspendisse pretium tellus a diam varius feugiat. Proin finibus viverra maximus. Nunc varius erat lectus, id vestibulum libero viverra non.
                     Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio. Proin sed nunc quis ex faucibus volutpat.
-                    <br /><br />
-                    Nam molestie erat at ex volutpat tempus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed vitae leo massa. Mauris lobortis dui tellus, sed vestibulum ex tristique id. Duis condimentum eget velit at congue. Donec ut pulvinar lacus. Suspendisse pretium tellus a diam varius feugiat. Proin finibus viverra maximus. Nunc varius erat lectus, id vestibulum libero viverra non.
                 </p>
                 <div className="mt-3">
                     <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }}>

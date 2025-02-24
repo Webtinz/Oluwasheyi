@@ -105,6 +105,10 @@ const Home = () => {
         </div>
         <br/><br/>
         <div>
+            <h2 class="text-center" 
+                style={{textTransform:'uppercase', color:'#17416F', fontWeight:'700', fontSize:'36px'}}>
+                equipment Gallery
+            </h2>
             <Galery/>
         </div>
         <br/><br/>

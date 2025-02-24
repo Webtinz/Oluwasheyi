@@ -32,8 +32,8 @@ const FeedbackSection = () => {
     <section className="container-fluid py-5 Big" style={{ backgroundColor: "#13AB9C" }}>
       <div className="container">
         <div className="row" style={{marginLeft:'20%'}}>
-          <div className="col-lg-7">
-            <h2 className="text-white feedback-title">Feedback and Suggestion</h2>
+          <div className="col-lg-7 align-item-center">
+            <h2 className="text-white" style={{fontSize:'clamp(25px, 8vw, 38px)', fontWeight:'700'}}>Feedback and Suggestion</h2>
             <br /> 
             <a
               href="#"

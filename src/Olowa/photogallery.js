@@ -9,17 +9,20 @@ import Logo from "./Components/logo";
 import Carousel from "./Components/upcomingcarousel";
 import Galerry from "./Components/Galery";
 import Group1 from '../assets/Group1.png';
+import Mask1 from '../assets/Fr1.png';
 
 
 const Home = () => {
     const [activeTab, setActiveTab] = useState("cont1");
 
     const tabs = [
-      { id: "cont1", label: "Wellness Programs" },
-      { id: "cont2", label: "Awareness Campaigns" },
-      { id: "cont3", label: "Patient Stories" },
-      { id: "cont4", label: "Blood Donation" },
-      { id: "cont5", label: "Charity" },
+      { id: "cont1", label: "Equipment" },
+      { id: "cont2", label: "Hospital Interior" },
+      { id: "cont3", label: "Hospital Exterior" },
+      { id: "cont4", label: "Others" },
+      { id: "cont5", label: "Videos" },
+      { id: "cont6", label: "" },
+      { id: "cont7", label: "" },
     ];
 
   return (
@@ -30,6 +33,9 @@ const Home = () => {
             <div className="position-absolute bottom-0 start-0">
                 <img src={Group1} alt="" />
             </div>
+            <div className="position-absolute top-0 end-0">
+                <img src={Mask1} alt="" />
+            </div>
         </section>
         <br />
         <section className="container">
@@ -39,7 +45,7 @@ const Home = () => {
                 {tabs.map((tab) => (
                     <li className="search-item" key={tab.id}>
                     <button
-                        className={`search-link ${activeTab === tab.id ? "active" : ""}`}
+                        className={`search-link1 ${activeTab === tab.id ? "active" : ""}`}
                         onClick={() => setActiveTab(tab.id)}
                     >
                         {tab.label}
@@ -51,8 +57,14 @@ const Home = () => {
                 {/* Contenu dynamique */}
                 <div className="search-content-container">
                 {activeTab === "cont1" && (
-                    <div className="search-content">
-                        <div><Galerry /></div>
+                    <div className="search-content1">
+                        <div>
+                            <h2 class="ms-3" 
+                                style={{textTransform:'uppercase', color:'#17416F', fontWeight:'700', fontSize:'36px'}}>
+                                equipment Gallery
+                            </h2>
+                            <Galerry />
+                        </div>
                     </div>
                 )}
 

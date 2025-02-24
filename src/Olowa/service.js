@@ -16,7 +16,7 @@ import Img4 from '../assets/mri.png';
 import Img5 from '../assets/pediatrics.png';
 import Img6 from '../assets/phone.png';
 import Img7 from '../assets/mail.png';
-
+import Mask1 from '../assets/Fr1.png';
 
 const Home = () => {
     const [activeSection, setActiveSection] = useState(null);
@@ -64,6 +64,9 @@ const Home = () => {
             <div className="position-absolute bottom-0 start-0">
                 <img src={Group1} alt="" />
             </div>
+            <div className="position-absolute top-0 end-0">
+                <img src={Mask1} alt="" />
+            </div>
         </section>
         <br />
         <section className="container mt-4">
@@ -88,8 +91,8 @@ const Home = () => {
             <span className="d-block" style={{ borderBottom: '1px solid #17416F' }}></span>
             {sections.map((section, index) => (
                 <div key={index} className="row cpt" style={{ padding: '50px 0', margin: 0 }}>
-                <div className="col-12 col-md-6 mx-auto mb-3 mb-md-0">
-                    <img src={section.imgSrc} alt="" className="image-fluid w-100" style={{height:'60vh',objectFit:'cover'}}/>
+                <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
+                    <img src={section.imgSrc} alt="" className="image-fluid w-100" style={{objectFit:'cover', borderTopRightRadius:'30px'}}/>
                 </div>
                 <div className="col-12 col-md-6 mx-auto mb-3 mb-md-0 align-self-center">
                     <div className="row">

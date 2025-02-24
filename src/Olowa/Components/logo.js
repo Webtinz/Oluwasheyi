@@ -59,13 +59,13 @@ const LogoCarousel = () => {
         <div className="relative px-4">
           <button 
             onClick={prev}
-            className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full shadow-lg transition-colors`}
+            className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2`}
             style={{
-              backgroundColor: activeButton === "prev" ? "#4b5563" : "white", // bg-gray-600 ou bg-white
-              color: activeButton === "prev" ? "white" : "gray" // text-white ou text-gray-600
+              // backgroundColor: activeButton === "prev" ? "#4b5563" : "white",
+              color: activeButton === "prev" ? "gray" : "gray" // text-white ou text-gray-600
             }}
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronLeft style={{ width: "34px", height: "34px" }} />
           </button>
 
           <div className="overflow-hidden mx-12">
@@ -88,7 +88,7 @@ const LogoCarousel = () => {
                     src={logo.src} 
                     alt={logo.alt}
                     className="img-fluid"
-                    style={{objectFit:'contain',width:'100px',height:'100px'}}
+                    style={{objectFit:'cover',width:'100px',height:'100px'}}
                   />
                 </div>
               ))}
@@ -97,13 +97,13 @@ const LogoCarousel = () => {
 
           <button 
             onClick={next}
-            className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full shadow-lg transition-colors`}
+            className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2`}
             style={{
-              backgroundColor: activeButton === "next" ? "#4b5563" : "white", // bg-gray-600 ou bg-white
-              color: activeButton === "next" ? "white" : "gray" // text-white ou text-gray-600
+              // backgroundColor: activeButton === "next" ? "#4b5563" : "white",
+              color: activeButton === "next" ? "gray" : "gray" // text-white ou text-gray-600
             }}
           >
-            <ChevronRight className="w-6 h-6" />
+            <ChevronRight  style={{ width: "34px", height: "34px" }} />
           </button>
         </div>
       </div>
