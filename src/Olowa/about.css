@@ -151,13 +151,14 @@
 
   /* Meet */
   .modal-content{
-    --bs-modal-width: 50vw !important;
-    --bs-modal-padding: 0rem;
     --bs-modal-bg: none;
     --bs-modal-border-width: none;
   }
   .modal {
     background: #17416FCC; /* Assombrit l'arrière-plan */
+    --bs-modal-width: 45vw !important;
+    display: flex;
+    justify-content: center;
   }
   .color{
     background-color: white;
@@ -169,7 +170,7 @@
     background-color: white;
     padding: 30px;
     border-top-right-radius: 50px;
-    width: 45vw;
+    width: 40vw;
   }
   .poop{
     position: absolute;
@@ -177,7 +178,7 @@
     left: 20%;
     transform: translateX(-50%);
   }
-  .col1{
+  /* .col1{
     position: absolute;
     top: 5px;
     right: -10px;
@@ -186,15 +187,16 @@
     position: absolute;
     top: 15px;
     right: -8rem;
-  }
-  @media (max-width: 575px) {
-    .col1{
-      position: absolute;
-      top: 5px;
-      right: 5%;
+  } */
+  @media (max-width: 855px) {
+    .modal {
+      --bs-modal-width: 100% !important;
     }
     .color {
-      width: 90vw;
+      width: 90vw !important;
+    }
+    .color1 {
+      width: 90vw ;
     }
   }
 

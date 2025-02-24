@@ -10,6 +10,7 @@ import Logo from "./Components/logo";
 import Group1 from '../assets/Group1.png';
 import Img from '../assets/beta.png';
 import Mask1 from '../assets/Fr1.png';
+import Mask2 from '../assets/Fr.png';
 
 
 const Home = () => {
@@ -30,7 +31,12 @@ const Home = () => {
         <section className="container mt-4">
             <div className="row">
                 <div className="col-md-5 mx-auto mb-3 mb-md-0">
-                    <img src={Img} alt="" className="img-fluid" style={{borderTopRightRadius:'30px', objectFit:'cover', height:'80vh'}}/>
+                    <div className='position-relative'>
+                        <img src={Img} alt="" className="img-fluid" style={{borderTopRightRadius:'30px', objectFit:'cover', height:'80vh'}}/>
+                        <div className='contpos'>
+                            <img src={Mask2} alt="Staff Members" className="img-fluid"/>
+                        </div>
+                    </div>
                 </div>
                 <div className="col-md-6 mx-auto mb-3 mb-md-0 p-5">
                     <div className='px-4'>
