@@ -95,7 +95,7 @@ const Home = () => {
                 <img src={Group1} alt="" />
             </div>
             <div className="position-absolute top-0 end-0">
-                <img src={Mask1} alt="" />
+                <img src={Mask2} alt="" />
             </div>
         </section>
         <br/>

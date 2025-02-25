@@ -13,7 +13,8 @@ const DoctorCard = ({ name, specialty, imageUrl }) => (
       <img 
         src={imageUrl}
         alt={`Dr. ${name}`}
-        className="rounded-lg w-full h-full object-cover"
+        className="w-full h-full object-cover"
+        style={{borderTopRightRadius:'30px'}}
       />
     </div>
     <h3 className="text-lg font-semibold text-blue-900">{name}</h3>
@@ -46,6 +47,16 @@ const DoctorCarousel = () => {
     },
     {
       imageUrl: Img3,
+      name: "Dr. Williams",
+      specialty: "Gynecologist"
+    },
+    {
+      imageUrl: Img4,
+      name: "Dr. Williams",
+      specialty: "Gynecologist"
+    },
+    {
+      imageUrl: Img2,
       name: "Dr. Williams",
       specialty: "Gynecologist"
     },
@@ -107,22 +118,26 @@ const DoctorCarousel = () => {
     cursor: currentIndex >= maxIndex ? "not-allowed" : "pointer",
     transition: "background-color 0.3s",
   };
+  
+  // Calculer la largeur d'une carte
+  const cardWidth = 100 / maxVisibleCards;
+  
   return (
     <div className="container mt-4">
-      <h2 className="text-center text-2xl font-bold text-blue-900 uppercase mb-8" style={{fontSize:'36px'}}>
+      <h2 className="text-center text-2xl font-bold uppercase mb-8" style={{fontSize:'36px', color:'#17416F'}}>
         Meet the team
       </h2>
       <div className="relative px-4 mt-4">
         <button onClick={prevSlide} disabled={currentIndex === 0} style={buttonStyle}>
-          <ChevronLeft className="w-6 h-6" />
+          <ChevronLeft style={{width:'40px', height:'40px'}} />
         </button>
 
         <div className="overflow-hidden">
           <div 
             className="flex transition-transform duration-300 ease-in-out"
             style={{
-              transform: `translateX(-${(currentIndex * 100) / maxVisibleCards}%)`,
-              width: `${(doctors.length * 100) / maxVisibleCards}%`
+              transform: `translateX(-${currentIndex * cardWidth}%)`,
+              width: `${doctors.length * cardWidth}%`
             }}
           >
             {doctors.map((doctor, index) => (
@@ -139,19 +154,23 @@ const DoctorCarousel = () => {
         </div>
 
         <button onClick={nextSlide} disabled={currentIndex >= maxIndex} style={buttonStyle1}>
-          <ChevronRight className="w-6 h-6" />
+          <ChevronRight style={{width:'40px', height:'40px'}} />
         </button>
         
-
         <div className="flex justify-center mt-6 gap-2">
           {Array.from({ length: maxIndex + 1 }).map((_, index) => (
             <button
-              key={index}
-              className={`w-2 h-2 rounded-full transition-colors ${
-                index === currentIndex ? 'bg-secondary' : 'bg-success'
-              }`}
-              onClick={() => goToSlide(index)}
-            />
+            key={index}
+            style={{
+              width: '0.8rem', // w-2
+              height: '0.8rem', // h-2
+              borderRadius: '50%', // rounded-full
+              transition: 'background-color 0.3s ease', // transition-colors
+              backgroundColor: index === currentIndex ? '#13AB9C' : '', // bg-secondary / bg-success
+              border: index === currentIndex ? '1px solid #13AB9C' : '2px solid #17416F',
+            }}
+            onClick={() => goToSlide(index)}
+          />          
           ))}
         </div>
       </div>

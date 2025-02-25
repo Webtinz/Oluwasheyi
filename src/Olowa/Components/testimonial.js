@@ -41,8 +41,9 @@ const testimonials = [
 const PatientTestimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [activeButton, setActiveButton] = useState(null);
   
-  const cardsToShow = windowWidth >= 568 ? 2 : 1;
+  const cardsToShow = windowWidth >= 768 ? 2 : 1;
 
   useEffect(() => {
     const handleResize = () => {
@@ -56,19 +57,14 @@ const PatientTestimonials = () => {
     };
   }, []);
 
-  const [isPrevActive, setIsPrevActive] = useState(false);
-  const [isNextActive, setIsNextActive] = useState(false);
-
   const handlePrev = () => {
-    setIsPrevActive(true);
-    setIsNextActive(false);
-    setCurrentIndex((prevIndex) => Math.max(prevIndex - 1, 0)); // Empêche de descendre sous 0
+    setCurrentIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+    setActiveButton('prev');
   };
 
   const handleNext = () => {
-    setIsNextActive(true);
-    setIsPrevActive(false);
-    setCurrentIndex((prevIndex) => Math.min(prevIndex + 1, testimonials.length - 1)); // Empêche de dépasser le dernier élément
+    setCurrentIndex((prevIndex) => Math.min(prevIndex + 1, testimonials.length - cardsToShow));
+    setActiveButton('next');
   };
 
   return (
@@ -89,14 +85,13 @@ const PatientTestimonials = () => {
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          backgroundColor: isPrevActive ? '#13AB9C' : '#E0E0E0',
-                          color: isPrevActive ? 'white' : 'black',
+                          backgroundColor: activeButton === 'prev' ? '#13AB9C' : '#E0E0E0',
+                          color: activeButton === 'prev' ? 'white' : 'black',
                           transition: 'background-color 0.3s, color 0.3s',
                         }}
                       >
                         <i className="bi bi-chevron-left fs-3"></i>
                       </button>
-
                       <button
                         onClick={handleNext}
                         style={{
@@ -106,8 +101,8 @@ const PatientTestimonials = () => {
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          backgroundColor: isNextActive ? '#13AB9C' : '#E0E0E0',
-                          color: isNextActive ? 'white' : 'black',
+                          backgroundColor: activeButton === 'next' ? '#13AB9C' : '#E0E0E0',
+                          color: activeButton === 'next' ? 'white' : 'black',
                           transition: 'background-color 0.3s, color 0.3s',
                         }}
                       >
@@ -115,27 +110,19 @@ const PatientTestimonials = () => {
                       </button>
                     </div>
                     <div className='d-flex justify-content-end mt-4'>
-                      <img 
-                        src={Msk} 
-                        alt="Mask logo" 
-                      />
+                      <img src={Msk} alt="Mask logo" />
                     </div>
                 </div>
-
                 <div className="md:w-3/4 overflow-hidden">
                     <div 
                     className="flex transition-transform duration-500 ease-in-out"
                     style={{
-                        transform: `translateX(-${currentIndex * (100 / cardsToShow)}%)`,
+                        transform: `translateX(-${currentIndex * (100 / testimonials.length)}%)`,
                         width: `${(testimonials.length / cardsToShow) * 100}%`
                     }}
                     >
                     {testimonials.map((testimonial) => (
-                        <div 
-                        key={testimonial.id}
-                        className="px-4"
-                        style={{ width: `${100 / testimonials.length * cardsToShow}%` }}
-                        >
+                        <div key={testimonial.id} className="px-4" style={{ width: `${100 / testimonials.length * cardsToShow}%` }}>
                         <div className=" p-6 h-full" 
                             style={{
                                 border:'1px solid #17416F',
@@ -148,15 +135,11 @@ const PatientTestimonials = () => {
                             <p className="text-gray-600 mb-6">{testimonial.text}</p>
                             <hr className="my-4" />
                             <div className="flex items-center gap-3">
-                            <img 
-                                src={testimonial.avatar} 
-                                alt={testimonial.author} 
-                                className="w-12 h-12 rounded-full"
-                            />
-                            <div>
-                                <p className="font-semibold">{testimonial.author}</p>
-                                <p className="text-gray-500">{testimonial.location}</p>
-                            </div>
+                              <img src={testimonial.avatar} alt={testimonial.author} className="w-12 h-12 rounded-full"/>
+                              <div>
+                                  <p className="font-semibold">{testimonial.author}</p>
+                                  <p className="text-gray-500">{testimonial.location}</p>
+                              </div>
                             </div>
                         </div>
                         </div>

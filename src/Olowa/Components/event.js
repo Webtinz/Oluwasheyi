@@ -3,22 +3,23 @@ import "../index.css"; // Ajoute un fichier CSS pour le style
 import im1 from "../../assets/im1.png";
 import im2 from "../../assets/im2.png";
 import im3 from "../../assets/im3.png";
+import Mask2 from '../../assets/Fr1.png';
 
 const events = [
   { id: 1, image: im1, day: "10", date: "FEB.25", title: "Cras eleifend gravi mi, eu placerat urn vulputate" },
-  { id: 2, image: im2, day: "10", date: "FEB.25", title: "Cras eleifend gravi mi, eu placerat urn vulputate" },
-  { id: 3, image: im3, day: "10", date: "FEB.25", title: "Cras eleifend gravi mi, eu placerat urn vulputate" },
+  { id: 2, image: im2, day: "13", date: "FEB.25", title: "Cras eleifend gravi mi, eu placerat urn vulputate" },
+  { id: 3, image: im3, day: "15", date: "FEB.25", title: "Cras eleifend gravi mi, eu placerat urn vulputate" },
 ];
 
 const FeaturedEvents = () => {
   return (
-    <section className="mt-4 container-fluid py-5" style={{ backgroundColor: "#17416F" }}>
-      <div className="container py-5">
-        <h2 className="text-white text-uppercase" style={{ fontWeight: 700, fontSize:'36px' }}>Featured Events</h2>
+    <section className="mt-4 container-fluid p-5 position-relative" style={{ backgroundColor: "#17416F", paddingLeft:'0px', paddingRight:'0px' }}>
+      <div className="container p-5">
+        <h2 className="text-white text-uppercase ms-3" style={{ fontWeight: 700, fontSize:'36px' }}>Featured Events</h2>
         <br/>
-        <div className="row mt-4">
+        <div className="row mt-2">
           {events.map((event) => (
-            <div key={event.id} className="col-12 col-md-6 col-lg-4 mb-3 mb-md-0 mx-auto">
+            <div key={event.id} className="col-12 col-md-6 col-lg-4 mb-3 mb-md-0 mx-auto p-4">
               <div className="p-3 bg-white event-card">
                 <div className="row">
                   <div className="col-lg-12 mb-4 mx-auto">
@@ -47,6 +48,9 @@ const FeaturedEvents = () => {
             </div>
           ))}
         </div>
+      </div>
+      <div className="position-absolute bottom-0 end-0">
+          <img src={Mask2} alt="" />
       </div>
     </section>
   );
