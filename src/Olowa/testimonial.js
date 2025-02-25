@@ -7,27 +7,28 @@ import Feedback from "./Components/Feedback";
 import Footer from "./Components/footer";
 import Group1 from '../assets/Group1.png';
 import Testi from '../assets/testi.png';
+import Mask1 from '../assets/Fr1.png';
 
 
 const Home = () => {
     const testimonials = [
         {
             quote: "Highly Recommended!!",
-            text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut smest pretium placerat faucibus faucibus faucibus.",
+            text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut smest pretium placerat faucibus faucibus faucibus. Sit quis consequat eget nulla fusce dignissim. Nulla accumsan convallis augue ut tempor.",
             name: "Jane Cooper",
             location: "Cotonou",
             imageSrc: Testi, // Assurez-vous que 'Testi' est bien importé
         },
         {
             quote: "Amazing",
-            text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut smest pretium placerat faucibus faucibus faucibus.",
+            text: "The doctors were amazing! 10/10 service!",
             name: "John Doe",
             location: "Lagos",
             imageSrc: Testi, // Remplacez si vous avez différentes images
         },
         {
             quote: "Highly Recommended!!",
-            text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut smest pretium placerat faucibus faucibus faucibus.",
+            text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut smest pretium placerat faucibus faucibus faucibus. Sit quis consequat eget nulla fusce dignissim. Nulla accumsan convallis augue ut tempor.",
             name: "Jane Cooper",
             location: "Cotonou",
             imageSrc: Testi, // Assurez-vous que 'Testi' est bien importé
@@ -40,8 +41,8 @@ const Home = () => {
             imageSrc: Testi, // Assurez-vous que 'Testi' est bien importé
         },
         {
-            quote: "Great Hospital ",
-            text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut smest pretium placerat faucibus.",
+            quote: "Highly Recommended!!",
+            text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut smest pretium placerat faucibus faucibus faucibus. Sit quis consequat eget nulla fusce dignissim. A lectus urna sit ut smest pretium placerat faucibus faucibus faucibus.",
             name: "Jane Cooper",
             location: "Cotonou",
             imageSrc: Testi, // Assurez-vous que 'Testi' est bien importé
@@ -65,6 +66,9 @@ const Home = () => {
             <div className="position-absolute bottom-0 start-0">
                 <img src={Group1} alt="" />
             </div>
+            <div className="position-absolute top-0 end-0">
+                <img src={Mask1} alt="" />
+            </div>
         </section>
         <br /><br /><br />
         <section className="container">
@@ -72,7 +76,13 @@ const Home = () => {
             <br /><br /><br />
             <div className="row g-4">
                 {testimonials.map((testimonial, index) => (
-                    <div key={index} className="col-12 col-md-6 col-lg-4">
+                    <div 
+                        key={index} 
+                        className={`col-12 col-md-6 col-lg-4 ${
+                            // On cible uniquement la cinquième colonne (index 4)
+                            index === 4 ? 'fifth-column' : ''
+                        }`}
+                    >
                         <div className="p-3 scur" style={{border: '1px solid #17416F', borderTopRightRadius: '30px'}}>
                             <div><strong style={{color: '#13AB9C', fontSize: '120px'}}>"</strong></div>
                             <h2 className="ms-2" style={{color: '#17416F', fontWeight: '700', marginTop: '-4rem',fontSize:'27px'}}>{testimonial.quote}</h2>
@@ -95,6 +105,12 @@ const Home = () => {
                 ))}
             </div>
 
+            {/* CSS avec focus uniquement sur la cinquième colonne */}
+            <style jsx>{`
+                .fifth-column .scur {
+                    margin-top: -4.5rem;
+                }
+            `}</style>
         </section>
         <br /><br /><br />
         <div>

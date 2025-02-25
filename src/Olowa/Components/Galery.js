@@ -33,10 +33,7 @@ const CustomCarousel = () => {
 
   return (
     <div className="container">
-        <h2 class="text-center" 
-            style={{textTransform:'uppercase', color:'#17416F', fontWeight:'700', fontSize:'36px'}}>
-            equipment Gallery
-        </h2>
+        
       <div className="mt-5">
         {/* Image principale */}
         <img src={mainImage} alt="" className="custom-phone img-fluid" style={{ width: "100%", height: "72vh", objectFit: "cover" }} />

@@ -11,6 +11,8 @@ import Image from '../assets/M1.png';
 import Img from '../assets/c4.png';
 import Img1 from '../assets/donate.png';
 import Logo from '../assets/heart-health.png';
+import Mask1 from '../assets/Fr.png';
+import Mask2 from '../assets/Fr1.png';
 
 
 const Home = () => {
@@ -92,13 +94,16 @@ const Home = () => {
             <div className="position-absolute bottom-0 start-0">
                 <img src={Group1} alt="" />
             </div>
+            <div className="position-absolute top-0 end-0">
+                <img src={Mask1} alt="" />
+            </div>
         </section>
         <br/>
         <section className="container mt-4">
             <div className="row">
-                <div className="col-md-6 mx-auto mb-3">
+                <div className="col-md-5 mx-auto mb-3">
                     <div>
-                        <img src={Img} alt="" className="img-fluid" style={{ width: '100%', borderTopRightRadius:'30px' }} />
+                        <img src={Img} alt="" className="img-fluid" style={{ width: '100%', borderTopRightRadius:'30px', height:'80vh', objectFit:'cover' }} />
                     </div>
                 </div>
                 <div className="col-md-6 mx-auto">
@@ -125,7 +130,7 @@ const Home = () => {
             <h2 className='text-center' style={{textTransform:'uppercase',color:'#17416F',fontWeight:'700', fontSize:'36px'}}>medical aid <br/>
             programs andbeneficiaries</h2>
             <br/><br/>
-            <div className='row'>
+            <div className='row mt-3'>
                 {cardData.map((card, index) => (
                     <div key={index} className='col-12 col-md-6 col-lg-4 mb-4'>
                         <div className='p-3' style={{ background: card.backgroundColor, borderTopRightRadius: '30px' }}>
@@ -157,7 +162,7 @@ const Home = () => {
                             <div className="step-circle">{step.number}</div>
                             
                             {/* Text */}
-                            <p className="text-white text-center small" style={{fontWeight:'700',fontSize:'15px'}}>{step.text}</p>
+                            <p className="text-white text-center small" style={{fontWeight:'700',fontSize:'16px'}}>{step.text}</p>
                         </div>
                         ))}
                     </div>
@@ -175,7 +180,12 @@ const Home = () => {
             <div className='d-flex justify-content-center'>    
                 <div className='row' style={{background:'#F2F2F2',borderTopRightRadius:'30px', width:'80%'}}>
                     <div className='col-md-5 mb-3 mb-md-0 mx-auto' style={{padding:'0px'}}>
-                        <img src={Image} className='img-fluid w-100' style={{height:'70vh',objectFit:'cover'}}/>
+                        <div className='position-relative'>
+                            <img src={Image} className='img-fluid w-100' style={{height:'100vh',objectFit:'cover'}}/>
+                            <div className='contpos'>
+                                <img src={Mask1} alt="Wellness Programs" className="img-fluid" style={{width:'70%'}} />
+                            </div>
+                        </div>
                     </div>
                     <div className='col-md-7 mb-3 mb-md-0 mx-auto align-self-center'>
                         <Subscription />

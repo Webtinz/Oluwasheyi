@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Logo from '../../assets/76.png';
+import Msk from '../../assets/Fr.png';
+import Ic from '../../assets/11d.png';
 
 const testimonials = [
   {
@@ -25,6 +27,14 @@ const testimonials = [
     author: "Jane Cooper",
     location: "Cotonou",
     avatar: Logo
+  },
+  {
+    id: 4,
+    title: "Great Hospital",
+    text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut eniset pretium placerat faucibus faucibus. St quis consequat eget nulla fusce dignissim.",
+    author: "Jane Cooper",
+    location: "Cotonou",
+    avatar: Logo
   }
 ];
 
@@ -32,7 +42,7 @@ const PatientTestimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   
-  const cardsToShow = windowWidth >= 768 ? 2 : 1;
+  const cardsToShow = windowWidth >= 568 ? 2 : 1;
 
   useEffect(() => {
     const handleResize = () => {
@@ -40,27 +50,25 @@ const PatientTestimonials = () => {
     };
 
     window.addEventListener('resize', handleResize);
-    
-    const interval = setInterval(() => {
-      handleNext();
-    }, 5000);
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      clearInterval(interval);
     };
-  }, [currentIndex]);
+  }, []);
+
+  const [isPrevActive, setIsPrevActive] = useState(false);
+  const [isNextActive, setIsNextActive] = useState(false);
 
   const handlePrev = () => {
-    setCurrentIndex(current => 
-      current === 0 ? testimonials.length - cardsToShow : current - 1
-    );
+    setIsPrevActive(true);
+    setIsNextActive(false);
+    setCurrentIndex((prevIndex) => Math.max(prevIndex - 1, 0)); // Empêche de descendre sous 0
   };
 
   const handleNext = () => {
-    setCurrentIndex(current => 
-      current === testimonials.length - cardsToShow ? 0 : current + 1
-    );
+    setIsNextActive(true);
+    setIsPrevActive(false);
+    setCurrentIndex((prevIndex) => Math.min(prevIndex + 1, testimonials.length - 1)); // Empêche de dépasser le dernier élément
   };
 
   return (
@@ -68,23 +76,50 @@ const PatientTestimonials = () => {
         <div className='container p-3'>
             <div className="flex flex-col md:flex-row gap-8 p-6">
                 <div className="md:w-1/4">
-                    <h2 className="text-2xl font-bold text-blue-900 mb-4" style={{fontSize:'36px'}}>
+                    <h2 className="text-2xl font-bold mb-4" style={{fontSize:'36px',color:'#17416F'}}>
                       WHAT OUR PATIENTS ARE SAYING
                     </h2>
                     <div className="flex gap-2">
-                      <button 
+                      <button
                         onClick={handlePrev}
-                        className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center hover"
+                        style={{
+                          width: '60px',
+                          height: '60px',
+                          borderRadius: '50%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          backgroundColor: isPrevActive ? '#13AB9C' : '#E0E0E0',
+                          color: isPrevActive ? 'white' : 'black',
+                          transition: 'background-color 0.3s, color 0.3s',
+                        }}
                       >
-                        <i class="bi bi-chevron-left"></i>
-                      </button>                     
-                      <button 
-                        onClick={handleNext}
-                        className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center hover"
-                      >
-                        <i class="bi bi-chevron-right"></i>
+                        <i className="bi bi-chevron-left fs-3"></i>
                       </button>
-                  </div>
+
+                      <button
+                        onClick={handleNext}
+                        style={{
+                          width: '60px',
+                          height: '60px',
+                          borderRadius: '50%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          backgroundColor: isNextActive ? '#13AB9C' : '#E0E0E0',
+                          color: isNextActive ? 'white' : 'black',
+                          transition: 'background-color 0.3s, color 0.3s',
+                        }}
+                      >
+                        <i className="bi bi-chevron-right fs-3"></i>
+                      </button>
+                    </div>
+                    <div className='d-flex justify-content-end mt-4'>
+                      <img 
+                        src={Msk} 
+                        alt="Mask logo" 
+                      />
+                    </div>
                 </div>
 
                 <div className="md:w-3/4 overflow-hidden">
@@ -108,9 +143,10 @@ const PatientTestimonials = () => {
                                 background:'white',
                             }}
                         >
-                            <div className="text-teal-500 text-4xl mb-4">"</div>
-                            <h3 className="text-xl font-semibold mb-2">{testimonial.title}</h3>
+                            <div className="mb-4"><img src={Ic} /></div>
+                            <h3 className="text-xl font-semibold mb-2" style={{color:'#17416F',fontWeight:'700'}}>{testimonial.title}</h3>
                             <p className="text-gray-600 mb-6">{testimonial.text}</p>
+                            <hr className="my-4" />
                             <div className="flex items-center gap-3">
                             <img 
                                 src={testimonial.avatar} 

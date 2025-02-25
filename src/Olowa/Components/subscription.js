@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import '../about.css';
 import Paypal from '../../assets/paypal.png';
 import MTN from '../../assets/MTN.png';
+import { ChevronDown } from "lucide-react";
 
 const DonationForm = () => {
   const [donationType, setDonationType] = useState('once');
   const [amount, setAmount] = useState('');
   const [customAmount, setCustomAmount] = useState('');
   const [selectedMethod, setSelectedMethod] = useState('');
+  const [selectedProgram, setSelectedProgram] = useState("");
 
   const amounts = {
     once: [
@@ -36,7 +38,8 @@ const DonationForm = () => {
   };
 
   const handleCustomAmountChange = (e) => {
-    setCustomAmount(e.target.value);
+    const value = e.target.value.replace(/^0+/, '');
+    setCustomAmount(value);
     setAmount('');
   };
 
@@ -45,42 +48,63 @@ const DonationForm = () => {
     console.log(`Processing payment with ${method}`);
     console.log('Amount:', customAmount || amount);
     console.log('Type:', donationType);
+    console.log('Medical Program:', selectedProgram);
   };
 
   return (
     <div className="w-full max-w-md mx-auto p-4">
-      <h1 className="text-2xl font-bold text-center mb-4" style={{color:'#17416F',fontSize:'30px'}}>
+      <h1 className="text-2xl font-bold text-center mb-4 text-2xl" style={{color:'#17416F'}}>
         HELP FUND <br /> FREE HEALTHCARE
       </h1>
       
       <div className="grid grid-cols-2 gap-2 mb-6">
-        <button
-          style={{
-            width: '100%',
-            padding: '0.5rem',
-            borderRadius: '0.25rem',
-            backgroundColor: donationType === 'once' ? '#17416F' : 'white',
-            border: donationType === 'once' ? 'none' : '1px solid #17416F',
-            color: donationType === 'once' ? 'white' : '#17416F',
-          }}
-          onClick={() => handleDonationTypeChange('once')}
-        >
-          Give Once
-        </button>
+        {['once', 'monthly'].map((type) => (
+          <button
+            key={type}
+            style={{
+              width: "100%",
+              padding: "0.5rem",
+              borderRadius: "0.25rem",
+              borderWidth: "1px",
+              transition: "background-color 0.3s, color 0.3s",
+              backgroundColor: donationType === type ? "#17416F" : "#FFFFFF",
+              color: donationType === type ? "#FFFFFF" : "#17416F",
+              borderColor: donationType === type ? "transparent" : "#17416F",
+            }}
+            onClick={() => handleDonationTypeChange(type)}
+          >
+            {type === 'once' ? 'Give Once' : 'Monthly'}
+          </button>
+        ))}
+      </div>
 
-        <button
+      <div className="relative mb-3">
+        <select
           style={{
-            width: '100%',
-            padding: '0.5rem',
-            borderRadius: '0.25rem',
-            backgroundColor: donationType === 'monthly' ? '#17416F' : 'white',
-            border: donationType === 'monthly' ? 'none' : '1px solid #17416F',
-            color: donationType === 'monthly' ? 'white' : '#17416F',
+            width: "100%",
+            padding: "0.5rem 1rem 0.5rem 1rem",
+            paddingRight: "2.5rem",
+            color: "#17416F",
+            borderWidth: "1px",
+            borderRadius: "0.5rem",
+            boxShadow: "0 1px 2px rgba(0, 0, 0, 0.1)",
+            appearance: "none",
+            outline: "none",
+            transition: "box-shadow 0.3s, border-color 0.3s",
+            focus: {
+              outline: "none",
+              ring: "2px solid #17416F"
+            }
           }}
-          onClick={() => handleDonationTypeChange('monthly')}
+          value={selectedProgram}
+          onChange={(e) => setSelectedProgram(e.target.value)}
         >
-          Monthly
-        </button>
+          <option value="">Select Medical Program</option>
+          <option value="program1">Medical Program 1</option>
+          <option value="program2">Medical Program 2</option>
+          <option value="program3">Medical Program 3</option>
+        </select>
+        <ChevronDown className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500 pointer-events-none" />
       </div>
 
       <div className="grid grid-cols-2 gap-2">
@@ -88,12 +112,14 @@ const DonationForm = () => {
           <button
             key={item.value}
             style={{
-              width: '100%',
-              padding: '0.5rem',
-              borderRadius: '0.25rem',
-              backgroundColor: amount === item.value ? '#17416F' : 'white',
-              border: amount === item.value ? 'none' : '1px solid #C5C5C5',
-              color: amount === item.value ? 'white' : '#17416F',
+              width: "100%",
+              padding: "0.5rem",
+              borderRadius: "0.25rem",
+              borderWidth: "1px",
+              transition: "background-color 0.3s, color 0.3s",
+              backgroundColor: amount === item.value ? "#17416F" : "#FFFFFF",
+              color: amount === item.value ? "#FFFFFF" : "#17416F",
+              borderColor: amount === item.value ? "transparent" : "#D1D5DB",
             }}
             onClick={() => handleAmountSelect(item.value)}
           >
@@ -104,68 +130,36 @@ const DonationForm = () => {
 
       <input
         type="number"
+        min="1"
         placeholder={donationType === 'monthly' ? "Other Monthly Amount" : "Other Amount"}
         value={customAmount}
         onChange={handleCustomAmountChange}
-        className="w-full p-2 border rounded mt-4 copp"
+        className="w-full p-2 border rounded mt-4"
       />
 
-      {/* Boutons de paiement mis à jour */}
       <div className="space-y-3 mt-6">
-        <div
-          onClick={() => handlePaymentMethod('paypal')}
-          style={{
-            backgroundColor: selectedMethod === 'paypal' ? '#FFD700' : '#FFD700',
-            // border: '1px solid #FFD700',
-            transition: 'background-color 0.3s ease'
-          }}
-          className="relative flex items-center justify-center p-4 rounded-lg cursor-pointer"
-        >
-          <input
-            type="radio"
-            name="paymentMethod"
-            checked={selectedMethod === 'paypal'}
-            onChange={() => handlePaymentMethod('paypal')}
-            className="absolute left-4 w-4 h-4 cursor-pointer"
-          />
-          <div className="flex items-center justify-center">
-            <img 
-              src={Paypal}
-              alt="PayPal"
-              className="h-8"
+        {[{ method: 'paypal', img: Paypal }, { method: 'momo', img: MTN }].map(({ method, img }) => (
+          <div
+            key={method}
+            onClick={() => handlePaymentMethod(method)}
+            className={`relative flex items-center justify-center p-4 rounded-lg cursor-pointer bg-yellow-400 transition`}
+          >
+            <input
+              type="radio"
+              name="paymentMethod"
+              checked={selectedMethod === method}
+              onChange={() => handlePaymentMethod(method)}
+              className="absolute left-4 w-4 h-4 cursor-pointer"
             />
+            <div className="flex items-center justify-center">
+              <img src={img} alt={method} className="h-8" />
+            </div>
           </div>
-        </div>
-
-        <div
-          onClick={() => handlePaymentMethod('momo')}
-          style={{
-            backgroundColor: selectedMethod === 'momo' ? '#FFD700' : '#FFD700',
-            // border: '1px solid #FFD700',
-            transition: 'background-color 0.3s ease'
-          }}
-          className="relative flex items-center justify-center p-4 rounded-lg cursor-pointer"
-        >
-          <input
-            type="radio"
-            name="paymentMethod"
-            checked={selectedMethod === 'momo'}
-            onChange={() => handlePaymentMethod('momo')}
-            className="absolute left-4 w-4 h-4 cursor-pointer"
-          />
-          <div className="flex items-center justify-center gap-2">
-            <img 
-              src={MTN}
-              alt="MTN MoMo"
-              className="h-8"
-            />
-            {/* <span className="font-medium">MTN MoMo</span> */}
-          </div>
-        </div>
+        ))}
       </div>
 
-      <div className="text-center text-sm mt-4" style={{color:'#17416F',fontSize:'16px'}}>
-      <i class="bi bi-lock"></i> Secure Payment
+      <div className="text-center text-sm mt-4 text-blue-800">
+        <i className="bi bi-lock"></i> Secure Payment
       </div>
     </div>
   );

@@ -7,6 +7,9 @@ import Feedback from "./Components/Feedback";
 import Footer from "./Components/footer";
 import Group1 from '../assets/Group1.png';
 import Image33 from '../assets/image 33.png';
+import Mask1 from '../assets/Fr.png';
+import Mask2 from '../assets/G122.png';
+import Mask3 from '../assets/Fr1.png';
 
 
 const Home = () => {
@@ -70,12 +73,20 @@ const Home = () => {
             <div className="position-absolute bottom-0 start-0">
                 <img src={Group1} alt="" />
             </div>
+            <div className="position-absolute top-0 end-0">
+                <img src={Mask3} alt="" />
+            </div>
         </section>
         <br/>
         <section className="container mt-3">
             <div className="row">
-                <div className="col-md-6 col-12 mx-auto mb-3 p-4">
-                <img src={Image33} alt="" className="img-fluid w-100" style={{ borderTopRightRadius: '30px',maxHeight:'70vh',objectFit:'cover' }} />
+                <div className="col-md-5 col-12 mx-auto mb-3 p-4">
+                    <div className='position-relative'>
+                        <img src={Image33} alt="" className="img-fluid w-100" style={{ borderTopRightRadius: '30px',objectFit:'cover' }} />
+                        <div className='contpos'>
+                            <img src={Mask1} alt="Wellness Programs" className="img-fluid" style={{width:'80%'}} />
+                        </div>
+                    </div>
                 </div>
                 <div className="col-md-6 col-12 mx-auto mb-3 align-self-center p-4">
                 <h2 style={{ color: '#17416F', textTransform: 'uppercase', fontWeight: 700, fontSize:'30px' }}>Our mission</h2>
@@ -126,10 +137,10 @@ const Home = () => {
         <br />
         <section className="container-fluid py-5" style={{ backgroundColor: '#17416F', marginTop: '-1.5rem' }}>
             <div className="text-white py-4">
-                <h2 className="text-center" style={{fontSize:'30px', fontWeight:'700'}}>Our vision</h2>
+                <h2 className="text-center" style={{fontSize:'clamp(25px, 8vw, 36px)', fontWeight:'700'}}>Our vision</h2>
                 <br/>
                 <div className="d-flex justify-content-center">
-                <p className="text-center" style={{width:'30%'}}>
+                <p className="text-center" style={{width:'40%'}}>
                     Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio. Proin sed nunc quis ex faucibus volutpat.
                 </p>
                 </div>
@@ -139,17 +150,19 @@ const Home = () => {
         <>
             {/* Our Values Section */}
             <section className="container mt-5">
-                <h2 style={{ color: '#17416F', fontSize: '36px', fontWeight: '700' }}> Our Values </h2>
+                <h2 style={{ color: '#17416F', fontSize: 'clamp(25px, 8vw, 36px)', fontWeight: '700' }}> Our Values </h2>
                 <br/>
                 <div className="row mt-4">
                 {values.map((value, index) => (
                     <div key={index} className="col-12 col-md-6 col-lg-3 mb-4 mx-auto">
-                        <div className="p-3 text-white cvc" style={{ backgroundColor: '#13AB9C', borderTopRightRadius: '30px', height:'280px' }}>
-                            <p style={{ fontSize: '20px' }}><strong>{value.title}</strong></p>
-                            <p style={{ fontWeight: '100' }}>{value.description}</p>
-                            <p className="text-end" style={{ fontWeight: '700', fontSize: '5rem', color: '#FFFFFF4D', marginBottom: '0px' }}>
-                            {index + 1}
-                            </p>
+                        <div className="p-3 text-white cvc position-relative" style={{ backgroundColor: '#13AB9C', borderTopRightRadius: '30px', height:'280px' }}>
+                            <p style={{ fontSize: 'clamp(18px, 8vw, 24px)' }}><strong>{value.title}</strong></p>
+                            <p className='mt-2' style={{ fontWeight: '400' }}>{value.description}</p>
+                            <div className='edn'>
+                                <p className="" style={{ fontWeight: '700', fontSize: '5rem', color: '#FFFFFF4D', marginBottom: '0px' }}>
+                                {index + 1}
+                                </p>
+                            </div>
                         </div>
                     </div>
                 ))}
@@ -163,31 +176,34 @@ const Home = () => {
             </h2>
             <br/>
             <div className="mt-4 hero">
-                <div className="p-5 flx" style={{ borderTopRightRadius: '30px', backgroundColor: '#17416F', width: '25vw', height:'50vh' }}>
-                    <div>
-                        <p style={{ color: '#13AB9C', fontWeight: '700', fontSize:'24px' }}>{currentYear}</p>
-                        <p className="text-white" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize:'30px' }}>
+                <div className="p-5 flx" style={{ borderTopRightRadius: '30px', backgroundColor: '#17416F', width: '40vw', height:'50vh' }}>
+                    <div className='position-relative'>
+                        <p style={{ color: '#13AB9C', fontWeight: '700', fontSize:'clamp(22px, 8vw, 28px)' }}>{currentYear}</p>
+                        <p className="text-white" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize:'clamp(30px, 8vw, 40px)' }}>
                             {yearsData[currentYear].title}
                         </p>
-                        <p style={{ fontWeight: '400', color: 'white' }}>{yearsData[currentYear].description}</p>
+                        <p style={{ fontWeight: '200', color: 'white', fontSize:'clamp(18px, 8vw, 25px)' }}>{yearsData[currentYear].description}</p>
+                        <div className='contpos1'>
+                            <img src={Mask2} alt="Wellness Programs" className="img-fluid" style={{width:'80%'}} />
+                        </div>
                     </div>
                 </div>
             </div>
-
+            <br/><br/>
             <div className="d-flex justify-content-center align-items-center timeline-container">
                 <div className="arrow" onClick={() => navigate(-1)}><i className="bi bi-chevron-left"></i></div>
                 <div className="timeline d-flex align-items-center">
                 <div className="line"></div>
-                {years.map((year) => (
-                    <div 
-                    key={year} 
-                    className={`year ${currentYear === year ? 'active' : ''}`} 
-                    onClick={() => changeYear(year)} 
-                    data-year={year}
-                    >
-                    <span>{year}</span>
-                    </div>
-                ))}
+                    {years.map((year) => (
+                        <div 
+                        key={year} 
+                        className={`year ${currentYear === year ? 'active' : ''}`} 
+                        onClick={() => changeYear(year)} 
+                        data-year={year}
+                        >
+                        <span>{year}</span>
+                        </div>
+                    ))}
                 </div>
                 <div className="arrow" onClick={() => navigate(1)}><i className="bi bi-chevron-right"></i></div>
             </div>

@@ -280,7 +280,7 @@ body{
 .man {
   position: absolute;
   top: -5rem;
-  left: -15rem;
+  left: -12rem;
   width: 500px;
   height: auto;
   transition: all 0.3s ease;
@@ -310,20 +310,24 @@ body{
   margin-top: 100px;
 }
 .footer-title {
-  font-size: clamp(16px, 8vw, 20px);
+  font-size: clamp(20px, 8vw, 25px);
   color: #17416F;
 }
 
 .footer-text {
   color: #17416F;
+  font-size: clamp(16px, 8vw, 20px);
 }
 
 .social-icon {
-  font-size: 20px;
+  font-size: clamp(16px, 8vw, 25px);
   color: #17416F;
   margin-right: 10px;
 }
-
+.copyright-text{
+  font-size: clamp(16px, 8vw, 20px);
+  color: #17416F;
+}
 .separator {
   border-bottom: 2px solid black;
 }
@@ -380,4 +384,20 @@ body{
 }
 .back:hover{
   background-color: #17416F !important;
+}
+
+.edn{
+  position: absolute;
+  top: 80%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+
+.fifth-column .scur {
+  margin-top: -4.5rem !important;
+}
+@media (max-width: 1000px) {
+  .fifth-column .scur {
+    margin-top: 0rem !important;
+  }
 }

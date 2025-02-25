@@ -54,7 +54,7 @@
     justify-content: space-between;
     position: relative;
     flex-grow: 1;
-    padding: 10px 20px;
+    padding: 10px 9.5rem;
   }
   
   .line {
@@ -109,6 +109,7 @@
   @media (max-width: 768px) {
     .timeline {
       flex-wrap: wrap;
+      padding: 10px 10px;
     }
   
     .year {
@@ -150,13 +151,14 @@
 
   /* Meet */
   .modal-content{
-    --bs-modal-width: 40vw !important;
-    --bs-modal-padding: 0rem;
     --bs-modal-bg: none;
     --bs-modal-border-width: none;
   }
   .modal {
     background: #17416FCC; /* Assombrit l'arrière-plan */
+    --bs-modal-width: 45vw !important;
+    display: flex;
+    justify-content: center;
   }
   .color{
     background-color: white;
@@ -164,25 +166,37 @@
     border-top-right-radius: 50px;
     width: 35vw;
   }
+  .color1{
+    background-color: white;
+    padding: 30px;
+    border-top-right-radius: 50px;
+    width: 40vw;
+  }
   .poop{
     position: absolute;
     bottom: -15%;
     left: 20%;
     transform: translateX(-50%);
   }
-  .col1{
+  /* .col1{
     position: absolute;
     top: 5px;
     right: -10px;
   }
-  @media (max-width: 575px) {
-    .col1{
-      position: absolute;
-      top: 5px;
-      right: 5%;
+  .col2{
+    position: absolute;
+    top: 15px;
+    right: -8rem;
+  } */
+  @media (max-width: 855px) {
+    .modal {
+      --bs-modal-width: 100% !important;
     }
     .color {
-      width: 90vw;
+      width: 90vw !important;
+    }
+    .color1 {
+      width: 90vw ;
     }
   }
 
@@ -194,27 +208,43 @@
 
   .search-tabs {
     display: flex;
-    /* justify-content: center; */
+    justify-content: space-between;
     /* margin-bottom: 20px; */
     list-style: none;
     padding: 0;
     border-bottom: 1px solid #555b61;
   }
 
-  .search-item {
+  /* .search-item {
     margin-right: 15px;
-  }
+  } */
 
   .search-link {
     font-weight: bold;
+    font-size: 24px;
     color: #555;
+    width: 5rem;
     text-decoration: none;
-    padding: 10px 20px;
+    display: inline-block;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  .search-link1 {
+    font-weight: bold;
+    font-size: 24px;
+    color: #555;
+    width: 100%;
+    text-decoration: none;
     display: inline-block;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   .search-link.active {
+    background-color: #fff;
+    color: #13AB9C;
+    border-bottom: 2px solid #13AB9C;
+    width: 10rem;
+  }
+  .search-link1.active {
     background-color: #fff;
     color: #13AB9C;
     border-bottom: 2px solid #13AB9C;
@@ -224,12 +254,29 @@
   .search-link:hover {
     color: #13AB9C;
     border-bottom: 2px solid #13AB9C;
+    width: 10rem;
   }
 
   .search-content {
     background-color: #f8f9fa;
     padding: 1rem;
     margin-top: 2rem;
+  }
+  .search-content1 {
+    background-color: #f8f9fa;
+    padding: 0px;
+    margin-top: 2rem;
+  }
+  .contpos{
+    position: absolute;
+    bottom: -10%;
+    right: -19%;
+  }
+  .contpos1{
+    position: absolute;
+    top: 120%;
+    left: -5%;
+    transform: translate(-50%, -50%);
   }
   .ppo1{
     width: 80px;
@@ -287,7 +334,7 @@
   }
   
   .step-item {
-    width: 120px; /* Équivalent de w-48 */
+    width: 160px; /* Équivalent de w-48 */
     text-align: center;
     z-index: 10;
   }
