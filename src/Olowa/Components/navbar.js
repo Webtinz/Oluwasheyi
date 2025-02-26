@@ -6,15 +6,54 @@ import $ from 'jquery';
 import 'select2';
 import 'select2/dist/css/select2.min.css';
 import { Link } from "react-router-dom";
+import { getAllContents } from '../../services/content.service';
 
-const Navbar = () => {
+const Navbar = ({ onLanguageChange }) => {
   const [isMenuActive, setIsMenuActive] = useState(false);
   const languageSelectRef = useRef(null);
+  const savedLanguage = localStorage.getItem("selectedLanguage") || "fr";
+  const [selectedLanguage, setSelectedLanguage] = useState(savedLanguage);
+  const [contents, setContents] = useState();
+
+  // Handle language change and store the selected language in localStorage
+  const handleLanguageChange = (language) => {
+    setSelectedLanguage(language);
+    localStorage.setItem("selectedLanguage", language); // Save to localStorage
+    if (onLanguageChange) {
+      onLanguageChange(language);
+    }
+  };
+
+  // Get contents on component mount
+  useEffect(() => {
+    const fetchContents = async () => {
+      try {
+        const savedContents = localStorage.getItem("contents");
+        if (savedContents) {
+          setContents(JSON.parse(savedContents));
+        } else {
+          // Fetch contents if not in localStorage
+          const response = await getAllContents();
+          setContents(response.data);
+          localStorage.setItem("contents", JSON.stringify(response.data));
+        }
+      } catch (error) {
+        console.error('Failed to fetch contents:', error.message || error);
+      }
+    };
+    fetchContents();
+  }, []);
+
+  useEffect(() => {
+    if (selectedLanguage) {
+      localStorage.setItem("selectedLanguage", selectedLanguage);// Update the language in i18next
+    }
+  }, [selectedLanguage]);
 
   useEffect(() => {
     if (languageSelectRef.current) {
       $(languageSelectRef.current).select2({
-        templateResult: function(state) {
+        templateResult: function (state) {
           if (!state.id) {
             return state.text;
           }
@@ -22,7 +61,7 @@ const Navbar = () => {
             `<span><img src="image/${state.element.value}.png" class="img-flag" style="width: 20px; height: 15px; margin-right: 10px;" /> ${state.text}</span>`
           );
         },
-        templateSelection: function(state) {
+        templateSelection: function (state) {
           return state.text;
         }
       });
@@ -54,27 +93,27 @@ const Navbar = () => {
 
           {/* Menu Section */}
           <div className={`menu ${isMenuActive ? 'active' : ''}`} id="menu">
-            <ul className='list-unstyled' style={{lineHeight:'45px'}}>
+            <ul className='list-unstyled' style={{ lineHeight: '45px' }}>
               <li>
-                  <Link to="/about" className="text-white" style={{fontWeight:'700', fontSize:'24px', textTransform:'uppercase'}}>About us</Link>
+                <Link to="/about" className="text-white" style={{ fontWeight: '700', fontSize: '24px', textTransform: 'uppercase' }}>{selectedLanguage === 'fr' ? contents?.home_page_banner_link1.content_fr : contents?.home_page_banner_link1.content_en}</Link>
               </li>
               <li>
-                <Link to="/community" style={{ textTransform: 'uppercase',fontWeight:'700', fontSize:'24px', }}>Community</Link>
+                <Link to="/community" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>Community</Link>
               </li>
               <li>
-                <Link to="/meet" style={{ textTransform: 'uppercase',fontWeight:'700', fontSize:'24px', }}>Meet</Link>
+                <Link to="/meet" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>Meet</Link>
               </li>
               <li>
-                <Link to="/department" style={{ textTransform: 'uppercase',fontWeight:'700', fontSize:'24px', }}>Departements</Link>
+                <Link to="/department" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>Departements</Link>
               </li>
               <li>
-                <Link to="/testimonial" style={{ textTransform: 'uppercase',fontWeight:'700', fontSize:'24px', }}>Testimonials</Link>
+                <Link to="/testimonial" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>Testimonials</Link>
               </li>
               <li>
-                <Link to="/service" style={{ textTransform: 'uppercase',fontWeight:'700', fontSize:'24px', }}>Service</Link>
+                <Link to="/service" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>Service</Link>
               </li>
               <li>
-                <Link to="/sugery" style={{ textTransform: 'uppercase',fontWeight:'700', fontSize:'24px', }}>Service Sugery</Link>
+                <Link to="/sugery" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>Service Sugery</Link>
               </li>
             </ul>
 
@@ -95,9 +134,9 @@ const Navbar = () => {
                   <div>
                     <Link to="/donate"
                       className="btn btn-white px-5"
-                      style={{ backgroundColor: '#13AB9C', color: 'white', fontWeight: 700, fontSize:'22px' }}
+                      style={{ backgroundColor: '#13AB9C', color: 'white', fontWeight: 700, fontSize: '22px' }}
                     >
-                      Donate
+                      {selectedLanguage === 'fr' ? contents?.home_page_header_donate.content_fr : contents?.home_page_header_donate.content_en}
                     </Link>
                   </div>
                   {/* <div className="ms-2">
@@ -115,7 +154,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          
+
           {/* Desktop View */}
           <div className="d-none d-lg-block">
             <div className="d-flex">
@@ -136,16 +175,21 @@ const Navbar = () => {
                     className="btn btn-white px-4"
                     style={{ backgroundColor: '#13AB9C', color: 'white', fontWeight: 600 }}
                   >
-                    Donate
+                    {selectedLanguage === 'fr' ? contents?.home_page_header_donate.content_fr : contents?.home_page_header_donate.content_en}
                   </Link>
                 </div>
                 <div className="ms-2">
-                  <select className="form-select" id="languageSelect" aria-label="Small select example">
+                  <select className="form-select"
+                    id="languageSelect"
+                    onChange={(e) => handleLanguageChange(e.target.value)}
+                    // ref={languageSelectRef}
+                    value={selectedLanguage}
+                    aria-label="Small select example">
                     <option value="en" selected>
-                       EN
+                      En
                     </option>
                     <option value="fr">
-                       Fr
+                      Fr
                     </option>
                   </select>
                 </div>
