@@ -151,7 +151,7 @@ const DoctorCarousel = () => {
 
   
   return (
-    <div className="container mt-4">
+    <div className="container mt-4 meetteam">
       <h2 className="text-center text-2xl font-bold uppercase mb-8" style={{fontSize:'36px', color:'#17416F'}}>
         {selectedLanguage === 'fr' ? contents?.home_page_team_title.content_fr : contents?.home_page_team_title.content_en}
       </h2>

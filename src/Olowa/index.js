@@ -56,10 +56,11 @@ const Home = () => {
             <br /><br />
             <div><Community /></div>
             <br /><br />
-            <div className="container">
+            <div className="container virtualtoursect">
+                {/* <span className="mb-4 d-block w-100" style={{ borderBottom: "1px solid #17416F", padding: '0rem 0rem' }}></span> */}
                 <h2
                     className="text-center"
-                    style={{ color: '#17416F', textTransform: 'uppercase', fontWeight: '700', fontSize: '36px' }}
+                    style={{ color: '#17416F', textTransform: 'uppercase', fontWeight: '700', fontSize: '36px', marginBottom: '2%' }}
                 >
                     {selectedLanguage === 'fr' ? contents?.home_page_virtual_tour_title.content_fr : contents?.home_page_virtual_tour_title.content_en}
                 </h2>
@@ -67,20 +68,32 @@ const Home = () => {
                 <br />
                 <div className="row">
                     <div className="col-md-5 order-2 order-md-1" style={{ paddingLeft: 0, paddingRight: 0 }}>
-                        <div className="carousel-content d-flex justify-content-center align-items-center" style={{ background: '#17416F' }}>
+                        <div className="carousel-content d-flex justify-content-center align-items-center" style={{
+                            background: '#17416F',
+                            borderTopRightRadius: '50px',
+                            position: 'relative'
+                        }}>
                             <div className="wm" style={{ textAlign: 'start' }}>
-                                <h2 className="text-white" style={{ fontWeight: 700, fontSize: '36px', textTransform:'uppercase' }}>
-                                    {selectedLanguage === 'fr' ? contents?.	home_page_virtual_tour_desc.content_fr : contents?.	home_page_virtual_tour_desc.content_en}
+                                <h2 className="text-white">
+                                    Take a Virtual <br />Tour of Our <br />Facilities
                                 </h2>
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-7 image-container order-1 order-md-2" style={{ paddingLeft: 0, paddingRight: 0 }}>
-                        <div>
-                            <img src={Img} alt="Image de la clinique" className="image-fluid w-100" />
-                        </div>
+
+                    <div className="col-md-7 order-1 order-md-2" style={{
+                        paddingLeft: 0,
+                        paddingRight: 0,
+                        backgroundImage: `url(${Img})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        marginLeft: '-50px', // Pour couvrir l'espace créé par le radius
+                        paddingLeft: '50px'  // Pour compenser le margin négatif
+                    }}>
+                        <div style={{ Height: '100px' }}></div>
                     </div>
                 </div>
+
             </div>
             <br /><br />
             <div>

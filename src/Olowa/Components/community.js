@@ -101,7 +101,7 @@ const contentData = [
     description:
       "Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo.Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio. Proin sed nunc quis ex faucibus volutpat. Quisque faucibus in quam quis lobortis. Donec metus neque, euismod a volutpat eget, porta sed ligula. Phasellus consequat risus sit amet mi dapibus vehicula.",
     image: Img,
-    borderRadius: "30px 0 0 0",
+    borderRadius: "0 30px 0 0",
     positionClass: "position",
     imageFirst: true,
   },
@@ -110,7 +110,7 @@ const contentData = [
     description:
       "Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo.Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio. Proin sed nunc quis ex faucibus volutpat. Quisque faucibus in quam quis lobortis. Donec metus neque, euismod a volutpat eget, porta sed ligula. Phasellus consequat risus sit amet mi dapibus vehicula.",
     image: Img1,
-    borderRadius: "0 30px 0 0",
+    borderRadius: "30px 0 0 0",
     positionClass: "position1",
     imageFirst: false,
   },
@@ -119,7 +119,7 @@ const contentData = [
     description:
       "Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo.Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio. Proin sed nunc quis ex faucibus volutpat. Quisque faucibus in quam quis lobortis. Donec metus neque, euismod a volutpat eget, porta sed ligula. Phasellus consequat risus sit amet mi dapibus vehicula.",
     image: Img2,
-    borderRadius: "30px 0 0 0",
+    borderRadius: "0 30px  0 0",
     positionClass: "position",
     imageFirst: true,
   },
@@ -128,7 +128,7 @@ const contentData = [
     description:
       "Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo.Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio. Proin sed nunc quis ex faucibus volutpat. Quisque faucibus in quam quis lobortis. Donec metus neque, euismod a volutpat eget, porta sed ligula. Phasellus consequat risus sit amet mi dapibus vehicula.",
     image: Img3,
-    borderRadius: "0 30px 0 0",
+    borderRadius: "30px 0 0 0",
     positionClass: "position1",
     imageFirst: false,
   },
@@ -137,7 +137,7 @@ const contentData = [
     description:
       "Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo.Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio. Proin sed nunc quis ex faucibus volutpat. Quisque faucibus in quam quis lobortis. Donec metus neque, euismod a volutpat eget, porta sed ligula. Phasellus consequat risus sit amet mi dapibus vehicula.",
     image: Img4,
-    borderRadius: "30px 0 0 0",
+    borderRadius: "0 30px  0 0",
     positionClass: "position",
     imageFirst: true,
   },
