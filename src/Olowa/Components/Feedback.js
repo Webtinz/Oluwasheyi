@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from 'react';
 import "../index.css"; // Fichier CSS pour les styles
 import nurseImage from "../../assets/male-nurse-working-clinic-b 1.png"; // Importation de l'image
 import { Star } from "lucide-react";
 import Select from './select';
+import { getAllContents } from '../../services/content.service';
+import LanguageContext from '../../context/LanguageContext';
 
 const FeedbackSection = () => {
   const [selectedDoctor, setSelectedDoctor] = useState(null);
@@ -28,12 +30,37 @@ const FeedbackSection = () => {
     }));
   };
 
+
+  const {selectedLanguage} = useContext(LanguageContext);
+  const [contents, setContents] = useState();
+
+  // Get contents on component mount
+  useEffect(() => {
+      const fetchContents = async () => {
+          try {
+              const savedContents = localStorage.getItem("contents");
+              if (savedContents) {
+                  setContents(JSON.parse(savedContents));
+              } else {
+                  // Fetch contents if not in localStorage
+                  const response = await getAllContents();
+                  setContents(response.data);
+                  localStorage.setItem("contents", JSON.stringify(response.data));
+              }
+          } catch (error) {
+              console.error('Failed to fetch contents:', error.message || error);
+          }
+      };
+      fetchContents();
+  }, []);
+
+
   return (
     <section className="container-fluid py-5 Big" style={{ backgroundColor: "#13AB9C" }}>
       <div className="container">
         <div className="row" style={{marginLeft:'20%'}}>
           <div className="col-lg-7 align-item-center">
-            <h2 className="text-white" style={{fontSize:'clamp(25px, 8vw, 38px)', fontWeight:'700'}}>Feedback and Suggestion</h2>
+            <h2 className="text-white" style={{fontSize:'clamp(25px, 8vw, 35px)', fontWeight:'700'}}>{selectedLanguage === 'fr' ? contents?.home_page_feedback_title.content_fr : contents?.home_page_feedback_title.content_en}</h2>
             <br /> 
             <a
               href="#"
@@ -50,7 +77,7 @@ const FeedbackSection = () => {
                   });
                 }}
               >
-                We value your input
+                {selectedLanguage === 'fr' ? contents?.home_page_feedback_button.content_fr : contents?.home_page_feedback_button.content_en}
             </a>
           </div>
           <div className="col-lg-5 position-relative d-none d-lg-block">

@@ -57,7 +57,9 @@ const WelcomeSection = () => {
         <div className="col-lg-6 mb-3 mx-auto px-5">
           <div className="p-4 trt">
             <h2 className="mt-3 section-title" style={{fontSize:'36px'}}>
-            {selectedLanguage === 'fr' ? contents?.home_page_welcome_title.content_fr : contents?.home_page_welcome_title.content_en}
+            {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                  __html:contents?.home_page_welcome_title.content_fr  }} />) : (<div dangerouslySetInnerHTML={{
+                    __html:contents?.home_page_welcome_title.content_en  }} />)}
               {/* Welcome to <br/> Clinique Polyvalente <br/> OLUWA SHEYI */}
             </h2>
             <br/>
@@ -84,7 +86,14 @@ const WelcomeSection = () => {
             {/* Bouton Learn More / Read Less */}
             <div className="mt-3">
               <button className="btn btn-w px-4 py-2 toggle-button" onClick={toggleContent}>
-                {isExpanded ? "Read Less " : "Learn More "}
+              {isExpanded 
+                  ? (selectedLanguage === 'fr' 
+                      ? contents?.home_page_welcome_button.content_fr 
+                      : contents?.home_page_welcome_button.content_en) 
+                  : (selectedLanguage === 'fr' 
+                      ? contents?.home_page_welcome_button.content_fr 
+                      : contents?.home_page_welcome_button.content_en)}
+
                 <i className={`bi ${isExpanded ? "bi-chevron-up" : "bi-chevron-down"} ms-1`}></i>
               </button>
             </div>
