@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import './navbar.css'; // Importez le CSS pour votre navbar
 import Img from '../../assets/image 1.svg';
 import Img1 from '../../assets/hamburger-menu.svg';
@@ -7,21 +7,17 @@ import 'select2';
 import 'select2/dist/css/select2.min.css';
 import { Link } from "react-router-dom";
 import { getAllContents } from '../../services/content.service';
+import LanguageContext from '../../context/LanguageContext';
 
-const Navbar = ({ onLanguageChange }) => {
+const Navbar = () => {
   const [isMenuActive, setIsMenuActive] = useState(false);
   const languageSelectRef = useRef(null);
-  const savedLanguage = localStorage.getItem("selectedLanguage") || "fr";
-  const [selectedLanguage, setSelectedLanguage] = useState(savedLanguage);
+  const {selectedLanguage, setSelectedLanguage} = useContext(LanguageContext);
   const [contents, setContents] = useState();
 
   // Handle language change and store the selected language in localStorage
   const handleLanguageChange = (language) => {
     setSelectedLanguage(language);
-    localStorage.setItem("selectedLanguage", language); // Save to localStorage
-    if (onLanguageChange) {
-      onLanguageChange(language);
-    }
   };
 
   // Get contents on component mount
@@ -44,11 +40,6 @@ const Navbar = ({ onLanguageChange }) => {
     fetchContents();
   }, []);
 
-  useEffect(() => {
-    if (selectedLanguage) {
-      localStorage.setItem("selectedLanguage", selectedLanguage);// Update the language in i18next
-    }
-  }, [selectedLanguage]);
 
   useEffect(() => {
     if (languageSelectRef.current) {
@@ -71,7 +62,6 @@ const Navbar = ({ onLanguageChange }) => {
   const toggleMenu = () => {
     setIsMenuActive(!isMenuActive);
   };
-
 
   return (
     <section className="container-fluid">

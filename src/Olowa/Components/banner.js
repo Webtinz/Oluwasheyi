@@ -1,12 +1,12 @@
-import { React, useEffect, useState } from 'react';
+import { React, useContext, useEffect, useState } from 'react';
 import '../index.css'
 import Mask1Image from '../../assets/Mask1.png';
 import { Link } from "react-router-dom";
 import { getAllContents } from '../../services/content.service';
+import LanguageContext from '../../context/LanguageContext';
 
 const About = () => {
-    const savedLanguage = localStorage.getItem("selectedLanguage") || "fr";
-    const [selectedLanguage, setSelectedLanguage] = useState(savedLanguage);
+    const {selectedLanguage} = useContext(LanguageContext);
     const [contents, setContents] = useState();
 
     // Get contents on component mount
@@ -28,6 +28,7 @@ const About = () => {
         };
         fetchContents();
     }, []);
+    
     return (
         <div className="container-fluid">
             <div className="row align-items-center">

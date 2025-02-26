@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from "react-router-dom";
 import './index.css'
 import Navbar from "./Components/navbar";
@@ -18,10 +18,11 @@ import Img from '../assets/Mask1.png';
 import G3Image from "../assets/G3.png"; // Assure-toi d’avoir les images dans le bon dossier
 import Group1Image from "../assets/Group1.png";
 import { getAllContents } from '../services/content.service';
+import LanguageContext from '../context/LanguageContext';
 
 
 const Home = () => {
-    const [selectedLanguage, setSelectedLanguage] = useState(localStorage.getItem("selectedLanguage") || "en");
+    const {selectedLanguage} = useContext(LanguageContext);
     const [contents, setContents] = useState();
 
     // Get contents on component mount
@@ -46,7 +47,7 @@ const Home = () => {
 
     return (
         <div className="container-fluid">
-            <div><Navbar onLanguageChange={setSelectedLanguage} /></div>
+            <div><Navbar /></div>
             <div><Banner /></div>
             <br /><br />
             <div><OwlCarousel /></div>
