@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Logo from '../../assets/76.png';
 import Msk from '../../assets/Fr.png';
 import Ic from '../../assets/11d.png';
+import { getAllContents } from '../../services/content.service';
+import LanguageContext from '../../context/LanguageContext';
 
 const testimonials = [
   {
@@ -67,13 +69,36 @@ const PatientTestimonials = () => {
     setActiveButton('next');
   };
 
+  const {selectedLanguage} = useContext(LanguageContext);
+  const [contents, setContents] = useState();
+
+  // Get contents on component mount
+  useEffect(() => {
+      const fetchContents = async () => {
+          try {
+              const savedContents = localStorage.getItem("contents");
+              if (savedContents) {
+                  setContents(JSON.parse(savedContents));
+              } else {
+                  // Fetch contents if not in localStorage
+                  const response = await getAllContents();
+                  setContents(response.data);
+                  localStorage.setItem("contents", JSON.stringify(response.data));
+              }
+          } catch (error) {
+              console.error('Failed to fetch contents:', error.message || error);
+          }
+      };
+      fetchContents();
+  }, []);
+
   return (
     <div className='container-fluid py-5' style={{background:' #F6F6F6',paddingLeft:'0px',paddingRight:'0px'}}>
         <div className='container p-3'>
             <div className="flex flex-col md:flex-row gap-8 p-6">
                 <div className="md:w-1/4">
-                    <h2 className="text-2xl font-bold mb-4" style={{fontSize:'36px',color:'#17416F'}}>
-                      WHAT OUR PATIENTS ARE SAYING
+                    <h2 className="text-2xl font-bold mb-4" style={{fontSize:'36px',color:'#17416F', textTransform:'uppercase'}}>
+                      {selectedLanguage === 'fr' ? contents?.home_page_testimonials_title.content_fr : contents?.home_page_testimonials_title.content_en}
                     </h2>
                     <div className="flex gap-2">
                       <button

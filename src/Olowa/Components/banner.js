@@ -1,4 +1,4 @@
-import { React, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import '../index.css'
 import Mask1Image from '../../assets/Mask1.png';
 import { Link } from "react-router-dom";

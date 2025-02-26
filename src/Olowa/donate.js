@@ -109,6 +109,7 @@ const Home = () => {
                 <div className="position-absolute top-0 end-0">
                     <img src={Mask1} alt="" />
                 </div>
+            </div>
             </section>
             <br />
             <section className="container mt-4">

@@ -61,7 +61,7 @@ const Home = () => {
                     className="text-center"
                     style={{ color: '#17416F', textTransform: 'uppercase', fontWeight: '700', fontSize: '36px' }}
                 >
-                    360 Virtual tour
+                    {selectedLanguage === 'fr' ? contents?.home_page_virtual_tour_title.content_fr : contents?.home_page_virtual_tour_title.content_en}
                 </h2>
                 <br />
                 <br />
@@ -69,8 +69,8 @@ const Home = () => {
                     <div className="col-md-5 order-2 order-md-1" style={{ paddingLeft: 0, paddingRight: 0 }}>
                         <div className="carousel-content d-flex justify-content-center align-items-center" style={{ background: '#17416F' }}>
                             <div className="wm" style={{ textAlign: 'start' }}>
-                                <h2 className="text-white" style={{ fontWeight: 700, fontSize: '36px' }}>
-                                    Take a Virtual Tour of Our Facilities
+                                <h2 className="text-white" style={{ fontWeight: 700, fontSize: '36px', textTransform:'uppercase' }}>
+                                    {selectedLanguage === 'fr' ? contents?.	home_page_virtual_tour_desc.content_fr : contents?.	home_page_virtual_tour_desc.content_en}
                                 </h2>
                             </div>
                         </div>
@@ -101,9 +101,9 @@ const Home = () => {
                         </div>
                         <div className="col-lg-4 mb-3 mx-auto align-self-center order-1 order-lg-2" style={{ padding: "0px" }}>
                             <div className="p-3">
-                                <h2 className="text-white text-uppercase fw-bold" style={{ fontSize: '30px' }}>patient portal</h2>
+                                <h2 className="text-white text-uppercase fw-bold" style={{ fontSize: '30px' }}>{selectedLanguage === 'fr' ? contents?.home_page_banner_link4.content_fr : contents?.home_page_banner_link4.content_en}</h2>
                                 <p className="mt-3 text-white text-uppercase fw-light">
-                                    Comprehensive care, cutting-edge technology, and a compassionate team
+                                    {selectedLanguage === 'fr' ? contents?.home_page_banner_desc_1.content_fr : contents?.home_page_banner_desc_1.content_en}
                                 </p>
                                 <div className="mt-3">
                                     <button
@@ -111,7 +111,7 @@ const Home = () => {
                                         style={{ backgroundColor: "#13AB9C", padding: "10px 25px" }}
                                         onClick={() => (window.location.href = "Meet.html")}
                                     >
-                                        Login Patient Portal
+                                       {selectedLanguage === 'fr' ? contents?.home_page_patient_portal_button.content_fr : contents?.home_page_patient_portal_button.content_en}
                                     </button>
                                 </div>
                             </div>
@@ -131,7 +131,7 @@ const Home = () => {
             <div>
                 <h2 class="text-center"
                     style={{ textTransform: 'uppercase', color: '#17416F', fontWeight: '700', fontSize: '36px' }}>
-                    equipment Gallery
+                        {selectedLanguage === 'fr' ? contents?.home_page_equipment_title.content_fr : contents?.home_page_equipment_title.content_en}
                 </h2>
                 <Galery />
             </div>

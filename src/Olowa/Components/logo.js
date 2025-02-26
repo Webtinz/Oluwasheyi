@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import "../index";
 import Img from '../../assets/image 7.png';
@@ -7,6 +7,8 @@ import Img2 from '../../assets/image 8.png';
 import Img3 from '../../assets/image 10.png';
 import Img4 from '../../assets/image 9.png';
 import Img5 from '../../assets/image 11.png';
+import { getAllContents } from '../../services/content.service';
+import LanguageContext from '../../context/LanguageContext';
 
 const logos = [
   { id: 1, src: Img, alt: 'Red Circle Logo' },
@@ -44,6 +46,29 @@ const LogoCarousel = () => {
     setActiveButton("prev");
   };
 
+  const {selectedLanguage} = useContext(LanguageContext);
+  const [contents, setContents] = useState();
+
+  // Get contents on component mount
+  useEffect(() => {
+      const fetchContents = async () => {
+          try {
+              const savedContents = localStorage.getItem("contents");
+              if (savedContents) {
+                  setContents(JSON.parse(savedContents));
+              } else {
+                  // Fetch contents if not in localStorage
+                  const response = await getAllContents();
+                  setContents(response.data);
+                  localStorage.setItem("contents", JSON.stringify(response.data));
+              }
+          } catch (error) {
+              console.error('Failed to fetch contents:', error.message || error);
+          }
+      };
+      fetchContents();
+  }, []);
+
   return (
     <div className="container">
       <div className="d-flex align-items-center ms-md-5 ms-0">
@@ -51,7 +76,7 @@ const LogoCarousel = () => {
           className="position-relative title-certifications" 
           style={{ textTransform: "uppercase", fontSize: '30px', fontWeight: '700' }}
         >
-          community engagement
+          {selectedLanguage === 'fr' ? contents?.communoty_page_title.content_fr : contents?.communoty_page_title.content_en}
         </h1>
       </div>
       <br/>

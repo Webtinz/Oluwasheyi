@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from "react-router-dom";
 import Img1 from '../../assets/o1.png';
 import Img2 from '../../assets/o2.png';
 import Img3 from '../../assets/o3.png';
 import '../index.css';
-
+import { getAllContents } from '../../services/content.service';
+import LanguageContext from '../../context/LanguageContext';
 const ServicesCarousel = () => {
   const services = [
     {
@@ -130,12 +131,35 @@ const ServicesCarousel = () => {
     return animationDirection === 'next' ? 'slide-left' : 'slide-right';
   };
 
+  const {selectedLanguage} = useContext(LanguageContext);
+  const [contents, setContents] = useState();
+
+  // Get contents on component mount
+  useEffect(() => {
+      const fetchContents = async () => {
+          try {
+              const savedContents = localStorage.getItem("contents");
+              if (savedContents) {
+                  setContents(JSON.parse(savedContents));
+              } else {
+                  // Fetch contents if not in localStorage
+                  const response = await getAllContents();
+                  setContents(response.data);
+                  localStorage.setItem("contents", JSON.stringify(response.data));
+              }
+          } catch (error) {
+              console.error('Failed to fetch contents:', error.message || error);
+          }
+      };
+      fetchContents();
+  }, []);
+
   return (
     <div className="container mx-auto px-4">
       {/* Header avec titre et boutons de navigation */}
       <div className="flex justify-between items-center gap-4 relative mb-8" style={{margin:'30px 10px'}}>
         <div>
-          <h2 className="text-2xl font-bold" style={{fontSize:'36px', color:'#17416F'}}>OUR SERVICES</h2>
+          <h2 className="text-2xl font-bold" style={{fontSize:'36px', color:'#17416F'}}>{selectedLanguage === 'fr' ? contents?.home_page_banner_link3.content_fr : contents?.home_page_banner_link3.content_en}</h2>
         </div>
         <div className="flex gap-4">
           <button

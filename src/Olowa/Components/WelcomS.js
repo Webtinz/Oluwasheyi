@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from 'react';
 import "../index.css"; // Fichier CSS pour les styles
 import img1 from "../../assets/img1.png";
 import img2 from "../../assets/img.png";
 import Mask2 from '../../assets/Fr.png';
+import { getAllContents } from '../../services/content.service';
+import LanguageContext from '../../context/LanguageContext';
 
 const WelcomeSection = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -10,6 +12,30 @@ const WelcomeSection = () => {
   const toggleContent = () => {
     setIsExpanded(!isExpanded);
   };
+
+  const {selectedLanguage} = useContext(LanguageContext);
+  const [contents, setContents] = useState();
+
+  // Get contents on component mount
+  useEffect(() => {
+      const fetchContents = async () => {
+          try {
+              const savedContents = localStorage.getItem("contents");
+              if (savedContents) {
+                  setContents(JSON.parse(savedContents));
+              } else {
+                  // Fetch contents if not in localStorage
+                  const response = await getAllContents();
+                  setContents(response.data);
+                  localStorage.setItem("contents", JSON.stringify(response.data));
+              }
+          } catch (error) {
+              console.error('Failed to fetch contents:', error.message || error);
+          }
+      };
+      fetchContents();
+  }, []);
+
 
   return (
     <section className="mt-4 container">
@@ -31,7 +57,8 @@ const WelcomeSection = () => {
         <div className="col-lg-6 mb-3 mx-auto px-5">
           <div className="p-4 trt">
             <h2 className="mt-3 section-title" style={{fontSize:'36px'}}>
-              Welcome to <br/> Clinique Polyvalente <br/> OLUWA SHEYI
+            {selectedLanguage === 'fr' ? contents?.home_page_welcome_title.content_fr : contents?.home_page_welcome_title.content_en}
+              {/* Welcome to <br/> Clinique Polyvalente <br/> OLUWA SHEYI */}
             </h2>
             <br/>
             <p className="section-text">

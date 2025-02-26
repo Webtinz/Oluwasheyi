@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { getAllContents } from '../../services/content.service';
+import LanguageContext from '../../context/LanguageContext';
 
 // Importez vos images ici
 import Img1 from '../../assets/1.png';
@@ -7,7 +9,9 @@ import Img2 from '../../assets/2.png';
 import Img3 from '../../assets/3.png';
 import Img4 from '../../assets/4.png';
 
+
 const DoctorCard = ({ name, specialty, imageUrl }) => (
+  
   <div className="flex flex-col items-center p-4 min-w-[280px]">
     <div className="relative w-full aspect-square mb-4">
       <img 
@@ -121,11 +125,35 @@ const DoctorCarousel = () => {
   
   // Calculer la largeur d'une carte
   const cardWidth = 100 / maxVisibleCards;
+
+  const {selectedLanguage} = useContext(LanguageContext);
+  const [contents, setContents] = useState();
+
+  // Get contents on component mount
+  useEffect(() => {
+      const fetchContents = async () => {
+          try {
+              const savedContents = localStorage.getItem("contents");
+              if (savedContents) {
+                  setContents(JSON.parse(savedContents));
+              } else {
+                  // Fetch contents if not in localStorage
+                  const response = await getAllContents();
+                  setContents(response.data);
+                  localStorage.setItem("contents", JSON.stringify(response.data));
+              }
+          } catch (error) {
+              console.error('Failed to fetch contents:', error.message || error);
+          }
+      };
+      fetchContents();
+  }, []);
+
   
   return (
     <div className="container mt-4">
       <h2 className="text-center text-2xl font-bold uppercase mb-8" style={{fontSize:'36px', color:'#17416F'}}>
-        Meet the team
+        {selectedLanguage === 'fr' ? contents?.home_page_team_title.content_fr : contents?.home_page_team_title.content_en}
       </h2>
       <div className="relative px-4 mt-4">
         <button onClick={prevSlide} disabled={currentIndex === 0} style={buttonStyle}>

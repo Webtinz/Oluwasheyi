@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from 'react';
 import "../index.css"; // Ajoute un fichier CSS pour le style
 import im1 from "../../assets/im1.png";
 import im2 from "../../assets/im2.png";
 import im3 from "../../assets/im3.png";
 import Mask2 from '../../assets/Fr1.png';
+import { getAllContents } from '../../services/content.service';
+import LanguageContext from '../../context/LanguageContext';
 
 const events = [
   { id: 1, image: im1, day: "10", date: "FEB.25", title: "Cras eleifend gravi mi, eu placerat urn vulputate" },
@@ -12,10 +14,34 @@ const events = [
 ];
 
 const FeaturedEvents = () => {
+  const {selectedLanguage} = useContext(LanguageContext);
+  const [contents, setContents] = useState();
+
+  // Get contents on component mount
+  useEffect(() => {
+      const fetchContents = async () => {
+          try {
+              const savedContents = localStorage.getItem("contents");
+              if (savedContents) {
+                  setContents(JSON.parse(savedContents));
+              } else {
+                  // Fetch contents if not in localStorage
+                  const response = await getAllContents();
+                  setContents(response.data);
+                  localStorage.setItem("contents", JSON.stringify(response.data));
+              }
+          } catch (error) {
+              console.error('Failed to fetch contents:', error.message || error);
+          }
+      };
+      fetchContents();
+  }, []);
+
+
   return (
     <section className="mt-4 container-fluid p-5 position-relative" style={{ backgroundColor: "#17416F", paddingLeft:'0px', paddingRight:'0px' }}>
       <div className="container p-5">
-        <h2 className="text-white text-uppercase ms-3" style={{ fontWeight: 700, fontSize:'36px' }}>Featured Events</h2>
+        <h2 className="text-white text-uppercase ms-3" style={{ fontWeight: 700, fontSize:'36px' }}> {selectedLanguage === 'fr' ? contents?.home_page_event_title.content_fr : contents?.home_page_event_title.content_en}</h2>
         <br/>
         <div className="row mt-2">
           {events.map((event) => (
