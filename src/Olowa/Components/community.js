@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from 'react';
 import "../index";
 import { Link } from "react-router-dom";
 import Img from '../../assets/i1.png';
@@ -7,15 +7,57 @@ import Img2 from '../../assets/i3.png';
 import Img3 from '../../assets/i4.png';
 import Img4 from '../../assets/i5.png';
 import Lg from '../../assets/Group.png';
+import { getAllContents } from '../../services/content.service';
+
 
 const CommunityEngagement = () => {
+    const savedLanguage = localStorage.getItem("selectedLanguage") || "fr";
+    const [selectedLanguage, setSelectedLanguage] = useState(savedLanguage);
+    const [contents, setContents] = useState();
+  
+    // Handle language change and store the selected language in localStorage
+    const handleLanguageChange = (language) => {
+      setSelectedLanguage(language);
+      localStorage.setItem("selectedLanguage", language); // Save to localStorage
+      if (onLanguageChange) {
+        onLanguageChange(language);
+      }
+    };
+  
+    // Get contents on component mount
+    useEffect(() => {
+      const fetchContents = async () => {
+        try {
+          const savedContents = localStorage.getItem("contents");
+          if (savedContents) {
+            setContents(JSON.parse(savedContents));
+          } else {
+            // Fetch contents if not in localStorage
+            const response = await getAllContents();
+            setContents(response.data);
+            localStorage.setItem("contents", JSON.stringify(response.data));
+          }
+        } catch (error) {
+          console.error('Failed to fetch contents:', error.message || error);
+        }
+      };
+      fetchContents();
+    }, []);
+  
+    useEffect(() => {
+      if (selectedLanguage) {
+        localStorage.setItem("selectedLanguage", selectedLanguage);// Update the language in i18next
+      }
+    }, [selectedLanguage]);
+
+
   return (
     <div className="container">
         <div className="d-flex justify-content-center">
             <div style={{ padding: "0 6rem" }}>
                 <div className="d-flex align-items-center">
                 <h1 className="position-relative title-certifications" style={{ textTransform: "uppercase",fontSize:'30px',fontWeight:'700' }}>
-                    community engagement
+                    {selectedLanguage === 'fr' ? contents?.communoty_page_title.content_fr : contents?.communoty_page_title.content_en}
                 </h1>
                 </div>
                 <div className="row mt-4">

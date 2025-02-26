@@ -98,22 +98,22 @@ const Navbar = ({ onLanguageChange }) => {
                 <Link to="/about" className="text-white" style={{ fontWeight: '700', fontSize: '24px', textTransform: 'uppercase' }}>{selectedLanguage === 'fr' ? contents?.home_page_banner_link1.content_fr : contents?.home_page_banner_link1.content_en}</Link>
               </li>
               <li>
-                <Link to="/community" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>Community</Link>
+                <Link to="/community" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>{selectedLanguage === 'fr' ? contents?.home_page_menu_community.content_fr : contents?.home_page_menu_community.content_en}</Link>
               </li>
               <li>
-                <Link to="/meet" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>Meet</Link>
+                <Link to="/meet" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>{selectedLanguage === 'fr' ? contents?.home_page_menu_meet.content_fr : contents?.home_page_menu_meet.content_en}</Link>
               </li>
               <li>
-                <Link to="/department" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>Departements</Link>
+                <Link to="/department" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>{selectedLanguage === 'fr' ? contents?.home_page_menu_departments.content_fr : contents?.home_page_menu_departments.content_en}</Link>
               </li>
               <li>
-                <Link to="/testimonial" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>Testimonials</Link>
+                <Link to="/testimonial" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>{selectedLanguage === 'fr' ? contents?.home_page_menu_Testimonials.content_fr : contents?.home_page_menu_Testimonials.content_en}</Link>
               </li>
               <li>
-                <Link to="/service" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>Service</Link>
+                <Link to="/service" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>{selectedLanguage === 'fr' ? contents?.home_page_menu_Service.content_fr : contents?.home_page_menu_Service.content_en}</Link>
               </li>
               <li>
-                <Link to="/sugery" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>Service Sugery</Link>
+                <Link to="/sugery" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>{selectedLanguage === 'fr' ? contents?.home_page_menu_Sugery.content_fr : contents?.home_page_menu_Sugery.content_en}</Link>
               </li>
             </ul>
 
@@ -162,7 +162,7 @@ const Navbar = ({ onLanguageChange }) => {
                 <input
                   type="search"
                   className="form-control ppoo"
-                  placeholder="Search"
+                  placeholder={selectedLanguage === 'fr' ? contents?.home_page_menu_search.content_fr : contents?.home_page_menu_search.content_en}
                   style={{ border: 'none', borderBottom: '1px solid #0000001A', borderRadius: 0 }}
                 />
                 <a href="" className="text-decoration-none text-dark position-absolute ppo-container">
