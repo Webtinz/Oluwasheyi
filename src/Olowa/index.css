@@ -130,7 +130,7 @@ body{
     background-size: cover;
     background-position: center;
     object-fit: cover;
-    height: 80vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -181,7 +181,7 @@ body{
 .title-certifications::after {
   content: "";
   display: block;
-  width: 53vw; /* La bordure prend toute la largeur du texte */
+  width: 38vw; /* La bordure prend toute la largeur du texte */
   height: 3px; /* Épaisseur de la bordure */
   background-color: #17416F;
   position: absolute;

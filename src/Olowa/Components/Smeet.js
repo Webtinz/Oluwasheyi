@@ -68,6 +68,7 @@ const DoctorCarousel = () => {
 
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [maxVisibleCards, setMaxVisibleCards] = React.useState(4);
+  const [activeButton, setActiveButton] = React.useState(null);
 
   React.useEffect(() => {
     const handleResize = () => {
@@ -85,17 +86,23 @@ const DoctorCarousel = () => {
   const maxIndex = Math.max(0, doctors.length - maxVisibleCards);
 
   const nextSlide = () => {
-    setCurrentIndex(prev => Math.min(prev + 1, maxIndex));
+    const step = 1;
+    setCurrentIndex(prev => Math.min(prev + step, maxIndex));
+    setActiveButton('next');
   };
 
   const prevSlide = () => {
-    setCurrentIndex(prev => Math.max(prev - 1, 0));
+    const step = 1;
+    setCurrentIndex(prev => Math.max(prev - step, 0));
+    setActiveButton('prev');
   };
 
   const goToSlide = (index) => {
     setCurrentIndex(Math.min(Math.max(0, index), maxIndex));
+    setActiveButton(null);
   };
 
+  // Styles de boutons modifiés pour maintenir la couleur après le clic
   const buttonStyle = {
     position: "absolute",
     left: 0,
@@ -105,10 +112,12 @@ const DoctorCarousel = () => {
     borderRadius: "50%",
     padding: "0.5rem",
     color: currentIndex === 0 ? "black" : "white",
-    backgroundColor: currentIndex === 0 ? "#D1D5DB" : "#13AB9C", // Gris si désactivé, sinon vert
+    backgroundColor: currentIndex === 0 ? "#D1D5DB" : 
+                    (activeButton === 'prev' ? "#13AB9C" : "#13AB9C"),
     cursor: currentIndex === 0 ? "not-allowed" : "pointer",
     transition: "background-color 0.3s",
   };
+  
   const buttonStyle1 = {
     position: "absolute",
     right: 0,
@@ -117,8 +126,9 @@ const DoctorCarousel = () => {
     zIndex: 10,
     borderRadius: "50%",
     padding: "0.5rem",
-    color: currentIndex === 0 ? "white" : "black",
-    backgroundColor: currentIndex === 0 ? "#13AB9C" : "#D1D5DB", // Gris si désactivé, sinon vert
+    color: currentIndex >= maxIndex ? "black" : "white",
+    backgroundColor: currentIndex >= maxIndex ? "#D1D5DB" : 
+                    (activeButton === 'next' ? "#13AB9C" : "#13AB9C"),
     cursor: currentIndex >= maxIndex ? "not-allowed" : "pointer",
     transition: "background-color 0.3s",
   };
@@ -149,6 +159,13 @@ const DoctorCarousel = () => {
       fetchContents();
   }, []);
 
+  // Style du conteneur pour que les cartes soient toutes visibles
+  const containerStyle = {
+    width: "100%",
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+  };
   
   return (
     <div className="container mt-4 meetteam">
@@ -156,7 +173,11 @@ const DoctorCarousel = () => {
         {selectedLanguage === 'fr' ? contents?.home_page_team_title.content_fr : contents?.home_page_team_title.content_en}
       </h2>
       <div className="relative px-4 mt-4">
-        <button onClick={prevSlide} disabled={currentIndex === 0} style={buttonStyle}>
+        <button 
+          onClick={prevSlide} 
+          disabled={currentIndex === 0} 
+          style={buttonStyle}
+        >
           <ChevronLeft style={{width:'40px', height:'40px'}} />
         </button>
 
@@ -181,7 +202,11 @@ const DoctorCarousel = () => {
           </div>
         </div>
 
-        <button onClick={nextSlide} disabled={currentIndex >= maxIndex} style={buttonStyle1}>
+        <button 
+          onClick={nextSlide} 
+          disabled={currentIndex >= maxIndex} 
+          style={buttonStyle1}
+        >
           <ChevronRight style={{width:'40px', height:'40px'}} />
         </button>
         

@@ -45,47 +45,65 @@ const CommunityEngagement = () => {
                       {selectedLanguage === 'fr' ? contents?.communoty_page_title.content_fr : contents?.communoty_page_title.content_en}
                     </h1>
                 </div>
-                <div className="row mt-4">
                 {contentData.map((item, index) => (
-                    <React.Fragment key={index}>
-                    {item.imageFirst && (
-                        <div className="col-lg-6 mx-auto mb-4 p-4">
-                          <div className="position-relative">
+                    <div className="row mt-4" key={index}>
+                      {index % 2 === 0 ? (
+                        // Pair: Image (gauche) - Texte (droite) sur grand écran, Image puis Texte sur petit écran
+                        <>
+                          <div className="col-lg-6 mx-auto mb-4 p-4 order-1">
+                            <div className="position-relative">
                               <img src={item.image} alt="" className="image-fluid w-100" style={{ borderRadius: item.borderRadius, maxHeight:'70vh', objectFit:'cover'}} />
                               <div className={item.positionClass}>
-                              <img src={Lg} alt="" style={{ width: "80%" }} />
+                                <img src={Lg} alt="" style={{ width: "80%" }} />
                               </div>
-                          </div>
-                        </div>
-                    )}
-                    <div className="col-lg-6 mx-auto mb-4 p-4 align-self-center">
-                        <div className="p-4">
-                          <h2 style={{ color: "#17416F", fontWeight: 700, textTransform: "uppercase",fontSize:'30px' }}>{item.title}</h2>
-                          <p className="mt-3" style={{ color: "#17416F" }}>{item.description}</p>
-                          <div className="mt-4">
-                              <Link 
-                              to="/community"
-                              className="btn btn-r text-white px-4"
-                              style={{ backgroundColor: "#13AB9C", padding: "8px 0" }}
-                              >
-                              Learn More
-                              </Link >
-                          </div>
-                        </div>
-                    </div>
-                    {!item.imageFirst && (
-                        <div className="col-lg-6 mx-auto mb-4 p-4">
-                        <div className="position-relative">
-                            <img src={item.image} alt="" className="image-fluid w-100" style={{ borderRadius: item.borderRadius }} />
-                            <div className={item.positionClass}>
-                            <img src={Lg} alt="" style={{ width: "80%" }} />
                             </div>
-                        </div>
-                        </div>
-                    )}
-                    </React.Fragment>
+                          </div>
+                          <div className="col-lg-6 mx-auto mb-4 p-4 align-self-center order-2">
+                            <div className="p-4">
+                              <h2 style={{ color: "#17416F", fontWeight: 700, textTransform: "uppercase",fontSize:'30px' }}>{item.title}</h2>
+                              <p className="mt-3" style={{ color: "#17416F" }}>{item.description}</p>
+                              <div className="mt-4">
+                                <Link 
+                                  to="/community"
+                                  className="btn btn-r text-white px-4"
+                                  style={{ backgroundColor: "#13AB9C", padding: "8px 0" }}
+                                >
+                                  Learn More
+                                </Link>
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      ) : (
+                        // Impair: Texte (gauche) - Image (droite) sur grand écran, Image puis Texte sur petit écran
+                        <>
+                          <div className="col-lg-6 mx-auto mb-4 p-4 align-self-center order-2 order-lg-1">
+                            <div className="p-4">
+                              <h2 style={{ color: "#17416F", fontWeight: 700, textTransform: "uppercase",fontSize:'30px' }}>{item.title}</h2>
+                              <p className="mt-3" style={{ color: "#17416F" }}>{item.description}</p>
+                              <div className="mt-4">
+                                <Link 
+                                  to="/community"
+                                  className="btn btn-r text-white px-4"
+                                  style={{ backgroundColor: "#13AB9C", padding: "8px 0" }}
+                                >
+                                  Learn More
+                                </Link>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="col-lg-6 mx-auto mb-4 p-4 order-1 order-lg-2">
+                            <div className="position-relative">
+                              <img src={item.image} alt="" className="image-fluid w-100" style={{ borderRadius: item.borderRadius, maxHeight:'70vh', objectFit:'cover'}} />
+                              <div className={item.positionClass}>
+                                <img src={Lg} alt="" style={{ width: "80%" }} />
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      )}
+                    </div>
                 ))}
-                </div>
                 <br /><br />
                 <span className="mt-4 d-block" style={{ borderBottom: "1px solid #17416F" }}></span>
                 <br /><br />

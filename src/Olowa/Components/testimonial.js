@@ -45,7 +45,7 @@ const PatientTestimonials = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [activeButton, setActiveButton] = useState(null);
   
-  const cardsToShow = windowWidth >= 768 ? 2 : 1;
+  const cardsToShow = windowWidth >= 968 ? 2 : 1;
 
   useEffect(() => {
     const handleResize = () => {

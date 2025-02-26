@@ -91,36 +91,6 @@ const About = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="carousel-item">
-                                <div className="row g-0 align-items-stretch">
-                                    <div className="col-lg-6 col-md-12 d-flex">
-                                        <div
-                                            className="carousel-content d-flex justify-content-center align-items-center w-100 p-4"
-                                            style={{ background: '#13AB9C', color: 'white', height: '80vh' }}
-                                        >
-                                            <div className="wm text-start">
-                                                <ul className="list-unstyled m-0 p-0">
-                                                    {[...Array(6)].map((_, index) => (
-                                                        <li key={index}>
-                                                            <Link to="/" className="text-white d-block" style={{ fontWeight: '700', fontSize: '30px', textTransform: 'uppercase' }}>
-                                                                {selectedLanguage === 'fr' ? contents?.[`home_page_banner_link${index+1}`]?.content_fr : contents?.[`home_page_banner_link${index+1}`]?.content_en}
-                                                            </Link>
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-lg-6 col-md-12">
-                                        <img
-                                            src={Mask1Image}
-                                            alt="Image de la clinique"
-                                            className="img-fluid w-100 h-100"
-                                            style={{ objectFit: 'cover' }}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                             <span className="carousel-control-prev-icon" aria-hidden="true"></span>
