@@ -1,5 +1,6 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts')
+const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
 const sequelize = require('./src/config/database');
@@ -24,12 +25,23 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(expressLayouts)
 app.set('layout', 'layouts/layout');
 
-// Middleware JSON
+// Middleware for cross origin ressources sharing
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    allowedHeaders:
+      "Origin, X-Requested-With, x-access-token, role, Content, Accept, Content-Type, Authorization",
+  })
+);
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Utiliser les routes 
 app.use('/backoffice', backofficeRoutes); // Toutes les routes de '/login', '/register' viennent ici
-app.use('/api',backofficeapiRoutes);
+app.use('/api', backofficeapiRoutes);
+
 
 // Middleware de gestion des erreurs
 app.use(errorHandler);
@@ -45,3 +57,4 @@ sequelize.sync()  // Retirer 'force: true' pour Ã©viter la suppression des donnÃ
   .catch((error) => {
     console.error('Erreur lors de la synchronisation:', error);
   });
+

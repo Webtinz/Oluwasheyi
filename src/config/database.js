@@ -9,6 +9,9 @@ const sequelize = new Sequelize(
     host: process.env.DB_HOST, // Hôte de la base de données
     dialect: 'mysql', // Type de base de données
     logging: false, // Désactiver les logs SQL dans la console
+    dialectOptions: {
+      multipleStatements: true, // Enable multiple statements
+    },
   }
 );
 sequelize.authenticate()
