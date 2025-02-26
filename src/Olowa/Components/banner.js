@@ -6,25 +6,22 @@ import { Link } from "react-router-dom";
 const About = () => {
 
   return (
-    <div className="container-fluid">
+    <div className=" mybanner">
         <div className="row align-items-center">
             <div className="col-md-12" style={{ paddingLeft: 0, paddingRight: 0 }}>
                 <div id="carouselExample" className="carousel slide" data-bs-ride="carousel">
                     <div className="carousel-inner">
                         {/* Slide 1 */}
                         <div className="carousel-item active">
-                            <div className="row g-0 align-items-stretch">
+                            <div className="row g-0 align-items-stretch mybannercontent">
                                 {/* Colonne Texte */}
-                                <div className="col-lg-6 col-md-12 d-flex">
-                                    <div 
-                                        className="carousel-content d-flex flex-column justify-content-center align-items-start p-4 w-100"
-                                        style={{ background: '#17416F', color: 'white', height: '80vh' }}
-                                    >
-                                         <div className='d-flex justify-content-center'>
-                                            <div className="text-start" style={{width:'70%', marginLeft:'8rem'}}>
-                                                <h2 style={{ fontWeight: 700, fontSize:'40px' }}>Your Partner in Health and Healing</h2>
+                                <div className="col-lg-6 col-md-12 textbannercontent">
+                                    <div className="carousel-content">
+                                         <div className='d-flex justify-content-center carrousseltextcont'>
+                                            <div className="text-start">
+                                                <h2>Your Partner <br></br> in Health and <br></br> Healing</h2>
                                                 <br/>
-                                                <p>Comprehensive care, cutting-edge technology, and a compassionate team</p>
+                                                <p>Comprehensive care, cutting-edge <br></br>technology, and a compassionate team</p>
                                                 <br/>
                                                 <div>
                                                     <Link to="/about" className="btn btn-cus text-white me-2" style={{ backgroundColor: '#13AB9C', padding: '10px 15px' }}>
@@ -45,28 +42,25 @@ const About = () => {
                                         src={Mask1Image} 
                                         alt="Image de la clinique" 
                                         className="img-fluid w-100 h-100" 
-                                        style={{ objectFit: 'cover' }}
+                                        style={{ objectFit: 'cover', marginLeft:'-40px' }}
                                     />
                                 </div>
                             </div>
                         </div>
                         {/* Slide 1 */}
                         <div className="carousel-item">
-                            <div className="row g-0 align-items-stretch">
+                            <div className="row g-0 align-items-stretch mybannercontent">
                                 {/* Colonne Texte */}
-                                <div className="col-lg-6 col-md-12 d-flex">
-                                    <div 
-                                        className="carousel-content d-flex justify-content-center align-items-center w-100 p-4"
-                                        style={{ background: '#13AB9C', color: 'white', height: '80vh' }}
-                                    >
+                                <div className="col-lg-6 col-md-12 ">
+                                    <div className="carousel-content carrousseltwo">
                                         <div className="wm text-start">
                                             <ul className="list-unstyled m-0 p-0">
-                                                <li><Link to="/about" className="text-white d-block" style={{ fontWeight: '700', fontSize: '20px', textTransform: 'uppercase', fontSize:'30px' }}>About us</Link></li>
-                                                <li><Link to="/community" className="text-white d-block" style={{ fontWeight: '700', fontSize: '20px', textTransform: 'uppercase', fontSize:'30px' }}>Community engagement</Link></li>
-                                                <li><Link to="/service" className="text-white d-block" style={{ fontWeight: '700', fontSize: '20px', textTransform: 'uppercase', fontSize:'30px' }}>Our services</Link></li>
-                                                <li><Link to="/" className="text-white d-block" style={{ fontWeight: '700', fontSize: '20px', textTransform: 'uppercase', fontSize:'30px' }}>Patient portal</Link></li>
-                                                <li><Link to="/" className="text-white d-block" style={{ fontWeight: '700', fontSize: '20px', textTransform: 'uppercase', fontSize:'30px' }}>Health advice</Link></li>
-                                                <li><Link to="/" className="text-white d-block" style={{ fontWeight: '700', fontSize: '20px', textTransform: 'uppercase', fontSize:'30px'}}>Contact</Link></li>
+                                                <li><Link to="/about" className="text-white d-block">About us</Link></li>
+                                                <li><Link to="/community" className="text-white d-block">Community engagement</Link></li>
+                                                <li><Link to="/service" className="text-white d-block">Our services</Link></li>
+                                                <li><Link to="/" className="text-white d-block">Patient portal</Link></li>
+                                                <li><Link to="/" className="text-white d-block">Health advice</Link></li>
+                                                <li><Link to="/" className="text-white d-block">Contact</Link></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -78,7 +72,7 @@ const About = () => {
                                         src={Mask1Image} 
                                         alt="Image de la clinique" 
                                         className="img-fluid w-100 h-100" 
-                                        style={{ objectFit: 'cover' }}
+                                        style={{ objectFit: 'cover',marginLeft:'-40px' }}
                                     />
                                 </div>
                             </div>

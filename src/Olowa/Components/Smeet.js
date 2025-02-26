@@ -123,7 +123,7 @@ const DoctorCarousel = () => {
   const cardWidth = 100 / maxVisibleCards;
   
   return (
-    <div className="container mt-4">
+    <div className="container mt-4 meetteam">
       <h2 className="text-center text-2xl font-bold uppercase mb-8" style={{fontSize:'36px', color:'#17416F'}}>
         Meet the team
       </h2>
