@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import '../index.css';
 import nutrition from '../../assets/nutrition.png';
 import exercise from '../../assets/exercise.png';
 import healthtrack from '../../assets/natural-supplement.png';
 import pregnancy from '../../assets/pregnancy.png';
+import { getAllContents } from '../../services/content.service';
+import LanguageContext from '../../context/LanguageContext';
 
 const HealthAdviceCarousel = () => {
   const [currentIndex, setCurrentIndex] = React.useState(0);
@@ -71,11 +73,35 @@ const HealthAdviceCarousel = () => {
   // Calculate visible advices
   const visibleAdvices = healthAdvices.slice(currentIndex, currentIndex + itemsToShow);
 
+  const {selectedLanguage} = useContext(LanguageContext);
+  const [contents, setContents] = useState();
+
+  // Get contents on component mount
+  useEffect(() => {
+      const fetchContents = async () => {
+          try {
+              const savedContents = localStorage.getItem("contents");
+              if (savedContents) {
+                  setContents(JSON.parse(savedContents));
+              } else {
+                  // Fetch contents if not in localStorage
+                  const response = await getAllContents();
+                  setContents(response.data);
+                  localStorage.setItem("contents", JSON.stringify(response.data));
+              }
+          } catch (error) {
+              console.error('Failed to fetch contents:', error.message || error);
+          }
+      };
+      fetchContents();
+  }, []);
+
+
   return (
     <div className="py-4" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
       <div className='hhe'>
         <div className='container'>
-          <h2 className='text-center mb-5' style={{ textTransform: 'uppercase', fontSize: '36px', fontWeight: '700', color: '#17416F' }}>health advices</h2>
+          <h2 className='text-center mb-5' style={{ textTransform: 'uppercase', fontSize: '36px', fontWeight: '700', color: '#17416F' }}>{selectedLanguage === 'fr' ? contents?.	home_page_banner_link5.content_fr : contents?.home_page_banner_link5.content_en}</h2>
           <div className="relative px-8">
             {/* Navigation Buttons */}
             <button

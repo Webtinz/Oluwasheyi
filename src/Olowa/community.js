@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import './index.css';
 import './about.css';
@@ -11,20 +11,57 @@ import Group1 from '../assets/Group1.png';
 import Mask from '../assets/Mask group.png';
 import Mask1 from '../assets/Fr.png';
 import Mask2 from '../assets/Fr1.png';
+import { getAllContents } from '../services/content.service';
+import LanguageContext from '../context/LanguageContext';
 
 
 const Home = () => {
     const [activeTab, setActiveTab] = useState("cont1");
 
     const tabs = [
-      { id: "cont1", label: "Wellness Programs" },
-      { id: "cont2", label: "Awareness Campaigns" },
-      { id: "cont3", label: "Patient Stories" },
-      { id: "cont4", label: "Blood Donation" },
-      { id: "cont5", label: "Charity" },
+      {
+        id: "cont1",
+        label: selectedLanguage === 'fr' 
+          ? contents?.communoty_page_menu_1_title?.content_fr 
+          : contents?.communoty_page_menu_1_title?.content_en
+      },
+      { id: "cont2", label: selectedLanguage === 'fr' 
+        ? contents?.communoty_page_menu_2_title?.content_fr 
+        : contents?.communoty_page_menu_2_title?.content_en },
+      { id: "cont3", label: selectedLanguage === 'fr' 
+        ? contents?.communoty_page_menu_3_title?.content_fr 
+        : contents?.communoty_page_menu_3_title?.content_en },
+      { id: "cont4", label: selectedLanguage === 'fr' 
+        ? contents?.communoty_page_menu_4_title?.content_fr 
+        : contents?.communoty_page_menu_4_title?.content_en  },
+      { id: "cont5", label: selectedLanguage === 'fr' 
+        ? contents?.communoty_page_menu_5_title?.content_fr 
+        : contents?.communoty_page_menu_5_title?.content_en  },
       { id: "cont6", label: "" },
     ];
 
+    const {selectedLanguage} = useContext(LanguageContext);
+    const [contents, setContents] = useState();
+  
+    // Get contents on component mount
+    useEffect(() => {
+        const fetchContents = async () => {
+            try {
+                const savedContents = localStorage.getItem("contents");
+                if (savedContents) {
+                    setContents(JSON.parse(savedContents));
+                } else {
+                    // Fetch contents if not in localStorage
+                    const response = await getAllContents();
+                    setContents(response.data);
+                    localStorage.setItem("contents", JSON.stringify(response.data));
+                }
+            } catch (error) {
+                console.error('Failed to fetch contents:', error.message || error);
+            }
+        };
+        fetchContents();
+    }, []);
   return (
     <div className="container-fluid">
         <div><Navbar/></div>
