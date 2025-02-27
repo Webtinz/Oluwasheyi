@@ -70,7 +70,7 @@ const Home = () => {
                         <div className="carousel-content d-flex justify-content-center align-items-center" style={{ background: '#17416F' }}>
                             <div className="wm" style={{ textAlign: 'start' }}>
                                 <h2 className="text-white" style={{ fontWeight: 700, fontSize: '36px', textTransform:'uppercase' }}>
-                                    {selectedLanguage === 'fr' ? contents?.	home_page_virtual_tour_desc.content_fr : contents?.	home_page_virtual_tour_desc.content_en}
+                                    {selectedLanguage === 'fr' ? contents?.home_page_virtual_tour_desc.content_fr : contents?.home_page_virtual_tour_desc.content_en}
                                 </h2>
                             </div>
                         </div>
