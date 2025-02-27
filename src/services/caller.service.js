@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const api = axios.create({
   // baseURL: 'https://demo.securetinz.com/api', // URL de votre backend
-  baseURL: 'http://localhost:8000/api', // URL de votre backend
+  baseURL: 'http://localhost:8003/api', // URL de votre backend
   headers: {
     'Content-Type': 'application/json',
   },

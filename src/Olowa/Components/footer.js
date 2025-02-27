@@ -1,12 +1,12 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useState, useContext } from "react";
 import "../index.css"; // Fichier CSS pour les styles
 import chatbotIcon from "../../assets/chatbot.png";
 import whatsappIcon from "../../assets/whatsapp.png";
 import { getAllContents } from '../../services/content.service';
+import LanguageContext from '../../context/LanguageContext';
 
 const Footer = () => {
-  const savedLanguage = localStorage.getItem("selectedLanguage") || "fr";
-  const [selectedLanguage, setSelectedLanguage] = useState(savedLanguage);
+  const { selectedLanguage } = useContext(LanguageContext);
   const [contents, setContents] = useState();
 
   // Get contents on component mount
