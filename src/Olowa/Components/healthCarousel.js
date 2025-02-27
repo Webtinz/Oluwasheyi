@@ -1,36 +1,40 @@
 import React from 'react';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import '../index.css';
- 
+import nutrition from '../../assets/nutrition.png';
+import exercise from '../../assets/exercise.png';
+import healthtrack from '../../assets/natural-supplement.png';
+import pregnancy from '../../assets/pregnancy.png';
+
 const HealthAdviceCarousel = () => {
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [itemsToShow, setItemsToShow] = React.useState(1);
 
   const healthAdvices = [
     {
-      title: 'Nutrition',
-      icon: '🥗',
-      description: 'Lorem ipsum dolor sit amet'
+      title: 'Nutrition ',
+      image: nutrition,
+      description: 'Lorem ipsum dolor sit<br/> amet nulls const.'
     },
     {
       title: 'Physical Activity',
-      icon: '🏃',
-      description: 'Lorem ipsum dolor sit amet'
+      image: exercise,
+      description: 'Lorem ipsum dolor sit <br/> amet nulls const.'
     },
     {
       title: 'Natural Health',
-      icon: '🌿',
-      description: 'Lorem ipsum dolor sit amet'
+      image: healthtrack,
+      description: 'Lorem ipsum dolor sit <br/> amet nulls const.'
     },
     {
       title: 'Pregnancy Monitoring',
-      icon: '🤰',
-      description: 'Lorem ipsum dolor sit amet'
+      image: pregnancy,
+      description: 'Lorem ipsum dolor sit <br/> amet nulls const.'
     },
     {
       title: 'Health Tracking',
-      icon: '📊',
-      description: 'Lorem ipsum dolor sit amet'
+      image: pregnancy,
+      description: 'Lorem ipsum dolor sit <br/> amet nulls const.'
     }
   ];
 
@@ -53,75 +57,72 @@ const HealthAdviceCarousel = () => {
   const maxIndex = Math.max(0, healthAdvices.length - itemsToShow);
 
   const next = () => {
-    setCurrentIndex((prevIndex) => 
+    setCurrentIndex((prevIndex) =>
       Math.min(prevIndex + 1, maxIndex)
     );
   };
 
   const prev = () => {
-    setCurrentIndex((prevIndex) => 
+    setCurrentIndex((prevIndex) =>
       Math.max(0, prevIndex - 1)
     );
   };
 
-  // Calculer les éléments visibles actuellement
+  // Calculate visible advices
   const visibleAdvices = healthAdvices.slice(currentIndex, currentIndex + itemsToShow);
 
   return (
-    <div className="container-fluid py-4" style={{paddingLeft:'0px', paddingRight:'0px'}}>
-        <div className='hhe'>
-            <div className='container py-3'>
-              <h2 className='text-center mb-5' style={{textTransform:'uppercase', fontSize:'36px', fontWeight:'700', color:'#17416F'}}>health advices</h2>
-                <div className="relative px-8">
-                    {/* Navigation Buttons */}
-                    <button 
-                    onClick={prev}
-                    className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white rounded-full p-2 shadow-lg transition-opacity ${
-                        currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-100'
-                    }`}
-                    disabled={currentIndex === 0}
-                    >
-                    <ArrowLeft className="w-6 h-6" />
-                    </button>
-                    
-                    <button 
-                    onClick={next}
-                    className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white rounded-full p-2 shadow-lg transition-opacity ${
-                        currentIndex === maxIndex ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-100'
-                    }`}
-                    disabled={currentIndex === maxIndex}
-                    >
-                    <ArrowRight className="w-6 h-6" />
-                    </button>
+    <div className="py-4" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
+      <div className='hhe'>
+        <div className='container'>
+          <h2 className='text-center mb-5' style={{ textTransform: 'uppercase', fontSize: '36px', fontWeight: '700', color: '#17416F' }}>health advices</h2>
+          <div className="relative px-8">
+            {/* Navigation Buttons */}
+            <button
+              onClick={prev}
+              className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 transition-opacity ${currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-100'
+                }`}
+              disabled={currentIndex === 0}
+              style={{ fontSize: '2rem', color: 'white' }} // Increase the icon size
+            >
+              <ChevronLeft />
+            </button>
 
-                    {/* Cards Container */}
-                    <div className="grid grid-flow-col auto-cols-fr" style={{margin:'0 20px'}}>
-                        {visibleAdvices.map((advice, index) => (
-                            <div 
-                                key={currentIndex + index} 
-                                className="transition-all duration-300 ease-in-out transform"
-                                
-                            >
-                                <div className="bg-white shadow-md p-3 h-full" style={{border:'1px solid #17416F'}}>
-                                    <div className="flex flex-col items-center text-center gap-4">
-                                        <span className="text-4xl">{advice.icon}</span>
-                                        <h3 className="font-semibold text-lg text-teal-600">
-                                            {advice.title}
-                                        </h3>
-                                        <p className="text-sm text-gray-600">
-                                            {advice.description}
-                                        </p>
-                                        <button className="mt-2 w-100 py-2 btn btn-yt text-white" style={{background:'#13AB9C'}}>
-                                            Learn More
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
+            <button
+              onClick={next}
+              className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 transition-opacity ${currentIndex === maxIndex ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-100'
+                }`}
+              disabled={currentIndex === maxIndex}
+              style={{ fontSize: '2rem', color: 'white' }} // Increase the icon size
+            >
+              <ChevronRight />
+            </button>
+
+            {/* Cards Container */}
+            <div className="healthcont grid grid-flow-col auto-cols-fr" >
+              {visibleAdvices.map((advice, index) => (
+                <div
+                  key={currentIndex + index}
+                  className="transition-all duration-300 ease-in-out transform"
+                  style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }} // Ensures each card has equal height
+                >
+                  <div className="bg-white shadow-md h-100" style={{ border: '1px solid #17416F', padding: '10px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <div className="flex flex-col items-center text-center gap-4" style={{ flexGrow: 1 }}>
+                      <img src={advice.image} alt={advice.title} className="object-cover mt-5" />
+                      <h3 className="font-semibold text-lg text-teal-600" dangerouslySetInnerHTML={{ __html: advice.title }} />
+                      <p className="text-sm text-gray-600" dangerouslySetInnerHTML={{ __html: advice.description }} />
                     </div>
+                    {/* Ensure the button is at the bottom of the card */}
+                    <button className="w-full mt-2 p-3 btn btn-yt text-white" style={{ background: '#13AB9C' }}>
+                      Learn More
+                    </button>
+                  </div>
                 </div>
+              ))}
             </div>
+          </div>
         </div>
+      </div>
     </div>
   );
 };

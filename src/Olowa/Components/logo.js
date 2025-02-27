@@ -70,7 +70,7 @@ const LogoCarousel = () => {
   }, []);
 
   return (
-    <div className="container">
+    <div className="container meetteam">
       <div className="d-flex align-items-center ms-md-5 ms-0">
         <h1 
           className="position-relative title-certifications" 
@@ -113,7 +113,7 @@ const LogoCarousel = () => {
                     src={logo.src} 
                     alt={logo.alt}
                     className="img-fluid"
-                    style={{objectFit:'cover',width:'100px',height:'100px'}}
+                    style={{objectFit:'contain',width:'120px',height:'120px'}}
                   />
                 </div>
               ))}

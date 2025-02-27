@@ -1,7 +1,12 @@
 body{
   overflow-x: hidden;
 }
-.carousel-control-next, .carousel-control-prev {
+.mybanner .mybannercontent {
+  height: 70vh !important;
+}
+
+.carousel-control-next,
+.carousel-control-prev {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -16,26 +21,71 @@ body{
   text-align: center;
   background: 0 0;
   border: 0;
-  opacity: .5;
+  opacity: 0.2;
   transition: opacity .15s ease;
 }
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 4rem !important;
+  height: 4rem !important;
+}
+
 /* .carousel-control-next{
   top: 56% !important;
 } */
-.carousel-content {
-    text-align: justify;
-    height: 60vh;
-    padding: 80px;
-    /* border-top-right-radius: 30px !important; */
-    background-image: url('../assets/G101.png');
-    background-size: cover;
-    background-position: center;
-    width: 100%;
-    /* display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center; */
+.carousel-content,
+.virtualtoursect .carousel-content {
+  position: relative;
+  text-align: justify;
+  /* border-top-right-radius: 30px !important; */
+  background-image: url('../assets/G101.png');
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  background: #17416F;
+  color: white;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-top-right-radius: 50px;
 }
+
+.carousel-content.carrousseltwo {
+  background: #13AB9C;
+}
+
+.carousel-content.carrousseltwo li a {
+  font-weight: 700;
+  font-size: 30px;
+  text-transform: uppercase;
+  font-family: Open Sans;
+  font-weight: 700;
+  line-height: 55px;
+}
+
+.carousel-content .carrousseltextcont h2,
+.virtualtoursect .carousel-content h2,
+.servicecont h2 {
+  font-family: Open Sans;
+  font-weight: 600;
+  font-size: 45px;
+  line-height: 60px;
+  text-transform: uppercase;
+
+}
+
+.carousel-content .carrousseltextcont p {
+  font-family: Open Sans;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: 0%;
+
+}
+
 .image-container img {
     width: 100%;
     margin-left: -20px;
@@ -60,16 +110,66 @@ body{
   align-items: center;
 }
 
+/* meetteam */
+.meetteam h3 {
+  font-family: Open Sans;
+  font-weight: 700;
+  font-size: 24px;
+  color: #17416F;
+}
+
+.meetteam p {
+  font-family: Open Sans;
+  font-weight: 400;
+  font-size: 16px;
+  color: #13AB9C;
+}
+
 .hhe{
     background-image: url('../assets/Mask2.png');
     background-size: cover;
     background-position: center;
     object-fit: cover;
-    height: 80vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.hhe h3 {
+  font-family: Open Sans;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  color: #17416F;
+}
+
+.hhe .healthcont img {
+  width: 80px;
+  height: 80px;
+}
+
+.hhe .healthcont p {
+  font-family: Open Sans;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: -0.3px;
+  text-align: center;
+  color: #17416F;
+}
+
+.healthcont .btn-yt {
+  font-family: Open Sans;
+  font-weight: 600;
+  font-size: 18px;
+  text-align: center;
+}
+
+.healthcont svg {
+  width: 100 !important;
+  height: 100 !important;
 }
 
 .title-certifications {
@@ -81,7 +181,7 @@ body{
 .title-certifications::after {
   content: "";
   display: block;
-  width: 53vw; /* La bordure prend toute la largeur du texte */
+  width: 38vw; /* La bordure prend toute la largeur du texte */
   height: 3px; /* Épaisseur de la bordure */
   background-color: #17416F;
   position: absolute;
