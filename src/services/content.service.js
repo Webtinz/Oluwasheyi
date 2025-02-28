@@ -12,3 +12,37 @@ export const getAllContents = async () => {
     
 };
 
+
+// Get sevices
+export const getServices = async () => {
+  try{
+    const response = await api.get(`/getallservices`);
+    return response.data;
+  }catch (error){
+    console.error('Failed to fetch services:', error.message || error);
+    return null;
+  }
+}
+
+//Get programs
+export const getPrograms = async () => {
+  try{
+    const response = await api.get(`/getallprograms`);
+    return response.data;
+  }catch (error){
+    console.error('Failed to fetch services:', error.message || error);
+    return null;
+  }
+}
+
+
+//Get certificates
+export const getCertificates = async () => {
+  try{
+    const response = await api.get(`/getallcertifications`);
+    return response.data;
+  }catch (error){
+    console.error('Failed to fetch services:', error.message || error);
+    return null;
+  }
+}
