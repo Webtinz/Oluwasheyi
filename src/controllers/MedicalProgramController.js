@@ -2,13 +2,15 @@ const { MedicalProgram } = require('../models');
 
 exports.addProgram = async (req, res) => {
   try {
-    const { name, contact, description, beneficiaries } = req.body;
+    const { nom, name, contact, description, description_en, beneficiaries } = req.body;
     const photo = req.file ? req.file.filename : null;
 
     const program = await MedicalProgram.create({
+      nom,
       name,
       contact,
       description,
+      description_en,
       beneficiaries,
       photo,
     });
@@ -54,7 +56,7 @@ exports.getProgram = async (req, res) => {
 
 exports.updateProgram = async (req, res) => {
   try {
-    const { name, contact, description, beneficiaries } = req.body;
+    const { nom, name, contact, description, description_en, beneficiaries } = req.body;
     const photo = req.file ? req.file.filename : null;
 
     const program = await MedicalProgram.findByPk(req.params.id);
@@ -63,9 +65,11 @@ exports.updateProgram = async (req, res) => {
     }
 
     await program.update({
+      nom,
       name,
       contact,
       description,
+      description_en,
       beneficiaries,
       photo: photo || program.photo,
     });

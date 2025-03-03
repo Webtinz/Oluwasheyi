@@ -13,12 +13,29 @@ router.get('/login', (req, res) => {
 router.get('/dashboard', (req, res) => {
   res.render('dashboard', { title: 'Dashboard Page' });
 });
+
 // testimonial
 router.get('/listtestimonials', (req, res) => {
   res.render('Testimonials/listtestimonial', { title: 'Listtestimonial Page' });
 });
 router.get('/addtestimonial', (req, res) => {
   res.render('Testimonials/addtestimonial', { title: 'Addtestimonial Page' });
+});
+
+// teamMember
+router.get('/listteamMembers', (req, res) => {
+  res.render('teamMembers/listteamMember', { title: 'ListteamMember Page' });
+});
+router.get('/addteamMember', (req, res) => {
+  res.render('teamMembers/addteamMember', { title: 'AddteamMember Page' });
+});
+
+// Advice
+router.get('/listadvices', (req, res) => {
+  res.render('advices/listadvice', { title: 'Listadvice Page' });
+});
+router.get('/addadvice', (req, res) => {
+  res.render('advices/addadvice', { title: 'Addadvice Page' });
 });
 
 // content
@@ -37,12 +54,23 @@ router.get('/addservice', (req, res) => {
   res.render('services/addservice', { title: 'Addservice Page' });
 });
 
+// Services
+router.get('/listevents', (req, res) => {
+  res.render('events/listevent', { title: 'Listevent Page' });
+});
+router.get('/addevent', (req, res) => {
+  res.render('events/addevent', { title: 'Addevent Page' });
+});
+
 // medical program
 router.get('/listmedicalprogram', (req, res) => {
   res.render('donations/medicalaidprograms/listmedicalprogram', { title: 'medicalprogram Page' });
 });
 router.get('/addmedicalprogram', (req, res) => {
   res.render('donations/medicalaidprograms/addmedicalprogram', { title: 'medicalprogram Page' });
+});
+router.get('/listdonation', (req, res) => {
+  res.render('donations/donationlist', { title: 'Donations Page' });
 });
 
 // certification
@@ -51,6 +79,11 @@ router.get('/listcertifications', (req, res) => {
 });
 router.get('/addcertification', (req, res) => {
   res.render('certifications/addcertification', { title: 'certifications Page' });
+});
+
+// Feedbacks
+router.get('/feedbacks', (req, res) => {
+  res.render('feedback', { title: 'Feedback Page' });
 });
 
 module.exports = router;

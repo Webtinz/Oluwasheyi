@@ -4,11 +4,19 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      nom: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       contact: {
         type: DataTypes.STRING,
         allowNull: false,
       },
       description: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+      },
+      description_en: {
         type: DataTypes.TEXT,
         allowNull: false,
       },
@@ -19,7 +27,17 @@ module.exports = (sequelize, DataTypes) => {
       photo: {
         type: DataTypes.STRING,
       },
+      color: {
+        type: DataTypes.STRING,
+      },
     });
+
+    MedicalProgram.associate = (models) => {
+      MedicalProgram.hasMany(models.Donation, {
+        foreignKey: "medicalProgramId",
+        as: "donations",
+      });
+    };
   
     return MedicalProgram;
   };

@@ -5,14 +5,16 @@ const path = require('path');
 // Ajouter un service
 exports.addservice = async (req, res) => {
   try {
-    const { nom, phone, email, description } = req.body;
+    const { nom, nom_en, phone, email, description, description_en } = req.body;
     const photo = req.file ? req.file.filename : null;
 
     const newService = await Service.create({
       nom,
+      nom_en,
       phone,
       email,
       description,
+      description_en,
       photo,
     });
 

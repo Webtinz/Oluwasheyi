@@ -1,0 +1,158 @@
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"
+    rel="stylesheet">
+<script
+    src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<section class="content">
+    <div class="card">
+        <!-- <div class="card-header">
+            <h3 class="card-title">Donationmes d'aide médicale</h3>
+            <div class="card-tools">
+                <a href="/backoffice/adddonation" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter un donationme</a>
+            </div>
+        </div> -->
+        <div class="card-body">
+            <table id="donationTable"
+                class="display table table-striped projects">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Medical Program</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Les lignes seront insérées ici via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- View/Edit Modal -->
+<div class="modal fade" id="donationModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Détails du donationme</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="donationForm">
+                    <input type="hidden" id="donationId">
+                    <div class="form-group">
+                        <label>Nom du donationme</label>
+                        <input type="text" id="donationName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Contact</label>
+                        <input type="text" id="donationContact" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="donationDescription" class="form-control" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Bénéficiaires</label>
+                        <input type="text" id="donationBeneficiaries" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Photo</label>
+                        <input type="file" id="donationPhoto" class="form-control">
+                        <img id="currentDonationPhoto" src="#" alt="Photo du donationme" width="100" style="margin-top: 10px; display: none;">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        axios.get('/api/getalldonations')
+            .then(response => {
+                const data = response.data.donations;
+                console.log(data);
+                
+                const tableBody = document.querySelector('#donationTable tbody');
+                tableBody.innerHTML = '';
+
+                data.forEach(donation => {
+                    const row = `
+                    <tr>
+                        <td>${donation.id}</td>
+                        <td>${donation.type}</td>
+                        <td>${donation.amount}</td>
+                        <td>${donation.medicalProgram.name}</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm view-btn" data-id="${donation.id}">Veiw</button>
+                        </td>
+                    </tr>`;
+                    tableBody.innerHTML += row;
+                });
+
+                // Initialize DataTable
+                $('#donationTable').DataTable({
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/1.13.7/i18n/fr-FR.json"
+                    }
+                });
+            })
+            .catch(error => console.error('Erreur lors de la récupération des donations :', error));
+
+        // View donation details in modal
+        document.body.addEventListener('click', function (e) {
+            if (e.target.classList.contains('view-btn')) {
+                const id = e.target.dataset.id;
+                axios.get(`/api/getdonation/${id}`)
+                    .then(response => {
+                        const donation = response.data.donation;
+                        console.log(donation);
+                        
+                        document.getElementById('donationId').value = donation.id;
+                        document.getElementById('donationType').value = donation.type;
+                        document.getElementById('donationAmount').value = donation.amount;
+                        document.getElementById('donationmedicalProgramId').value = donation.medicalProgramId;
+
+                        $('#donationModal').modal('show');
+                    })
+                    .catch(error => console.error('Erreur lors de la récupération du donation :', error));
+            }
+        });
+
+        // Update donation
+        document.getElementById('donationForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const id = document.getElementById('donationId').value;
+            const formData = new FormData();
+            formData.append('donationType', document.getElementById('donationType').value);
+            formData.append('donationAmount', document.getElementById('donationAmount').value);
+            formData.append('donationmedicalProgramId', document.getElementById('donationmedicalProgramId').value);
+            axios.put(`/api/updatedonation/${id}`, formData)
+                .then(() => {
+                    $('#donationModal').modal('hide');
+                    location.reload();
+                })
+                .catch(error => console.error('Erreur lors de la mise à jour du donationme :', error));
+        });
+
+        // Delete donation
+        document.body.addEventListener('click', function (e) {
+            if (e.target.classList.contains('delete-btn')) {
+                const id = e.target.dataset.id;
+                if (confirm('Voulez-vous vraiment supprimer ce donationme ?')) {
+                    axios.delete(`/api/deletedonation/${id}`)
+                        .then(() => location.reload())
+                        .catch(error => console.error('Erreur lors de la suppression du donationme :', error));
+                }
+            }
+        });
+    });
+</script>

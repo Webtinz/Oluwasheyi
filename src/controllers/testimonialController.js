@@ -33,7 +33,8 @@ exports.addtestimonial = async (req, res) => {
 // API pour modifier un témoignage
 exports.updatetestimonials = async (req, res) => {
   const { id } = req.params;
-  const { nom, prenom, titre, description, photo, address } = req.body;
+  const { nom, prenom, titre, description, address } = req.body;
+  const photo = req.file ? req.file.filename : null;
 
   try {
     const testimonial = await Testimonial.findByPk(id);

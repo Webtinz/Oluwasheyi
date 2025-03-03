@@ -67,6 +67,8 @@
                     </div>
                     <div class="form-group">
                         <label>Image</label>
+                        <input type="file" class="form-control"
+                            name="photo" id="newPhoto">
                         <div id="testimonialImage">
                             <!-- Image preview will go here -->
                         </div>
@@ -148,10 +150,15 @@
                 prenom: document.getElementById('testimonialName').value.split(' ')[1],
                 titre: document.getElementById('testimonialTitle').value,
                 description: document.getElementById('testimonialDescription').value,
-                address: document.getElementById('testimonialAddress').value
+                address: document.getElementById('testimonialAddress').value,
+                photo: document.getElementById('newPhoto').files[0]
             };
 
-            axios.put(`/api/updatetestimonial/${id}`, data)
+            axios.put(`/api/updatetestimonial/${id}`, data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
                 .then(() => {
                     $('#testimonialModal').modal('hide');
                     location.reload();

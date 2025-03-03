@@ -11,6 +11,16 @@ const serviceStorage = multer.diskStorage({
   },
 });
 
+// Dossier pour les events
+const eventStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, '../../uploads/events'));
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
+});
+
 // Dossier pour les témoignages
 const temoigneStorage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -21,6 +31,15 @@ const temoigneStorage = multer.diskStorage({
   },
 });
 
+// Dossier pour les members
+const membersStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, '../../uploads/members'));
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
+});
 
 // Dossier pour les contenues
 const contentStorage = multer.diskStorage({
@@ -52,12 +71,25 @@ const certificationStorage = multer.diskStorage({
   },
 });
 
+// for medical advices
+const adviceStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, '../../uploads/advices'));
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
+});
+
 const uploadService = multer({ storage: serviceStorage });
+const uploadEvent = multer({ storage: eventStorage });
 const uploadContent = multer({ storage: contentStorage });
 const uploadTemoigne = multer({ storage: temoigneStorage });
 const uploadMedicalProgram = multer({ storage: medicalProgramStorage });
 const uploadCertification = multer({ storage: certificationStorage });
+const uploadMember = multer({ storage: membersStorage });
+const uploadAdvice = multer({ storage: adviceStorage });
 
 
 
-module.exports = { uploadService, uploadTemoigne, uploadMedicalProgram , uploadCertification, uploadContent};
+module.exports = { uploadService, uploadTemoigne, uploadMedicalProgram, uploadCertification, uploadContent, uploadEvent, uploadMember, uploadAdvice };
