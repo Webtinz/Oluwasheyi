@@ -17,6 +17,8 @@ export const getAllContents = async () => {
 export const getServices = async () => {
   try{
     const response = await api.get(`/getallservices`);
+    // console.log(response.data);
+    
     return response.data;
   }catch (error){
     console.error('Failed to fetch services:', error.message || error);
@@ -43,6 +45,17 @@ export const getCertificates = async () => {
     return response.data;
   }catch (error){
     console.error('Failed to fetch services:', error.message || error);
+    return null;
+  }
+}
+
+//Get Events
+export const getEvents = async () => {
+  try{
+    const response = await api.get(`/getallevents`);
+    return response.data;
+  }catch (error){
+    console.error('Failed to fetch Events:', error.message || error);
     return null;
   }
 }

@@ -17,13 +17,18 @@ import HealthCarousel from "./Components/healthCarousel";
 import Img from '../assets/Mask1.png';
 import G3Image from "../assets/G3.png"; // Assure-toi d’avoir les images dans le bon dossier
 import Group1Image from "../assets/Group1.png";
-import { getAllContents } from '../services/content.service';
+import { getAllContents, getCertificates, getEvents, getPrograms, getServices } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
 
 
 const Home = () => {
-    const {selectedLanguage} = useContext(LanguageContext);
+    const { selectedLanguage } = useContext(LanguageContext);
     const [contents, setContents] = useState();
+    const [events, setEvents] = useState();
+    const [services, setServices] = useState([]);
+    const [programs, setPrograms] = useState();
+    const [certificates, setCerificates] = useState();
+
 
     // Get contents on component mount
     useEffect(() => {
@@ -38,6 +43,19 @@ const Home = () => {
                     setContents(response.data);
                     localStorage.setItem("contents", JSON.stringify(response.data));
                 }
+                // Fetch services properly
+                const servicesResponse = await getServices();
+                setServices(servicesResponse.data); // Ensure it assigns the correct data
+
+                // Fetch other data
+                const eventsResponse = await getEvents();
+                setEvents(eventsResponse.data);
+
+                const programsResponse = await getPrograms();
+                setPrograms(programsResponse.data);
+
+                const certificatesResponse = await getCertificates();
+                setCerificates(certificatesResponse.data);
             } catch (error) {
                 console.error('Failed to fetch contents:', error.message || error);
             }
@@ -124,7 +142,7 @@ const Home = () => {
                                         style={{ backgroundColor: "#13AB9C", padding: "10px 25px" }}
                                         onClick={() => (window.location.href = "Meet.html")}
                                     >
-                                       {selectedLanguage === 'fr' ? contents?.home_page_patient_portal_button.content_fr : contents?.home_page_patient_portal_button.content_en}
+                                        {selectedLanguage === 'fr' ? contents?.home_page_patient_portal_button.content_fr : contents?.home_page_patient_portal_button.content_en}
                                     </button>
                                 </div>
                             </div>
@@ -144,7 +162,7 @@ const Home = () => {
             <div>
                 <h2 class="text-center"
                     style={{ textTransform: 'uppercase', color: '#17416F', fontWeight: '700', fontSize: '36px' }}>
-                        {selectedLanguage === 'fr' ? contents?.home_page_equipment_title.content_fr : contents?.home_page_equipment_title.content_en}
+                    {selectedLanguage === 'fr' ? contents?.home_page_equipment_title.content_fr : contents?.home_page_equipment_title.content_en}
                 </h2>
                 <Galery />
             </div>

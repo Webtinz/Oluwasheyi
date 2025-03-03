@@ -5,58 +5,93 @@ import Img1 from '../../assets/o1.png';
 import Img2 from '../../assets/o2.png';
 import Img3 from '../../assets/o3.png';
 import '../index.css';
-import { getAllContents } from '../../services/content.service';
+import { getAllContents, getServices } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 const ServicesCarousel = () => {
-  const services = [
-    {
-      id: 1,
-      title: 'Gynecology',
-      image: Img1,
-      color: '#13AB9C'
-    },
-    {
-      id: 2,
-      title: 'Pediatry',
-      image: Img2,
-      color: '#13AB9C'
-    },
-    {
-      id: 3,
-      title: 'Ophthalmology',
-      image: Img3,
-      color: '#13AB9C'
-    },
-    {
-      id: 4,
-      title: 'Sugery',
-      image: Img3,
-      color: '#13AB9C'
-    },
-    {
-      id: 5,
-      title: 'Ophthalmology',
-      image: Img3,
-      color: '#13AB9C'
-    },
-    {
-      id: 6,
-      title: 'Pediatry',
-      image: Img3,
-      color: '#13AB9C'
-    }
-  ];
+  // const services = [
+  //   {
+  //     id: 1,
+  //     title: 'Gynecology',
+  //     image: Img1,
+  //     color: '#13AB9C'
+  //   },
+  //   {
+  //     id: 2,
+  //     title: 'Pediatry',
+  //     image: Img2,
+  //     color: '#13AB9C'
+  //   },
+  //   {
+  //     id: 3,
+  //     title: 'Ophthalmology',
+  //     image: Img3,
+  //     color: '#13AB9C'
+  //   },
+  //   {
+  //     id: 4,
+  //     title: 'Sugery',
+  //     image: Img3,
+  //     color: '#13AB9C'
+  //   },
+  //   {
+  //     id: 5,
+  //     title: 'Ophthalmology',
+  //     image: Img3,
+  //     color: '#13AB9C'
+  //   },
+  //   {
+  //     id: 6,
+  //     title: 'Pediatry',
+  //     image: Img3,
+  //     color: '#13AB9C'
+  //   }
+  // ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(3);
   const [activeButton, setActiveButton] = useState(null);
   const [animationDirection, setAnimationDirection] = useState(null);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [services, setServicesData] = useState([]);
+  const { selectedLanguage } = useContext(LanguageContext);
+  const [contents, setContents] = useState();
 
-  const totalPages = Math.ceil(services.length / visibleCount);
+  // Get contents on component mount
+  useEffect(() => {
+    const fetchServices = async () => {
+      const servicesResponse = await getServices();
+      // console.log(servicesResponse);
+
+      setServicesData(servicesResponse)
+      // console.log(servicesResponse);
+
+    }
+    const fetchContents = async () => {
+      try {
+        const savedContents = localStorage.getItem("contents");
+        if (savedContents) {
+          setContents(JSON.parse(savedContents));
+        } else {
+          // Fetch contents if not in localStorage
+          const response = await getAllContents();
+          setContents(response.data);
+          localStorage.setItem("contents", JSON.stringify(response.data));
+        }
+
+      } catch (error) {
+        console.error('Failed to fetch contents:', error.message || error);
+      }
+    };
+    fetchContents();
+    fetchServices();
+  }, []);
+
+  const totalPages = Math.ceil(services?.length / visibleCount);
 
   useEffect(() => {
+
     const handleResize = () => {
+
       if (window.innerWidth >= 1024) {
         setVisibleCount(3);
       } else if (window.innerWidth >= 640) {
@@ -65,21 +100,22 @@ const ServicesCarousel = () => {
         setVisibleCount(1);
       }
       // Réinitialiser l'index si nécessaire après redimensionnement
-      setCurrentIndex(prev => Math.min(prev, Math.ceil(services.length / visibleCount) - 1));
+      setCurrentIndex(prev => Math.min(prev, Math.ceil(services?.length / visibleCount) - 1));
     };
 
     handleResize();
+    handleNext();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [services.length]);
+  }, [services?.length]);
 
   const handlePrevious = () => {
     if (isAnimating || currentIndex <= 0) return;
-    
+
     setIsAnimating(true);
     setAnimationDirection('prev');
     setActiveButton("prev");
-    
+
     setTimeout(() => {
       setCurrentIndex(prev => prev - 1);
       setIsAnimating(false);
@@ -90,11 +126,11 @@ const ServicesCarousel = () => {
 
   const handleNext = () => {
     if (isAnimating || currentIndex >= totalPages - 1) return;
-    
+
     setIsAnimating(true);
     setAnimationDirection('next');
     setActiveButton("next");
-    
+
     setTimeout(() => {
       setCurrentIndex(prev => prev + 1);
       setIsAnimating(false);
@@ -105,10 +141,10 @@ const ServicesCarousel = () => {
 
   const goToPage = (pageIndex) => {
     if (isAnimating || pageIndex === currentIndex) return;
-    
+
     setIsAnimating(true);
     setAnimationDirection(pageIndex > currentIndex ? 'next' : 'prev');
-    
+
     setTimeout(() => {
       setCurrentIndex(pageIndex);
       setIsAnimating(false);
@@ -119,8 +155,8 @@ const ServicesCarousel = () => {
   // Calculer les services à afficher
   const getVisibleServices = () => {
     const startIdx = currentIndex * visibleCount;
-    const endIdx = Math.min(startIdx + visibleCount, services.length);
-    return services.slice(startIdx, endIdx);
+    const endIdx = Math.min(startIdx + visibleCount, services?.length);
+    return services?.slice(startIdx, endIdx);
   };
 
   const visibleServices = getVisibleServices();
@@ -131,35 +167,15 @@ const ServicesCarousel = () => {
     return animationDirection === 'next' ? 'slide-left' : 'slide-right';
   };
 
-  const {selectedLanguage} = useContext(LanguageContext);
-  const [contents, setContents] = useState();
 
-  // Get contents on component mount
-  useEffect(() => {
-      const fetchContents = async () => {
-          try {
-              const savedContents = localStorage.getItem("contents");
-              if (savedContents) {
-                  setContents(JSON.parse(savedContents));
-              } else {
-                  // Fetch contents if not in localStorage
-                  const response = await getAllContents();
-                  setContents(response.data);
-                  localStorage.setItem("contents", JSON.stringify(response.data));
-              }
-          } catch (error) {
-              console.error('Failed to fetch contents:', error.message || error);
-          }
-      };
-      fetchContents();
-  }, []);
+
 
   return (
     <div className="container mx-auto px-4">
       {/* Header avec titre et boutons de navigation */}
-      <div className="flex justify-between items-center gap-4 relative mb-8" style={{margin:'30px 10px'}}>
+      <div className="flex justify-between items-center gap-4 relative mb-8" style={{ margin: '30px 10px' }}>
         <div>
-          <h2 className="text-2xl font-bold" style={{fontSize:'36px', color:'#17416F'}}>{selectedLanguage === 'fr' ? contents?.home_page_banner_link3.content_fr : contents?.home_page_banner_link3.content_en}</h2>
+          <h2 className="text-2xl font-bold" style={{ fontSize: '36px', color: '#17416F' }}>{selectedLanguage === 'fr' ? contents?.home_page_banner_link3.content_fr : contents?.home_page_banner_link3.content_en}</h2>
         </div>
         <div className="flex gap-4">
           <button
@@ -177,7 +193,7 @@ const ServicesCarousel = () => {
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
-          
+
           <button
             type="button"
             onClick={handleNext}
@@ -219,7 +235,7 @@ const ServicesCarousel = () => {
 
       {/* Conteneur des cartes */}
       <div className="relative overflow-hidden">
-        <div 
+        <div
           className={`grid transition-opacity duration-300 ${getAnimationClass()}`}
           style={{
             gridTemplateColumns: `repeat(${visibleCount}, 1fr)`,
@@ -227,34 +243,34 @@ const ServicesCarousel = () => {
             opacity: isAnimating ? 0.5 : 1
           }}
         >
-          {visibleServices.map((service, index) => (
+          {visibleServices?.map((service, index) => (
             <div
               key={`${service.id}-${currentIndex}-${index}`}
               className="w-full px-3"
             >
-              <div 
+              <div
                 className="h-full p-3 back"
-                style={{ backgroundColor: service.color, borderTopRightRadius:'30px'}}
+                style={{ backgroundColor: "#13AB9C", borderTopRightRadius: '30px' }}
               >
                 <div className="relative aspect-video">
                   <img
-                    src={service.image}
-                    alt={service.title}
+                    src={Img1}
+                    alt={service.nom}
                     className="w-full h-full object-cover"
-                    style={{borderTopRightRadius:'30px'}}
+                    style={{ borderTopRightRadius: '30px' }}
                   />
                 </div>
                 <div className="p-4 flex justify-between items-center">
-                  <h3 className="text-white text-xl font-medium" style={{fontSize:'24px'}}>
-                    {service.title}
+                  <h3 className="text-white text-xl font-medium" style={{ fontSize: '24px' }}>
+                    {selectedLanguage === 'fr' ? service.nom : service.nom_en}
                   </h3>
-                  <Link 
+                  <Link
                     to="/service"
                     type="button"
                     className="text-white hover:opacity-80 transition-opacity"
-                    aria-label={`View ${service.title} details`}
+                    aria-label={`View ${selectedLanguage === 'fr' ? service.nom : service.nom_en} details`}
                   >
-                    <i className="bi bi-arrow-right-circle" style={{fontSize:'24px'}}></i>
+                    <i className="bi bi-arrow-right-circle" style={{ fontSize: '24px' }}></i>
                   </Link>
                 </div>
               </div>
