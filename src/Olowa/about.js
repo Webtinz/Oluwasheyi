@@ -115,7 +115,9 @@ const Home = () => {
                     </div>
                 </div>
                 <div className="col-md-6 col-12 mx-auto mb-3 align-self-center p-4">
-                <h2 style={{ color: '#17416F', textTransform: 'uppercase', fontWeight: 700, fontSize:'30px' }}>{selectedLanguage === 'fr' ? contents?.about_page_mission_title.content_fr : contents?.about_page_mission_title.content_en}</h2>
+                <h2 style={{ color: '#17416F', textTransform: 'uppercase', fontWeight: 700, fontSize:'30px' }}>
+                    {selectedLanguage === 'fr' ? contents?.about_page_mission_title.content_fr : contents?.about_page_mission_title.content_en}
+                </h2>
                 <br/>
                 <p className="mt-2">
                     {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{

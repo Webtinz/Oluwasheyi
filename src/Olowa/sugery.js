@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import './index.css';
 import './about.css';
@@ -11,15 +11,39 @@ import Group1 from '../assets/Group1.png';
 import Img from '../assets/beta.png';
 import Mask1 from '../assets/Fr1.png';
 import Mask2 from '../assets/Fr.png';
+import { getAllContents } from '../services/content.service';
+import LanguageContext from '../context/LanguageContext';
 
 
 const Home = () => {
+    const {selectedLanguage} = useContext(LanguageContext);
+    const [contents, setContents] = useState();
+  
+    // Get contents on component mount
+    useEffect(() => {
+        const fetchContents = async () => {
+            try {
+                const savedContents = localStorage.getItem("contents");
+                if (savedContents) {
+                    setContents(JSON.parse(savedContents));
+                } else {
+                    // Fetch contents if not in localStorage
+                    const response = await getAllContents();
+                    setContents(response.data);
+                    localStorage.setItem("contents", JSON.stringify(response.data));
+                }
+            } catch (error) {
+                console.error('Failed to fetch contents:', error.message || error);
+            }
+        };
+        fetchContents();
+    }, []); 
    
   return (
     <div className="container-fluid">
         <div><Navbar/></div>
         <section className="mt-4 position-relative" style={{ backgroundColor: '#17416F', padding: '100px 0' }}>
-            <h1 className="text-center text-white" style={{ textTransform: 'uppercase',fontWeight:'700',fontSize:'40px' }}>Surgery</h1>
+            <h1 className="text-center text-white" style={{ textTransform: 'uppercase',fontWeight:'700',fontSize:'40px' }}> {selectedLanguage === 'fr' ? contents?.surgery_page_title.content_fr : contents?.surgery_page_title.content_en}</h1>
             <div className="position-absolute bottom-0 start-0">
                 <img src={Group1} alt="" />
             </div>
@@ -38,18 +62,20 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-                <div className="col-md-6 mx-auto mb-3 mb-md-0 p-5">
+                <div className="col-md-6 mx-auto mb-3 mb-md-0">
                     <div className='px-4'>
-                        <h2 style={{textTransform:'uppercase',color:'#17416F',fontWeight:'700',fontSize:'30px'}}>Surgery</h2>
+                        <h2 style={{textTransform:'uppercase',color:'#17416F',fontWeight:'700',fontSize:'30px'}}>{selectedLanguage === 'fr' ? contents?.surgery_page_title.content_fr : contents?.surgery_page_title.content_en}</h2>
                         <p className='mt-3 ms-2' style={{color:'#17416F',fontWeight:'600'}}>
-                            We provide minimally invasive procedures for faster recovery
+                            {selectedLanguage === 'fr' ? contents?.surgery_page_surgery_title_descp.content_fr : contents?.surgery_page_surgery_title_descp.content_en}
                         </p>
                         <p className='ms-2 mt-2' style={{color:'#17416F'}}>
-                            Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio. Proin sed nunc quis ex faucibus volutpat. 
-                            <br /><br />
-                            Quisque faucibus in quam quis lobortis. Donec metus neque, euismod a volutpat eget, porta sed ligulalus consequat risu. 
-                            <br /><br />
-                            Duis dapibus quam erat, nec gravida erat sodales quis. Proin iaculis felis libero, vel dignissim velit volutpat eget. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut ut odio elementum, ultricies lorem at, accumsan mauris. Vestibulum ac orci vitae velit sodales convallis vitae nec justo. 
+                            {selectedLanguage === 'fr' ? 
+                                (<div dangerouslySetInnerHTML={{
+                                __html:contents?.	surgery_page_surgery_descp.content_fr  }} />) : 
+                                (<div dangerouslySetInnerHTML={{
+                                    __html:contents?.	surgery_page_surgery_descp.content_en  }} />)
+                            }
+                           
                         </p>
                         <br />
                         <Link to="/contact" className="btn btn-pri px-4 text-white" style={{background:'#13AB9C'}}>Contact Us</Link>

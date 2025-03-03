@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import './index.css';
 import './about.css';
@@ -8,6 +8,8 @@ import Footer from "./Components/footer";
 import Group1 from '../assets/Group1.png';
 import Testi from '../assets/testi.png';
 import Mask1 from '../assets/Fr1.png';
+import { getAllContents } from '../services/content.service';
+import LanguageContext from '../context/LanguageContext';
 
 
 const Home = () => {
@@ -56,13 +58,34 @@ const Home = () => {
         },
     ];
 
-    
+    const {selectedLanguage} = useContext(LanguageContext);
+    const [contents, setContents] = useState();
+  
+    // Get contents on component mount
+    useEffect(() => {
+        const fetchContents = async () => {
+            try {
+                const savedContents = localStorage.getItem("contents");
+                if (savedContents) {
+                    setContents(JSON.parse(savedContents));
+                } else {
+                    // Fetch contents if not in localStorage
+                    const response = await getAllContents();
+                    setContents(response.data);
+                    localStorage.setItem("contents", JSON.stringify(response.data));
+                }
+            } catch (error) {
+                console.error('Failed to fetch contents:', error.message || error);
+            }
+        };
+        fetchContents();
+    }, []); 
     
   return (
     <div className="container-fluid">
         <div><Navbar/></div>
         <section className="mt-4 position-relative" style={{ backgroundColor: '#17416F', padding: '100px 0' }}>
-            <h1 className="text-center text-white" style={{ textTransform: 'uppercase',fontWeight:'700',fontSize:'40px' }}>Testimonials</h1>
+            <h1 className="text-center text-white" style={{ textTransform: 'uppercase',fontWeight:'700',fontSize:'40px' }}>{selectedLanguage === 'fr' ? contents?.testimonials_page_title.content_fr : contents?.testimonials_page_title.content_en}</h1>
             <div className="position-absolute bottom-0 start-0">
                 <img src={Group1} alt="" />
             </div>
@@ -72,7 +95,7 @@ const Home = () => {
         </section>
         <br /><br /><br />
         <section className="container">
-            <h2 className='text-center' style={{fontSize:'36px', color:'#17416F', fontWeight:'700'}}>20,000+ Satisfied patients</h2>
+            <h2 className='text-center' style={{fontSize:'36px', color:'#17416F', fontWeight:'700'}}>{selectedLanguage === 'fr' ? contents?.	testimonials_page_testimonial_title.content_fr : contents?.	testimonials_page_testimonial_title.content_en}</h2>
             <br /><br /><br />
             <div className="row g-4">
                 {testimonials.map((testimonial, index) => (

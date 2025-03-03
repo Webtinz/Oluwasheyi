@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import './index.css';
 import './about.css';
@@ -17,8 +17,34 @@ import Img5 from '../assets/pediatrics.png';
 import Img6 from '../assets/phone.png';
 import Img7 from '../assets/mail.png';
 import Mask1 from '../assets/Fr1.png';
+import { getAllContents } from '../services/content.service';
+import LanguageContext from '../context/LanguageContext';
 
 const Home = () => {
+    const {selectedLanguage} = useContext(LanguageContext);
+    const [contents, setContents] = useState();
+  
+    // Get contents on component mount
+    useEffect(() => {
+        const fetchContents = async () => {
+            try {
+                const savedContents = localStorage.getItem("contents");
+                if (savedContents) {
+                    setContents(JSON.parse(savedContents));
+                } else {
+                    // Fetch contents if not in localStorage
+                    const response = await getAllContents();
+                    setContents(response.data);
+                    localStorage.setItem("contents", JSON.stringify(response.data));
+                }
+            } catch (error) {
+                console.error('Failed to fetch contents:', error.message || error);
+            }
+        };
+        fetchContents();
+    }, []); 
+
+
     const [activeSection, setActiveSection] = useState(null);
 
     const toggleContent = (index) => {
@@ -60,7 +86,7 @@ const Home = () => {
         <div className="container-fluid">
             <div><Navbar /></div>
             <section className="mt-4 position-relative" style={{ backgroundColor: '#17416F', padding: '100px 0' }}>
-                <h1 className="text-center text-white" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '40px' }}>Support Services</h1>
+                <h1 className="text-center text-white" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '40px' }}>{selectedLanguage === 'fr' ? contents?.support_page_title1.content_fr : contents?.support_page_title1.content_en}</h1>
                 <div className="position-absolute bottom-0 start-0">
                     <img src={Group1} alt="" />
                 </div>
@@ -73,8 +99,7 @@ const Home = () => {
                 <div className="row">
                     <div className="col-md-2 mx-auto mb-3">
                         <h2 className='text-center' style={{ color: '#17416F', textTransform: 'uppercase', fontWeight: 700, fontSize: '30px' }}>
-                            Support
-                            Services
+                            {selectedLanguage === 'fr' ? contents?.support_page_title1.content_fr : contents?.support_page_title1.content_en}
                         </h2>
                     </div>
                     <div className="col-md-8 mx-auto">
