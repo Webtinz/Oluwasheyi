@@ -17,17 +17,20 @@ import HealthCarousel from "./Components/healthCarousel";
 import Img from '../assets/Mask1.png';
 import G3Image from "../assets/G3.png"; // Assure-toi d’avoir les images dans le bon dossier
 import Group1Image from "../assets/Group1.png";
-import { getAllContents, getCertificates, getEvents, getPrograms, getServices } from '../services/content.service';
+import { getAdvices, getAllContents, getCertificates, getEvents, getPrograms, getServices, getTeamMembers, getTestimonials } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
 
 
 const Home = () => {
     const { selectedLanguage } = useContext(LanguageContext);
     const [contents, setContents] = useState();
-    const [events, setEvents] = useState();
+    const [events, setEvents] = useState([]);
     const [services, setServices] = useState([]);
-    const [programs, setPrograms] = useState();
-    const [certificates, setCerificates] = useState();
+    const [programs, setPrograms] = useState([]);
+    const [testimonials, setTestimonials] = useState([]);
+    const [certificates, setCerificates] = useState([]);
+    const [advices, setAdvices] = useState([]);
+    const [teamMembers, setTeamMembers] = useState([]);
 
 
     // Get contents on component mount
@@ -43,19 +46,14 @@ const Home = () => {
                     setContents(response.data);
                     localStorage.setItem("contents", JSON.stringify(response.data));
                 }
-                // Fetch services properly
-                const servicesResponse = await getServices();
-                setServices(servicesResponse.data); // Ensure it assigns the correct data
-
-                // Fetch other data
-                const eventsResponse = await getEvents();
-                setEvents(eventsResponse.data);
-
-                const programsResponse = await getPrograms();
-                setPrograms(programsResponse.data);
-
-                const certificatesResponse = await getCertificates();
-                setCerificates(certificatesResponse.data);
+                // Fetch others data
+                setServices(await getServices());
+                setEvents(await getEvents());
+                setPrograms(getPrograms());
+                setCerificates(await getCertificates());
+                setAdvices(await getAdvices());
+                setTeamMembers(await getTeamMembers())
+                setTestimonials(await getTestimonials())
             } catch (error) {
                 console.error('Failed to fetch contents:', error.message || error);
             }
@@ -68,9 +66,9 @@ const Home = () => {
             <div><Navbar /></div>
             <div><Banner /></div>
             <br /><br />
-            <div><OwlCarousel /></div>
+            <div><OwlCarousel services={services} /></div>
             <br /><br />
-            <div><HealthCarousel /></div>
+            <div><HealthCarousel healthAdvices={advices} /></div>
             <br /><br />
             <div><Community /></div>
             <br /><br />
@@ -115,11 +113,11 @@ const Home = () => {
             </div>
             <br /><br />
             <div>
-                <Testimonial />
+                <Testimonial testimonials={testimonials} />
             </div>
             <br /><br /><br />
             <div>
-                <Logo />
+                <Logo logos={certificates} />
             </div>
             <br /><br />
             <section className="container-fluid mt-4 position-relative" style={{ backgroundColor: "#17416F" }}>
@@ -156,7 +154,7 @@ const Home = () => {
             </section>
             <br /><br />
             <div>
-                <Smeet />
+                <Smeet doctors={teamMembers} />
             </div>
             <br /><br />
             <div>
@@ -168,7 +166,7 @@ const Home = () => {
             </div>
             <br /><br />
             <div>
-                <Event />
+                <Event events={events} />
             </div>
             <br /><br />
             <div>

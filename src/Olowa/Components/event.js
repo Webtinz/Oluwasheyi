@@ -6,54 +6,55 @@ import im3 from "../../assets/im3.png";
 import Mask2 from '../../assets/Fr1.png';
 import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
+import { format } from 'date-fns';
 
-const events = [
-  { id: 1, image: im1, day: "10", date: "FEB.25", title: "Cras eleifend gravi mi, eu placerat urn vulputate" },
-  { id: 2, image: im2, day: "13", date: "FEB.25", title: "Cras eleifend gravi mi, eu placerat urn vulputate" },
-  { id: 3, image: im3, day: "15", date: "FEB.25", title: "Cras eleifend gravi mi, eu placerat urn vulputate" },
-];
+// const events = [
+//   { id: 1, image: im1, day: "10", date: "FEB.25", title: "Cras eleifend gravi mi, eu placerat urn vulputate" },
+//   { id: 2, image: im2, day: "13", date: "FEB.25", title: "Cras eleifend gravi mi, eu placerat urn vulputate" },
+//   { id: 3, image: im3, day: "15", date: "FEB.25", title: "Cras eleifend gravi mi, eu placerat urn vulputate" },
+// ];
 
-const FeaturedEvents = () => {
-  const {selectedLanguage} = useContext(LanguageContext);
+const FeaturedEvents = ({ events }) => {
+  const { selectedLanguage } = useContext(LanguageContext);
   const [contents, setContents] = useState();
 
   // Get contents on component mount
   useEffect(() => {
-      const fetchContents = async () => {
-          try {
-              const savedContents = localStorage.getItem("contents");
-              if (savedContents) {
-                  setContents(JSON.parse(savedContents));
-              } else {
-                  // Fetch contents if not in localStorage
-                  const response = await getAllContents();
-                  setContents(response.data);
-                  localStorage.setItem("contents", JSON.stringify(response.data));
-              }
-          } catch (error) {
-              console.error('Failed to fetch contents:', error.message || error);
-          }
-      };
-      fetchContents();
+    const fetchContents = async () => {
+      try {
+        const savedContents = localStorage.getItem("contents");
+        if (savedContents) {
+          setContents(JSON.parse(savedContents));
+        } else {
+          // Fetch contents if not in localStorage
+          const response = await getAllContents();
+          setContents(response.data);
+          localStorage.setItem("contents", JSON.stringify(response.data));
+        }
+      } catch (error) {
+        console.error('Failed to fetch contents:', error.message || error);
+      }
+    };
+    fetchContents();
   }, []);
 
 
   return (
-    <section className="mt-4 container-fluid p-5 position-relative" style={{ backgroundColor: "#17416F", paddingLeft:'0px', paddingRight:'0px' }}>
+    <section className="mt-4 container-fluid p-5 position-relative" style={{ backgroundColor: "#17416F", paddingLeft: '0px', paddingRight: '0px' }}>
       <div className="container p-5">
-        <h2 className="text-white text-uppercase ms-3" style={{ fontWeight: 700, fontSize:'36px' }}> {selectedLanguage === 'fr' ? contents?.home_page_event_title.content_fr : contents?.home_page_event_title.content_en}</h2>
-        <br/>
+        <h2 className="text-white text-uppercase ms-3" style={{ fontWeight: 700, fontSize: '36px' }}> {selectedLanguage === 'fr' ? contents?.home_page_event_title.content_fr : contents?.home_page_event_title.content_en}</h2>
+        <br />
         <div className="row mt-2">
-          {events.map((event) => (
+          {events?.map((event) => (
             <div key={event.id} className="col-12 col-md-6 col-lg-4 mb-3 mb-md-0 mx-auto p-4">
               <div className="p-3 bg-white event-card">
                 <div className="row">
                   <div className="col-lg-12 mb-4 mx-auto">
                     <div className="position-relative">
-                      <img src={event.image} alt="" className="image-fluid w-100" />
+                      <img src={im3} alt="" className="image-fluid w-100" />
                       <div className="ppo1">
-                        <span className="event-day">{event.day}</span>
-                        <span className="event-date">{event.date}</span>
+                        <span className="event-day">{format(new Date(event.dateevent), "dd")}</span>
+                        <span className="event-date upper">{format(new Date(event.dateevent), "MMM.yy")}</span>
                       </div>
                     </div>
                   </div>
@@ -61,12 +62,14 @@ const FeaturedEvents = () => {
                     <div className="row">
                       <div className="col-md-4"></div>
                       <div className="col-md-8">
-                        <p className="event-title">{event.title}</p>
+                        <p className="event-title">{selectedLanguage === 'fr' ? event.nom : event.name}</p>
                       </div>
                     </div>
                     <span className="event-divider"></span>
                     <div className="d-flex justify-content-end">
-                      <a href="#" className="event-read-more">Read More</a>
+                      <a href="#" className="event-read-more">
+                      {selectedLanguage === 'fr' ? "Voir Plus" : "Learn More"}
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -76,7 +79,7 @@ const FeaturedEvents = () => {
         </div>
       </div>
       <div className="position-absolute bottom-0 end-0">
-          <img src={Mask2} alt="" />
+        <img src={Mask2} alt="" />
       </div>
     </section>
   );

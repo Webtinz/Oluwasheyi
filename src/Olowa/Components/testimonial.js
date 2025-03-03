@@ -5,42 +5,42 @@ import Ic from '../../assets/11d.png';
 import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 
-const testimonials = [
-  {
-    id: 1,
-    title: "Highly Recommended!!",
-    text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut eniset pretium placerat faucibus faucibus. St quis consequat eget nulla fusce dignissim.",
-    author: "Jane Cooper",
-    location: "Cotonou",
-    avatar: Logo
-  },
-  {
-    id: 2,
-    title: "Great Hospital",
-    text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut eniset pretium placerat faucibus faucibus. St quis consequat eget nulla fusce dignissim.",
-    author: "Jane Cooper",
-    location: "Cotonou",
-    avatar: Logo
-  },
-  {
-    id: 3,
-    title: "Great Hospital",
-    text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut eniset pretium placerat faucibus faucibus. St quis consequat eget nulla fusce dignissim.",
-    author: "Jane Cooper",
-    location: "Cotonou",
-    avatar: Logo
-  },
-  {
-    id: 4,
-    title: "Great Hospital",
-    text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut eniset pretium placerat faucibus faucibus. St quis consequat eget nulla fusce dignissim.",
-    author: "Jane Cooper",
-    location: "Cotonou",
-    avatar: Logo
-  }
-];
+// const testimonials = [
+//   {
+//     id: 1,
+//     title: "Highly Recommended!!",
+//     text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut eniset pretium placerat faucibus faucibus. St quis consequat eget nulla fusce dignissim.",
+//     author: "Jane Cooper",
+//     location: "Cotonou",
+//     avatar: Logo
+//   },
+//   {
+//     id: 2,
+//     title: "Great Hospital",
+//     text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut eniset pretium placerat faucibus faucibus. St quis consequat eget nulla fusce dignissim.",
+//     author: "Jane Cooper",
+//     location: "Cotonou",
+//     avatar: Logo
+//   },
+//   {
+//     id: 3,
+//     title: "Great Hospital",
+//     text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut eniset pretium placerat faucibus faucibus. St quis consequat eget nulla fusce dignissim.",
+//     author: "Jane Cooper",
+//     location: "Cotonou",
+//     avatar: Logo
+//   },
+//   {
+//     id: 4,
+//     title: "Great Hospital",
+//     text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut eniset pretium placerat faucibus faucibus. St quis consequat eget nulla fusce dignissim.",
+//     author: "Jane Cooper",
+//     location: "Cotonou",
+//     avatar: Logo
+//   }
+// ];
 
-const PatientTestimonials = () => {
+const PatientTestimonials = ({ testimonials }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [activeButton, setActiveButton] = useState(null);
@@ -65,7 +65,7 @@ const PatientTestimonials = () => {
   };
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => Math.min(prevIndex + 1, testimonials.length - cardsToShow));
+    setCurrentIndex((prevIndex) => Math.min(prevIndex + 1, testimonials?.length - cardsToShow));
     setActiveButton('next');
   };
 
@@ -142,12 +142,12 @@ const PatientTestimonials = () => {
                     <div 
                     className="flex transition-transform duration-500 ease-in-out"
                     style={{
-                        transform: `translateX(-${currentIndex * (100 / testimonials.length)}%)`,
-                        width: `${(testimonials.length / cardsToShow) * 100}%`
+                        transform: `translateX(-${currentIndex * (100 / testimonials?.length)}%)`,
+                        width: `${(testimonials?.length / cardsToShow) * 100}%`
                     }}
                     >
-                    {testimonials.map((testimonial) => (
-                        <div key={testimonial.id} className="px-4" style={{ width: `${100 / testimonials.length * cardsToShow}%` }}>
+                    {testimonials?.map((testimonial) => (
+                        <div key={testimonial.id} className="px-4" style={{ width: `${100 / testimonials?.length * cardsToShow}%` }}>
                         <div className=" p-6 h-full" 
                             style={{
                                 border:'1px solid #17416F',
@@ -156,14 +156,14 @@ const PatientTestimonials = () => {
                             }}
                         >
                             <div className="mb-4"><img src={Ic} /></div>
-                            <h3 className="text-xl font-semibold mb-2" style={{color:'#17416F',fontWeight:'700'}}>{testimonial.title}</h3>
-                            <p className="text-gray-600 mb-6">{testimonial.text}</p>
+                            <h3 className="text-xl font-semibold mb-2" style={{color:'#17416F',fontWeight:'700'}}>{testimonial.titre}</h3>
+                            <p className="text-gray-600 mb-6">{testimonial.description}</p>
                             <hr className="my-4" />
                             <div className="flex items-center gap-3">
-                              <img src={testimonial.avatar} alt={testimonial.author} className="w-12 h-12 rounded-full"/>
+                              <img src={Logo} alt={`${testimonial.nom} ${testimonial.prenom}`} className="w-12 h-12 rounded-full"/>
                               <div>
-                                  <p className="font-semibold">{testimonial.author}</p>
-                                  <p className="text-gray-500">{testimonial.location}</p>
+                                  <p className="font-semibold">{testimonial.nom} {testimonial.prenom}</p>
+                                  <p className="text-gray-500">{testimonial.address}</p>
                               </div>
                             </div>
                         </div>

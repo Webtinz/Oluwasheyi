@@ -7,65 +7,19 @@ import Img3 from '../../assets/o3.png';
 import '../index.css';
 import { getAllContents, getServices } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
-const ServicesCarousel = () => {
-  // const services = [
-  //   {
-  //     id: 1,
-  //     title: 'Gynecology',
-  //     image: Img1,
-  //     color: '#13AB9C'
-  //   },
-  //   {
-  //     id: 2,
-  //     title: 'Pediatry',
-  //     image: Img2,
-  //     color: '#13AB9C'
-  //   },
-  //   {
-  //     id: 3,
-  //     title: 'Ophthalmology',
-  //     image: Img3,
-  //     color: '#13AB9C'
-  //   },
-  //   {
-  //     id: 4,
-  //     title: 'Sugery',
-  //     image: Img3,
-  //     color: '#13AB9C'
-  //   },
-  //   {
-  //     id: 5,
-  //     title: 'Ophthalmology',
-  //     image: Img3,
-  //     color: '#13AB9C'
-  //   },
-  //   {
-  //     id: 6,
-  //     title: 'Pediatry',
-  //     image: Img3,
-  //     color: '#13AB9C'
-  //   }
-  // ];
-
+const ServicesCarousel = ({ services }) => {
+  
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(3);
   const [activeButton, setActiveButton] = useState(null);
   const [animationDirection, setAnimationDirection] = useState(null);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [services, setServicesData] = useState([]);
   const { selectedLanguage } = useContext(LanguageContext);
   const [contents, setContents] = useState();
 
   // Get contents on component mount
   useEffect(() => {
-    const fetchServices = async () => {
-      const servicesResponse = await getServices();
-      // console.log(servicesResponse);
-
-      setServicesData(servicesResponse)
-      // console.log(servicesResponse);
-
-    }
+    
     const fetchContents = async () => {
       try {
         const savedContents = localStorage.getItem("contents");
@@ -83,7 +37,6 @@ const ServicesCarousel = () => {
       }
     };
     fetchContents();
-    fetchServices();
   }, []);
 
   const totalPages = Math.ceil(services?.length / visibleCount);

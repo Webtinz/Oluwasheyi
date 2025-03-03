@@ -44,7 +44,6 @@ const Home = () => {
         fetchContents();
     }, []); 
 
-
     const [activeSection, setActiveSection] = useState(null);
 
     const toggleContent = (index) => {

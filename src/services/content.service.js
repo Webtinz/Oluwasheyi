@@ -9,7 +9,6 @@ export const getAllContents = async () => {
     console.error('Failed to fetch contents:', error.message || error);
     return null;
   }
-    
 };
 
 
@@ -26,13 +25,13 @@ export const getServices = async () => {
   }
 }
 
-//Get programs
+//Get health programs
 export const getPrograms = async () => {
   try{
     const response = await api.get(`/getallprograms`);
     return response.data;
   }catch (error){
-    console.error('Failed to fetch services:', error.message || error);
+    console.error('Failed to fetch health programs:', error.message || error);
     return null;
   }
 }
@@ -44,7 +43,7 @@ export const getCertificates = async () => {
     const response = await api.get(`/getallcertifications`);
     return response.data;
   }catch (error){
-    console.error('Failed to fetch services:', error.message || error);
+    console.error('Failed to fetch certificates:', error.message || error);
     return null;
   }
 }
@@ -59,3 +58,48 @@ export const getEvents = async () => {
     return null;
   }
 }
+
+//Get Advices
+export const getAdvices = async () => {
+  try{
+    const response = await api.get(`/getalladvices`);
+    return response.data;
+  }catch (error){
+    console.error('Failed to fetch Advices:', error.message || error);
+    return null;
+  }
+}
+
+
+//Get Team Members
+export const getTeamMembers = async () => {
+  try{
+    const response = await api.get(`/getallteamMembers`);
+    return response.data;
+  }catch (error){
+    console.error('Failed to fetch Team Members:', error.message || error);
+    return null;
+  }
+}
+
+//Get Team Members
+export const getTestimonials = async () => {
+  try{
+    const response = await api.get(`/getalltestimonials`);
+    return response.data;
+  }catch (error){
+    console.error('Failed to fetch Team Members:', error.message || error);
+    return null;
+  }
+}
+
+// Ajouter une cell
+export const addFeedback = async (data) => {
+  try {
+    const response = await api.post('/addfeedback', data);
+    return response.data;
+  } catch (error) {
+    console.error('Error adding addfeedback:', error);
+    throw error.response?.data || error;
+  }
+};
