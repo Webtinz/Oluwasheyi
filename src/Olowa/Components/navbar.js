@@ -70,7 +70,7 @@ const Navbar = () => {
           {/* Logo Section */}
           <div className='d-flex'>
             <div className='align-self-center'>
-              <span onClick={toggleMenu} className='d-flex'>
+              <span onClick={toggleMenu} className='d-flex' style={{cursor:'pointer'}}>
                 <img src={Img1} alt="" className="menu-icon ms-2" /> <span className='mt-3'>Menu</span>
               </span>
             </div>

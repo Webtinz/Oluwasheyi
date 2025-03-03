@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Img from '../../assets/image.png';
 import '../index.css';
 import '../about.css';
+import { getAllContents } from '../../services/content.service';
+import LanguageContext from '../../context/LanguageContext';
 
 const EventsCarousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -61,11 +63,35 @@ const EventsCarousel = () => {
     setCurrentSlide((prev) => (prev - 1 + (events.length - slidesToShow + 1)) % (events.length - slidesToShow + 1));
   };
 
+  const {selectedLanguage} = useContext(LanguageContext);
+  const [contents, setContents] = useState();
+
+  // Get contents on component mount
+  useEffect(() => {
+      const fetchContents = async () => {
+          try {
+              const savedContents = localStorage.getItem("contents");
+              if (savedContents) {
+                  setContents(JSON.parse(savedContents));
+              } else {
+                  // Fetch contents if not in localStorage
+                  const response = await getAllContents();
+                  setContents(response.data);
+                  localStorage.setItem("contents", JSON.stringify(response.data));
+              }
+          } catch (error) {
+              console.error('Failed to fetch contents:', error.message || error);
+          }
+      };
+      fetchContents();
+  }, []);
+
+
   return (
     <div className="container-fluid p-5" style={{background:'#17416F'}}>
       <div className="container px-5">
         <div className="d-flex justify-content-between align-items-center mb-8">
-          <h2 className="text-white" style={{fontSize: isMobile ? '24px' : '36px', fontWeight: 'bold'}}>UPCOMING EVENTS</h2>
+          <h2 className="text-white" style={{fontSize: isMobile ? '24px' : '36px', fontWeight: 'bold'}}> {selectedLanguage === 'fr' ? contents?.communoty_page_event_title.content_fr : contents?.communoty_page_event_title.content_en}</h2>
           <div className="d-flex gap-4">
             <button
               onClick={prevSlide}

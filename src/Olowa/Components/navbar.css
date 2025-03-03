@@ -15,7 +15,8 @@
     top: 100%;
     left: -12px;
     width: 50%;
-    height: 80vh;
+    height: 70vh;
+    border-top-right-radius: 30px;
     padding: 20px;
     z-index: 1000;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);

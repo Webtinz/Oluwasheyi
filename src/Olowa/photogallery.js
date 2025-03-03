@@ -45,7 +45,7 @@ const Home = () => {
                 {tabs.map((tab) => (
                     <li className="search-item" key={tab.id}>
                     <button
-                        className={`search-link1 ${activeTab === tab.id ? "active" : ""}`}
+                        className={`search-link ${activeTab === tab.id ? "active" : ""}`}
                         onClick={() => setActiveTab(tab.id)}
                     >
                         {tab.label}

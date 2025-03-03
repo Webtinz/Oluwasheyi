@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import './index.css';
 import './about.css';
@@ -16,6 +16,8 @@ import LinkedIn from '../assets/linkedin.png';
 import Mask from '../assets/Mask group.png';
 import Mask1 from '../assets/Fr1.png';
 import Mask2 from '../assets/Fr.png';
+import { getAllContents } from '../services/content.service';
+import LanguageContext from '../context/LanguageContext';
 
 const doctors = [
     { id: 1, image: Doc, name: "Docteurs Name", specialty: "Gynecologist" },
@@ -33,12 +35,37 @@ const Home = () => {
         { id: 1, image: Img, name: "Docteurs Name" },
         { id: 2, image: Img1, name: "Docteurs Name" },
       ];
+
+    const {selectedLanguage} = useContext(LanguageContext);
+    const [contents, setContents] = useState();
+
+    // Get contents on component mount
+    useEffect(() => {
+        const fetchContents = async () => {
+            try {
+                const savedContents = localStorage.getItem("contents");
+                if (savedContents) {
+                    setContents(JSON.parse(savedContents));
+                } else {
+                    // Fetch contents if not in localStorage
+                    const response = await getAllContents();
+                    setContents(response.data);
+                    localStorage.setItem("contents", JSON.stringify(response.data));
+                }
+            } catch (error) {
+                console.error('Failed to fetch contents:', error.message || error);
+            }
+        };
+        fetchContents();
+    }, []);
       
   return (
     <div className="container-fluid">
         <div><Navbar/></div>
         <section className="mt-4 position-relative" style={{ backgroundColor: '#17416F', padding: '100px 0' }}>
-            <h1 className="text-center text-white" style={{ textTransform: 'uppercase',fontWeight:'700',fontSize:'40px' }}>Meet the team</h1>
+            <h1 className="text-center text-white" style={{ textTransform: 'uppercase',fontWeight:'700',fontSize:'40px' }}> 
+                {selectedLanguage === 'fr' ? contents?.	team_page_title.content_fr : contents?.	team_page_title.content_en}
+            </h1>
             <div className="position-absolute bottom-0 start-0">
                 <img src={Group1} alt="" />
             </div>
@@ -51,7 +78,7 @@ const Home = () => {
             <div className="row">
                 <div className="col-md-2 mx-auto mb-3">
                     <h2 className='text-center' style={{ color: '#17416F', textTransform: 'uppercase', fontWeight: 700, fontSize:'30px' }}>
-                        Our Team
+                        {selectedLanguage === 'fr' ? contents?.team_page_team_title.content_fr : contents?.team_page_team_title.content_en}
                     </h2>
                 </div>
                 <div className="col-md-8 mx-auto">
@@ -66,7 +93,7 @@ const Home = () => {
         <br /><br/><br/>
         <section className="container my-4" style={{ backgroundColor: "#13AB9C", padding: "80px 0px" }}>
             <h2 className="text-center" style={{ color: "white", fontWeight: 700, textTransform: "uppercase", fontSize:'clamp(25px, 8vw, 36px)' }}>
-                Directors
+                {selectedLanguage === 'fr' ? contents?.team_page_directors.content_fr : contents?.team_page_directors.content_en}
             </h2>
             <br />
             <div className="row justify-content-center">
@@ -89,7 +116,7 @@ const Home = () => {
         <br /><br/><br/>
         <section className="container">
             <h2 className="text-center" style={{ color: "#17416F", textTransform: "uppercase", fontWeight: 700, fontSize:'36px' }}>
-                Our Doctors
+                {selectedLanguage === 'fr' ? contents?.	team_page_doctors_title.content_fr : contents?.	team_page_doctors_title.content_en}
             </h2>
             <br />
             <div className="row mt-4">
@@ -170,16 +197,13 @@ const Home = () => {
                     </div>
                 </div>
                 <div className="col-12 col-md-6 mx-auto mb-3 mb-md-0 p-5 align-self-center">
-                <h2 style={{ textTransform: "uppercase", color: "#17416F",fontWeight:'700', fontSize:'clamp(25px, 8vw, 36px)' }}>Staff Members</h2>
+                <h2 style={{ textTransform: "uppercase", color: "#17416F",fontWeight:'700', fontSize:'clamp(25px, 8vw, 36px)' }}> {selectedLanguage === 'fr' ? contents?.	team_page_staff_title.content_fr : contents?.	team_page_staff_title.content_en}</h2>
                 <p className="mt-3" style={{ color: "#17416F" }}>
-                    Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio. Proin sed nunc quis ex faucibus volutpat.
-                    <br /><br />
-                    Nam molestie erat at ex volutpat tempus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed vitae leo massa. Mauris lobortis dui tellus, sed vestibulum ex tristique id. Duis condimentum eget velit at congue. Donec ut pulvinar lacus. Suspendisse pretium tellus a diam varius feugiat. Proin finibus viverra maximus. Nunc varius erat lectus, id vestibulum libero viverra non.
-                    Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio. Proin sed nunc quis ex faucibus volutpat.
+                    {selectedLanguage === 'fr' ? contents?.	team_page_staff_desc.content_fr : contents?.	team_page_staff_desc.content_en}
                 </p>
                 <div className="mt-3">
                     <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }}>
-                    Contact Us
+                    {selectedLanguage === 'fr' ? contents?.	team_page_staff_button.content_fr : contents?.	team_page_staff_button.content_en}
                     </button>
                 </div>
                 </div>

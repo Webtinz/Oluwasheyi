@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import './index.css';
 import './about.css';
@@ -10,6 +10,8 @@ import Image33 from '../assets/image 33.png';
 import Mask1 from '../assets/Fr.png';
 import Mask2 from '../assets/G122.png';
 import Mask3 from '../assets/Fr1.png';
+import { getAllContents } from '../services/content.service';
+import LanguageContext from '../context/LanguageContext';
 
 
 const Home = () => {
@@ -64,12 +66,36 @@ const Home = () => {
         const newIndex = Math.max(0, Math.min(years.length - 1, currentIndex + direction));
         setCurrentYear(years[newIndex]);
       };
+
+      const {selectedLanguage} = useContext(LanguageContext);
+      const [contents, setContents] = useState();
+    
+      // Get contents on component mount
+      useEffect(() => {
+          const fetchContents = async () => {
+              try {
+                  const savedContents = localStorage.getItem("contents");
+                  if (savedContents) {
+                      setContents(JSON.parse(savedContents));
+                  } else {
+                      // Fetch contents if not in localStorage
+                      const response = await getAllContents();
+                      setContents(response.data);
+                      localStorage.setItem("contents", JSON.stringify(response.data));
+                  }
+              } catch (error) {
+                  console.error('Failed to fetch contents:', error.message || error);
+              }
+          };
+          fetchContents();
+      }, []);
+    
     
   return (
     <div className="container-fluid">
         <div><Navbar/></div>
         <section className="mt-4 position-relative" style={{ backgroundColor: '#17416F', padding: '100px 0' }}>
-            <h1 className="text-center text-white" style={{ textTransform: 'uppercase',fontWeight:'700',fontSize:'40px' }}>About us</h1>
+            <h1 className="text-center text-white" style={{ textTransform: 'uppercase',fontWeight:'700',fontSize:'40px' }}>{selectedLanguage === 'fr' ? contents?.about_page_title.content_fr : contents?.about_page_title.content_en}</h1>
             <div className="position-absolute bottom-0 start-0">
                 <img src={Group1} alt="" />
             </div>
@@ -89,15 +115,14 @@ const Home = () => {
                     </div>
                 </div>
                 <div className="col-md-6 col-12 mx-auto mb-3 align-self-center p-4">
-                <h2 style={{ color: '#17416F', textTransform: 'uppercase', fontWeight: 700, fontSize:'30px' }}>Our mission</h2>
+                <h2 style={{ color: '#17416F', textTransform: 'uppercase', fontWeight: 700, fontSize:'30px' }}>
+                    {selectedLanguage === 'fr' ? contents?.about_page_mission_title.content_fr : contents?.about_page_mission_title.content_en}
+                </h2>
                 <br/>
                 <p className="mt-2">
-                    Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio. Proin sed nunc quis ex faucibus volutpat.
-                    <br /><br />
-                    Quisque faucibus in quam quis lobortis. Donec metus neque, euismod a volutpat eget, porta sed ligula. Phasellus consequat risus sit amet mi dapibus vehicula.
-                    Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio. Proin sed nunc quis ex faucibus volutpat.
-                    <br /><br />
-                    Quisque faucibus in quam quis lobortis. Donec metus neque, euismod a volutpat eget, porta sed ligula. Phasellus consequat risus sit amet mi dapibus vehicula.
+                    {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                    __html:contents?.	about_page_mission_desc.content_fr  }} />) : (<div dangerouslySetInnerHTML={{
+                        __html:contents?.	about_page_mission_desc.content_en  }} />)}
                 </p>
                 <br/>
                 <ul className="list-unstyled">
@@ -137,11 +162,11 @@ const Home = () => {
         <br />
         <section className="container-fluid py-5" style={{ backgroundColor: '#17416F', marginTop: '-1.5rem' }}>
             <div className="text-white py-4">
-                <h2 className="text-center" style={{fontSize:'clamp(25px, 8vw, 36px)', fontWeight:'700'}}>Our vision</h2>
+                <h2 className="text-center" style={{fontSize:'clamp(25px, 8vw, 36px)', fontWeight:'700'}}>{selectedLanguage === 'fr' ? contents?.about_page_vision_title.content_fr : contents?.about_page_vision_title.content_en}</h2>
                 <br/>
                 <div className="d-flex justify-content-center">
                 <p className="text-center" style={{width:'40%'}}>
-                    Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio. Proin sed nunc quis ex faucibus volutpat.
+                    {selectedLanguage === 'fr' ? contents?.about_page_vision_desc.content_fr : contents?.about_page_vision_desc.content_en}
                 </p>
                 </div>
             </div>
@@ -150,7 +175,7 @@ const Home = () => {
         <>
             {/* Our Values Section */}
             <section className="container mt-5">
-                <h2 style={{ color: '#17416F', fontSize: 'clamp(25px, 8vw, 36px)', fontWeight: '700' }}> Our Values </h2>
+                <h2 style={{ color: '#17416F', fontSize: 'clamp(25px, 8vw, 36px)', fontWeight: '700' }}>  {selectedLanguage === 'fr' ? contents?.about_page_value_title.content_fr : contents?.about_page_value_title.content_en} </h2>
                 <br/>
                 <div className="row mt-4">
                 {values.map((value, index) => (
@@ -172,7 +197,7 @@ const Home = () => {
         <br />
         <section className="container mt-5">
             <h2 className="text-center" style={{ color: '#17416F', fontSize: '36px', fontWeight: '700', textTransform: 'uppercase' }}>
-                history & achievements
+                {selectedLanguage === 'fr' ? contents?.about_page_history_title.content_fr : contents?.about_page_history_title.content_en} 
             </h2>
             <br/>
             <div className="mt-4 hero">
