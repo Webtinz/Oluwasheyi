@@ -1,5 +1,6 @@
 // src/controllers/teamMemberController.js
-const { TeamMember } = require('../models'); 
+const { TeamMember } = require('../models');
+const { generateSignedUrl } = require("../../config/AWSConfig")
 
 
 // addteamMember
@@ -7,7 +8,9 @@ exports.addTeamMember = async (req, res) => {
   try {
     // Récupérer les données du formulaire et le fichier téléchargé
     const { nom, prenom, titre, description } = req.body;
-    const photo = req.file ? req.file.filename : null;  // Le nom du fichier si photo téléchargée
+    const photo = req.file ? req.file.key : null;
+
+    const signedUrl = await generateSignedUrl(photo);  // Le nom du fichier si photo téléchargée
 
     // Création d'un nouveau membre dans la base de données
     const newTeamMember = await TeamMember.create({
@@ -15,7 +18,7 @@ exports.addTeamMember = async (req, res) => {
       prenom,
       titre,
       description,
-      photo,
+      photo: signedUrl,
     });
 
     // Réponse JSON avec succès
@@ -33,7 +36,9 @@ exports.addTeamMember = async (req, res) => {
 exports.updateTeamMember = async (req, res) => {
   const { id } = req.params;
   const { nom, prenom, titre, description } = req.body;
-  const photo = req.file ? req.file.filename : null;
+  const photo = req.file ? req.file.key : null;
+
+  const signedUrl = await generateSignedUrl(photo);
 
   try {
     const teamMember = await TeamMember.findByPk(id);
@@ -46,7 +51,7 @@ exports.updateTeamMember = async (req, res) => {
     teamMember.prenom = prenom || teamMember.prenom;
     teamMember.titre = titre || teamMember.titre;
     teamMember.description = description || teamMember.description;
-    teamMember.photo = photo || teamMember.photo;
+    teamMember.photo = signedUrl || teamMember.photo;
 
     await teamMember.save();
 

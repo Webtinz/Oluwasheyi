@@ -1,9 +1,12 @@
 const { MedicalProgram } = require('../models');
+const { generateSignedUrl } = require("../../config/AWSConfig")
 
 exports.addProgram = async (req, res) => {
   try {
     const { nom, name, contact, description, description_en, beneficiaries } = req.body;
-    const photo = req.file ? req.file.filename : null;
+    const photo = req.file ? req.file.key : null;
+
+    const signedUrl = await generateSignedUrl(photo);
 
     const program = await MedicalProgram.create({
       nom,
@@ -57,7 +60,9 @@ exports.getProgram = async (req, res) => {
 exports.updateProgram = async (req, res) => {
   try {
     const { nom, name, contact, description, description_en, beneficiaries } = req.body;
-    const photo = req.file ? req.file.filename : null;
+    const photo = req.file ? req.file.key : null;
+
+    const signedUrl = await generateSignedUrl(photo);
 
     const program = await MedicalProgram.findByPk(req.params.id);
     if (!program) {
@@ -71,7 +76,7 @@ exports.updateProgram = async (req, res) => {
       description,
       description_en,
       beneficiaries,
-      photo: photo || program.photo,
+      photo: signedUrl || program.photo,
     });
 
     res.status(200).json({

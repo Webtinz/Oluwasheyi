@@ -94,7 +94,7 @@
                     <tr>
                         <td>${testimonial.id}</td>
                         <td>${testimonial.nom} ${testimonial.prenom}</td>
-                        <td><img src="/uploads/temoigne/${testimonial.photo}" width="50" height="50" alt="Image"></td>
+                        <td><img src="${testimonial.photo}" width="50" height="50" alt="Image"></td>
                         <td>${testimonial.titre}</td>
                         <td>${testimonial.description}</td>
                         <td>${testimonial.address}</td>
@@ -129,7 +129,7 @@
                         document.getElementById('testimonialAddress').value = testimonial.address;
 
                         // Display the current image in the modal
-                        const imageUrl = `/uploads/temoigne/${testimonial.photo}`;
+                        const imageUrl = `${testimonial.photo}`;
                         document.getElementById('testimonialImage').innerHTML = `
                     <img src="${imageUrl}" width="100" height="100" alt="Testimonial Image" class="img-thumbnail">
                     <p>Current Image</p>

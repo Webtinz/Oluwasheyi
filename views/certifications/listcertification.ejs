@@ -99,7 +99,7 @@
                         <td>${certification.name}</td>
                         <td>${certification.description}</td>
                         <td>${certification.date_obtention}</td>
-                        <td><img src="/uploads/certifications/${certification.photo}" width="50" height="50" alt="Photo de la certification"></td>
+                        <td><img src="${certification.photo}" width="50" height="50" alt="Photo de la certification"></td>
                         <td>
                             <button class="btn btn-primary btn-sm view-btn" data-id="${certification.id}">Edit</button>
                             <button class="btn btn-danger btn-sm delete-btn" data-id="${certification.id}">Delete</button>
@@ -129,7 +129,7 @@
                     $('#certificationdateobtention').val(certification.date_obtention);
                     const photoElement = $('#currentCertificationPhoto');
                     if (certification.photo) {
-                        photoElement.attr('src', `/uploads/certifications/${certification.photo}`).show();
+                        photoElement.attr('src', `${certification.photo}`).show();
                     } else {
                         photoElement.hide();
                     }

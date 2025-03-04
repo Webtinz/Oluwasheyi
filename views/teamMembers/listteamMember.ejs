@@ -89,7 +89,7 @@
                     <tr>
                         <td>${teamMember.id}</td>
                         <td>${teamMember.nom} ${teamMember.prenom}</td>
-                        <td><img src="/uploads/members/${teamMember.photo}" width="50" height="50" alt="Image"></td>
+                        <td><img src="${teamMember.photo}" width="50" height="50" alt="Image"></td>
                         <td>${teamMember.titre}</td>
                         <td>${teamMember.description}</td>
                         <td>
@@ -122,7 +122,7 @@
                         document.getElementById('teamMemberDescription').value = teamMember.description;
 
                         // Display the current image in the modal
-                        const imageUrl = `/uploads/members/${teamMember.photo}`;
+                        const imageUrl = `${teamMember.photo}`;
                         document.getElementById('teamMemberImage').innerHTML = `
                     <img src="${imageUrl}" width="100" height="100" alt="TeamMember Image" class="img-thumbnail">
                     <p>Current Image</p>

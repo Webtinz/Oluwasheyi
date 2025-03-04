@@ -1,5 +1,6 @@
 // src/controllers/testimonialController.js
 const { Testimonial } = require('../models');  // Importation des modèles
+const { generateSignedUrl } = require("../../config/AWSConfig")
 
 
 // addtestimonial
@@ -7,7 +8,9 @@ exports.addtestimonial = async (req, res) => {
   try {
     // Récupérer les données du formulaire et le fichier téléchargé
     const { nom, prenom, titre, description, address } = req.body;
-    const photo = req.file ? req.file.filename : null;  // Le nom du fichier si photo téléchargée
+    const photo = req.file ? req.file.key : null;
+
+const signedUrl = await generateSignedUrl(photo);  // Le nom du fichier si photo téléchargée
 
     // Création d'un nouveau témoignage dans la base de données
     const newTestimonial = await Testimonial.create({
@@ -15,7 +18,7 @@ exports.addtestimonial = async (req, res) => {
       prenom,
       titre,
       description,
-      photo,
+      photo: signedUrl,
       address
     });
 
@@ -34,7 +37,7 @@ exports.addtestimonial = async (req, res) => {
 exports.updatetestimonials = async (req, res) => {
   const { id } = req.params;
   const { nom, prenom, titre, description, address } = req.body;
-  const photo = req.file ? req.file.filename : null;
+  const photo = req.file ? req.file.key : null;
 
   try {
     const testimonial = await Testimonial.findByPk(id);

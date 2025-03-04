@@ -117,7 +117,7 @@
                         <td>${service.email}</td>
                         <td>${service.description}</td>
                         <td>${service.description_en}</td>
-                        <td><img src="/uploads/services/${service.photo}" width="50" height="50" alt="Service Photo"></td>
+                        <td><img src="${service.photo}" width="50" height="50" alt="Service Photo"></td>
                         <td>
                             <button class="btn btn-primary btn-sm view-btn" data-id="${service.id}">Edit</button>
                             <button class="btn btn-danger btn-sm delete-btn" data-id="${service.id}">Delete</button>
@@ -152,7 +152,7 @@
                         
                         const photoElement = document.getElementById('currentPhoto');
                         if (service.photo) {
-                            photoElement.src = `/uploads/services/${service.photo}`;
+                            photoElement.src = `${service.photo}`;
                             photoElement.style.display = 'block';
                         } else {
                             photoElement.style.display = 'none';

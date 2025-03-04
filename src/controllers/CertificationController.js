@@ -1,16 +1,19 @@
 const { Certification } = require('../models');
+const { generateSignedUrl } = require("../../config/AWSConfig")
 const path = require('path');
 
 exports.addCertification = async (req, res) => {
   try {
     const { name, description, date_obtention } = req.body;
-    const photo = req.file ? req.file.filename : null;
+    const photo = req.file ? req.file.key : null;
+
+    const signedUrl = await generateSignedUrl(photo);
 
     const certification = await Certification.create({
       name,
       description,
       date_obtention,
-      photo,
+      photo: signedUrl
     });
 
     res.status(201).json({
@@ -55,7 +58,9 @@ exports.getCertification = async (req, res) => {
 exports.updateCertification = async (req, res) => {
   try {
     const { name, description, date_obtention } = req.body;
-    const photo = req.file ? req.file.filename : null;
+    const photo = req.file ? req.file.key : null;
+
+    const signedUrl = await generateSignedUrl(photo);
 
     const certification = await Certification.findByPk(req.params.id);
     if (!certification) {
@@ -66,7 +71,7 @@ exports.updateCertification = async (req, res) => {
       name,
       description,
       date_obtention,
-      photo: photo || certification.photo,
+      photo: signedUrl || certification.photo,
     });
 
     res.status(200).json({

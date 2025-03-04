@@ -1,16 +1,19 @@
 const { Event } = require('../models');
 const fs = require('fs');
 const path = require('path');
+const { generateSignedUrl } = require("../../config/AWSConfig")
 
 // Ajouter un event
 exports.createEvent = async (req, res) => {
     try {
         const { nom, name, dateevent, location, description, description_en } = req.body;
-        const photo = req.file ? req.file.filename : null;
+        const photo = req.file ? req.file.key : null;
+
+        const signedUrl = await generateSignedUrl(photo);
 
         const newEvent = await Event.create({
             nom, name, dateevent, location, description, description_en,
-            photo,
+            photo: signedUrl,
         });
 
         res.status(201).json({
@@ -27,7 +30,9 @@ exports.createEvent = async (req, res) => {
 exports.updateEvent = async (req, res) => {
     const { id } = req.params;
     const { nom, name, dateevent, location, description, description_en } = req.body;
-    const photo = req.file ? req.file.filename : null;
+    const photo = req.file ? req.file.key : null;
+
+    const signedUrl = await generateSignedUrl(photo);
 
     try {
         const event = await Event.findByPk(id);
@@ -50,7 +55,7 @@ exports.updateEvent = async (req, res) => {
         event.dateevent = dateevent || event.dateevent;
         event.description = description || event.description;
         event.description_en = description_en || event.description_en;
-        event.photo = photo || event.photo;
+        event.photo = signedUrl || event.photo;
 
         await event.save();
 

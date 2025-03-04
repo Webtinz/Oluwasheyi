@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     photo: {
-      type: DataTypes.STRING, // Nous allons stocker le nom du fichier image
+      type: DataTypes.TEXT, // Nous allons stocker le nom du fichier image
       allowNull: true,
     },
     address: {

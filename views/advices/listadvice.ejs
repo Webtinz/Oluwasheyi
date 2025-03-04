@@ -84,7 +84,7 @@
                     <tr>
                         <td>${advice.id}</td>
                         <td>${advice.topic}</td>
-                        <td><img src="/uploads/advices/${advice.photo}" width="50" height="50" alt="Image"></td>
+                        <td><img src="${advice.photo}" width="50" height="50" alt="Image"></td>
                         <td>${advice.advice_text}</td>
                         <td>
                             <button class="btn btn-primary btn-sm view-btn" data-id="${advice.id}">Edit</button>
@@ -115,7 +115,7 @@
                         document.getElementById('adviceAdviceText').value = advice.advice_text;
 
                         // Display the current image in the modal
-                        const imageUrl = `/uploads/advices/${advice.photo}`;
+                        const imageUrl = `${advice.photo}`;
                         document.getElementById('adviceImage').innerHTML = `
                     <img src="${imageUrl}" width="100" height="100" alt="Advice Image" class="img-thumbnail">
                     <p>Current Image</p>

@@ -1,20 +1,23 @@
 // src/controllers/contentController.js
 const { Content } = require('../models');  // Importation des modèles
-
+const { generateSignedUrl } = require("../../config/AWSConfig")
 
 // addcontent
 exports.addcontent = async (req, res) => {
   try {
     // Récupérer les données du formulaire et le fichier téléchargé
-    const { content_en, content_fr, title} = req.body;
-    const image = req.file ? req.file.filename : null;  // Le nom du fichier si image téléchargée
+    const { content_en, content_fr, title } = req.body;
+    const image = req.file ? req.file.key : null;  // Le nom du fichier si image téléchargée
+
+    // ✅ Generate signed URL
+    const signedUrl = await generateSignedUrl(image);
 
     // Création d'un nouveau contenu dans la base de données
     const newContent = await Content.create({
       title,
       content_en,
       content_fr,
-      image,
+      image: signedUrl
     });
 
     // Réponse JSON avec succès
@@ -32,7 +35,8 @@ exports.addcontent = async (req, res) => {
 exports.updatecontent = async (req, res) => {
   const { id } = req.params;
   const { content_en, content_fr, title } = req.body;
-  const image = req.file ? req.file.filename : null; 
+
+  const image = req.file ? req.file.key : null;
 
   try {
     const content = await Content.findByPk(id);
@@ -40,11 +44,15 @@ exports.updatecontent = async (req, res) => {
       return res.status(404).json({ message: 'Contenu non trouvé' });
     }
 
+    
     // Mise à jour des informations du contenu
     content.content_en = content_en || content.content_en;
     content.content_fr = content_fr || content.content_fr;
     content.title = title || content.title;
-    content.image = image || content.image;
+    if (image) {
+      const signedUrl = await generateSignedUrl(image);
+      content.image = signedUrl || content.image;
+    }
 
     await content.save();
 
@@ -54,7 +62,7 @@ exports.updatecontent = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Erreur lors de la mise à jour du contenu' });
+    res.status(500).json({ message: 'Erreur lors de la mise à jour du contenu' + error });
   }
 };
 

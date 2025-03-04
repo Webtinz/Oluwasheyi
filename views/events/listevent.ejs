@@ -115,7 +115,7 @@
                         <td>${event.dateevent}</td>
                         <td>${event.description}</td>
                         <td>${event.description_en}</td>
-                        <td><img src="/uploads/events/${event.photo}" width="50" height="50" alt="Event Photo"></td>
+                        <td><img src="${event.photo}" width="50" height="50" alt="Event Photo"></td>
                         <td>
                             <button class="btn btn-primary btn-sm view-btn" data-id="${event.id}">Edit</button>
                             <button class="btn btn-danger btn-sm delete-btn" data-id="${event.id}">Delete</button>
@@ -150,7 +150,7 @@
                         
                         const photoElement = document.getElementById('currentPhoto');
                         if (event.photo) {
-                            photoElement.src = `/uploads/events/${event.photo}`;
+                            photoElement.src = `${event.photo}`;
                             photoElement.style.display = 'block';
                         } else {
                             photoElement.style.display = 'none';

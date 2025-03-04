@@ -1,12 +1,15 @@
 const { Service } = require('../models');
 const fs = require('fs');
 const path = require('path');
+const { generateSignedUrl } = require("../../config/AWSConfig")
 
 // Ajouter un service
 exports.addservice = async (req, res) => {
   try {
     const { nom, nom_en, phone, email, description, description_en } = req.body;
-    const photo = req.file ? req.file.filename : null;
+    const photo = req.file ? req.file.key : null;
+
+    const signedUrl = await generateSignedUrl(photo);
 
     const newService = await Service.create({
       nom,
@@ -15,7 +18,7 @@ exports.addservice = async (req, res) => {
       email,
       description,
       description_en,
-      photo,
+      photo: signedUrl,
     });
 
     res.status(201).json({
@@ -32,7 +35,9 @@ exports.addservice = async (req, res) => {
 exports.updateservice = async (req, res) => {
   const { id } = req.params;
   const { nom, phone, email, description } = req.body;
-  const photo = req.file ? req.file.filename : null;
+  const photo = req.file ? req.file.key : null;
+
+  const signedUrl = await generateSignedUrl(photo);
 
   try {
     const service = await Service.findByPk(id);
@@ -53,7 +58,7 @@ exports.updateservice = async (req, res) => {
     service.phone = phone || service.phone;
     service.email = email || service.email;
     service.description = description || service.description;
-    service.photo = photo || service.photo;
+    service.photo = signedUrl || service.photo;
 
     await service.save();
 

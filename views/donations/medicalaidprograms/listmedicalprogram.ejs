@@ -117,7 +117,7 @@
                         <td>${program.description}</td>
                         <td>${program.description_en}</td>
                         <td>${program.beneficiaries}</td>
-                        <td><img src="/uploads/MedicalProgram/${program.photo}" width="50" height="50" alt="Photo du programme"></td>
+                        <td><img src="${program.photo}" width="50" height="50" alt="Photo du programme"></td>
                         <td>
                             <button class="btn btn-primary btn-sm view-btn" data-id="${program.id}">Modifier</button>
                             <button class="btn btn-danger btn-sm delete-btn" data-id="${program.id}">Supprimer</button>
@@ -152,7 +152,7 @@
 
                         const photoElement = document.getElementById('currentProgramPhoto');
                         if (program.photo) {
-                            photoElement.src = `/uploads/MedicalProgram/${program.photo}`;
+                            photoElement.src = `${program.photo}`;
                             photoElement.style.display = 'block';
                         } else {
                             photoElement.style.display = 'none';
