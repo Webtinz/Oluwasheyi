@@ -138,49 +138,49 @@ const Home = () => {
             {/* Modal */}
             {selectedDoctor && (
                 <div className="modal fade show d-block" tabIndex="-1">
-                <div className="modal-dialog modal-dialog-centered">
-                    <div className="modal-content">
-                        <div className="modal-body position-relative">
-                            <div className='d-flex'>    
-                                <div className='color1'>
-                                    <div className="row">
-                                        <div className="col-12 col-lg-5 mx-auto mb-4">
-                                            <div className="position-relative">
-                                            <img src={selectedDoctor.image} alt={selectedDoctor.name} className="img-fluid w-100" style={{ borderTopRightRadius: "30px" }} />
-                                            <div className="poop">
-                                                <a href="#"><img src={LinkedIn} alt="LinkedIn" /></a>
+                    <div className="modal-dialog modal-dialog-centered">
+                        <div className="modal-content">
+                            <div className="modal-body position-relative">
+                                <div className='d-flex'>    
+                                    <div className='color1'>
+                                        <div className="row">
+                                            <div className="col-12 col-lg-5 mx-auto mb-4">
+                                                <div className="position-relative">
+                                                <img src={selectedDoctor.image} alt={selectedDoctor.name} className="img-fluid w-100" style={{ borderTopRightRadius: "30px" }} />
+                                                <div className="poop">
+                                                    <a href="#"><img src={LinkedIn} alt="LinkedIn" /></a>
+                                                </div>
+                                                </div>
                                             </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-12 col-lg-7 mx-auto mb-4">
-                                            <h2 style={{ fontSize: "25px", color: "#17416F", fontWeight: 800 }}>{selectedDoctor.name}</h2>
-                                            <p style={{ color: "#13AB9C", fontWeight:'600' }}>Cardiologist, MD, 10+ years experience.</p>
-                                            <span className="my-4 d-block" style={{ borderBottom: "1px solid #17416F33" }}></span>
-                                            <p style={{ color: "#17416F" }}>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla maximus pellentesque ultrices.
-                                                Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio.
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla maximus pellentesque ultrices.
-                                                Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio.
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla maximus pellentesque ultrices.
-                                                Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio.
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla maximus pellentesque ultrices.
-                                                Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio.
-                                            </p>
-                                            <div className="mt-3">
-                                            <button className="btn btn-cont px-4 py-2" style={{ color: "white", backgroundColor: "#13AB9C" }}>
-                                                Contact Me
-                                            </button>
+                                            <div className="col-12 col-lg-7 mx-auto mb-4">
+                                                <h2 style={{ fontSize: "25px", color: "#17416F", fontWeight: 800 }}>{selectedDoctor.name}</h2>
+                                                <p style={{ color: "#13AB9C", fontWeight:'600' }}>Cardiologist, MD, 10+ years experience.</p>
+                                                <span className="my-4 d-block" style={{ borderBottom: "1px solid #17416F33" }}></span>
+                                                <p style={{ color: "#17416F" }}>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla maximus pellentesque ultrices.
+                                                    Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio.
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla maximus pellentesque ultrices.
+                                                    Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio.
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla maximus pellentesque ultrices.
+                                                    Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio.
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla maximus pellentesque ultrices.
+                                                    Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio.
+                                                </p>
+                                                <div className="mt-3">
+                                                <button className="btn btn-cont px-4 py-2" style={{ color: "white", backgroundColor: "#13AB9C" }}>
+                                                    Contact Me
+                                                </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="col">
-                                    <button onClick={() => setSelectedDoctor(null)} className="btn-close text-white fs-4 fw-bold bg-white"></button>
+                                    <div className="col">
+                                        <button onClick={() => setSelectedDoctor(null)} className="btn-close text-white fs-4 fw-bold bg-white"></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 </div>
             )}
             {selectedDoctor && <div className="modal-backdrop fade show" onClick={() => setSelectedDoctor(null)}></div>}
