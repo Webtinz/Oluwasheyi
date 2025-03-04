@@ -8,37 +8,37 @@ import pregnancy from '../../assets/pregnancy.png';
 import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 
-const HealthAdviceCarousel = () => {
+const HealthAdviceCarousel = ({healthAdvices}) => {
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [itemsToShow, setItemsToShow] = React.useState(1);
 
-  const healthAdvices = [
-    {
-      title: 'Nutrition ',
-      image: nutrition,
-      description: 'Lorem ipsum dolor sit<br/> amet nulls const.'
-    },
-    {
-      title: 'Physical Activity',
-      image: exercise,
-      description: 'Lorem ipsum dolor sit <br/> amet nulls const.'
-    },
-    {
-      title: 'Natural Health',
-      image: healthtrack,
-      description: 'Lorem ipsum dolor sit <br/> amet nulls const.'
-    },
-    {
-      title: 'Pregnancy Monitoring',
-      image: pregnancy,
-      description: 'Lorem ipsum dolor sit <br/> amet nulls const.'
-    },
-    {
-      title: 'Health Tracking',
-      image: pregnancy,
-      description: 'Lorem ipsum dolor sit <br/> amet nulls const.'
-    }
-  ];
+  // const healthAdvices = [
+  //   {
+  //     title: 'Nutrition ',
+  //     image: nutrition,
+  //     description: 'Lorem ipsum dolor sit<br/> amet nulls const.'
+  //   },
+  //   {
+  //     title: 'Physical Activity',
+  //     image: exercise,
+  //     description: 'Lorem ipsum dolor sit <br/> amet nulls const.'
+  //   },
+  //   {
+  //     title: 'Natural Health',
+  //     image: healthtrack,
+  //     description: 'Lorem ipsum dolor sit <br/> amet nulls const.'
+  //   },
+  //   {
+  //     title: 'Pregnancy Monitoring',
+  //     image: pregnancy,
+  //     description: 'Lorem ipsum dolor sit <br/> amet nulls const.'
+  //   },
+  //   {
+  //     title: 'Health Tracking',
+  //     image: pregnancy,
+  //     description: 'Lorem ipsum dolor sit <br/> amet nulls const.'
+  //   }
+  // ];
 
   React.useEffect(() => {
     const updateItemsToShow = () => {
@@ -56,7 +56,7 @@ const HealthAdviceCarousel = () => {
     return () => window.removeEventListener('resize', updateItemsToShow);
   }, []);
 
-  const maxIndex = Math.max(0, healthAdvices.length - itemsToShow);
+  const maxIndex = Math.max(0, healthAdvices?.length - itemsToShow);
 
   const next = () => {
     setCurrentIndex((prevIndex) =>
@@ -71,7 +71,7 @@ const HealthAdviceCarousel = () => {
   };
 
   // Calculate visible advices
-  const visibleAdvices = healthAdvices.slice(currentIndex, currentIndex + itemsToShow);
+  const visibleAdvices = healthAdvices?.slice(currentIndex, currentIndex + itemsToShow);
 
   const {selectedLanguage} = useContext(LanguageContext);
   const [contents, setContents] = useState();
@@ -126,7 +126,7 @@ const HealthAdviceCarousel = () => {
 
             {/* Cards Container */}
             <div className="healthcont grid grid-flow-col auto-cols-fr" >
-              {visibleAdvices.map((advice, index) => (
+              {visibleAdvices?.map((advice, index) => (
                 <div
                   key={currentIndex + index}
                   className="transition-all duration-300 ease-in-out transform"
@@ -134,13 +134,13 @@ const HealthAdviceCarousel = () => {
                 >
                   <div className="bg-white shadow-md h-100" style={{ border: '1px solid #17416F', padding: '10px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <div className="flex flex-col items-center text-center gap-4" style={{ flexGrow: 1 }}>
-                      <img src={advice.image} alt={advice.title} className="object-cover mt-5" />
-                      <h3 className="font-semibold text-lg text-teal-600" dangerouslySetInnerHTML={{ __html: advice.title }} />
-                      <p className="text-sm text-gray-600" dangerouslySetInnerHTML={{ __html: advice.description }} />
+                      <img src={advice.photo} alt={advice.topic} className="object-cover mt-5" />
+                      <h3 className="font-semibold text-lg text-teal-600" dangerouslySetInnerHTML={{ __html: advice.topic }} />
+                      <p className="text-sm text-gray-600" dangerouslySetInnerHTML={{ __html: advice.advice_text }} />
                     </div>
                     {/* Ensure the button is at the bottom of the card */}
                     <button className="w-full mt-2 p-3 btn btn-yt text-white" style={{ background: '#13AB9C' }}>
-                      Learn More
+                      {selectedLanguage === 'fr' ? "Voir Plus" : "Learn More"}
                     </button>
                   </div>
                 </div>

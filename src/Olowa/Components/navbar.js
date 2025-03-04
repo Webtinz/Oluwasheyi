@@ -76,7 +76,7 @@ const Navbar = () => {
             </div>
             <div>
               <Link to="/index">
-                <img src={Img} alt="" />
+                <img src={contents?.home_page_header_logo.image} alt="" />
               </Link >
             </div>
           </div>

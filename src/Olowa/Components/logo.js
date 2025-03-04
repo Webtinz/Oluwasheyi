@@ -10,16 +10,16 @@ import Img5 from '../../assets/image 11.png';
 import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 
-const logos = [
-  { id: 1, src: Img, alt: 'Red Circle Logo' },
-  { id: 2, src: Img1, alt: 'HSPA Logo' },
-  { id: 3, src: Img2, alt: 'Green Organization Logo' },
-  { id: 4, src: Img3, alt: 'Accreditation System Logo' },
-  { id: 5, src: Img4, alt: 'National Hospital Logo' },
-  { id: 6, src: Img5, alt: 'FQHC Logo' }
-];
+// const logos = [
+//   { id: 1, src: Img, alt: 'Red Circle Logo' },
+//   { id: 2, src: Img1, alt: 'HSPA Logo' },
+//   { id: 3, src: Img2, alt: 'Green Organization Logo' },
+//   { id: 4, src: Img3, alt: 'Accreditation System Logo' },
+//   { id: 5, src: Img4, alt: 'National Hospital Logo' },
+//   { id: 6, src: Img5, alt: 'FQHC Logo' }
+// ];
 
-const LogoCarousel = () => {
+const LogoCarousel = ({ logos }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [activeButton, setActiveButton] = useState(null);
 
@@ -33,7 +33,7 @@ const LogoCarousel = () => {
   const next = () => {
     setCurrentIndex((prevIndex) => {
       const nextIndex = prevIndex + 1;
-      return nextIndex >= logos.length ? 0 : nextIndex;
+      return nextIndex >= logos?.length ? 0 : nextIndex;
     });
     setActiveButton("next");
   };
@@ -41,48 +41,48 @@ const LogoCarousel = () => {
   const prev = () => {
     setCurrentIndex((prevIndex) => {
       const nextIndex = prevIndex - 1;
-      return nextIndex < 0 ? logos.length - 1 : nextIndex;
+      return nextIndex < 0 ? logos?.length - 1 : nextIndex;
     });
     setActiveButton("prev");
   };
 
-  const {selectedLanguage} = useContext(LanguageContext);
+  const { selectedLanguage } = useContext(LanguageContext);
   const [contents, setContents] = useState();
 
   // Get contents on component mount
   useEffect(() => {
-      const fetchContents = async () => {
-          try {
-              const savedContents = localStorage.getItem("contents");
-              if (savedContents) {
-                  setContents(JSON.parse(savedContents));
-              } else {
-                  // Fetch contents if not in localStorage
-                  const response = await getAllContents();
-                  setContents(response.data);
-                  localStorage.setItem("contents", JSON.stringify(response.data));
-              }
-          } catch (error) {
-              console.error('Failed to fetch contents:', error.message || error);
-          }
-      };
-      fetchContents();
+    const fetchContents = async () => {
+      try {
+        const savedContents = localStorage.getItem("contents");
+        if (savedContents) {
+          setContents(JSON.parse(savedContents));
+        } else {
+          // Fetch contents if not in localStorage
+          const response = await getAllContents();
+          setContents(response.data);
+          localStorage.setItem("contents", JSON.stringify(response.data));
+        }
+      } catch (error) {
+        console.error('Failed to fetch contents:', error.message || error);
+      }
+    };
+    fetchContents();
   }, []);
 
   return (
     <div className="container meetteam">
       <div className="d-flex align-items-center ms-md-5 ms-0">
-        <h1 
-          className="position-relative title-certifications" 
+        <h1
+          className="position-relative title-certifications"
           style={{ textTransform: "uppercase", fontSize: '30px', fontWeight: '700' }}
         >
-          {selectedLanguage === 'fr' ? contents?.communoty_page_title.content_fr : contents?.communoty_page_title.content_en}
+          {selectedLanguage === 'fr' ? contents?.home_page_certificates_title.content_fr : contents?.home_page_certificates_title.content_en}
         </h1>
       </div>
-      <br/>
+      <br />
       <div className="mt-8">
         <div className="relative px-4">
-          <button 
+          <button
             onClick={prev}
             className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2`}
             style={{
@@ -94,33 +94,33 @@ const LogoCarousel = () => {
           </button>
 
           <div className="overflow-hidden mx-12">
-            <div 
+            <div
               className="flex transition-transform duration-300 ease-in-out"
               style={{
                 transform: `translateX(-${currentIndex * (100 / getVisibleSlides())}%)`,
                 gap: '2rem'
               }}
             >
-              {logos.map((logo) => (
-                <div 
-                  key={logo.id} 
+              {logos?.map((logo) => (
+                <div
+                  key={logo.id}
                   className="flex-shrink-0"
                   style={{
                     width: `calc(${100 / getVisibleSlides()}% - 1rem)`,
                   }}
                 >
-                  <img 
-                    src={logo.src} 
-                    alt={logo.alt}
+                  <img
+                    src={logo.photo}
+                    alt={logo.name}
                     className="img-fluid"
-                    style={{objectFit:'contain',width:'120px',height:'120px'}}
+                    style={{ objectFit: 'contain', width: '120px', height: '120px' }}
                   />
                 </div>
               ))}
             </div>
           </div>
 
-          <button 
+          <button
             onClick={next}
             className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2`}
             style={{
@@ -128,7 +128,7 @@ const LogoCarousel = () => {
               color: activeButton === "next" ? "gray" : "gray" // text-white ou text-gray-600
             }}
           >
-            <ChevronRight  style={{ width: "34px", height: "34px" }} />
+            <ChevronRight style={{ width: "34px", height: "34px" }} />
           </button>
         </div>
       </div>

@@ -1,9 +1,10 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useContext, useEffect, useState } from 'react';
 import "../index.css"; // Fichier CSS pour les styles
 import nurseImage from "../../assets/male-nurse-working-clinic-b 1.png"; // Importation de l'image
 import { Star } from "lucide-react";
 import Select from './select';
-import { getAllContents } from '../../services/content.service';
+import { addFeedback, getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 
 const FeedbackSection = () => {
@@ -13,11 +14,14 @@ const FeedbackSection = () => {
     name: '',
     email: '',
     experience: 5,
-    suggestions: ''
+    yoursuggestions: ''
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(formData);
+
+    const response = await addFeedback(formData)
     console.log('Form submitted:', formData);
     // Add your submission logic here
   };
@@ -31,41 +35,41 @@ const FeedbackSection = () => {
   };
 
 
-  const {selectedLanguage} = useContext(LanguageContext);
+  const { selectedLanguage } = useContext(LanguageContext);
   const [contents, setContents] = useState();
 
   // Get contents on component mount
   useEffect(() => {
-      const fetchContents = async () => {
-          try {
-              const savedContents = localStorage.getItem("contents");
-              if (savedContents) {
-                  setContents(JSON.parse(savedContents));
-              } else {
-                  // Fetch contents if not in localStorage
-                  const response = await getAllContents();
-                  setContents(response.data);
-                  localStorage.setItem("contents", JSON.stringify(response.data));
-              }
-          } catch (error) {
-              console.error('Failed to fetch contents:', error.message || error);
-          }
-      };
-      fetchContents();
+    const fetchContents = async () => {
+      try {
+        const savedContents = localStorage.getItem("contents");
+        if (savedContents) {
+          setContents(JSON.parse(savedContents));
+        } else {
+          // Fetch contents if not in localStorage
+          const response = await getAllContents();
+          setContents(response.data);
+          localStorage.setItem("contents", JSON.stringify(response.data));
+        }
+      } catch (error) {
+        console.error('Failed to fetch contents:', error.message || error);
+      }
+    };
+    fetchContents();
   }, []);
 
 
   return (
     <section className="container-fluid py-5 Big" style={{ backgroundColor: "#13AB9C" }}>
       <div className="container">
-        <div className="row" style={{marginLeft:'20%'}}>
+        <div className="row" style={{ marginLeft: '20%' }}>
           <div className="col-lg-7 align-item-center">
-            <h2 className="text-white" style={{fontSize:'clamp(25px, 8vw, 35px)', fontWeight:'700'}}>{selectedLanguage === 'fr' ? contents?.home_page_feedback_title.content_fr : contents?.home_page_feedback_title.content_en}</h2>
-            <br /> 
+            <h2 className="text-white" style={{ fontSize: 'clamp(25px, 8vw, 35px)', fontWeight: '700' }}>{selectedLanguage === 'fr' ? contents?.home_page_feedback_title.content_fr : contents?.home_page_feedback_title.content_en}</h2>
+            <br />
             <a
               href="#"
               className="btn btn-wht text-white"
-              style={{ border:'1px solid white'}}
+              style={{ border: '1px solid white' }}
               onClick={(e) => {
                 e.preventDefault();
                 setSelectedDoctor({
@@ -74,10 +78,10 @@ const FeedbackSection = () => {
                   specialty: "Cardiologist, MD, 10+ years experience.",
                   description:
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo.",
-                  });
-                }}
-              >
-                {selectedLanguage === 'fr' ? contents?.home_page_feedback_button.content_fr : contents?.home_page_feedback_button.content_en}
+                });
+              }}
+            >
+              {selectedLanguage === 'fr' ? contents?.home_page_feedback_button.content_fr : contents?.home_page_feedback_button.content_en}
             </a>
           </div>
           <div className="col-lg-5 position-relative d-none d-lg-block">
@@ -108,26 +112,26 @@ const FeedbackSection = () => {
                               Name <span className="text-red-500">*</span>
                             </label>
                             <input
-                                type="text"
-                                name="name"
-                                value={formData.name}
-                                style={{
-                                    border: '1px solid #17416F', 
-                                    borderRadius: '0.25rem',  // équivalent à `rounded`
-                                    padding: '0.5rem',        // équivalent à `p-2`
-                                    width: '100%',            // équivalent à `w-full`
-                                    outline: 'none',
-                                    transition: 'box-shadow 0.2s ease-in-out',
-                                }}
-                                onFocus={(e) => {
-                                    e.target.style.boxShadow = '0 0 0 2px #17416F';
-                                }}
-                                onBlur={(e) => {
-                                    e.target.style.boxShadow = 'none';
-                                }}
-                                onChange={handleChange}
-                                required
-                                placeholder="Name"
+                              type="text"
+                              name="name"
+                              value={formData.name}
+                              style={{
+                                border: '1px solid #17416F',
+                                borderRadius: '0.25rem',  // équivalent à `rounded`
+                                padding: '0.5rem',        // équivalent à `p-2`
+                                width: '100%',            // équivalent à `w-full`
+                                outline: 'none',
+                                transition: 'box-shadow 0.2s ease-in-out',
+                              }}
+                              onFocus={(e) => {
+                                e.target.style.boxShadow = '0 0 0 2px #17416F';
+                              }}
+                              onBlur={(e) => {
+                                e.target.style.boxShadow = 'none';
+                              }}
+                              onChange={handleChange}
+                              required
+                              placeholder="Name"
                             />
 
                           </div>
@@ -137,33 +141,33 @@ const FeedbackSection = () => {
                               Email Address <span className="text-red-500">*</span>
                             </label>
                             <input
-                                type="email"
-                                name="email"
-                                value={formData.email}
-                                style={{
-                                    border: '1px solid #17416F', 
-                                    borderRadius: '0.25rem',  // équivalent à `rounded`
-                                    padding: '0.5rem',        // équivalent à `p-2`
-                                    width: '100%',            // équivalent à `w-full`
-                                    outline: 'none',
-                                    transition: 'box-shadow 0.2s ease-in-out',
-                                }}
-                                onFocus={(e) => {
-                                    e.target.style.boxShadow = '0 0 0 2px #17416F';
-                                }}
-                                onBlur={(e) => {
-                                    e.target.style.boxShadow = 'none';
-                                }}
-                                onChange={handleChange}
-                                required
-                                placeholder="Email Address"
+                              type="email"
+                              name="email"
+                              value={formData.email}
+                              style={{
+                                border: '1px solid #17416F',
+                                borderRadius: '0.25rem',  // équivalent à `rounded`
+                                padding: '0.5rem',        // équivalent à `p-2`
+                                width: '100%',            // équivalent à `w-full`
+                                outline: 'none',
+                                transition: 'box-shadow 0.2s ease-in-out',
+                              }}
+                              onFocus={(e) => {
+                                e.target.style.boxShadow = '0 0 0 2px #17416F';
+                              }}
+                              onBlur={(e) => {
+                                e.target.style.boxShadow = 'none';
+                              }}
+                              onChange={handleChange}
+                              required
+                              placeholder="Email Address"
                             />
 
                           </div>
 
                           <div className="space-y-2">
                             <label className="block text-blue-900">How was your experience</label>
-                            <Select/>
+                            <Select />
                             {/* <div className="flex gap-1">
                               {[1, 2, 3, 4, 5].map((rating) => (
                                 <button
@@ -185,27 +189,27 @@ const FeedbackSection = () => {
                           <div className="space-y-2">
                             <label className="block text-blue-900">Your Suggestions</label>
                             <textarea
-                              name="suggestions"
-                              value={formData.suggestions}
+                              name="yoursuggestions"
+                              value={formData.yoursuggestions}
                               style={{
-                                  border: '1px solid #17416F',
-                                  borderRadius: '0.25rem',  // équivalent à `rounded`
-                                  padding: '0.5rem',        // équivalent à `p-2`
-                                  width: '100%',            // équivalent à `w-full`
-                                  height: '8rem',           // équivalent à `h-32`
-                                  resize: 'none',           // équivalent à `resize-none`
-                                  outline: 'none',
-                                  transition: 'box-shadow 0.2s ease-in-out',
+                                border: '1px solid #17416F',
+                                borderRadius: '0.25rem',  // équivalent à `rounded`
+                                padding: '0.5rem',        // équivalent à `p-2`
+                                width: '100%',            // équivalent à `w-full`
+                                height: '8rem',           // équivalent à `h-32`
+                                resize: 'none',           // équivalent à `resize-none`
+                                outline: 'none',
+                                transition: 'box-shadow 0.2s ease-in-out',
                               }}
                               onFocus={(e) => {
-                                  e.target.style.boxShadow = '0 0 0 2px #17416F';
+                                e.target.style.boxShadow = '0 0 0 2px #17416F';
                               }}
                               onBlur={(e) => {
-                                  e.target.style.boxShadow = 'none';
+                                e.target.style.boxShadow = 'none';
                               }}
                               onChange={handleChange}
                               placeholder="Type here"
-                          />
+                            />
 
                           </div>
 
@@ -213,7 +217,8 @@ const FeedbackSection = () => {
                             <button
                               type="submit"
                               className="px-5 text-white btn btn-w"
-                              style={{background:'#13AB9C'}}
+                              
+                              style={{ background: '#13AB9C' }}
                             >
                               Submit
                             </button>

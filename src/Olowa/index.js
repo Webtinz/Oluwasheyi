@@ -17,13 +17,21 @@ import HealthCarousel from "./Components/healthCarousel";
 import Img from '../assets/Mask1.png';
 import G3Image from "../assets/G3.png"; // Assure-toi d’avoir les images dans le bon dossier
 import Group1Image from "../assets/Group1.png";
-import { getAllContents } from '../services/content.service';
+import { getAdvices, getAllContents, getCertificates, getEvents, getPrograms, getServices, getTeamMembers, getTestimonials } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
 
 
 const Home = () => {
-    const {selectedLanguage} = useContext(LanguageContext);
+    const { selectedLanguage } = useContext(LanguageContext);
     const [contents, setContents] = useState();
+    const [events, setEvents] = useState([]);
+    const [services, setServices] = useState([]);
+    const [programs, setPrograms] = useState([]);
+    const [testimonials, setTestimonials] = useState([]);
+    const [certificates, setCerificates] = useState([]);
+    const [advices, setAdvices] = useState([]);
+    const [teamMembers, setTeamMembers] = useState([]);
+
 
     // Get contents on component mount
     useEffect(() => {
@@ -38,6 +46,14 @@ const Home = () => {
                     setContents(response.data);
                     localStorage.setItem("contents", JSON.stringify(response.data));
                 }
+                // Fetch others data
+                setServices(await getServices());
+                setEvents(await getEvents());
+                setPrograms(getPrograms());
+                setCerificates(await getCertificates());
+                setAdvices(await getAdvices());
+                setTeamMembers(await getTeamMembers())
+                setTestimonials(await getTestimonials())
             } catch (error) {
                 console.error('Failed to fetch contents:', error.message || error);
             }
@@ -50,9 +66,9 @@ const Home = () => {
             <div><Navbar /></div>
             <div><Banner /></div>
             <br /><br />
-            <div><OwlCarousel /></div>
+            <div><OwlCarousel services={services} /></div>
             <br /><br />
-            <div><HealthCarousel /></div>
+            <div><HealthCarousel healthAdvices={advices} /></div>
             <br /><br />
             <div><Community /></div>
             <br /><br />
@@ -75,7 +91,11 @@ const Home = () => {
                         }}>
                             <div className="wm" style={{ textAlign: 'start' }}>
                                 <h2 className="text-white">
-                                    Take a Virtual <br />Tour of Our <br />Facilities
+                                    {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                                        __html: contents?.home_page_virtual_tour_desc.content_fr
+                                    }} />) : (<div dangerouslySetInnerHTML={{
+                                        __html: contents?.home_page_virtual_tour_desc.content_en
+                                    }} />)}
                                 </h2>
                             </div>
                         </div>
@@ -84,7 +104,7 @@ const Home = () => {
                     <div className="col-md-7 order-1 order-md-2" style={{
                         paddingLeft: 0,
                         paddingRight: 0,
-                        backgroundImage: `url(${Img})`,
+                        backgroundImage: `url(${contents?.home_page_virtual_tour_img.image})`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         marginLeft: '-50px', // Pour couvrir l'espace créé par le radius
@@ -97,11 +117,11 @@ const Home = () => {
             </div>
             <br /><br />
             <div>
-                <Testimonial />
+                <Testimonial testimonials={testimonials} />
             </div>
             <br /><br /><br />
             <div>
-                <Logo />
+                <Logo logos={certificates} />
             </div>
             <br /><br />
             <section className="container-fluid mt-4 position-relative" style={{ backgroundColor: "#17416F" }}>
@@ -109,22 +129,26 @@ const Home = () => {
                     <div className="row">
                         <div className="col-lg-7 mx-auto order-2 order-lg-1">
                             <div>
-                                <img src={G3Image} alt="" className="img-fluid w-100" />
+                                <img src={contents?.home_page_patient_portal_bg_img.image} alt="" className="img-fluid w-100" />
                             </div>
                         </div>
                         <div className="col-lg-4 mb-3 mx-auto align-self-center order-1 order-lg-2" style={{ padding: "0px" }}>
                             <div className="p-3">
                                 <h2 className="text-white text-uppercase fw-bold" style={{ fontSize: '30px' }}>{selectedLanguage === 'fr' ? contents?.home_page_banner_link4.content_fr : contents?.home_page_banner_link4.content_en}</h2>
                                 <p className="mt-3 text-white text-uppercase fw-light">
-                                    {selectedLanguage === 'fr' ? contents?.home_page_banner_desc_1.content_fr : contents?.home_page_banner_desc_1.content_en}
+                                    {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                                        __html: contents?.home_page_patient_portal_desc.content_fr
+                                    }} />) : (<div dangerouslySetInnerHTML={{
+                                        __html: contents?.home_page_patient_portal_desc.content_en
+                                    }} />)}
                                 </p>
                                 <div className="mt-3">
                                     <button
                                         className="btn btn-t text-white"
                                         style={{ backgroundColor: "#13AB9C", padding: "10px 25px" }}
-                                        onClick={() => (window.location.href = "Meet.html")}
+                                        // onClick={() => (window.location.href = "Meet.html")}
                                     >
-                                       {selectedLanguage === 'fr' ? contents?.home_page_patient_portal_button.content_fr : contents?.home_page_patient_portal_button.content_en}
+                                        {selectedLanguage === 'fr' ? contents?.home_page_patient_portal_button.content_fr : contents?.home_page_patient_portal_button.content_en}
                                     </button>
                                 </div>
                             </div>
@@ -138,19 +162,19 @@ const Home = () => {
             </section>
             <br /><br />
             <div>
-                <Smeet />
+                <Smeet doctors={teamMembers} />
             </div>
             <br /><br />
             <div>
                 <h2 class="text-center"
                     style={{ textTransform: 'uppercase', color: '#17416F', fontWeight: '700', fontSize: '36px' }}>
-                        {selectedLanguage === 'fr' ? contents?.home_page_equipment_title.content_fr : contents?.home_page_equipment_title.content_en}
+                    {selectedLanguage === 'fr' ? contents?.home_page_equipment_title.content_fr : contents?.home_page_equipment_title.content_en}
                 </h2>
                 <Galery />
             </div>
             <br /><br />
             <div>
-                <Event />
+                <Event events={events} />
             </div>
             <br /><br />
             <div>

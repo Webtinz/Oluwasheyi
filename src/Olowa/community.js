@@ -11,13 +11,16 @@ import Group1 from '../assets/Group1.png';
 import Mask from '../assets/Mask group.png';
 import Mask1 from '../assets/Fr.png';
 import Mask2 from '../assets/Fr1.png';
-import { getAllContents } from '../services/content.service';
+import { getAllContents, getCertificates, getEvents } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
 
 const Home = () => {
     const [activeTab, setActiveTab] = useState("cont1");
     const { selectedLanguage } = useContext(LanguageContext);
     const [contents, setContents] = useState();
+    const [events, setEvents] = useState([]);
+    const [certificates, setCerificates] = useState([]);
+
 
     // Récupération des contenus
     useEffect(() => {
@@ -31,6 +34,9 @@ const Home = () => {
                     setContents(response.data);
                     localStorage.setItem("contents", JSON.stringify(response.data));
                 }
+                setEvents(await getEvents());
+                setCerificates(await getCertificates());
+
             } catch (error) {
                 console.error('Failed to fetch contents:', error.message || error);
             }
@@ -40,32 +46,37 @@ const Home = () => {
 
     // Vérification pour éviter une erreur si contents est undefined
     const tabs = contents ? [
-        { id: "cont1", label: selectedLanguage === 'fr' 
-            ? contents?.communoty_page_menu_1_title?.content_fr 
-            : contents?.communoty_page_menu_1_title?.content_en 
+        {
+            id: "cont1", label: selectedLanguage === 'fr'
+                ? contents?.communoty_page_menu_1_title?.content_fr
+                : contents?.communoty_page_menu_1_title?.content_en
         },
-        { id: "cont2", label: selectedLanguage === 'fr' 
-            ? contents?.communoty_page_menu_2_title?.content_fr 
-            : contents?.communoty_page_menu_2_title?.content_en 
+        {
+            id: "cont2", label: selectedLanguage === 'fr'
+                ? contents?.communoty_page_menu_2_title?.content_fr
+                : contents?.communoty_page_menu_2_title?.content_en
         },
-        { id: "cont3", label: selectedLanguage === 'fr' 
-            ? contents?.communoty_page_menu_3_title?.content_fr 
-            : contents?.communoty_page_menu_3_title?.content_en 
+        {
+            id: "cont3", label: selectedLanguage === 'fr'
+                ? contents?.communoty_page_menu_3_title?.content_fr
+                : contents?.communoty_page_menu_3_title?.content_en
         },
-        { id: "cont4", label: selectedLanguage === 'fr' 
-            ? contents?.communoty_page_menu_4_title?.content_fr 
-            : contents?.communoty_page_menu_4_title?.content_en  
+        {
+            id: "cont4", label: selectedLanguage === 'fr'
+                ? contents?.communoty_page_menu_4_title?.content_fr
+                : contents?.communoty_page_menu_4_title?.content_en
         },
-        { id: "cont5", label: selectedLanguage === 'fr' 
-            ? contents?.communoty_page_menu_5_title?.content_fr 
-            : contents?.communoty_page_menu_5_title?.content_en  
+        {
+            id: "cont5", label: selectedLanguage === 'fr'
+                ? contents?.communoty_page_menu_5_title?.content_fr
+                : contents?.communoty_page_menu_5_title?.content_en
         },
         { id: "cont6", label: "" },
     ] : [];
 
     return (
         <div className="container-fluid">
-            <div><Navbar/></div>
+            <div><Navbar /></div>
             <section className="mt-4 position-relative" style={{ backgroundColor: '#17416F', padding: '100px 0' }}>
                 <h1 className="text-center text-white" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '40px' }}>{selectedLanguage === 'fr' ? contents?.communoty_page_title.content_fr : contents?.communoty_page_title.content_en}</h1>
                 <div className="position-absolute bottom-0 start-0">
@@ -109,12 +120,14 @@ const Home = () => {
                                         <h2 style={{ textTransform: "uppercase", color: "#17416F", fontSize: '30px', fontWeight: '700' }}>{selectedLanguage === 'fr' ? contents?.communoty_page_menu_1_title.content_fr : contents?.communoty_page_menu_1_title.content_en}</h2>
                                         <p className="mt-3" style={{ color: "#17416F" }}>
                                             {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
-                                            __html:contents?.communoty_page_menu_1_desc.content_fr  }} />) : (<div dangerouslySetInnerHTML={{
-                                                __html:contents?.communoty_page_menu_1_desc.content_en  }} />)}
+                                                __html: contents?.communoty_page_menu_1_desc.content_fr
+                                            }} />) : (<div dangerouslySetInnerHTML={{
+                                                __html: contents?.communoty_page_menu_1_desc.content_en
+                                            }} />)}
                                         </p>
                                         <div className="mt-3">
                                             <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }}>
-                                                Contact Us
+                                                {selectedLanguage === 'fr' ? contents?.communoty_page_menu_button.content_fr : contents?.communoty_page_menu_button.content_en}
                                             </button>
                                         </div>
                                     </div>
@@ -124,36 +137,128 @@ const Home = () => {
 
                         {activeTab === "cont2" && (
                             <div className="search-content">
-                                <h3>Search for Business Trip</h3>
-                                <div className="search-form">
-                                    <p>Business-specific search form content...</p>
+                                <div className="row">
+                                    <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
+                                        <div className='position-relative'>
+                                            <img src={Mask} alt="Wellness Programs" className="img-fluid w-100" style={{ borderTopRightRadius: '30px' }} />
+                                            <div className='contpos'>
+                                                <img src={Mask1} alt="Wellness Programs" className="img-fluid" style={{ width: '70%' }} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-12 col-md-6 mx-auto mb-3 mb-md-0 p-4 align-self-center">
+                                        <h2 style={{ textTransform: "uppercase", color: "#17416F", fontSize: '30px', fontWeight: '700' }}>
+                                            {selectedLanguage === 'fr' ? contents?.communoty_page_menu_2_title.content_fr : contents?.communoty_page_menu_2_title.content_en}
+                                        </h2>
+                                        <p className="mt-3" style={{ color: "#17416F" }}>
+                                            {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                                                __html: contents?.communoty_page_menu_2_desc.content_fr
+                                            }} />) : (<div dangerouslySetInnerHTML={{
+                                                __html: contents?.communoty_page_menu_2_desc.content_en
+                                            }} />)}
+                                        </p>
+                                        <div className="mt-3">
+                                            <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }}>
+                                                {selectedLanguage === 'fr' ? contents?.communoty_page_menu_button.content_fr : contents?.communoty_page_menu_button.content_en}
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         )}
 
                         {activeTab === "cont3" && (
                             <div className="search-content">
-                                <h3>Featured Locations</h3>
-                                <div className="search-form">
-                                    <p>Featured-specific content...</p>
+                                <div className="row">
+                                    <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
+                                        <div className='position-relative'>
+                                            <img src={Mask} alt="Wellness Programs" className="img-fluid w-100" style={{ borderTopRightRadius: '30px' }} />
+                                            <div className='contpos'>
+                                                <img src={Mask1} alt="Wellness Programs" className="img-fluid" style={{ width: '70%' }} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-12 col-md-6 mx-auto mb-3 mb-md-0 p-4 align-self-center">
+                                        <h2 style={{ textTransform: "uppercase", color: "#17416F", fontSize: '30px', fontWeight: '700' }}>
+                                            {selectedLanguage === 'fr' ? contents?.communoty_page_menu_3_title.content_fr : contents?.communoty_page_menu_3_title.content_en}
+                                        </h2>
+                                        <p className="mt-3" style={{ color: "#17416F" }}>
+                                            {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                                                __html: contents?.communoty_page_menu_3_desc.content_fr
+                                            }} />) : (<div dangerouslySetInnerHTML={{
+                                                __html: contents?.communoty_page_menu_3_desc.content_en
+                                            }} />)}
+                                        </p>
+                                        <div className="mt-3">
+                                            <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }}>
+                                                {selectedLanguage === 'fr' ? contents?.communoty_page_menu_button.content_fr : contents?.communoty_page_menu_button.content_en}
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         )}
 
                         {activeTab === "cont4" && (
                             <div className="search-content">
-                                <h3>Search for Business Trip</h3>
-                                <div className="search-form">
-                                    <p>Business-specific search form content...</p>
+                                <div className="row">
+                                    <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
+                                        <div className='position-relative'>
+                                            <img src={Mask} alt="Wellness Programs" className="img-fluid w-100" style={{ borderTopRightRadius: '30px' }} />
+                                            <div className='contpos'>
+                                                <img src={Mask1} alt="Wellness Programs" className="img-fluid" style={{ width: '70%' }} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-12 col-md-6 mx-auto mb-3 mb-md-0 p-4 align-self-center">
+                                        <h2 style={{ textTransform: "uppercase", color: "#17416F", fontSize: '30px', fontWeight: '700' }}>
+                                            {selectedLanguage === 'fr' ? contents?.communoty_page_menu_4_title.content_fr : contents?.communoty_page_menu_4_title.content_en}
+                                        </h2>
+                                        <p className="mt-3" style={{ color: "#17416F" }}>
+                                            {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                                                __html: contents?.communoty_page_menu_4_desc.content_fr
+                                            }} />) : (<div dangerouslySetInnerHTML={{
+                                                __html: contents?.communoty_page_menu_4_desc.content_en
+                                            }} />)}
+                                        </p>
+                                        <div className="mt-3">
+                                            <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }}>
+                                                {selectedLanguage === 'fr' ? contents?.communoty_page_menu_button.content_fr : contents?.communoty_page_menu_button.content_en}
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         )}
 
                         {activeTab === "cont5" && (
                             <div className="search-content">
-                                <h3>Featured Locations</h3>
-                                <div className="search-form">
-                                    <p>Featured-specific content...</p>
+                                <div className="row">
+                                    <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
+                                        <div className='position-relative'>
+                                            <img src={Mask} alt="Wellness Programs" className="img-fluid w-100" style={{ borderTopRightRadius: '30px' }} />
+                                            <div className='contpos'>
+                                                <img src={Mask1} alt="Wellness Programs" className="img-fluid" style={{ width: '70%' }} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-12 col-md-6 mx-auto mb-3 mb-md-0 p-4 align-self-center">
+                                        <h2 style={{ textTransform: "uppercase", color: "#17416F", fontSize: '30px', fontWeight: '700' }}>
+                                            {selectedLanguage === 'fr' ? contents?.communoty_page_menu_5_title.content_fr : contents?.communoty_page_menu_5_title.content_en}
+                                        </h2>
+                                        <p className="mt-3" style={{ color: "#17416F" }}>
+                                            {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                                                __html: contents?.communoty_page_menu_5_desc.content_fr
+                                            }} />) : (<div dangerouslySetInnerHTML={{
+                                                __html: contents?.communoty_page_menu_5_desc.content_en
+                                            }} />)}
+                                        </p>
+                                        <div className="mt-3">
+                                            <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }}>
+                                                {selectedLanguage === 'fr' ? contents?.communoty_page_menu_button.content_fr : contents?.communoty_page_menu_button.content_en}
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         )}
@@ -162,11 +267,11 @@ const Home = () => {
             </section>
             <br /><br />
             <div>
-                <Carousel />
+                <Carousel events={events} />
             </div>
             <br /><br />
             <div>
-                <Logo />
+                <Logo logos={certificates} />
             </div>
             <br /><br />
             <div>
