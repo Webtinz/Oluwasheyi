@@ -207,7 +207,7 @@ const ServicesCarousel = ({ services }) => {
               >
                 <div className="relative aspect-video">
                   <img
-                    src={Img1}
+                    src={service.photo}
                     alt={service.nom}
                     className="w-full h-full object-cover"
                     style={{ borderTopRightRadius: '30px' }}

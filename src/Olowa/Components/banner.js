@@ -6,7 +6,7 @@ import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 
 const About = () => {
-    const {selectedLanguage} = useContext(LanguageContext);
+    const { selectedLanguage } = useContext(LanguageContext);
     const [contents, setContents] = useState();
 
     useEffect(() => {
@@ -39,16 +39,24 @@ const About = () => {
                                         <div className="carousel-content">
                                             <div className='d-flex justify-content-center carrousseltextcont'>
                                                 <div className="text-start">
-                                                    <h2>Your Partner <br/> in Health and <br/> Healing</h2>
-                                                    <br/>
-                                                    <p>Comprehensive care, cutting-edge <br/>technology, and a compassionate team</p>
-                                                    <br/>
+                                                    <h2>{selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                                                        __html: contents?.home_page_banner_title.content_fr
+                                                    }} />) : (<div dangerouslySetInnerHTML={{
+                                                        __html: contents?.home_page_banner_title.content_en
+                                                    }} />)}</h2>
+                                                    <br />
+                                                    <p>{selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                                                        __html: contents?.home_page_banner_desc_1.content_fr
+                                                    }} />) : (<div dangerouslySetInnerHTML={{
+                                                        __html: contents?.home_page_banner_desc_1.content_en
+                                                    }} />)}</p>
+                                                    <br />
                                                     <div>
                                                         <Link to="/about" className="btn btn-cus text-white me-2" style={{ backgroundColor: '#13AB9C', padding: '10px 15px' }}>
-                                                            About us
+                                                            {selectedLanguage === 'fr' ? contents?.home_page_banner_about_us.content_fr : contents?.home_page_banner_about_us.content_en}
                                                         </Link>
                                                         <Link to="/" className="btn btn-outline-light" style={{ padding: '10px 15px' }}>
-                                                            Book Appointment
+                                                            {selectedLanguage === 'fr' ? contents?.home_page_banner_book_appointment.content_fr : contents?.home_page_banner_book_appointment.content_en}
                                                         </Link>
                                                     </div>
                                                 </div>
@@ -56,11 +64,11 @@ const About = () => {
                                         </div>
                                     </div>
                                     <div className="col-lg-6 col-md-12">
-                                        <img 
-                                            src={Mask1Image} 
-                                            alt="Image de la clinique" 
-                                            className="img-fluid w-100 h-100" 
-                                            style={{ objectFit: 'cover', marginLeft:'-40px' }}
+                                        <img
+                                            src={contents?.home_page_banner_img.image}
+                                            alt="Image de la clinique"
+                                            className="img-fluid w-100 h-100"
+                                            style={{ objectFit: 'cover', marginLeft: '-40px' }}
                                         />
                                     </div>
                                 </div>
@@ -71,22 +79,22 @@ const About = () => {
                                         <div className="carousel-content carrousseltwo">
                                             <div className="wm text-start">
                                                 <ul className="list-unstyled m-0 p-0">
-                                                    <li><Link to="/about" className="text-white d-block">About us</Link></li>
-                                                    <li><Link to="/community" className="text-white d-block">Community engagement</Link></li>
-                                                    <li><Link to="/service" className="text-white d-block">Our services</Link></li>
-                                                    <li><Link to="/" className="text-white d-block">Patient portal</Link></li>
-                                                    <li><Link to="/" className="text-white d-block">Health advice</Link></li>
-                                                    <li><Link to="/" className="text-white d-block">Contact</Link></li>
+                                                    <li><Link to="/about" className="text-white d-block">{selectedLanguage === 'fr' ? contents?.home_page_banner_link1.content_fr : contents?.home_page_banner_link1.content_en}</Link></li>
+                                                    <li><Link to="/community" className="text-white d-block">{selectedLanguage === 'fr' ? contents?.home_page_banner_link2.content_fr : contents?.home_page_banner_link2.content_en}</Link></li>
+                                                    <li><Link to="/service" className="text-white d-block">{selectedLanguage === 'fr' ? contents?.home_page_banner_link3.content_fr : contents?.home_page_banner_link3.content_en}</Link></li>
+                                                    <li><Link to="/" className="text-white d-block">{selectedLanguage === 'fr' ? contents?.home_page_banner_link4.content_fr : contents?.home_page_banner_link4.content_en}</Link></li>
+                                                    <li><Link to="/" className="text-white d-block">{selectedLanguage === 'fr' ? contents?.home_page_banner_link5.content_fr : contents?.home_page_banner_link5.content_en}</Link></li>
+                                                    <li><Link to="/" className="text-white d-block">{selectedLanguage === 'fr' ? contents?.home_page_banner_link6.content_fr : contents?.home_page_banner_link6.content_en}</Link></li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="col-lg-6 col-md-12">
-                                        <img 
-                                            src={Mask1Image} 
-                                            alt="Image de la clinique" 
-                                            className="img-fluid w-100 h-100" 
-                                            style={{ objectFit: 'cover',marginLeft:'-40px' }}
+                                        <img
+                                            src={contents?.home_page_banner_img.image}
+                                            alt="Image de la clinique"
+                                            className="img-fluid w-100 h-100"
+                                            style={{ objectFit: 'cover', marginLeft: '-40px' }}
                                         />
                                     </div>
                                 </div>

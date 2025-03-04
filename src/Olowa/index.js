@@ -91,7 +91,11 @@ const Home = () => {
                         }}>
                             <div className="wm" style={{ textAlign: 'start' }}>
                                 <h2 className="text-white">
-                                    Take a Virtual <br />Tour of Our <br />Facilities
+                                    {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                                        __html: contents?.home_page_virtual_tour_desc.content_fr
+                                    }} />) : (<div dangerouslySetInnerHTML={{
+                                        __html: contents?.home_page_virtual_tour_desc.content_en
+                                    }} />)}
                                 </h2>
                             </div>
                         </div>
@@ -100,7 +104,7 @@ const Home = () => {
                     <div className="col-md-7 order-1 order-md-2" style={{
                         paddingLeft: 0,
                         paddingRight: 0,
-                        backgroundImage: `url(${Img})`,
+                        backgroundImage: `url(${contents?.home_page_virtual_tour_img.image})`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         marginLeft: '-50px', // Pour couvrir l'espace créé par le radius
@@ -125,20 +129,24 @@ const Home = () => {
                     <div className="row">
                         <div className="col-lg-7 mx-auto order-2 order-lg-1">
                             <div>
-                                <img src={G3Image} alt="" className="img-fluid w-100" />
+                                <img src={contents?.home_page_patient_portal_bg_img.image} alt="" className="img-fluid w-100" />
                             </div>
                         </div>
                         <div className="col-lg-4 mb-3 mx-auto align-self-center order-1 order-lg-2" style={{ padding: "0px" }}>
                             <div className="p-3">
                                 <h2 className="text-white text-uppercase fw-bold" style={{ fontSize: '30px' }}>{selectedLanguage === 'fr' ? contents?.home_page_banner_link4.content_fr : contents?.home_page_banner_link4.content_en}</h2>
                                 <p className="mt-3 text-white text-uppercase fw-light">
-                                    {selectedLanguage === 'fr' ? contents?.home_page_banner_desc_1.content_fr : contents?.home_page_banner_desc_1.content_en}
+                                    {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                                        __html: contents?.home_page_patient_portal_desc.content_fr
+                                    }} />) : (<div dangerouslySetInnerHTML={{
+                                        __html: contents?.home_page_patient_portal_desc.content_en
+                                    }} />)}
                                 </p>
                                 <div className="mt-3">
                                     <button
                                         className="btn btn-t text-white"
                                         style={{ backgroundColor: "#13AB9C", padding: "10px 25px" }}
-                                        onClick={() => (window.location.href = "Meet.html")}
+                                        // onClick={() => (window.location.href = "Meet.html")}
                                     >
                                         {selectedLanguage === 'fr' ? contents?.home_page_patient_portal_button.content_fr : contents?.home_page_patient_portal_button.content_en}
                                     </button>

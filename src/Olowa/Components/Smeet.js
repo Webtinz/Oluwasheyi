@@ -15,7 +15,7 @@ const DoctorCard = ({ nom, prenom, titre, description, photo }) => (
   <div className="flex flex-col items-center p-4 min-w-[280px]">
     <div className="relative w-full aspect-square mb-4">
       <img
-        src={Img4}
+        src={photo}
         alt={`Dr. ${nom} ${prenom}`}
         className="w-full h-full object-cover"
         style={{ borderTopRightRadius: '30px' }}

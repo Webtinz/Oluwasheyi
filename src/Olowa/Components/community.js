@@ -43,7 +43,7 @@ const CommunityEngagement = () => {
       }} />) : (<div dangerouslySetInnerHTML={{
         __html: contents?.communoty_page_menu_1_desc.content_en
       }} />),
-      image: Img,
+      image: selectedLanguage === 'fr' ? contents?.communoty_page_menu_1_img.image : contents?.communoty_page_menu_1_img.image,
       borderRadius: "0 30px 0 0",
       positionClass: "position",
       imageFirst: true,
@@ -55,7 +55,7 @@ const CommunityEngagement = () => {
       }} />) : (<div dangerouslySetInnerHTML={{
         __html: contents?.communoty_page_menu_2_desc.content_en
       }} />),
-      image: Img1,
+      image: selectedLanguage === 'fr' ? contents?.communoty_page_menu_2_img.image : contents?.communoty_page_menu_2_img.image,
       borderRadius: "30px 0 0 0",
       positionClass: "position1",
       imageFirst: false,
@@ -67,7 +67,7 @@ const CommunityEngagement = () => {
       }} />) : (<div dangerouslySetInnerHTML={{
         __html: contents?.communoty_page_menu_3_desc.content_en
       }} />),
-      image: Img2,
+      image: selectedLanguage === 'fr' ? contents?.communoty_page_menu_3_img.image : contents?.communoty_page_menu_3_img.image,
       borderRadius: "0 30px  0 0",
       positionClass: "position",
       imageFirst: true,
@@ -79,7 +79,7 @@ const CommunityEngagement = () => {
       }} />) : (<div dangerouslySetInnerHTML={{
         __html: contents?.communoty_page_menu_4_desc.content_en
       }} />),
-      image: Img3,
+      image: selectedLanguage === 'fr' ? contents?.communoty_page_menu_4_img.image : contents?.communoty_page_menu_4_img.image,
       borderRadius: "30px 0 0 0",
       positionClass: "position1",
       imageFirst: false,
@@ -91,7 +91,7 @@ const CommunityEngagement = () => {
       }} />) : (<div dangerouslySetInnerHTML={{
         __html: contents?.communoty_page_menu_5_desc.content_en
       }} />),
-      image: Img4,
+      image: selectedLanguage === 'fr' ? contents?.communoty_page_menu_5_img.image : contents?.communoty_page_menu_5_img.image,
       borderRadius: "0 30px  0 0",
       positionClass: "position",
       imageFirst: true,

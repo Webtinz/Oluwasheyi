@@ -110,7 +110,7 @@ const LogoCarousel = ({ logos }) => {
                   }}
                 >
                   <img
-                    src={Img1}
+                    src={logo.photo}
                     alt={logo.name}
                     className="img-fluid"
                     style={{ objectFit: 'contain', width: '120px', height: '120px' }}

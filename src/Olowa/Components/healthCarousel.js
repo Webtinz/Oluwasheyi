@@ -134,7 +134,7 @@ const HealthAdviceCarousel = ({healthAdvices}) => {
                 >
                   <div className="bg-white shadow-md h-100" style={{ border: '1px solid #17416F', padding: '10px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <div className="flex flex-col items-center text-center gap-4" style={{ flexGrow: 1 }}>
-                      <img src={advice.image} alt={advice.topic} className="object-cover mt-5" />
+                      <img src={advice.photo} alt={advice.topic} className="object-cover mt-5" />
                       <h3 className="font-semibold text-lg text-teal-600" dangerouslySetInnerHTML={{ __html: advice.topic }} />
                       <p className="text-sm text-gray-600" dangerouslySetInnerHTML={{ __html: advice.advice_text }} />
                     </div>

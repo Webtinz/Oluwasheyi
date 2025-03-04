@@ -160,7 +160,7 @@ const PatientTestimonials = ({ testimonials }) => {
                             <p className="text-gray-600 mb-6">{testimonial.description}</p>
                             <hr className="my-4" />
                             <div className="flex items-center gap-3">
-                              <img src={Logo} alt={`${testimonial.nom} ${testimonial.prenom}`} className="w-12 h-12 rounded-full"/>
+                              <img src={testimonial.photo} alt={`${testimonial.nom} ${testimonial.prenom}`} className="w-12 h-12 rounded-full"/>
                               <div>
                                   <p className="font-semibold">{testimonial.nom} {testimonial.prenom}</p>
                                   <p className="text-gray-500">{testimonial.address}</p>

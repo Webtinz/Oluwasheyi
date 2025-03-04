@@ -51,7 +51,7 @@ const FeaturedEvents = ({ events }) => {
                 <div className="row">
                   <div className="col-lg-12 mb-4 mx-auto">
                     <div className="position-relative">
-                      <img src={im3} alt="" className="image-fluid w-100" />
+                      <img src={event.photo} alt="" className="image-fluid w-100" />
                       <div className="ppo1">
                         <span className="event-day">{format(new Date(event.dateevent), "dd")}</span>
                         <span className="event-date upper">{format(new Date(event.dateevent), "MMM.yy")}</span>
