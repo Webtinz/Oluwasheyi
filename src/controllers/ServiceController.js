@@ -9,7 +9,7 @@ exports.addservice = async (req, res) => {
     const { nom, nom_en, phone, email, description, description_en } = req.body;
     const photo = req.file ? req.file.key : null;
 
-    const signedUrl = await generateSignedUrl(photo);
+    let signedUrl = await generateSignedUrl(photo);
 
     const newService = await Service.create({
       nom,
@@ -37,7 +37,10 @@ exports.updateservice = async (req, res) => {
   const { nom, phone, email, description } = req.body;
   const photo = req.file ? req.file.key : null;
 
-  const signedUrl = await generateSignedUrl(photo);
+  let signedUrl = null;
+    if (photo) {
+      signedUrl = await generateSignedUrl(photo);
+    }
 
   try {
     const service = await Service.findByPk(id);
@@ -55,10 +58,16 @@ exports.updateservice = async (req, res) => {
 
     // Mise à jour des informations
     service.nom = nom || service.nom;
+    service.nom_en = nom_en || service.nom_en;
     service.phone = phone || service.phone;
     service.email = email || service.email;
     service.description = description || service.description;
-    service.photo = signedUrl || service.photo;
+    service.description_en = description_en || service.description_en;
+
+    if (photo) {
+      let signedUrl = await generateSignedUrl(photo);
+      service.photo = signedUrl || service.photo;
+    }
 
     await service.save();
 

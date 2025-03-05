@@ -54,7 +54,15 @@ router.get('/addservice', (req, res) => {
   res.render('services/addservice', { title: 'Addservice Page' });
 });
 
-// Services
+// Departments
+router.get('/listdepartments', (req, res) => {
+  res.render('departments/listdepartment', { title: 'Listdepartment Page' });
+});
+router.get('/adddepartment', (req, res) => {
+  res.render('departments/adddepartment', { title: 'Adddepartment Page' });
+});
+
+// Events
 router.get('/listevents', (req, res) => {
   res.render('events/listevent', { title: 'Listevent Page' });
 });

@@ -10,7 +10,10 @@ exports.addTeamMember = async (req, res) => {
     const { nom, prenom, titre, description } = req.body;
     const photo = req.file ? req.file.key : null;
 
-    const signedUrl = await generateSignedUrl(photo);  // Le nom du fichier si photo téléchargée
+    let signedUrl = null;
+    if (photo) {
+      signedUrl = await generateSignedUrl(photo);
+    }
 
     // Création d'un nouveau membre dans la base de données
     const newTeamMember = await TeamMember.create({
@@ -38,8 +41,6 @@ exports.updateTeamMember = async (req, res) => {
   const { nom, prenom, titre, description } = req.body;
   const photo = req.file ? req.file.key : null;
 
-  const signedUrl = await generateSignedUrl(photo);
-
   try {
     const teamMember = await TeamMember.findByPk(id);
     if (!teamMember) {
@@ -51,7 +52,10 @@ exports.updateTeamMember = async (req, res) => {
     teamMember.prenom = prenom || teamMember.prenom;
     teamMember.titre = titre || teamMember.titre;
     teamMember.description = description || teamMember.description;
-    teamMember.photo = signedUrl || teamMember.photo;
+    if (photo) {
+      let signedUrl = await generateSignedUrl(photo);
+      teamMember.photo = signedUrl || teamMember.photo;
+    }
 
     await teamMember.save();
 

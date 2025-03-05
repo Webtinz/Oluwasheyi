@@ -5,11 +5,12 @@ const TestimonialController = require('../controllers/TestimonialController');
 const TeamMemberController = require('../controllers/TeamMemberController');
 const FeedbackController = require('../controllers/FeedbackController');
 const AdviceController = require('../controllers/AdviceController');
-const contentController = require('../controllers/ContentController');
+const ContentController = require('../Controllers/ContentController');
 const MedicalProgramController = require('../controllers/MedicalProgramController');
 const CertificationController = require('../controllers/CertificationController');
-const { uploadService, uploadTemoigne, uploadMedicalProgram, uploadCertification, uploadContent, uploadEvent, uploadMember, uploadAdvice } = require('../middleware/fileupload');
+const { uploadService, uploadDepartment, uploadTemoigne, uploadMedicalProgram, uploadCertification, uploadContent, uploadEvent, uploadMember, uploadAdvice } = require('../middleware/fileupload');
 const ServiceController = require('../controllers/ServiceController');
+const DepartmentController = require('../controllers/DepartmentController');
 const EventController = require('../controllers/EventController');
 const { getDonations, addDonation, getDonation } = require('../controllers/DonationController');
 
@@ -25,7 +26,7 @@ router.delete('/deletetestimonial/:id', TestimonialController.deletetestimonials
 router.get('/gettestimonial/:id', TestimonialController.gettestimonial);
 
 // Feedback
-router.post('/addfeedback',  FeedbackController.createFeedback); // Middleware upload utilisé ici
+router.post('/addfeedback', FeedbackController.createFeedback); // Middleware upload utilisé ici
 router.put('/updatefeedback/:id', FeedbackController.updateFeedback);
 router.get('/getallfeedbacks', FeedbackController.getAllFeedbacks);
 router.delete('/deletefeedback/:id', FeedbackController.deleteFeedback);
@@ -46,12 +47,12 @@ router.delete('/deleteadvice/:id', AdviceController.deleteAdvice);
 router.get('/getadvice/:id', AdviceController.getAdvice);
 
 // Content
-router.post('/addcontent', uploadContent.single('image'), contentController.addcontent); // Middleware upload utilisé ici
-router.put('/updatecontent/:id', uploadContent.single('image'), contentController.updatecontent);
-router.get('/getallcontents', contentController.getallcontents);
-router.delete('/deletecontent/:id', contentController.deletecontents);
-router.get('/getcontent/:id', contentController.getcontent);
-router.get('/getcontentbytitle', contentController.getcontentbytitle);
+router.post('/addcontent', uploadContent.single('image'), ContentController.addcontent); // Middleware upload utilisé ici
+router.put('/updatecontent/:id', uploadContent.single('image'), ContentController.updatecontent);
+router.get('/getallcontents', ContentController.getallcontents);
+router.delete('/deletecontent/:id', ContentController.deletecontents);
+router.get('/getcontent/:id', ContentController.getcontent);
+router.get('/getcontentbytitle', ContentController.getcontentbytitle);
 
 // Service
 router.post('/addservice', uploadService.single('photo'), ServiceController.addservice); // Middleware upload utilisé ici
@@ -59,6 +60,13 @@ router.put('/updateservice/:id', uploadService.single('photo'), ServiceControlle
 router.get('/getallservices', ServiceController.getallservices);
 router.delete('/deleteservice/:id', ServiceController.deleteservice);
 router.get('/getservice/:id', ServiceController.getservice);
+
+// Department
+router.post('/adddepartment', uploadDepartment.single('photo'), DepartmentController.addDepartment); // Middleware upload utilisé ici
+router.put('/updatedepartment/:id', uploadDepartment.single('photo'), DepartmentController.updateDepartment);
+router.get('/getalldepartments', DepartmentController.getAllDepartments);
+router.delete('/deletedepartment/:id', DepartmentController.deleteDepartment);
+router.get('/getdepartment/:id', DepartmentController.getDepartment);
 
 // Event
 router.post('/addevent', uploadEvent.single('photo'), EventController.createEvent);

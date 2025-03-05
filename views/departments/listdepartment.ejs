@@ -9,14 +9,14 @@
 <section class="content">
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Services</h3>
+            <h3 class="card-title">Departments</h3>
             <div class="card-tools">
-                <a href="/backoffice/addservice" class="btn btn-primary"><i
-                        class="fas fa-plus"></i> Add Service</a>
+                <a href="/backoffice/adddepartment" class="btn btn-primary"><i
+                        class="fas fa-plus"></i> Add Department</a>
             </div>
         </div>
         <div class="card-body">
-            <table id="serviceTable"
+            <table id="departmentTable"
                 class="display table table-striped projects">
                 <thead>
                     <tr>
@@ -40,52 +40,55 @@
 </section>
 
 <!-- View/Edit Modal -->
-<div class="modal fade" id="serviceModal" tabindex="-1" role="dialog">
+<div class="modal fade" id="departmentModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Service Details</h5>
+                <h5 class="modal-title">Department Details</h5>
                 <button type="button" class="close" data-dismiss="modal"
                     aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form id="serviceForm">
-                    <input type="hidden" id="serviceId">
+                <form id="departmentForm">
+                    <input type="hidden" id="departmentId">
                     <div class="form-group">
                         <label>French Name</label>
-                        <input type="text" id="serviceName" class="form-control"
+                        <input type="text" id="departmentName"
+                            class="form-control"
                             required>
                     </div>
                     <div class="form-group">
                         <label>English Name</label>
-                        <input type="text" id="serviceNameEn"
+                        <input type="text" id="departmentNameEn"
                             class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Phone</label>
-                        <input type="text" id="servicePhone"
+                        <input type="text" id="departmentPhone"
                             class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" id="serviceEmail"
+                        <input type="email" id="departmentEmail"
                             class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Description</label>
-                        <textarea id="serviceDescription" class="form-control"
+                        <textarea id="departmentDescription"
+                            class="form-control"
                             required></textarea>
                     </div>
                     <div class="form-group">
                         <label>English Description</label>
-                        <textarea id="serviceDescriptionEn" class="form-control"
+                        <textarea id="departmentDescriptionEn"
+                            class="form-control"
                             required></textarea>
                     </div>
                     <div class="form-group">
                         <label>Photo</label>
-                        <input type="file" id="servicePhoto"
+                        <input type="file" id="departmentPhoto"
                             class="form-control">
                         <img id="currentPhoto" src="#" alt="Current Photo"
                             width="100"
@@ -101,100 +104,100 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        axios.get('/api/getallservices')
+        axios.get('/api/getalldepartments')
             .then(response => {
                 const data = response.data;
-                const tableBody = document.querySelector('#serviceTable tbody');
+                const tableBody = document.querySelector('#departmentTable tbody');
                 tableBody.innerHTML = '';
 
-                data.forEach(service => {
+                data.forEach(department => {
                     const row = `
                     <tr>
-                        <td>${service.id}</td>
-                        <td>${service.nom}</td>
-                        <td>${service.nom_en}</td>
-                        <td>${service.phone}</td>
-                        <td>${service.email}</td>
-                        <td>${service.description}</td>
-                        <td>${service.description_en}</td>
-                        <td><img src="${service.photo}" width="50" height="50" alt="Service Photo"></td>
+                        <td>${department.id}</td>
+                        <td>${department.nom}</td>
+                        <td>${department.nom_en}</td>
+                        <td>${department.phone}</td>
+                        <td>${department.email}</td>
+                        <td>${department.description}</td>
+                        <td>${department.description_en}</td>
+                        <td><img src="${department.photo}" width="50" height="50" alt="Department Photo"></td>
                         <td>
-                            <button class="btn btn-primary btn-sm view-btn" data-id="${service.id}">Edit</button>
-                            <button class="btn btn-danger btn-sm delete-btn" data-id="${service.id}">Delete</button>
+                            <button class="btn btn-primary btn-sm view-btn" data-id="${department.id}">Edit</button>
+                            <button class="btn btn-danger btn-sm delete-btn" data-id="${department.id}">Delete</button>
                         </td>
                     </tr>`;
                     tableBody.innerHTML += row;
                 });
 
                 // Initialize DataTable
-                $('#serviceTable').DataTable({
+                $('#departmentTable').DataTable({
                     "language": {
                         "url": "//cdn.datatables.net/plug-ins/1.13.7/i18n/fr-FR.json"
                     }
                 });
             })
-            .catch(error => console.error('Error fetching services:', error));
+            .catch(error => console.error('Error fetching departments:', error));
 
-        // View service details in modal
+        // View department details in modal
         document.body.addEventListener('click', function (e) {
             if (e.target.classList.contains('view-btn')) {
                 const id = e.target.dataset.id;
-                axios.get(`/api/getservice/${id}`)
+                axios.get(`/api/getdepartment/${id}`)
                     .then(response => {
-                        const service = response.data;
-                        document.getElementById('serviceId').value = service.id;
-                        document.getElementById('serviceName').value = service.nom;
-                        document.getElementById('serviceNameEn').value = service.nom;
-                        document.getElementById('servicePhone').value = service.phone;
-                        document.getElementById('serviceEmail').value = service.email;
-                        document.getElementById('serviceDescription').value = service.description;
-                        document.getElementById('serviceDescriptionEn').value = service.description;
+                        const department = response.data;
+                        document.getElementById('departmentId').value = department.id;
+                        document.getElementById('departmentName').value = department.nom;
+                        document.getElementById('departmentNameEn').value = department.nom;
+                        document.getElementById('departmentPhone').value = department.phone;
+                        document.getElementById('departmentEmail').value = department.email;
+                        document.getElementById('departmentDescription').value = department.description;
+                        document.getElementById('departmentDescriptionEn').value = department.description;
                         
                         const photoElement = document.getElementById('currentPhoto');
-                        if (service.photo) {
-                            photoElement.src = `${service.photo}`;
+                        if (department.photo) {
+                            photoElement.src = `${department.photo}`;
                             photoElement.style.display = 'block';
                         } else {
                             photoElement.style.display = 'none';
                         }
 
-                        $('#serviceModal').modal('show');
+                        $('#departmentModal').modal('show');
                     })
-                    .catch(error => console.error('Error fetching service:', error));
+                    .catch(error => console.error('Error fetching department:', error));
             }
         });
 
-        // Update service
-        document.getElementById('serviceForm').addEventListener('submit', function (e) {
+        // Update department
+        document.getElementById('departmentForm').addEventListener('submit', function (e) {
             e.preventDefault();
-            const id = document.getElementById('serviceId').value;
+            const id = document.getElementById('departmentId').value;
             const formData = new FormData();
-            formData.append('nom', document.getElementById('serviceName').value);
-            formData.append('nom_en', document.getElementById('serviceNameEn').value);
-            formData.append('phone', document.getElementById('servicePhone').value);
-            formData.append('email', document.getElementById('serviceEmail').value);
-            formData.append('description', document.getElementById('serviceDescription').value);
-            formData.append('description_en', document.getElementById('serviceDescriptionEn').value);
-            if (document.getElementById('servicePhoto').files[0]) {
-                formData.append('photo', document.getElementById('servicePhoto').files[0]);
+            formData.append('nom', document.getElementById('departmentName').value);
+            formData.append('nom_en', document.getElementById('departmentNameEn').value);
+            formData.append('phone', document.getElementById('departmentPhone').value);
+            formData.append('email', document.getElementById('departmentEmail').value);
+            formData.append('description', document.getElementById('departmentDescription').value);
+            formData.append('description_en', document.getElementById('departmentDescriptionEn').value);
+            if (document.getElementById('departmentPhoto').files[0]) {
+                formData.append('photo', document.getElementById('departmentPhoto').files[0]);
             }
 
-            axios.put(`/api/updateservice/${id}`, formData)
+            axios.put(`/api/updatedepartment/${id}`, formData)
                 .then(() => {
-                    $('#serviceModal').modal('hide');
+                    $('#departmentModal').modal('hide');
                     location.reload();
                 })
-                .catch(error => console.error('Error updating service:', error));
+                .catch(error => console.error('Error updating department:', error));
         });
 
-        // Delete service
+        // Delete department
         document.body.addEventListener('click', function (e) {
             if (e.target.classList.contains('delete-btn')) {
                 const id = e.target.dataset.id;
-                if (confirm('Are you sure you want to delete this service?')) {
-                    axios.delete(`/api/deleteservice/${id}`)
+                if (confirm('Are you sure you want to delete this department?')) {
+                    axios.delete(`/api/deletedepartment/${id}`)
                         .then(() => location.reload())
-                        .catch(error => console.error('Error deleting service:', error));
+                        .catch(error => console.error('Error deleting department:', error));
                 }
             }
         });

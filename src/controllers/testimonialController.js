@@ -10,7 +10,10 @@ exports.addtestimonial = async (req, res) => {
     const { nom, prenom, titre, description, address } = req.body;
     const photo = req.file ? req.file.key : null;
 
-const signedUrl = await generateSignedUrl(photo);  // Le nom du fichier si photo téléchargée
+    let signedUrl = null;
+    if (photo) {
+      signedUrl = await generateSignedUrl(photo);
+    }
 
     // Création d'un nouveau témoignage dans la base de données
     const newTestimonial = await Testimonial.create({
@@ -50,7 +53,10 @@ exports.updatetestimonials = async (req, res) => {
     testimonial.prenom = prenom || testimonial.prenom;
     testimonial.titre = titre || testimonial.titre;
     testimonial.description = description || testimonial.description;
-    testimonial.photo = photo || testimonial.photo;
+    if (photo) {
+      let signedUrl = await generateSignedUrl(photo);
+      testimonial.photo = signedUrl || testimonial.photo;
+    }
     testimonial.address = address || testimonial.address;
 
     await testimonial.save();

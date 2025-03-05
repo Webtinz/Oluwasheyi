@@ -9,7 +9,10 @@ exports.createEvent = async (req, res) => {
         const { nom, name, dateevent, location, description, description_en } = req.body;
         const photo = req.file ? req.file.key : null;
 
-        const signedUrl = await generateSignedUrl(photo);
+        let signedUrl = null;
+        if (photo) {
+            signedUrl = await generateSignedUrl(photo);
+        }
 
         const newEvent = await Event.create({
             nom, name, dateevent, location, description, description_en,
@@ -32,7 +35,6 @@ exports.updateEvent = async (req, res) => {
     const { nom, name, dateevent, location, description, description_en } = req.body;
     const photo = req.file ? req.file.key : null;
 
-    const signedUrl = await generateSignedUrl(photo);
 
     try {
         const event = await Event.findByPk(id);
@@ -55,7 +57,10 @@ exports.updateEvent = async (req, res) => {
         event.dateevent = dateevent || event.dateevent;
         event.description = description || event.description;
         event.description_en = description_en || event.description_en;
-        event.photo = signedUrl || event.photo;
+        if (photo) {
+            let signedUrl = await generateSignedUrl(photo);
+            event.photo = signedUrl || event.photo;
+        }
 
         await event.save();
 

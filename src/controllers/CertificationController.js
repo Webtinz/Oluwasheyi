@@ -7,7 +7,10 @@ exports.addCertification = async (req, res) => {
     const { name, description, date_obtention } = req.body;
     const photo = req.file ? req.file.key : null;
 
-    const signedUrl = await generateSignedUrl(photo);
+    let signedUrl = null;
+    if (photo) {
+      signedUrl = await generateSignedUrl(photo);
+    }
 
     const certification = await Certification.create({
       name,
@@ -60,7 +63,10 @@ exports.updateCertification = async (req, res) => {
     const { name, description, date_obtention } = req.body;
     const photo = req.file ? req.file.key : null;
 
-    const signedUrl = await generateSignedUrl(photo);
+    let signedUrl = null;
+    if (photo) {
+      signedUrl = await generateSignedUrl(photo);
+    }
 
     const certification = await Certification.findByPk(req.params.id);
     if (!certification) {

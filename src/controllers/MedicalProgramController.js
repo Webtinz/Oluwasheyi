@@ -6,7 +6,10 @@ exports.addProgram = async (req, res) => {
     const { nom, name, contact, description, description_en, beneficiaries } = req.body;
     const photo = req.file ? req.file.key : null;
 
-    const signedUrl = await generateSignedUrl(photo);
+    let signedUrl = null;
+    if (photo) {
+      signedUrl = await generateSignedUrl(photo);
+    }
 
     const program = await MedicalProgram.create({
       nom,
@@ -15,7 +18,7 @@ exports.addProgram = async (req, res) => {
       description,
       description_en,
       beneficiaries,
-      photo,
+      photo: signedUrl,
     });
 
     res.status(201).json({
@@ -62,7 +65,10 @@ exports.updateProgram = async (req, res) => {
     const { nom, name, contact, description, description_en, beneficiaries } = req.body;
     const photo = req.file ? req.file.key : null;
 
-    const signedUrl = await generateSignedUrl(photo);
+    let signedUrl = null;
+    if (photo) {
+      signedUrl = await generateSignedUrl(photo);
+    }
 
     const program = await MedicalProgram.findByPk(req.params.id);
     if (!program) {

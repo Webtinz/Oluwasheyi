@@ -7,7 +7,10 @@ exports.addAdvice = async (req, res) => {
     const { topic, advice_text } = req.body;
     const photo = req.file ? req.file.key : null;
 
-    const signedUrl = await generateSignedUrl(photo);
+    let signedUrl = null;
+    if (photo) {
+      signedUrl = await generateSignedUrl(photo);
+    }
     const advice = await Advice.create({
       topic,
       advice_text,
@@ -58,8 +61,10 @@ exports.updateAdvice = async (req, res) => {
     const { topic, advice_text } = req.body;
     const photo = req.file ? req.file.key : null;
 
-    const signedUrl = await generateSignedUrl(photo);
-    
+    let signedUrl = null;
+    if (photo) {
+      signedUrl = await generateSignedUrl(photo);
+    }
     const advice = await Advice.findByPk(req.params.id);
     if (!advice) {
       return res.status(404).json({ message: 'Advice non trouvée' });

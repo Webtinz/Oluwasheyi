@@ -8,6 +8,7 @@ const TeamMember = require("./TeamMember")(sequelize, DataTypes);
 const User = require("./User")(sequelize, DataTypes);
 const Content = require("./Content")(sequelize, DataTypes);
 const Service = require("./Service")(sequelize, DataTypes);
+const Department = require("./Department")(sequelize, DataTypes);
 const MedicalProgram = require("./MedicalProgram")(sequelize, DataTypes);
 const Donation = require("./Donation")(sequelize, DataTypes);
 const Certification = require("./Certification")(sequelize, DataTypes);
@@ -27,7 +28,8 @@ const models = {
   Event,
   Advice,
   TeamMember,
-  Feedback
+  Feedback,
+  Department
 };
 
 // **Define associations**
