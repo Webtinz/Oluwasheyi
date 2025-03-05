@@ -115,7 +115,7 @@ const CommunityEngagement = () => {
                 <>
                   <div className="col-lg-6 mx-auto mb-4 p-4 order-1">
                     <div className="position-relative">
-                      <img src={item.image} alt="" className="image-fluid w-100" style={{ borderRadius: item.borderRadius, maxHeight: '70vh', objectFit: 'cover' }} />
+                      <img src={item.image} alt="" className="image-fluid w-100" style={{ borderRadius: item.borderRadius, maxHeight: '100vh', objectFit: 'cover' }} />
                       <div className={item.positionClass}>
                         <img src={Lg} alt="" style={{ width: "80%" }} />
                       </div>
@@ -131,7 +131,7 @@ const CommunityEngagement = () => {
                           className="btn btn-r text-white px-4"
                           style={{ backgroundColor: "#13AB9C", padding: "8px 0" }}
                         >
-                          Learn More
+                          {selectedLanguage === 'fr' ? contents?.home_page_welcome_button.content_fr : contents?.home_page_welcome_button.content_en}
                         </Link>
                       </div>
                     </div>
@@ -150,14 +150,14 @@ const CommunityEngagement = () => {
                           className="btn btn-r text-white px-4"
                           style={{ backgroundColor: "#13AB9C", padding: "8px 0" }}
                         >
-                          Learn More
+                          {selectedLanguage === 'fr' ? contents?.home_page_welcome_button.content_fr : contents?.home_page_welcome_button.content_en}
                         </Link>
                       </div>
                     </div>
                   </div>
                   <div className="col-lg-6 mx-auto mb-4 p-4 order-1 order-lg-2">
                     <div className="position-relative">
-                      <img src={item.image} alt="" className="image-fluid w-100" style={{ borderRadius: item.borderRadius, maxHeight: '70vh', objectFit: 'cover' }} />
+                      <img src={item.image} alt="" className="image-fluid w-100" style={{ borderRadius: item.borderRadius, maxHeight: '100vh', objectFit: 'cover' }} />
                       <div className={item.positionClass}>
                         <img src={Lg} alt="" style={{ width: "80%" }} />
                       </div>
