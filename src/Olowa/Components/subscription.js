@@ -53,10 +53,10 @@ const DonationForm = () => {
 
   return (
     <div className="w-full max-w-md mx-auto p-4">
-      <h1 className="text-2xl font-bold text-center mb-4 text-2xl" style={{color:'#17416F'}}>
+      <h1 className="text-2xl font-bold text-center mb-4 text-2xl" style={{ color: '#17416F' }}>
         HELP FUND <br /> FREE HEALTHCARE
       </h1>
-      
+
       <div className="grid grid-cols-2 gap-2 mb-6">
         {['once', 'monthly'].map((type) => (
           <button
