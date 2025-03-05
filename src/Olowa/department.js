@@ -136,7 +136,7 @@ const Home = () => {
                                             <div className="d-flex">
                                                 <div><img src={Img6} alt="" /></div>
                                                 <div className="ms-2">
-                                                    <p style={{ color: '#17416F' }}>Call Now</p>
+                                                    <p style={{ color: '#17416F' }}>{selectedLanguage === 'fr' ? contents?.call_now.content_fr : contents?.call_now.content_en}</p>
                                                     <br />
                                                     <p style={{ color: '#17416F', fontSize: '20px', marginTop: '-1rem' }}><strong>{section.phone}</strong></p>
                                                 </div>
@@ -160,7 +160,11 @@ const Home = () => {
                                             style={{ backgroundColor: activeSection === index ? '#13AB9C' : '#13AB9C', color: activeSection === index ? 'white' : 'white' }}
                                             onClick={() => toggleContent(index)}
                                         >
-                                            {activeSection === index ? 'Read Less' : 'Learn More'} <i className={`bi ${activeSection === index ? 'bi-chevron-up' : 'bi-chevron-down'} ms-1`}></i>
+                                            {activeSection === index
+                                                ? (selectedLanguage === 'fr' ? contents?.button_read_less.content_fr : contents?.button_read_less.content_en)
+                                                : (selectedLanguage === 'fr' ? contents?.button_learn_more.content_fr : contents?.button_learn_more.content_en)}
+
+                                            <i className={`bi ${activeSection === index ? 'bi-chevron-up' : 'bi-chevron-down'} ms-1`}></i>
                                         </button>
                                     </div>
                                 </div>

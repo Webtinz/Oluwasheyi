@@ -15,16 +15,63 @@ import LanguageContext from '../context/LanguageContext';
 
 
 const Home = () => {
+    const { selectedLanguage } = useContext(LanguageContext);
+    const [contents, setContents] = useState();
+
     const values = [
-        { title: 'Ethics', description: 'Nullam maximus smetc son pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo.' },
-        { title: 'Integrity', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.' },
-        { title: 'Innovation', description: 'Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.' },
-        { title: 'Excellence', description: 'Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.' },
-        { title: 'Respect', description: 'Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat.' },
-        { title: 'Accountability', description: 'Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum.' },
-        { title: 'Teamwork', description: 'Vestibulum dapibus, mauris nec malesuada fames ac turpis velit, rhoncus eu, luctus et interdum adipiscing wisi.' },
-        { title: 'Sustainability', description: 'Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui.' }
+        {
+            title: selectedLanguage === 'fr' ? contents?.about_table_title_1.content_fr : contents?.about_table_title_1.content_en,
+            description: selectedLanguage === 'fr' ? contents?.about_table_descp_1.content_fr : contents?.about_table_descp_1.content_en
+        },
+        {
+            title: selectedLanguage === 'fr' ? contents?.about_table_title_2.content_fr : contents?.about_table_title_2.content_en,
+            description: selectedLanguage === 'fr' ? contents?.about_table_descp_2.content_fr : contents?.about_table_descp_2.content_en
+        },
+        {
+            title: selectedLanguage === 'fr' ? contents?.about_table_title_3.content_fr : contents?.about_table_title_3.content_en,
+            description: selectedLanguage === 'fr' ? contents?.about_table_descp_3.content_fr : contents?.about_table_descp_3.content_en
+        },
+        {
+            title: selectedLanguage === 'fr' ? contents?.about_table_title_4.content_fr : contents?.about_table_title_4.content_en,
+            description: selectedLanguage === 'fr' ? contents?.about_table_descp_4.content_fr : contents?.about_table_descp_4.content_en
+        },
+        {
+            title: selectedLanguage === 'fr' ? contents?.about_table_title_5.content_fr : contents?.about_table_title_5.content_en,
+            description: selectedLanguage === 'fr' ? contents?.about_table_descp_5.content_fr : contents?.about_table_descp_5.content_en
+        },
+        {
+            title: selectedLanguage === 'fr' ? contents?.about_table_title_6.content_fr : contents?.about_table_title_6.content_en,
+            description: selectedLanguage === 'fr' ? contents?.about_table_descp_6.content_fr : contents?.about_table_descp_6.content_en
+        },
+        {
+            title: selectedLanguage === 'fr' ? contents?.about_table_title_7.content_fr : contents?.about_table_title_7.content_en,
+            description: selectedLanguage === 'fr' ? contents?.about_table_descp_7.content_fr : contents?.about_table_descp_7.content_en
+        },
+        {
+            title: selectedLanguage === 'fr' ? contents?.about_table_title_8.content_fr : contents?.about_table_title_8.content_en,
+            description: selectedLanguage === 'fr' ? contents?.about_table_descp_8.content_fr : contents?.about_table_descp_8.content_en
+        }
     ];
+    // Get contents on component mount
+    useEffect(() => {
+        const fetchContents = async () => {
+            try {
+                const savedContents = localStorage.getItem("contents");
+                if (savedContents) {
+                    setContents(JSON.parse(savedContents));
+                } else {
+                    // Fetch contents if not in localStorage
+                    const response = await getAllContents();
+                    setContents(response.data);
+                    localStorage.setItem("contents", JSON.stringify(response.data));
+                }
+            } catch (error) {
+                console.error('Failed to fetch contents:', error.message || error);
+            }
+        };
+        fetchContents();
+    }, []);
+
 
     const yearsData = {
         "2011": {
@@ -67,9 +114,6 @@ const Home = () => {
         setCurrentYear(years[newIndex]);
     };
 
-    const { selectedLanguage } = useContext(LanguageContext);
-    const [contents, setContents] = useState();
-
     // Get contents on component mount
     useEffect(() => {
         const fetchContents = async () => {
@@ -99,7 +143,7 @@ const Home = () => {
                 <div className="position-absolute bottom-0 start-0">
                     <img src={Group1} alt="" />
                 </div>
-                <div className="position-absolute top-0 end-0">
+                <div className="position-absolute top-0 end-0" >
                     <img src={Mask3} alt="" />
                 </div>
             </section>
@@ -108,7 +152,7 @@ const Home = () => {
                 <div className="row">
                     <div className="col-md-5 col-12 mx-auto mb-3 p-4">
                         <div className='position-relative'>
-                            <img src={Image33} alt="" className="img-fluid w-100" style={{ borderTopRightRadius: '30px', objectFit: 'cover' }} />
+                            <img src={contents?.about_section_img.image} alt="" className="img-fluid w-100" style={{ borderTopRightRadius: '30px', objectFit: 'cover', height: '100vh' }} />
                             <div className='contpos'>
                                 <img src={Mask1} alt="Wellness Programs" className="img-fluid" style={{ width: '80%' }} />
                             </div>
