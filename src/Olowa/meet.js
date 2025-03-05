@@ -85,9 +85,11 @@ const Home = () => {
                     </div>
                     <div className="col-md-8 mx-auto">
                         <p style={{ color: '#17416F' }}>
-                            Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio. Proin sed nunc quis ex faucibus volutpat.
-                            <br /><br />
-                            Quisque faucibus in quam quis lobortis. Donec metus neque, euismod a volutpat eget, porta sed ligulalus consequat risu.
+                            {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                                __html: contents?.team_descp.content_fr
+                            }} />) : (<div dangerouslySetInnerHTML={{
+                                __html: contents?.team_descp.content_en
+                            }} />)}
                         </p>
                     </div>
                 </div>
@@ -156,21 +158,14 @@ const Home = () => {
                                                 </div>
                                                 <div className="col-12 col-lg-7 mx-auto mb-4">
                                                     <h2 style={{ fontSize: "25px", color: "#17416F", fontWeight: 800 }}>{selectedDoctor.name}</h2>
-                                                    <p style={{ color: "#13AB9C", fontWeight: '600' }}>Cardiologist, MD, 10+ years experience.</p>
+                                                    <p style={{ color: "#13AB9C", fontWeight: '600' }}>{selectedLanguage === 'fr' ? contents?.modal_title.content_fr : contents?.modal_title.content_en}</p>
                                                     <span className="my-4 d-block" style={{ borderBottom: "1px solid #17416F33" }}></span>
                                                     <p style={{ color: "#17416F" }}>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla maximus pellentesque ultrices.
-                                                        Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio.
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla maximus pellentesque ultrices.
-                                                        Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio.
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla maximus pellentesque ultrices.
-                                                        Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio.
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla maximus pellentesque ultrices.
-                                                        Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio.
+                                                        {selectedLanguage === 'fr' ? contents?.modal_descp.content_fr : contents?.modal_descp.content_en}
                                                     </p>
                                                     <div className="mt-3">
                                                         <button className="btn btn-cont px-4 py-2" style={{ color: "white", backgroundColor: "#13AB9C" }}>
-                                                            Contact Me
+                                                            {selectedLanguage === 'fr' ? contents?.modal_button.content_fr : contents?.modal_button.content_en}
                                                         </button>
                                                     </div>
                                                 </div>
@@ -192,7 +187,7 @@ const Home = () => {
                 <div className="row">
                     <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
                         <div className='position-relative'>
-                            <img src={Mask} alt="Staff Members" className="img-fluid w-100" style={{ objectFit: 'cover', borderTopRightRadius: '30px' }} />
+                            <img src={contents?.community_section_img.image}  alt="Staff Members" className="img-fluid w-100" style={{ objectFit: 'cover', borderTopRightRadius: '30px' }} />
                             <div className='contpos'>
                                 <img src={Mask2} alt="Staff Members" className="img-fluid" />
                             </div>

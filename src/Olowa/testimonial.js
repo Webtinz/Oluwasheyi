@@ -108,7 +108,7 @@ const Home = () => {
                     >
                         <div className="p-3 scur" style={{border: '1px solid #17416F', borderTopRightRadius: '30px'}}>
                             <div><strong style={{color: '#13AB9C', fontSize: '120px'}}>"</strong></div>
-                            <h2 className="ms-2" style={{color: '#17416F', fontWeight: '700', marginTop: '-4rem',fontSize:'27px'}}>{testimonial.quote}</h2>
+                            <h2 className="ms-2" style={{color: '#17416F', fontWeight: '700', marginTop: '-4rem',fontSize:'27px'}}>{testimonial.quote} </h2>
                             <br/>
                             <p className="ms-2" style={{fontWeight: '100', color: '#17416F'}}>
                                 {testimonial.text}

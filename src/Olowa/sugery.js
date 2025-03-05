@@ -59,7 +59,7 @@ const Home = () => {
                 <div className="row">
                     <div className="col-md-5 mx-auto mb-3 mb-md-0">
                         <div className='position-relative'>
-                            <img src={Img} alt="" className="img-fluid" style={{ borderTopRightRadius: '30px', objectFit: 'cover', height: '80vh' }} />
+                            <img src={contents?.beta_img.image} alt="" className="img-fluid" style={{ borderTopRightRadius: '30px', objectFit: 'cover', height: '80vh' }} />
                             <div className='contpos'>
                                 <img src={Mask2} alt="Staff Members" className="img-fluid" />
                             </div>
@@ -83,7 +83,7 @@ const Home = () => {
 
                             </p>
                             <br />
-                            <Link to="/contact" className="btn btn-pri px-4 text-white" style={{ background: '#13AB9C' }}>Contact Us</Link>
+                            <Link to="/contact" className="btn btn-pri px-4 text-white" style={{ background: '#13AB9C' }}>{selectedLanguage === 'fr' ? contents?.	surgery_page_surgery_button.content_fr : contents?.	surgery_page_surgery_button.content_en}</Link>
                         </div>
                     </div>
                 </div>

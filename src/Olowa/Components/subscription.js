@@ -75,6 +75,24 @@ const DonationForm = () => {
     console.log('Medical Program:', selectedProgram);
   };
 
+  // Function to handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Prepare data for submission
+    const submissionData = {
+      donationType,
+      amount: customAmount || amount,
+      paymentMethod: selectedMethod,
+      program: selectedProgram,
+    };
+
+    // Here, we can send this data to an API or log it for now
+    console.log("Form Submitted with data: ", submissionData);
+
+    // Optionally, handle the payment process here (e.g., call an API, show a confirmation message, etc.)
+  };
+
   return (
     <div className="w-full max-w-md mx-auto p-4">
       <h1 className="text-2xl font-bold text-center mb-4 text-2xl" style={{ color: '#17416F' }}>
@@ -84,111 +102,119 @@ const DonationForm = () => {
           __html: contents?.donate_subscription_title.content_en
         }} />)}
       </h1>
-        <form></form>
-      <div className="grid grid-cols-2 gap-2 mb-6">
-        {['once', 'monthly'].map((type) => (
-          <button
-            key={type}
+      <form onSubmit={handleSubmit}>
+        <div className="grid grid-cols-2 gap-2 mb-6">
+          {['once', 'monthly'].map((type) => (
+            <button
+              key={type}
+              style={{
+                width: "100%",
+                padding: "0.5rem",
+                borderRadius: "0.25rem",
+                borderWidth: "1px",
+                transition: "background-color 0.3s, color 0.3s",
+                backgroundColor: donationType === type ? "#17416F" : "#FFFFFF",
+                color: donationType === type ? "#FFFFFF" : "#17416F",
+                borderColor: donationType === type ? "transparent" : "#17416F",
+              }}
+              onClick={() => handleDonationTypeChange(type)}
+            >
+              {type === 'once'
+                ? (selectedLanguage === 'fr'
+                  ? contents?.donate_page_payment_button_1?.content_fr
+                  : contents?.donate_page_payment_button_1?.content_en)
+                : (selectedLanguage === 'fr'
+                  ? contents?.donate_page_payment_button_2?.content_fr
+                  : contents?.donate_page_payment_button_2?.content_en)
+              }
+            </button>
+          ))}
+        </div>
+
+        <div className="relative mb-3">
+          <select
             style={{
               width: "100%",
-              padding: "0.5rem",
-              borderRadius: "0.25rem",
+              padding: "0.5rem 1rem 0.5rem 1rem",
+              paddingRight: "2.5rem",
+              color: "#17416F",
               borderWidth: "1px",
-              transition: "background-color 0.3s, color 0.3s",
-              backgroundColor: donationType === type ? "#17416F" : "#FFFFFF",
-              color: donationType === type ? "#FFFFFF" : "#17416F",
-              borderColor: donationType === type ? "transparent" : "#17416F",
-            }}
-            onClick={() => handleDonationTypeChange(type)}
-          >
-            {type === 'once' ? 'Give Once' : 'Monthly'}
-          </button>
-        ))}
-      </div>
-
-      <div className="relative mb-3">
-        <select
-          style={{
-            width: "100%",
-            padding: "0.5rem 1rem 0.5rem 1rem",
-            paddingRight: "2.5rem",
-            color: "#17416F",
-            borderWidth: "1px",
-            borderRadius: "0.5rem",
-            boxShadow: "0 1px 2px rgba(0, 0, 0, 0.1)",
-            appearance: "none",
-            outline: "none",
-            transition: "box-shadow 0.3s, border-color 0.3s",
-            focus: {
+              borderRadius: "0.5rem",
+              boxShadow: "0 1px 2px rgba(0, 0, 0, 0.1)",
+              appearance: "none",
               outline: "none",
-              ring: "2px solid #17416F"
-            }
-          }}
-          value={selectedProgram}
-          onChange={(e) => setSelectedProgram(e.target.value)}
-        >
-          <option value="">Select Medical Program</option>
-          <option value="program1">Medical Program 1</option>
-          <option value="program2">Medical Program 2</option>
-          <option value="program3">Medical Program 3</option>
-        </select>
-        <ChevronDown className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500 pointer-events-none" />
-      </div>
-
-      <div className="grid grid-cols-2 gap-2">
-        {amounts[donationType].map((item) => (
-          <button
-            key={item.value}
-            style={{
-              width: "100%",
-              padding: "0.5rem",
-              borderRadius: "0.25rem",
-              borderWidth: "1px",
-              transition: "background-color 0.3s, color 0.3s",
-              backgroundColor: amount === item.value ? "#17416F" : "#FFFFFF",
-              color: amount === item.value ? "#FFFFFF" : "#17416F",
-              borderColor: amount === item.value ? "transparent" : "#D1D5DB",
+              transition: "box-shadow 0.3s, border-color 0.3s",
             }}
-            onClick={() => handleAmountSelect(item.value)}
+            value={selectedProgram}
+            onChange={(e) => setSelectedProgram(e.target.value)}
           >
-            {item.label}
-          </button>
-        ))}
-      </div>
+            <option value="">
+              {selectedLanguage === 'fr' ? contents?.donate_page_payment_input.content_fr : contents?.donate_page_payment_input.content_en}
+            </option>
+            <option value="program1">{selectedLanguage === 'fr' ? contents?.donate_page_payment_input_select.content_fr : contents?.donate_page_payment_input_select.content_en}</option>
+            <option value="program2">{selectedLanguage === 'fr' ? contents?.donate_page_payment_input_select_1.content_fr : contents?.donate_page_payment_input_select_1.content_en}</option>
+            <option value="program3">{selectedLanguage === 'fr' ? contents?.donate_page_payment_input_select_2.content_fr : contents?.donate_page_payment_input_select_2.content_en}</option>
+          </select>
+          <ChevronDown className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500 pointer-events-none" />
+        </div>
 
-      <input
-        type="number"
-        min="1"
-        placeholder={donationType === 'monthly' ? "Other Monthly Amount" : "Other Amount"}
-        value={customAmount}
-        onChange={handleCustomAmountChange}
-        className="w-full p-2 border rounded mt-4"
-      />
+        <div className="grid grid-cols-2 gap-2">
+          {amounts[donationType].map((item) => (
+            <button
+              key={item.value}
+              style={{
+                width: "100%",
+                padding: "0.5rem",
+                borderRadius: "0.25rem",
+                borderWidth: "1px",
+                transition: "background-color 0.3s, color 0.3s",
+                backgroundColor: amount === item.value ? "#17416F" : "#FFFFFF",
+                color: amount === item.value ? "#FFFFFF" : "#17416F",
+                borderColor: amount === item.value ? "transparent" : "#D1D5DB",
+              }}
+              onClick={() => handleAmountSelect(item.value)}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
 
-      <div className="space-y-3 mt-6">
-        {[{ method: 'paypal', img: Paypal }, { method: 'momo', img: MTN }].map(({ method, img }) => (
-          <div
-            key={method}
-            onClick={() => handlePaymentMethod(method)}
-            className={`relative flex items-center justify-center p-4 rounded-lg cursor-pointer bg-yellow-400 transition`}
-          >
-            <input
-              type="radio"
-              name="paymentMethod"
-              checked={selectedMethod === method}
-              onChange={() => handlePaymentMethod(method)}
-              className="absolute left-4 w-4 h-4 cursor-pointer"
-            />
-            <div className="flex items-center justify-center">
-              <img src={img} alt={method} className="h-8" />
+        <input
+          type="number"
+          min="1"
+          placeholder={donationType === 'monthly' ? "Other Monthly Amount" : "Other Amount"}
+          value={customAmount}
+          onChange={handleCustomAmountChange}
+          className="w-full p-2 border rounded mt-4"
+        />
+
+        <div className="space-y-3 mt-6">
+          {[{ method: 'paypal', img: Paypal }, { method: 'momo', img: MTN }].map(({ method, img }) => (
+            <div
+              key={method}
+              onClick={() => handlePaymentMethod(method)}
+              className={`relative flex items-center justify-center p-4 rounded-lg cursor-pointer bg-yellow-400 transition`}
+            >
+              <input
+                type="radio"
+                name="paymentMethod"
+                checked={selectedMethod === method}
+                onChange={() => handlePaymentMethod(method)}
+                className="absolute left-4 w-4 h-4 cursor-pointer"
+              />
+              <div className="flex items-center justify-center">
+                <img src={img} alt={method} className="h-8" />
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      <div className="text-center text-sm mt-4 text-blue-800">
-        <i className="bi bi-lock"></i> Secure Payment
-      </div>
+        <div className="text-center">
+          <button type="submit" className='text-sm mt-4 text-blue-800 btn btn-t'>
+            <i className="bi bi-lock"></i> Secure Payment
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

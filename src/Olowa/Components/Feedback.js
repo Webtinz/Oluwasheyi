@@ -167,8 +167,8 @@ const FeedbackSection = () => {
 
                           <div className="space-y-2">
                             <label className="block text-blue-900">How was your experience</label>
-                            <Select />
-                            {/* <div className="flex gap-1">
+                            {/* <Select /> */}
+                            <div className="flex gap-1">
                               {[1, 2, 3, 4, 5].map((rating) => (
                                 <button
                                   key={rating}
@@ -183,7 +183,7 @@ const FeedbackSection = () => {
                                     }`}></i>
                                 </button>
                               ))}
-                            </div> */}
+                            </div>
                           </div>
 
                           <div className="space-y-2">

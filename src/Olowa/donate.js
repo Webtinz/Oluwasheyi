@@ -127,13 +127,13 @@ const Home = () => {
                 <div className="row">
                     <div className="col-md-5 mx-auto mb-3">
                         <div>
-                            <img src={Img} alt="" className="img-fluid" style={{ width: '100%', borderTopRightRadius: '30px', height: '100vh', objectFit: 'cover' }} />
+                            <img src={contents?.donate_page_support_img.image} alt="" className="img-fluid" style={{ width: '100%', borderTopRightRadius: '30px', height: '100vh', objectFit: 'cover' }} />
                         </div>
                     </div>
                     <div className="col-md-6 mx-auto">
                         <div className='p-4'>
                             <div><img src={Img1} /></div>
-                            <h2 className='mt-4' style={{ textTransform: 'uppercase', color: '#17416F', fontWeight: '700', fontSize: '30px' }}>{selectedLanguage === 'fr' ? contents?.donate_page_support_title.content_fr : contents?.donate_page_support_title.content_en}</h2>
+                            <h2 className='mt-4' style={{ textTransform: 'uppercase', color: '#17416F', fontWeight: '700', fontSize: '30px' }}> {selectedLanguage === 'fr' ? contents?.donate_page_support_title.content_fr : contents?.donate_page_support_title.content_en}</h2>
                             <p className='mt-3' style={{ color: '#17416F' }}>
                                 {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                                     __html: contents?.donate_page_support_descp.content_fr
@@ -199,7 +199,7 @@ const Home = () => {
                         {/* Donate Now Button */}
                         <div className="d-flex justify-content-center mt-4">
                             <button className="btn btn-primary px-4 py-2">
-                                {selectedLanguage === 'fr' ? contents?.donation_step_button.content_fr : contents?.donation_step_button.content_en}S
+                                {selectedLanguage === 'fr' ? contents?.donation_step_button.content_fr : contents?.donation_step_button.content_en}
                             </button>
                         </div>
                     </div>
@@ -212,7 +212,7 @@ const Home = () => {
                     <div className='row' style={{ background: '#F2F2F2', borderTopRightRadius: '30px', width: '80%' }}>
                         <div className='col-md-5 mb-3 mb-md-0 mx-auto' style={{ padding: '0px' }}>
                             <div className='position-relative'>
-                                <img src={Image} className='img-fluid w-100' style={{ height: '100vh', objectFit: 'cover' }} />
+                                <img src={contents?.donate_page_support_img.image} className='img-fluid w-100' style={{ height: '100vh', objectFit: 'cover' }} />
                                 <div className='contpos'>
                                     <img src={Mask1} alt="Wellness Programs" className="img-fluid" style={{ width: '70%' }} />
                                 </div>

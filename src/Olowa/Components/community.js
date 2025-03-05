@@ -124,7 +124,7 @@ const CommunityEngagement = () => {
                   <div className="col-lg-6 mx-auto mb-4 p-4 align-self-center order-2">
                     <div className="p-4">
                       <h2 style={{ color: "#17416F", fontWeight: 700, textTransform: "uppercase", fontSize: '30px' }}>{item.title}</h2>
-                      <p className="mt-3" style={{ color: "#17416F" }}>{item.description}</p>
+                      <p className="mt-3" style={{ color: "#17416F", display: "-webkit-box", WebkitLineClamp: 10, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{item.description}</p>
                       <div className="mt-4">
                         <Link
                           to="/community"
@@ -143,7 +143,7 @@ const CommunityEngagement = () => {
                   <div className="col-lg-6 mx-auto mb-4 p-4 align-self-center order-2 order-lg-1">
                     <div className="p-4">
                       <h2 style={{ color: "#17416F", fontWeight: 700, textTransform: "uppercase", fontSize: '30px' }}>{item.title}</h2>
-                      <p className="mt-3" style={{ color: "#17416F" }}>{item.description}</p>
+                      <p className="mt-3" style={{ color: "#17416F", display: "-webkit-box", WebkitLineClamp: 10, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{item.description}</p>
                       <div className="mt-4">
                         <Link
                           to="/community"
