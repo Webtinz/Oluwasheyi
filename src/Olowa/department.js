@@ -111,15 +111,17 @@ const Home = () => {
             <br /><br /><br />
             <section className="container my-4">
                 <span className="d-block" style={{ borderBottom: '1px solid #17416F' }}></span>
-                {departments?.map((section, index) => (
+                {departments?.map((section, index) => {
+                    const photos = section.photos ? JSON.parse(section.photos) : [];
+                    return (
                     <div key={index} className="row cpt" style={{ padding: '50px 0', margin: 0 }}>
                         <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
-                            <img src={section.photo} alt="" className="image-fluid w-100" style={{ objectFit: 'cover', borderTopRightRadius: '30px' }} />
+                            <img src={photos?.[0]} alt="" className="image-fluid w-100" style={{ objectFit: 'cover', borderTopRightRadius: '30px' }} />
                         </div>
                         <div className="col-12 col-md-6 mx-auto mb-3 mb-md-0 align-self-center">
                             <div className="row">
                                 <div className="col-2 mx-auto">
-                                    <img src={section.photo} alt="" className="image-fluid w-100" />
+                                    <img src={photos?.[1]} alt="" className="image-fluid w-100" />
                                 </div>
                                 <div className="col-10 mx-auto">
                                     <h2 className="mt-3" style={{ color: '#17416F', fontSize: '30px', fontWeight: '700' }}>
@@ -165,7 +167,7 @@ const Home = () => {
                             </div>
                         </div>
                     </div>
-                ))}
+                )})}
                 <br /><br />
                 <span className="d-block" style={{ borderBottom: '1px solid #17416F' }}></span>
             </section>
