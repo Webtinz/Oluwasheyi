@@ -13,7 +13,7 @@ import Img1 from '../assets/donate.png';
 import Logo from '../assets/heart-health.png';
 import Mask1 from '../assets/Fr.png';
 import Mask2 from '../assets/Fr1.png';
-import { getAllContents } from '../services/content.service';
+import { getAllContents, getPrograms } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
 
 
@@ -21,6 +21,7 @@ const Home = () => {
 
     const { selectedLanguage } = useContext(LanguageContext);
     const [contents, setContents] = useState();
+    const [programs, setPrograms] = useState([]);
 
     const steps = contents ? [
         {
@@ -56,6 +57,7 @@ const Home = () => {
                     setContents(response.data);
                     localStorage.setItem("contents", JSON.stringify(response.data));
                 }
+                setPrograms(await getPrograms());
             } catch (error) {
                 console.error('Failed to fetch contents:', error.message || error);
             }
@@ -63,53 +65,7 @@ const Home = () => {
         fetchContents();
     }, []);
 
-    const cardData = [
-        {
-            backgroundColor: '#EE2C28',
-            logo: Logo,
-            title: 'Emergency Care Assistance',
-        },
-        {
-            backgroundColor: '#17416F',
-            logo: Logo,
-            title: 'Pediatric Care Support',
-        },
-        {
-            backgroundColor: '#047F1B',
-            logo: Logo,
-            title: 'Surgical Aid Program',
-        },
-        {
-            backgroundColor: '#AF215D',
-            logo: Logo,
-            title: 'Cancer Treatment Support',
-        },
-        {
-            backgroundColor: '#3030BB',
-            logo: Logo,
-            title: 'Maternal and Newborn Health',
-        },
-        {
-            backgroundColor: '#005D9A',
-            logo: Logo,
-            title: 'Medical Equipment Fund',
-        },
-        {
-            backgroundColor: '#0A3E82',
-            logo: Logo,
-            title: 'Elderly Care Assistance',
-        },
-        {
-            backgroundColor: '#B25F14',
-            logo: Logo,
-            title: 'Community Health Outreach',
-        },
-        {
-            backgroundColor: '#13AB9C',
-            logo: Logo,
-            title: 'Others',
-        }
-    ];
+    const getRandomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
     return (
         <div className="container-fluid">
             <div><Navbar /></div>
@@ -158,18 +114,21 @@ const Home = () => {
                     }} />)}</h2>
                 <br /><br />
                 <div className='row mt-3'>
-                    {cardData.map((card, index) => (
-                        <div key={index} className='col-12 col-md-6 col-lg-4 mb-4'>
-                            <div className='p-3' style={{ background: card.backgroundColor, borderTopRightRadius: '30px', height: '250px' }}>
-                                <div className='p-3 bg-white d-flex justify-content-center' style={{ borderTopRightRadius: '30px' }}>
-                                    <img src={card.logo} alt='Logo' />
+                    {programs?.map((card, index) => {
+                        const randomColor = getRandomColor(); 
+                        return (
+                            <div key={index} className='col-12 col-md-6 col-lg-4 mb-4'>
+                                <div className='p-3' style={{ background: randomColor, borderTopRightRadius: '30px', height: '250px' }}>
+                                    <div className='p-3 bg-white d-flex justify-content-center' style={{ borderTopRightRadius: '30px' }}>
+                                        <img src={Logo} alt='Logo' />
+                                    </div>
+                                    <h3 className='text-white my-4' style={{ fontSize: '24px', fontWeight: '700' }}>
+                                        {selectedLanguage === 'fr' ? card.nom : card.name}
+                                    </h3>
                                 </div>
-                                <h3 className='text-white my-4' style={{ fontSize: '24px', fontWeight: '700' }}>
-                                    {card.title}
-                                </h3>
                             </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </section>
             <br /><br />
@@ -199,7 +158,7 @@ const Home = () => {
                         {/* Donate Now Button */}
                         <div className="d-flex justify-content-center mt-4">
                             <button className="btn btn-primary px-4 py-2">
-                                {selectedLanguage === 'fr' ? contents?.donation_step_button.content_fr : contents?.donation_step_button.content_en}S
+                                {selectedLanguage === 'fr' ? contents?.donation_step_button.content_fr : contents?.donation_step_button.content_en}
                             </button>
                         </div>
                     </div>

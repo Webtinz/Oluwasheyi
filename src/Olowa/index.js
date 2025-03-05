@@ -17,7 +17,7 @@ import HealthCarousel from "./Components/healthCarousel";
 import Img from '../assets/Mask1.png';
 import G3Image from "../assets/G3.png"; // Assure-toi d’avoir les images dans le bon dossier
 import Group1Image from "../assets/Group1.png";
-import { getAdvices, getAllContents, getCertificates, getEvents, getPrograms, getServices, getTeamMembers, getTestimonials } from '../services/content.service';
+import { getAdvices, getAllContents, getCertificates, getEvents, getServices, getTeamMembers, getTestimonials } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
 
 
@@ -26,7 +26,6 @@ const Home = () => {
     const [contents, setContents] = useState();
     const [events, setEvents] = useState([]);
     const [services, setServices] = useState([]);
-    const [programs, setPrograms] = useState([]);
     const [testimonials, setTestimonials] = useState([]);
     const [certificates, setCerificates] = useState([]);
     const [advices, setAdvices] = useState([]);
@@ -49,7 +48,6 @@ const Home = () => {
                 // Fetch others data
                 setServices(await getServices());
                 setEvents(await getEvents());
-                setPrograms(getPrograms());
                 setCerificates(await getCertificates());
                 setAdvices(await getAdvices());
                 setTeamMembers(await getTeamMembers())

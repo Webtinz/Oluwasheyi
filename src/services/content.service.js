@@ -16,11 +16,20 @@ export const getAllContents = async () => {
 export const getServices = async () => {
   try{
     const response = await api.get(`/getallservices`);
-    // console.log(response.data);
-    
     return response.data;
   }catch (error){
     console.error('Failed to fetch services:', error.message || error);
+    return null;
+  }
+}
+
+// Get departments
+export const getDepartments = async () => {
+  try{
+    const response = await api.get(`/getalldepartments`);    
+    return response.data;
+  }catch (error){
+    console.error('Failed to fetch departments:', error.message || error);
     return null;
   }
 }
