@@ -43,7 +43,7 @@ const WelcomeSection = () => {
         {/* Image principale avec l'image circulaire en superposition */}
         <div className="col-lg-5 mb-3 mx-auto">
           <div className="position-relative">
-            <img src={img1} alt="" className="image-fluid w-100 main-img" style={{ maxHeight: '70vh', objectFit: 'cover' }} />
+            <img src={img1} alt="" className="image-fluid w-100 main-img" style={{ maxHeight: '100vh', objectFit: 'cover' }} />
             <div className="position-absolute overlay-img">
               <img src={img2} alt="" className="image-fluid small-img" />
             </div>
@@ -66,21 +66,22 @@ const WelcomeSection = () => {
             </h2>
             <br />
             <p className="section-text">
-              Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio. Proin sed nunc quis ex faucibus volutpat.
-              <br />
-              <br />
-              Quisque faucibus in quam quis lobortis. Donec metus neque, euismod a volutpat eget, porta sed ligula. Phasellus consequat risus sit amet mi dapibus vehicula.
-              Nullam maximus pellentesque ultrices.
+              {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                __html: contents?.welcom_desp_2.content_fr
+              }} />) : (<div dangerouslySetInnerHTML={{
+                __html: contents?.welcom_desp_2.content_en
+              }} />)}
             </p>
 
             {/* Contenu supplémentaire affiché uniquement si isExpanded est true */}
             {isExpanded && (
               <div className="extra-content">
                 <p className="section-text">
-                  Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio. Proin sed nunc quis ex faucibus volutpat.
-                  <br />
-                  <br />
-                  Quisque faucibus in quam quis lobortis. Donec metus neque, euismod a volutpat eget, porta sed ligula. Phasellus consequat risus sit amet mi dapibus vehicula.
+                  {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                    __html: contents?.welcom_desp_2.content_fr
+                  }} />) : (<div dangerouslySetInnerHTML={{
+                    __html: contents?.welcom_desp_2.content_en
+                  }} />)}
                 </p>
               </div>
             )}

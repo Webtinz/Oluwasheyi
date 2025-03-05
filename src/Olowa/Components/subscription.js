@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import '../about.css';
 import Paypal from '../../assets/paypal.png';
 import MTN from '../../assets/MTN.png';
 import { ChevronDown } from "lucide-react";
+import { getAllContents } from '../../services/content.service';
+import LanguageContext from '../../context/LanguageContext';
 
 const DonationForm = () => {
   const [donationType, setDonationType] = useState('once');
@@ -10,6 +12,28 @@ const DonationForm = () => {
   const [customAmount, setCustomAmount] = useState('');
   const [selectedMethod, setSelectedMethod] = useState('');
   const [selectedProgram, setSelectedProgram] = useState("");
+  const { selectedLanguage } = useContext(LanguageContext);
+  const [contents, setContents] = useState();
+
+  // Get contents on component mount
+  useEffect(() => {
+    const fetchContents = async () => {
+      try {
+        const savedContents = localStorage.getItem("contents");
+        if (savedContents) {
+          setContents(JSON.parse(savedContents));
+        } else {
+          // Fetch contents if not in localStorage
+          const response = await getAllContents();
+          setContents(response.data);
+          localStorage.setItem("contents", JSON.stringify(response.data));
+        }
+      } catch (error) {
+        console.error('Failed to fetch contents:', error.message || error);
+      }
+    };
+    fetchContents();
+  }, []);
 
   const amounts = {
     once: [
@@ -54,9 +78,13 @@ const DonationForm = () => {
   return (
     <div className="w-full max-w-md mx-auto p-4">
       <h1 className="text-2xl font-bold text-center mb-4 text-2xl" style={{ color: '#17416F' }}>
-        HELP FUND <br /> FREE HEALTHCARE
+        {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+          __html: contents?.donate_subscription_title.content_fr
+        }} />) : (<div dangerouslySetInnerHTML={{
+          __html: contents?.donate_subscription_title.content_en
+        }} />)}
       </h1>
-
+        <form></form>
       <div className="grid grid-cols-2 gap-2 mb-6">
         {['once', 'monthly'].map((type) => (
           <button
