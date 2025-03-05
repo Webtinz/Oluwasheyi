@@ -1,16 +1,16 @@
 const multer = require('multer');
 // const path = require('path'); 
 const multerS3 = require("multer-s3");
-const {s3} = require('../../config/AWSConfig')
+const { s3 } = require('../../config/AWSConfig')
 
 // Function to set up multer-S3 storage
 const s3Storage = (folder) => multerS3({
   s3: s3,
-  bucket: process.env.S3_BUCKET_NAME, 
-  contentType: multerS3.AUTO_CONTENT_TYPE, 
+  bucket: process.env.S3_BUCKET_NAME,
+  contentType: multerS3.AUTO_CONTENT_TYPE,
   key: (req, file, cb) => {
     const fileName = `${Date.now()}-${file.originalname}`;
-    cb(null, `${folder}/${fileName}`); 
+    cb(null, `${folder}/${fileName}`);
   },
 });
 

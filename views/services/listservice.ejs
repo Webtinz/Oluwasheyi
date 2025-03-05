@@ -85,11 +85,9 @@
                     </div>
                     <div class="form-group">
                         <label>Photo</label>
-                        <input type="file" id="servicePhoto"
+                        <input type="file" id="servicePhotos" multiple
                             class="form-control">
-                        <img id="currentPhoto" src="#" alt="Current Photo"
-                            width="100"
-                            style="margin-top: 10px; display: none;">
+                        <div id="currentPhotos" style="margin-top: 10px;"></div>
                     </div>
                     <button type="submit" class="btn btn-primary">Save
                         Changes</button>
@@ -117,7 +115,11 @@
                         <td>${service.email}</td>
                         <td>${service.description}</td>
                         <td>${service.description_en}</td>
-                        <td><img src="${service.photo}" width="50" height="50" alt="Service Photo"></td>
+                        <td>
+                            ${JSON.parse(service.photos || "[]").map(photoUrl => `
+                                <img src="${photoUrl}" width="50" height="50" style="margin: 2px;" alt="Service Photo">
+                            `).join('')}
+                        </td>
                         <td>
                             <button class="btn btn-primary btn-sm view-btn" data-id="${service.id}">Edit</button>
                             <button class="btn btn-danger btn-sm delete-btn" data-id="${service.id}">Delete</button>
@@ -150,12 +152,20 @@
                         document.getElementById('serviceDescription').value = service.description;
                         document.getElementById('serviceDescriptionEn').value = service.description;
                         
-                        const photoElement = document.getElementById('currentPhoto');
-                        if (service.photo) {
-                            photoElement.src = `${service.photo}`;
-                            photoElement.style.display = 'block';
+                        const photoContainer = document.getElementById('currentPhotos');
+                        photoContainer.innerHTML = ''; // Clear previous images
+                        const photos = JSON.parse(service.photos || "[]");
+
+                        if (photos.length > 0) {
+                            photos.forEach(photoUrl => {
+                                const imgElement = document.createElement("img");
+                                imgElement.src = photoUrl;
+                                imgElement.width = 100;
+                                imgElement.style.margin = "5px";
+                                photoContainer.appendChild(imgElement);
+                            });
                         } else {
-                            photoElement.style.display = 'none';
+                            photoContainer.innerHTML = "<p>No photos available</p>";
                         }
 
                         $('#serviceModal').modal('show');
@@ -175,8 +185,9 @@
             formData.append('email', document.getElementById('serviceEmail').value);
             formData.append('description', document.getElementById('serviceDescription').value);
             formData.append('description_en', document.getElementById('serviceDescriptionEn').value);
-            if (document.getElementById('servicePhoto').files[0]) {
-                formData.append('photo', document.getElementById('servicePhoto').files[0]);
+            const photoFiles = document.getElementById('servicePhotos').files;
+            for (let i = 0; i < photoFiles.length; i++) {
+                formData.append('photos', photoFiles[i]); // Append multiple photos
             }
 
             axios.put(`/api/updateservice/${id}`, formData)

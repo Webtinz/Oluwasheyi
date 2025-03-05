@@ -55,15 +55,15 @@ router.get('/getcontent/:id', ContentController.getcontent);
 router.get('/getcontentbytitle', ContentController.getcontentbytitle);
 
 // Service
-router.post('/addservice', uploadService.single('photo'), ServiceController.addservice); // Middleware upload utilisé ici
-router.put('/updateservice/:id', uploadService.single('photo'), ServiceController.updateservice);
+router.post('/addservice', uploadService.array('photos', 2), ServiceController.addservice); // Middleware upload utilisé ici
+router.put('/updateservice/:id', uploadService.array('photos'), ServiceController.updateservice);
 router.get('/getallservices', ServiceController.getallservices);
 router.delete('/deleteservice/:id', ServiceController.deleteservice);
 router.get('/getservice/:id', ServiceController.getservice);
 
 // Department
-router.post('/adddepartment', uploadDepartment.single('photo'), DepartmentController.addDepartment); // Middleware upload utilisé ici
-router.put('/updatedepartment/:id', uploadDepartment.single('photo'), DepartmentController.updateDepartment);
+router.post('/adddepartment', uploadDepartment.array('photos', 2), DepartmentController.addDepartment); // Middleware upload utilisé ici
+router.put('/updatedepartment/:id', uploadDepartment.array('photos'), DepartmentController.updateDepartment);
 router.get('/getalldepartments', DepartmentController.getAllDepartments);
 router.delete('/deletedepartment/:id', DepartmentController.deleteDepartment);
 router.get('/getdepartment/:id', DepartmentController.getDepartment);

@@ -7,9 +7,18 @@ const { generateSignedUrl } = require("../../config/AWSConfig")
 exports.addservice = async (req, res) => {
   try {
     const { nom, nom_en, phone, email, description, description_en } = req.body;
-    const photo = req.file ? req.file.key : null;
 
-    let signedUrl = await generateSignedUrl(photo);
+    // ✅ Ensure files are uploaded
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ message: "No files uploaded" });
+    }
+
+    // ✅ Generate signed URLs for all uploaded files
+    const imageUrls = await Promise.all(
+      req.files.map(async (file) => {
+        return await generateSignedUrl(file.key);
+      })
+    );
 
     const newService = await Service.create({
       nom,
@@ -18,7 +27,7 @@ exports.addservice = async (req, res) => {
       email,
       description,
       description_en,
-      photo: signedUrl,
+      photos: JSON.stringify(imageUrls),
     });
 
     res.status(201).json({
@@ -34,27 +43,24 @@ exports.addservice = async (req, res) => {
 // Modifier un service
 exports.updateservice = async (req, res) => {
   const { id } = req.params;
-  const { nom, phone, email, description } = req.body;
-  const photo = req.file ? req.file.key : null;
+  const { nom, nom_en, phone, email, description, description_en } = req.body;
 
-  let signedUrl = null;
-    if (photo) {
-      signedUrl = await generateSignedUrl(photo);
-    }
-
+  let imageUrls = null;
+  // ✅ Ensure files are uploaded
+  if (req.files) {
+    imageUrls = await Promise.all(
+      req.files.map(async (file) => {
+        return await generateSignedUrl(file.key);
+      })
+    );
+  }
   try {
     const service = await Service.findByPk(id);
     if (!service) {
       return res.status(404).json({ message: 'Service non trouvé' });
     }
 
-    // Supprimer l'ancienne photo si une nouvelle est téléchargée
-    if (photo && service.photo) {
-      const oldPhotoPath = path.join(__dirname, '../../uploads/services', service.photo);
-      if (fs.existsSync(oldPhotoPath)) {
-        fs.unlinkSync(oldPhotoPath);
-      }
-    }
+    // console.log(imageUrls);
 
     // Mise à jour des informations
     service.nom = nom || service.nom;
@@ -63,11 +69,7 @@ exports.updateservice = async (req, res) => {
     service.email = email || service.email;
     service.description = description || service.description;
     service.description_en = description_en || service.description_en;
-
-    if (photo) {
-      let signedUrl = await generateSignedUrl(photo);
-      service.photo = signedUrl || service.photo;
-    }
+    service.photos = imageUrls.length > 0 ? JSON.stringify(imageUrls) : service.photos;
 
     await service.save();
 

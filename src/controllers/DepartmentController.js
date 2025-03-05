@@ -7,12 +7,18 @@ const { generateSignedUrl } = require("../../config/AWSConfig")
 exports.addDepartment = async (req, res) => {
   try {
     const { nom, nom_en, phone, email, description, description_en } = req.body;
-    const photo = req.file ? req.file.key : null;
 
-    let signedUrl = null;
-    if (photo) {
-      signedUrl = await generateSignedUrl(photo);
+    // ✅ Ensure files are uploaded
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ message: "No files uploaded" });
     }
+
+    // ✅ Generate signed URLs for all uploaded files
+    const imageUrls = await Promise.all(
+      req.files.map(async (file) => {
+        return await generateSignedUrl(file.key);
+      })
+    );
 
     const newDepartment = await Department.create({
       nom,
@@ -21,7 +27,7 @@ exports.addDepartment = async (req, res) => {
       email,
       description,
       description_en,
-      photo: signedUrl,
+      photos: JSON.stringify(imageUrls),
     });
 
     res.status(201).json({
@@ -38,21 +44,23 @@ exports.addDepartment = async (req, res) => {
 exports.updateDepartment = async (req, res) => {
   const { id } = req.params;
   const { nom, nom_en, phone, email, description, description_en } = req.body;
-  const photo = req.file ? req.file.key : null;
+  // const photo = req.file ? req.file.key : null;
+
+  let imageUrls = null;
+  // ✅ Ensure files are uploaded
+  if (req.files) {
+    imageUrls = await Promise.all(
+      req.files.map(async (file) => {
+        return await generateSignedUrl(file.key);
+      })
+    );
+  }
 
 
   try {
     const department = await Department.findByPk(id);
     if (!department) {
       return res.status(404).json({ message: 'Department non trouvé' });
-    }
-
-    // Supprimer l'ancienne photo si une nouvelle est téléchargée
-    if (photo && department.photo) {
-      const oldPhotoPath = path.join(__dirname, '../../uploads/departments', department.photo);
-      if (fs.existsSync(oldPhotoPath)) {
-        fs.unlinkSync(oldPhotoPath);
-      }
     }
 
     // Mise à jour des informations
@@ -62,11 +70,7 @@ exports.updateDepartment = async (req, res) => {
     department.email = email || department.email;
     department.description = description || department.description;
     department.description_en = description_en || department.description_en;
-    if (photo) {
-      let signedUrl = await generateSignedUrl(photo);
-      department.photo = signedUrl || department.photo;
-    }
-
+    department.photos = imageUrls.length > 0 ? JSON.stringify(imageUrls) : department.photos;
     await department.save();
 
     res.status(200).json({

@@ -27,7 +27,7 @@
                         <th>Email</th>
                         <th>French Description</th>
                         <th>English Description</th>
-                        <th>Photo</th>
+                        <th>Photos</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -88,11 +88,9 @@
                     </div>
                     <div class="form-group">
                         <label>Photo</label>
-                        <input type="file" id="departmentPhoto"
+                        <input type="file" id="departmentPhotos" multiple
                             class="form-control">
-                        <img id="currentPhoto" src="#" alt="Current Photo"
-                            width="100"
-                            style="margin-top: 10px; display: none;">
+                        <div id="currentPhotos" style="margin-top: 10px;"></div>
                     </div>
                     <button type="submit" class="btn btn-primary">Save
                         Changes</button>
@@ -111,6 +109,8 @@
                 tableBody.innerHTML = '';
 
                 data.forEach(department => {
+                    console.log(data);
+                    
                     const row = `
                     <tr>
                         <td>${department.id}</td>
@@ -120,7 +120,11 @@
                         <td>${department.email}</td>
                         <td>${department.description}</td>
                         <td>${department.description_en}</td>
-                        <td><img src="${department.photo}" width="50" height="50" alt="Department Photo"></td>
+                        <td>
+                            ${JSON.parse(department.photos || "[]").map(photoUrl => `
+                                <img src="${photoUrl}" width="50" height="50" style="margin: 2px;" alt="Department Photo">
+                            `).join('')}
+                        </td>
                         <td>
                             <button class="btn btn-primary btn-sm view-btn" data-id="${department.id}">Edit</button>
                             <button class="btn btn-danger btn-sm delete-btn" data-id="${department.id}">Delete</button>
@@ -153,12 +157,20 @@
                         document.getElementById('departmentDescription').value = department.description;
                         document.getElementById('departmentDescriptionEn').value = department.description;
                         
-                        const photoElement = document.getElementById('currentPhoto');
-                        if (department.photo) {
-                            photoElement.src = `${department.photo}`;
-                            photoElement.style.display = 'block';
+                        const photoContainer = document.getElementById('currentPhotos');
+                        photoContainer.innerHTML = ''; // Clear previous images
+                        const photos = JSON.parse(department.photos || "[]");
+
+                        if (photos.length > 0) {
+                            photos.forEach(photoUrl => {
+                                const imgElement = document.createElement("img");
+                                imgElement.src = photoUrl;
+                                imgElement.width = 100;
+                                imgElement.style.margin = "5px";
+                                photoContainer.appendChild(imgElement);
+                            });
                         } else {
-                            photoElement.style.display = 'none';
+                            photoContainer.innerHTML = "<p>No photos available</p>";
                         }
 
                         $('#departmentModal').modal('show');
@@ -178,8 +190,9 @@
             formData.append('email', document.getElementById('departmentEmail').value);
             formData.append('description', document.getElementById('departmentDescription').value);
             formData.append('description_en', document.getElementById('departmentDescriptionEn').value);
-            if (document.getElementById('departmentPhoto').files[0]) {
-                formData.append('photo', document.getElementById('departmentPhoto').files[0]);
+            const photoFiles = document.getElementById('departmentPhotos').files;
+            for (let i = 0; i < photoFiles.length; i++) {
+                formData.append('photos', photoFiles[i]); // Append multiple photos
             }
 
             axios.put(`/api/updatedepartment/${id}`, formData)

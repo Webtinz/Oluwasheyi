@@ -18,16 +18,22 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     description_en: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
-    photo: {
-      type: DataTypes.TEXT, // Nous allons stocker le nom du fichier image
+    photos: {
+      type: DataTypes.TEXT, 
       allowNull: true,
+      get() {
+        return JSON.parse(this.getDataValue("photos")); 
+      },
+      set(value) {
+        this.setDataValue("photos", JSON.stringify(value)); 
+      },
     },
   });
 
