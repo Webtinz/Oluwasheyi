@@ -5,6 +5,7 @@ import MTN from '../../assets/MTN.png';
 import { ChevronDown } from "lucide-react";
 import { addDonation, getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
+import { error } from 'jquery';
 
 const DonationForm = ({ programs }) => {
   const [donationType, setDonationType] = useState('once');
@@ -14,7 +15,7 @@ const DonationForm = ({ programs }) => {
   const [selectedProgram, setSelectedProgram] = useState("");
   const { selectedLanguage } = useContext(LanguageContext);
   const [contents, setContents] = useState();
-
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false)
   // Get contents on component mount
   useEffect(() => {
     const fetchContents = async () => {
@@ -78,24 +79,39 @@ const DonationForm = ({ programs }) => {
   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Prepare data for submission
-    const submissionData = {
-      donationType,
+    let submissionData = {
+      type: donationType,
       amount: customAmount || amount,
       paymentMethod: selectedMethod,
-      program: selectedProgram,
+      medicalProgramId: selectedProgram,
     };
+    try {
+      console.log("Form Submitted with data: ", submissionData);
+      await addDonation(submissionData);
+      setDonationType('once');
+      setAmount('');
+      setCustomAmount('');
+      setSelectedMethod('');
+      setSelectedProgram('');
+      setShowSuccessMessage(true);
 
-    // Here, we can send this data to an API or log it for now
-    console.log("Form Submitted with data: ", submissionData);
-    
-    await addDonation(submissionData);
-    // Optionally, handle the payment process here (e.g., call an API, show a confirmation message, etc.)
+      // Masquer la notification après 5 secondes
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+      }, 3000);
+    } catch (error) {
+      console.error('Failed to submit donation:', error.message || error);
+      submissionData = {};
+    }
   };
 
   return (
     <div className="w-full max-w-md mx-auto p-4">
+        {showSuccessMessage && (
+          <div className="alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3" role="alert">
+            {selectedLanguage === 'fr' ? 'Don effectue avec succes' : "Donation completed successfully"}
+          </div>
+        )}
       <h1 className="text-2xl font-bold text-center mb-4 text-2xl" style={{ color: '#17416F' }}>
         {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
           __html: contents?.donate_subscription_title.content_fr
@@ -103,7 +119,7 @@ const DonationForm = ({ programs }) => {
           __html: contents?.donate_subscription_title.content_en
         }} />)}
       </h1>
-      <form >
+      <form>
         <div className="grid grid-cols-2 gap-2 mb-6">
           {['once', 'monthly'].map((type) => (
             <button
@@ -118,7 +134,11 @@ const DonationForm = ({ programs }) => {
                 color: donationType === type ? "#FFFFFF" : "#17416F",
                 borderColor: donationType === type ? "transparent" : "#17416F",
               }}
-              onClick={() => handleDonationTypeChange(type)}
+              type='button'
+              onClick={(e) => {
+                e.preventDefault();
+                handleDonationTypeChange(type)
+              }}
             >
               {type === 'once'
                 ? (selectedLanguage === 'fr'
@@ -157,7 +177,7 @@ const DonationForm = ({ programs }) => {
                 {selectedLanguage === 'fr' ? program.nom : program.name}
               </option>
             ))}
-            </select>
+          </select>
           <ChevronDown className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500 pointer-events-none" />
         </div>
 
@@ -175,7 +195,11 @@ const DonationForm = ({ programs }) => {
                 color: amount === item.value ? "#FFFFFF" : "#17416F",
                 borderColor: amount === item.value ? "transparent" : "#D1D5DB",
               }}
-              onClick={() => handleAmountSelect(item.value)}
+              type='button'
+              onClick={(e) => {
+                e.preventDefault();
+                handleAmountSelect(item.value)
+              }}
             >
               {item.label}
             </button>
@@ -202,7 +226,10 @@ const DonationForm = ({ programs }) => {
                 type="radio"
                 name="paymentMethod"
                 checked={selectedMethod === method}
-                onChange={() => handlePaymentMethod(method)}
+                onChange={(e) => {
+                  e.preventDefault();
+                  handlePaymentMethod(method)
+                }}
                 className="absolute left-4 w-4 h-4 cursor-pointer"
               />
               <div className="flex items-center justify-center">
@@ -214,7 +241,7 @@ const DonationForm = ({ programs }) => {
 
         <div className="text-center">
           <button type="submit" onClick={handleSubmit} className='text-sm mt-4 text-blue-800 btn btn-t'>
-            <i className="bi bi-lock"></i> Secure Payment
+            <i className="bi bi-lock"></i> {selectedLanguage === 'fr' ? contents?.subs_button.content_fr : contents?.subs_button.content_en}
           </button>
         </div>
       </form>
