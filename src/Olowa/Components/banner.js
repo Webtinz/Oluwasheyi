@@ -68,7 +68,7 @@ const About = () => {
                                             src={contents?.home_page_banner_img.image}
                                             alt="Image de la clinique"
                                             className="img-fluid w-100 h-100"
-                                            style={{ objectFit: 'cover', marginLeft: '-40px' }}
+                                            style={{ objectFit: 'cover', marginLeft: '-10px' }}
                                         />
                                     </div>
                                 </div>
@@ -94,7 +94,7 @@ const About = () => {
                                             src={contents?.home_page_banner_img.image}
                                             alt="Image de la clinique"
                                             className="img-fluid w-100 h-100"
-                                            style={{ objectFit: 'cover', marginLeft: '-40px' }}
+                                            style={{ objectFit: 'cover', marginLeft: '-10px' }}
                                         />
                                     </div>
                                 </div>
