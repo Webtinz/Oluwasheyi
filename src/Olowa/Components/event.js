@@ -8,16 +8,16 @@ import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 import { format } from 'date-fns';
 
-// const events = [
-//   { id: 1, image: im1, day: "10", date: "FEB.25", title: "Cras eleifend gravi mi, eu placerat urn vulputate" },
-//   { id: 2, image: im2, day: "13", date: "FEB.25", title: "Cras eleifend gravi mi, eu placerat urn vulputate" },
-//   { id: 3, image: im3, day: "15", date: "FEB.25", title: "Cras eleifend gravi mi, eu placerat urn vulputate" },
-// ];
 
-const FeaturedEvents = ({ events }) => {
+const FeaturedEvents = () => {
   const { selectedLanguage } = useContext(LanguageContext);
   const [contents, setContents] = useState();
-
+  
+  const events = [
+    { id: 1, image: contents?.event_img1.image, day: "10", date: "FEB.25", title: selectedLanguage === 'fr' ? contents?.event_descp1.content_fr : contents?.event_descp1.content_en },
+    { id: 2, image: contents?.event_img2.image, day: "13", date: "FEB.25", title: selectedLanguage === 'fr' ? contents?.event_descp2.content_fr : contents?.event_descp2.content_en },
+    { id: 3, image: contents?.event_img3.image, day: "15", date: "FEB.25", title: selectedLanguage === 'fr' ? contents?.event_descp3.content_fr : contents?.event_descp3.content_en },
+  ];
   // Get contents on component mount
   useEffect(() => {
     const fetchContents = async () => {
@@ -46,23 +46,23 @@ const FeaturedEvents = ({ events }) => {
         <br />
         <div className="row mt-2">
           {events?.map((event) => (
-            <div key={event.id} className="col-12 col-md-6 col-lg-4 mb-3 mb-md-0 mx-auto p-4">
+            <div key={event.id} className="col-12 col-md-6 col-lg-4 mb-3 mb-md-0 p-3">
               <div className="p-3 bg-white event-card">
                 <div className="row">
-                  <div className="col-lg-12 mb-4 mx-auto">
+                  <div className="col-lg-12 mb-4">
                     <div className="position-relative">
-                      <img src={event.photo} alt="" className="image-fluid w-100" />
+                      <img src={event.image} alt="" className="image-fluid w-100" />
                       <div className="ppo1">
-                        <span className="event-day">{format(new Date(event.dateevent), "dd")}</span>
-                        <span className="event-date upper">{format(new Date(event.dateevent), "MMM.yy")}</span>
+                        <span className="event-day">{event.day}</span>
+                        <span className="event-date upper">{event.date}</span>
                       </div>
                     </div>
                   </div>
-                  <div className="col-lg-12 mx-auto px-4 py-3">
+                  <div className="col-lg-12 px-4 py-3">
                     <div className="row">
                       <div className="col-md-4"></div>
                       <div className="col-md-8">
-                        <p className="event-title">{selectedLanguage === 'fr' ? event.nom : event.name}</p>
+                        <p className="event-title">{event.title}</p>
                       </div>
                     </div>
                     <span className="event-divider"></span>

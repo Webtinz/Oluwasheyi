@@ -116,7 +116,7 @@ const Home = () => {
                     return (
                         <div key={index} className="row cpt" style={{ padding: '50px 0', margin: 0 }}>
                             <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
-                                <img src={photos?.[0]} alt="" className="image-fluid w-100" style={{ objectFit: 'cover', borderTopRightRadius: '30px' }} />
+                                <img src={photos?.[0]} alt="" className="image-fluid w-100 main-img1" style={{ objectFit: 'cover', borderTopRightRadius: '30px' }} />
                             </div>
                             <div className="col-12 col-md-6 mx-auto mb-3 mb-md-0 align-self-center">
                                 <div className="row">

@@ -83,7 +83,7 @@ const Home = () => {
                 <div className="row">
                     <div className="col-md-5 mx-auto mb-3">
                         <div>
-                            <img src={contents?.donate_page_support_img.image} alt="" className="img-fluid" style={{ width: '100%', borderTopRightRadius: '30px', height: '100vh', objectFit: 'cover' }} />
+                            <img src={contents?.donate_page_support_img.image} alt="" className="img-fluid main-img1 w-100" style={{ width: '100%', borderTopRightRadius: '30px', objectFit: 'cover' }} />
                         </div>
                     </div>
                     <div className="col-md-6 mx-auto">
@@ -171,10 +171,10 @@ const Home = () => {
                     <div className='row' style={{ background: '#F2F2F2', borderTopRightRadius: '30px', width: '80%' }}>
                         <div className='col-md-5 mb-3 mb-md-0 mx-auto' style={{ padding: '0px' }}>
                             <div className='position-relative'>
-                                <img src={contents?.donate_page_support_img.image} className='img-fluid w-100' style={{ height: '100vh', objectFit: 'cover' }} />
-                                <div className='contpos'>
+                                <img src={contents?.donate_page_support_img.image} className='img-fluid w-100' style={{ height: '80vh', objectFit: 'cover' }} />
+                                {/* <div className='contpos'>
                                     <img src={Mask1} alt="Wellness Programs" className="img-fluid" style={{ width: '70%' }} />
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                         <div className='col-md-7 mb-3 mb-md-0 mx-auto align-self-center'>
@@ -183,6 +183,7 @@ const Home = () => {
                     </div>
                 </div>
             </section>
+            <br/><br/>
             <div>
                 <Feedback />
             </div>

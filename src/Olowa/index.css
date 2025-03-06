@@ -126,16 +126,17 @@ body{
   color: #13AB9C;
 }
 
-.hhe{
-    background-image: url('../assets/Mask2.png');
-    background-size: cover;
-    background-position: center;
-    object-fit: cover;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.hhe {
+  background-image: url('../assets/Mask2.png');
+  background-size: contain; /* Assure que l'image est affichée en entier */
+  background-repeat: no-repeat; /* Évite la répétition de l'image */
+  background-position: center; /* Centre l'image */
+  width: 100vw; /* Occupe toute la largeur de l'écran */
+  height: 100vh; /* Occupe toute la hauteur de l'écran */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .hhe h3 {
@@ -325,7 +326,7 @@ body{
 }
 
 .event-title {
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 700;
   color: #17416F;
 }
@@ -348,8 +349,40 @@ body{
 
 .main-img {
   border-top-right-radius: 30px;
-  height: 100vh;
+  height: 45vh;
   object-fit: cover;
+}
+@media (max-width: 1368px) {
+  .main-img {
+    border-top-right-radius: 30px;
+    height: 65vh;
+    object-fit: cover;
+  }
+}
+@media (max-width: 968px) {
+  .main-img {
+    border-top-right-radius: 30px;
+    height: 50vh;
+    object-fit: cover;
+  }
+}
+
+
+.main-img1 {
+  height: 55vh;
+  object-fit: cover;
+}
+@media (max-width: 1368px) {
+  .main-img1 {
+    height: 80vh;
+    object-fit: cover;
+  }
+}
+@media (max-width: 968px) {
+  .main-img1 {
+    height: 50vh;
+    object-fit: cover;
+  }
 }
 
 .overlay-img {
