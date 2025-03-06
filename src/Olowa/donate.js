@@ -178,7 +178,7 @@ const Home = () => {
                             </div>
                         </div>
                         <div className='col-md-7 mb-3 mb-md-0 mx-auto align-self-center'>
-                            <Subscription />
+                            <Subscription programs={programs}/>
                         </div>
                     </div>
                 </div>

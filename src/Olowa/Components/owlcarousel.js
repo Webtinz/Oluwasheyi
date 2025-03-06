@@ -196,7 +196,9 @@ const ServicesCarousel = ({ services }) => {
             opacity: isAnimating ? 0.5 : 1
           }}
         >
-          {visibleServices?.map((service, index) => (
+          {visibleServices?.map((service, index) => {
+            const photos = service.photos ? JSON.parse(service.photos) : [];
+            return (
             <div
               key={`${service.id}-${currentIndex}-${index}`}
               className="w-full px-3"
@@ -207,7 +209,7 @@ const ServicesCarousel = ({ services }) => {
               >
                 <div className="relative aspect-video">
                   <img
-                    src={service.photo}
+                    src={photos[0]}
                     alt={service.nom}
                     className="w-full h-full object-cover"
                     style={{ borderTopRightRadius: '30px' }}
@@ -228,7 +230,7 @@ const ServicesCarousel = ({ services }) => {
                 </div>
               </div>
             </div>
-          ))}
+          )})}
         </div>
       </div>
 

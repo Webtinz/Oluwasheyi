@@ -173,11 +173,11 @@ const FeedbackSection = () => {
                                 <button
                                   key={rating}
                                   type="button"
-                                  onClick={() => setFormData(prev => ({ ...prev, experience: rating }))}
+                                  onClick={() => setFormData(prev => ({ ...prev, yourexperience: rating }))}
                                   className="focus:outline-none"
                                 >
                                   <i className={`bi bi-star-fill fs-3 ${
-                                      rating <= formData.experience
+                                      rating <= formData.yourexperience
                                         ? 'fill-yellow-400 text-yellow-400'
                                         : 'text-gray-300'
                                     }`}></i>

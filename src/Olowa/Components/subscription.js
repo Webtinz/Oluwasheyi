@@ -3,10 +3,10 @@ import '../about.css';
 import Paypal from '../../assets/paypal.png';
 import MTN from '../../assets/MTN.png';
 import { ChevronDown } from "lucide-react";
-import { getAllContents } from '../../services/content.service';
+import { addDonation, getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 
-const DonationForm = () => {
+const DonationForm = ({ programs }) => {
   const [donationType, setDonationType] = useState('once');
   const [amount, setAmount] = useState('');
   const [customAmount, setCustomAmount] = useState('');
@@ -76,7 +76,7 @@ const DonationForm = () => {
   };
 
   // Function to handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Prepare data for submission
@@ -89,7 +89,8 @@ const DonationForm = () => {
 
     // Here, we can send this data to an API or log it for now
     console.log("Form Submitted with data: ", submissionData);
-
+    
+    await addDonation(submissionData);
     // Optionally, handle the payment process here (e.g., call an API, show a confirmation message, etc.)
   };
 
@@ -102,7 +103,7 @@ const DonationForm = () => {
           __html: contents?.donate_subscription_title.content_en
         }} />)}
       </h1>
-      <form onSubmit={handleSubmit}>
+      <form >
         <div className="grid grid-cols-2 gap-2 mb-6">
           {['once', 'monthly'].map((type) => (
             <button
@@ -151,10 +152,12 @@ const DonationForm = () => {
             <option value="">
               {selectedLanguage === 'fr' ? contents?.donate_page_payment_input.content_fr : contents?.donate_page_payment_input.content_en}
             </option>
-            <option value="program1">{selectedLanguage === 'fr' ? contents?.donate_page_payment_input_select.content_fr : contents?.donate_page_payment_input_select.content_en}</option>
-            <option value="program2">{selectedLanguage === 'fr' ? contents?.donate_page_payment_input_select_1.content_fr : contents?.donate_page_payment_input_select_1.content_en}</option>
-            <option value="program3">{selectedLanguage === 'fr' ? contents?.donate_page_payment_input_select_2.content_fr : contents?.donate_page_payment_input_select_2.content_en}</option>
-          </select>
+            {programs.map((program) => (
+              <option key={program.id} value={program.id}>
+                {selectedLanguage === 'fr' ? program.nom : program.name}
+              </option>
+            ))}
+            </select>
           <ChevronDown className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500 pointer-events-none" />
         </div>
 
@@ -210,7 +213,7 @@ const DonationForm = () => {
         </div>
 
         <div className="text-center">
-          <button type="submit" className='text-sm mt-4 text-blue-800 btn btn-t'>
+          <button type="submit" onClick={handleSubmit} className='text-sm mt-4 text-blue-800 btn btn-t'>
             <i className="bi bi-lock"></i> Secure Payment
           </button>
         </div>

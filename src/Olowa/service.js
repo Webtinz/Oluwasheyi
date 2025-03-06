@@ -56,33 +56,6 @@ const Home = () => {
         }
     };
 
-    // const sections = [
-    //     {
-    //         title: "Cardiology",
-    //         imageSrc: Img3,
-    //         description: "Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio.Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio. Proin sed nunc quis ex faucibus volutpat. Quisque faucibus in quam quis lobortis. Donec metus neque, euismod a volutpat eget, porta sed ligula. Phasellus consequat risus sit amet mi dapibus vehicula.",
-    //         phone: "+229 123456789",
-    //         email: "cardiology@cliniqueoluwasheyi.com",
-    //         imgSrc: Img
-    //     },
-    //     {
-    //         title: "Radiology",
-    //         imageSrc: Img4,
-    //         description: "Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio.Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio. Proin sed nunc quis ex faucibus volutpat. Quisque faucibus in quam quis lobortis. Donec metus neque, euismod a volutpat eget, porta sed ligula. Phasellus consequat risus sit amet mi dapibus vehicula.",
-    //         phone: "+229 123456789",
-    //         email: "radiology@cliniqueoluwasheyi.com",
-    //         imgSrc: Img1
-    //     },
-    //     {
-    //         title: "Pediatrics",
-    //         imageSrc: Img5,
-    //         description: "Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio.Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio. Proin sed nunc quis ex faucibus volutpat. Quisque faucibus in quam quis lobortis. Donec metus neque, euismod a volutpat eget, porta sed ligula. Phasellus consequat risus sit amet mi dapibus vehicula.",
-    //         phone: "+229 123456789",
-    //         email: "pediatrics@cliniqueoluwasheyi.com",
-    //         imgSrc: Img2
-    //     }
-    // ];
-
     return (
         <div className="container-fluid">
             <div><Navbar /></div>

@@ -102,13 +102,24 @@ export const getTestimonials = async () => {
   }
 }
 
-// Ajouter une cell
+// Ajouter un feedback
 export const addFeedback = async (data) => {
   try {
     const response = await api.post('/addfeedback', data);
     return response.data;
   } catch (error) {
     console.error('Error adding addfeedback:', error);
+    throw error.response?.data || error;
+  }
+};
+
+// Ajouter une donation
+export const addDonation = async (data) => {
+  try {
+    const response = await api.post('/adddonnation', data);
+    return response.data;
+  } catch (error) {
+    console.error('Error adding donation:', error);
     throw error.response?.data || error;
   }
 };
