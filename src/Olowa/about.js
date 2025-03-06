@@ -75,29 +75,29 @@ const Home = () => {
 
     const yearsData = {
         "2011": {
-            imageUrl: "image/image 35.png",
-            title: "Founded",
-            description: "Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula"
+            imageUrl: contents?.about_year_img_1.image,
+            title: selectedLanguage === 'fr' ? contents?.about_year_title_1.content_fr : contents?.about_year_title_1.content_en,
+            description: selectedLanguage === 'fr' ? contents?.about_year_descp_1.content_fr : contents?.about_year_descp_1.content_en
         },
         "2015": {
-            imageUrl: "image/image 35.png",
-            title: "Expansion",
-            description: "Phasellus ullamcorper cursus urna euismod feugiat. Cras euismod orci at volutpat."
+            imageUrl: contents?.about_year_img_1.image,
+            title: selectedLanguage === 'fr' ? contents?.about_year_title_1.content_fr : contents?.about_year_title_1.content_en,
+            description: selectedLanguage === 'fr' ? contents?.about_year_descp_1.content_fr : contents?.about_year_descp_1.content_en
         },
         "2019": {
-            imageUrl: "image/image 35.png",
-            title: "Global Recognition",
-            description: "Vestibulum euismod sapien et dolor bibendum, non hendrerit erat fermentum."
+            imageUrl: contents?.about_year_img_1.image,
+            title: selectedLanguage === 'fr' ? contents?.about_year_title_1.content_fr : contents?.about_year_title_1.content_en,
+            description: selectedLanguage === 'fr' ? contents?.about_year_descp_1.content_fr : contents?.about_year_descp_1.content_en
         },
         "2022": {
-            imageUrl: "image/image 35.png",
-            title: "New Milestone",
-            description: "Curabitur vestibulum, felis in vulputate mollis, odio lorem auctor urna."
+            imageUrl: contents?.about_year_img_1.image,
+            title: selectedLanguage === 'fr' ? contents?.about_year_title_1.content_fr : contents?.about_year_title_1.content_en,
+            description: selectedLanguage === 'fr' ? contents?.about_year_descp_1.content_fr : contents?.about_year_descp_1.content_en
         },
         "2024": {
-            imageUrl: "image/image 35.png",
-            title: "Innovation",
-            description: "Aliquam erat volutpat. Integer posuere, ante ac consequat dictum, dui ante ultricies."
+            imageUrl: contents?.about_year_img_1.image,
+            title: selectedLanguage === 'fr' ? contents?.about_year_title_1.content_fr : contents?.about_year_title_1.content_en,
+            description: selectedLanguage === 'fr' ? contents?.about_year_descp_1.content_fr : contents?.about_year_descp_1.content_en
         }
     };
 
@@ -173,10 +173,10 @@ const Home = () => {
                         <br />
                         <ul className="list-unstyled">
                             {[
-                                "Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo.",
-                                "Donec rhoncus, augue fermentum pharetra posuere.",
-                                "Nullam gravida mauris convallis mattis vestibulum. Aenean ultricies erat elit, quis maximus lacus auctor egestas.",
-                                "Sed molestie et turpis ut bibendum"
+                                selectedLanguage === 'fr' ? contents?.about_list_descp_1.content_fr : contents?.about_list_descp_1.content_en,
+                                selectedLanguage === 'fr' ? contents?.about_list_descp_2.content_fr : contents?.about_list_descp_2.content_en,
+                                selectedLanguage === 'fr' ? contents?.about_list_descp_3.content_fr : contents?.about_list_descp_3.content_en,
+                                selectedLanguage === 'fr' ? contents?.about_list_descp_4.content_fr : contents?.about_list_descp_4.content_en
                             ].map((text, index) => (
                                 <li key={index}>
                                     <div className="d-flex">
@@ -247,7 +247,7 @@ const Home = () => {
                 </h2>
                 <br />
                 <div className="mt-4 hero">
-                    <div className="p-5 flx" style={{ borderTopRightRadius: '30px', backgroundColor: '#17416F', width: '40vw', height: '50vh' }}>
+                    <div className="p-5 flx" style={{ borderTopRightRadius: '30px', backgroundColor: '#17416F', width: '40vw', height: '60vh' }}>
                         <div className='position-relative'>
                             <p style={{ color: '#13AB9C', fontWeight: '700', fontSize: 'clamp(22px, 8vw, 28px)' }}>{currentYear}</p>
                             <p className="text-white" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: 'clamp(30px, 8vw, 40px)' }}>
