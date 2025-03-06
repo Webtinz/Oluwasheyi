@@ -157,10 +157,17 @@ const PatientTestimonials = ({ testimonials }) => {
                         >
                             <div className="mb-4"><img src={Ic} /></div>
                             <h3 className="text-xl font-semibold mb-2" style={{color:'#17416F',fontWeight:'700'}}>{testimonial.titre}</h3>
-                            <p className="text-gray-600 mb-6">{testimonial.description}</p>
+                            <p className="text-gray-600 mb-6">
+                            {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                                                __html: testimonial.description
+                                            }} />) : (<div dangerouslySetInnerHTML={{
+                                                __html: testimonial.description
+                                            }} />)}
+                              {/* {testimonial.description} */}
+                              </p>
                             <hr className="my-4" />
                             <div className="flex items-center gap-3">
-                              <img src={testimonial.photo} alt={`${testimonial.nom} ${testimonial.prenom}`} className="w-12 h-12 rounded-full"/>
+                              <img src={testimonial.photo || Msk} alt={`${testimonial.nom} ${testimonial.prenom}`} className="w-12 h-12 rounded-full"/>
                               <div>
                                   <p className="font-semibold">{testimonial.nom} {testimonial.prenom}</p>
                                   <p className="text-gray-500">{testimonial.address}</p>

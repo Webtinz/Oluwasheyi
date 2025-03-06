@@ -93,64 +93,70 @@ const Home = () => {
                 {services?.map((section, index) => {
                     const photos = section.photos ? JSON.parse(section.photos) : [];
                     return (
-                    
-                    <div key={index} className="row cpt" style={{ padding: '50px 0', margin: 0 }}>
-                        <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
-                            <img src={photos?.[0]} alt="" className="image-fluid w-100" style={{ objectFit: 'cover', borderTopRightRadius: '30px' }} />
-                        </div>
-                        <div className="col-12 col-md-6 mx-auto mb-3 mb-md-0 align-self-center">
-                            <div className="row">
-                                <div className="col-2 mx-auto">
-                                    <img src={photos?.[1]} alt="" className="image-fluid w-100" />
-                                </div>
-                                <div className="col-10 mx-auto">
-                                    <h2 className="mt-3" style={{ color: '#17416F', fontSize: '30px', fontWeight: '700' }}>
-                                        {selectedLanguage === 'fr' ? section.nom : section.nom_en}</h2>
-                                    <p className="mt-3" style={{ color: '#17416F' }}>
-                                        {selectedLanguage === 'fr' ? section.description : section.description_en}
-                                    </p>
 
-                                    {activeSection === index && (
-                                        <div className="extra-content" style={{ display: 'block', marginTop: '2rem' }}>
-                                            <span className="d-block mb-3" style={{ borderBottom: '2px solid #17416F' }}></span>
-                                            <div className="d-flex">
-                                                <div><img src={Img6} alt="" /></div>
-                                                <div className="ms-2">
-                                                    <p style={{ color: '#17416F' }}>{selectedLanguage === 'fr' ? contents?.call_now.content_fr : contents?.call_now.content_en}</p>
-                                                    <br />
-                                                    <p style={{ color: '#17416F', fontSize: '20px', marginTop: '-1rem' }}><strong>{section.phone}</strong></p>
+                        <div key={index} className="row cpt" style={{ padding: '50px 0', margin: 0 }}>
+                            <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
+                                <img src={photos?.[0]} alt="" className="image-fluid w-100" style={{ objectFit: 'cover', borderTopRightRadius: '30px' }} />
+                            </div>
+                            <div className="col-12 col-md-6 mx-auto mb-3 mb-md-0 align-self-center">
+                                <div className="row">
+                                    <div className="col-2 mx-auto">
+                                        <img src={photos?.[1]} alt="" className="image-fluid w-100" />
+                                    </div>
+                                    <div className="col-10 mx-auto">
+                                        <h2 className="mt-3" style={{ color: '#17416F', fontSize: '30px', fontWeight: '700' }}>
+                                            {selectedLanguage === 'fr' ? section.nom : section.nom_en}</h2>
+                                        <p className="mt-3" style={{ color: '#17416F' }}>
+                                            {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                                                __html: section.description
+                                            }} />) : (<div dangerouslySetInnerHTML={{
+                                                __html: section.description_en
+                                            }} />)}
+                                            {/* {selectedLanguage === 'fr' ? section.description : section.description_en} */}
+                                        </p>
+
+                                        {activeSection === index && (
+                                            <div className="extra-content" style={{ display: 'block', marginTop: '2rem' }}>
+                                                <span className="d-block mb-3" style={{ borderBottom: '2px solid #17416F' }}></span>
+                                                <div className="d-flex">
+                                                    <div><img src={Img6} alt="" /></div>
+                                                    <div className="ms-2">
+                                                        <p style={{ color: '#17416F' }}>{selectedLanguage === 'fr' ? contents?.call_now.content_fr : contents?.call_now.content_en}</p>
+                                                        <br />
+                                                        <p style={{ color: '#17416F', fontSize: '20px', marginTop: '-1rem' }}><strong>{section.phone}</strong></p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <br />
-                                            <span className="d-block mb-3" style={{ borderBottom: '2px solid #17416F' }}></span>
-                                            <div className="d-flex">
-                                                <div><img src={Img7} alt="" /></div>
-                                                <div className="ms-2">
-                                                    <p style={{ color: '#17416F' }}>Email</p> <br />
-                                                    <p style={{ color: '#17416F', fontSize: '20px', marginTop: '-1rem' }}><strong>{section.email}</strong></p>
+                                                <br />
+                                                <span className="d-block mb-3" style={{ borderBottom: '2px solid #17416F' }}></span>
+                                                <div className="d-flex">
+                                                    <div><img src={Img7} alt="" /></div>
+                                                    <div className="ms-2">
+                                                        <p style={{ color: '#17416F' }}>Email</p> <br />
+                                                        <p style={{ color: '#17416F', fontSize: '20px', marginTop: '-1rem' }}><strong>{section.email}</strong></p>
+                                                    </div>
                                                 </div>
+                                                <br />
                                             </div>
-                                            <br />
+                                        )}
+
+                                        <div className="mt-3">
+                                            <button
+                                                className="btn btn-w px-4 toggle-button"
+                                                style={{ backgroundColor: activeSection === index ? '#13AB9C' : '#13AB9C', color: activeSection === index ? 'white' : 'white' }}
+                                                onClick={() => toggleContent(index)}
+                                            >
+                                                {activeSection === index
+                                                    ? (selectedLanguage === 'fr' ? contents?.button_read_less.content_fr : contents?.button_read_less.content_en)
+                                                    : (selectedLanguage === 'fr' ? contents?.button_learn_more.content_fr : contents?.button_learn_more.content_en)}
+                                                <i className={`bi ${activeSection === index ? 'bi-chevron-up' : 'bi-chevron-down'} ms-1`}></i>
+                                            </button>
                                         </div>
-                                    )}
-
-                                    <div className="mt-3">
-                                        <button
-                                            className="btn btn-w px-4 toggle-button"
-                                            style={{ backgroundColor: activeSection === index ? '#13AB9C' : '#13AB9C', color: activeSection === index ? 'white' : 'white' }}
-                                            onClick={() => toggleContent(index)}
-                                        >
-                                            {activeSection === index
-                                                ? (selectedLanguage === 'fr' ? contents?.button_read_less.content_fr : contents?.button_read_less.content_en)
-                                                : (selectedLanguage === 'fr' ? contents?.button_learn_more.content_fr : contents?.button_learn_more.content_en)}
-                                            <i className={`bi ${activeSection === index ? 'bi-chevron-up' : 'bi-chevron-down'} ms-1`}></i>
-                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                )})}
+                    )
+                })}
                 <span className="d-block" style={{ borderBottom: '1px solid #17416F' }}></span>
             </section>
             <br /><br />
