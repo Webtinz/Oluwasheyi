@@ -211,7 +211,7 @@ const DonationForm = () => {
 
         <div className="text-center">
           <button type="submit" className='text-sm mt-4 text-blue-800 btn btn-t'>
-            <i className="bi bi-lock"></i> Secure Payment
+            <i className="bi bi-lock"></i> {selectedLanguage === 'fr' ? contents?.subs_button.content_fr : contents?.subs_button.content_en}
           </button>
         </div>
       </form>

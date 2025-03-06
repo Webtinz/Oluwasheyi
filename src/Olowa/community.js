@@ -118,7 +118,7 @@ const Home = () => {
                                     </div>
                                     <div className="col-12 col-md-6 mx-auto mb-3 mb-md-0 p-4 align-self-center">
                                         <h2 style={{ textTransform: "uppercase", color: "#17416F", fontSize: '30px', fontWeight: '700' }}>{selectedLanguage === 'fr' ? contents?.communoty_page_menu_1_title.content_fr : contents?.communoty_page_menu_1_title.content_en}</h2>
-                                        <p className="mt-3" style={{ color: "#17416F", display: "-webkit-box", WebkitLineClamp: 10, WebkitBoxOrient: "vertical", overflow: "hidden"}}>
+                                        <p className="mt-3" style={{ color: "#17416F", display: "-webkit-box", WebkitLineClamp: 10, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
                                             {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                                                 __html: contents?.communoty_page_menu_1_desc.content_fr
                                             }} />) : (<div dangerouslySetInnerHTML={{

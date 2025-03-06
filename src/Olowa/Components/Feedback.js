@@ -9,6 +9,7 @@ import LanguageContext from '../../context/LanguageContext';
 
 const FeedbackSection = () => {
   const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -21,9 +22,23 @@ const FeedbackSection = () => {
     e.preventDefault();
     console.log(formData);
 
-    const response = await addFeedback(formData)
-    console.log('Form submitted:', formData);
-    // Add your submission logic here
+    try {
+      await addFeedback(formData);
+      console.log('Form submitted:', formData);
+
+      // Fermer le modal
+      setSelectedDoctor(null);
+
+      // Afficher la notification de succès
+      setShowSuccessMessage(true);
+
+      // Masquer la notification après 5 secondes
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+      }, 5000);
+    } catch (error) {
+      console.error('Error submitting feedback:', error);
+    }
   };
 
   const handleChange = (e) => {
@@ -33,7 +48,6 @@ const FeedbackSection = () => {
       [name]: value
     }));
   };
-
 
   const { selectedLanguage } = useContext(LanguageContext);
   const [contents, setContents] = useState();
@@ -58,13 +72,14 @@ const FeedbackSection = () => {
     fetchContents();
   }, []);
 
-
   return (
     <section className="container-fluid py-5 Big" style={{ backgroundColor: "#13AB9C" }}>
       <div className="container">
         <div className="row" style={{ marginLeft: '20%' }}>
           <div className="col-lg-7 align-item-center">
-            <h2 className="text-white" style={{ fontSize: 'clamp(25px, 8vw, 35px)', fontWeight: '700' }}>{selectedLanguage === 'fr' ? contents?.home_page_feedback_title.content_fr : contents?.home_page_feedback_title.content_en}</h2>
+            <h2 className="text-white" style={{ fontSize: 'clamp(25px, 8vw, 35px)', fontWeight: '700' }}>
+              {selectedLanguage === 'fr' ? contents?.home_page_feedback_title.content_fr : contents?.home_page_feedback_title.content_en}
+            </h2>
             <br />
             <a
               href="#"
@@ -74,7 +89,7 @@ const FeedbackSection = () => {
                 e.preventDefault();
                 setSelectedDoctor({
                   name: "Dr. John Doe",
-                  image: nurseImage, // Remplace cette image par celle du médecin si nécessaire
+                  image: nurseImage,
                   specialty: "Cardiologist, MD, 10+ years experience.",
                   description:
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo.",
@@ -99,138 +114,83 @@ const FeedbackSection = () => {
                 <div className="d-flex justify-content-center">
                   <div className="col">
                     <div className="color">
-                      <div className="">
-                        <div className="mb-6">
-                          <h1 className="text-2xl font-bold text-blue-900 text-center">
-                            FEEDBACK & SUGGESTIONS
-                          </h1>
+                      <div className="mb-6">
+                        <h1 className="text-2xl font-bold text-blue-900 text-center">
+                          {selectedLanguage === 'fr' ? contents?.feedback_title.content_fr : contents?.feedback_title.content_en}
+                        </h1>
+                      </div>
+
+                      <form onSubmit={handleSubmit} className="space-y-6">
+                        <div className="space-y-2">
+                          <label className="block text-blue-900">
+                            {selectedLanguage === 'fr' ? contents?.feedback_label_1.content_fr : contents?.feedback_label_1.content_en} <span className="text-red-500">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            name="name"
+                            value={formData.name}
+                            onChange={handleChange}
+                            required
+                            placeholder="Name"
+                            className="form-control"
+                          />
                         </div>
 
-                        <form onSubmit={handleSubmit} className="space-y-6">
-                          <div className="space-y-2">
-                            <label className="block text-blue-900">
-                              Name <span className="text-red-500">*</span>
-                            </label>
-                            <input
-                              type="text"
-                              name="name"
-                              value={formData.name}
-                              style={{
-                                border: '1px solid #17416F',
-                                borderRadius: '0.25rem',  // équivalent à `rounded`
-                                padding: '0.5rem',        // équivalent à `p-2`
-                                width: '100%',            // équivalent à `w-full`
-                                outline: 'none',
-                                transition: 'box-shadow 0.2s ease-in-out',
-                              }}
-                              onFocus={(e) => {
-                                e.target.style.boxShadow = '0 0 0 2px #17416F';
-                              }}
-                              onBlur={(e) => {
-                                e.target.style.boxShadow = 'none';
-                              }}
-                              onChange={handleChange}
-                              required
-                              placeholder="Name"
-                            />
+                        <div className="space-y-2">
+                          <label className="block text-blue-900">
+                            {selectedLanguage === 'fr' ? contents?.feedback_label_2.content_fr : contents?.feedback_label_2.content_en} <span className="text-red-500">*</span>
+                          </label>
+                          <input
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            required
+                            placeholder="Email Address"
+                            className="form-control"
+                          />
+                        </div>
 
+                        <div className="space-y-2">
+                          <label className="block text-blue-900">{selectedLanguage === 'fr' ? contents?.feedback_label_3.content_fr : contents?.feedback_label_3.content_en}</label>
+                          <div className="flex gap-1">
+                            {[1, 2, 3, 4, 5].map((rating) => (
+                              <button
+                                key={rating}
+                                type="button"
+                                onClick={() => setFormData(prev => ({ ...prev, experience: rating }))}
+                                className={`bi bi-star-fill fs-3 ${rating <= formData.experience
+                                  ? 'text-yellow-400'
+                                  : 'text-gray-300'
+                                  }`}
+                              ></button>
+                            ))}
                           </div>
+                        </div>
 
-                          <div className="space-y-2">
-                            <label className="block text-blue-900">
-                              Email Address <span className="text-red-500">*</span>
-                            </label>
-                            <input
-                              type="email"
-                              name="email"
-                              value={formData.email}
-                              style={{
-                                border: '1px solid #17416F',
-                                borderRadius: '0.25rem',  // équivalent à `rounded`
-                                padding: '0.5rem',        // équivalent à `p-2`
-                                width: '100%',            // équivalent à `w-full`
-                                outline: 'none',
-                                transition: 'box-shadow 0.2s ease-in-out',
-                              }}
-                              onFocus={(e) => {
-                                e.target.style.boxShadow = '0 0 0 2px #17416F';
-                              }}
-                              onBlur={(e) => {
-                                e.target.style.boxShadow = 'none';
-                              }}
-                              onChange={handleChange}
-                              required
-                              placeholder="Email Address"
-                            />
+                        <div className="space-y-2">
+                          <label className="block text-blue-900">{selectedLanguage === 'fr' ? contents?.feedback_label_4.content_fr : contents?.feedback_label_4.content_en}</label>
+                          <textarea
+                            name="yoursuggestions"
+                            value={formData.yoursuggestions}
+                            onChange={handleChange}
+                            placeholder="Type here"
+                            className="form-control"
+                          />
+                        </div>
 
-                          </div>
-
-                          <div className="space-y-2">
-                            <label className="block text-blue-900">How was your experience</label>
-                            {/* <Select /> */}
-                            <div className="flex gap-1">
-                              {[1, 2, 3, 4, 5].map((rating) => (
-                                <button
-                                  key={rating}
-                                  type="button"
-                                  onClick={() => setFormData(prev => ({ ...prev, experience: rating }))}
-                                  className="focus:outline-none"
-                                >
-                                  <i className={`bi bi-star-fill fs-3 ${
-                                      rating <= formData.experience
-                                        ? 'fill-yellow-400 text-yellow-400'
-                                        : 'text-gray-300'
-                                    }`}></i>
-                                </button>
-                              ))}
-                            </div>
-                          </div>
-
-                          <div className="space-y-2">
-                            <label className="block text-blue-900">Your Suggestions</label>
-                            <textarea
-                              name="yoursuggestions"
-                              value={formData.yoursuggestions}
-                              style={{
-                                border: '1px solid #17416F',
-                                borderRadius: '0.25rem',  // équivalent à `rounded`
-                                padding: '0.5rem',        // équivalent à `p-2`
-                                width: '100%',            // équivalent à `w-full`
-                                height: '8rem',           // équivalent à `h-32`
-                                resize: 'none',           // équivalent à `resize-none`
-                                outline: 'none',
-                                transition: 'box-shadow 0.2s ease-in-out',
-                              }}
-                              onFocus={(e) => {
-                                e.target.style.boxShadow = '0 0 0 2px #17416F';
-                              }}
-                              onBlur={(e) => {
-                                e.target.style.boxShadow = 'none';
-                              }}
-                              onChange={handleChange}
-                              placeholder="Type here"
-                            />
-
-                          </div>
-
-                          <div className="d-flex justify-content-center">
-                            <button
-                              type="submit"
-                              className="px-5 text-white btn btn-w"
-                              
-                              style={{ background: '#13AB9C' }}
-                            >
-                              Submit
-                            </button>
-                          </div>
-                        </form>
-                      </div>
+                        <div className="d-flex justify-content-center">
+                          <button type="submit" className="btn btn-primary">
+                            {selectedLanguage === 'fr' ? contents?.feedback_button.content_fr : contents?.feedback_button.content_en}
+                          </button>
+                        </div>
+                      </form>
                     </div>
                   </div>
                   <div className="col">
                     <button
                       onClick={() => setSelectedDoctor(null)}
-                      className="btn-close text-white fs-4 fw-bold bg-white"
+                      className="btn-close"
                     ></button>
                   </div>
                 </div>
@@ -240,6 +200,13 @@ const FeedbackSection = () => {
         </div>
       )}
       {selectedDoctor && <div className="modal-backdrop fade show" onClick={() => setSelectedDoctor(null)}></div>}
+
+      {/* Notification de succès */}
+      {showSuccessMessage && (
+        <div className="alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3" role="alert">
+          {selectedLanguage === 'fr' ? contents?.feedback_notif.content_fr : contents?.feedback_notif.content_en}
+        </div>
+      )}
     </section>
   );
 };
