@@ -32,13 +32,13 @@ import LanguageContext from '../context/LanguageContext';
 const Home = () => {
     const [selectedDoctor, setSelectedDoctor] = useState(null);
     const [doctors, setDoctors] = useState([]);
-    const directors = [
-        { id: 1, image: Img, name: "Docteurs Name" },
-        { id: 2, image: Img1, name: "Docteurs Name" },
-    ];
-
     const { selectedLanguage } = useContext(LanguageContext);
     const [contents, setContents] = useState();
+
+    const directors = [
+        { id: 1, image: contents?.doct_img_1.image , name: "Docteurs Name" },
+        { id: 2, image: contents?.doct_img_2.image , name: "Docteurs Name" },
+    ];
 
     // Get contents on component mount
     useEffect(() => {
