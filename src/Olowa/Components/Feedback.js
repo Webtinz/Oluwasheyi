@@ -75,35 +75,39 @@ const FeedbackSection = () => {
   return (
     <section className="container-fluid py-5 Big" style={{ backgroundColor: "#13AB9C" }}>
       <div className="container">
-        <div className="row" style={{ marginLeft: '20%' }}>
-          <div className="col-lg-7 align-item-center">
-            <h2 className="text-white" style={{ fontSize: 'clamp(25px, 8vw, 35px)', fontWeight: '700' }}>
-              {selectedLanguage === 'fr' ? contents?.home_page_feedback_title.content_fr : contents?.home_page_feedback_title.content_en}
-            </h2>
-            <br />
-            <a
-              href="#"
-              className="btn btn-wht text-white"
-              style={{ border: '1px solid white' }}
-              onClick={(e) => {
-                e.preventDefault();
-                setSelectedDoctor({
-                  name: "Dr. John Doe",
-                  image: nurseImage,
-                  specialty: "Cardiologist, MD, 10+ years experience.",
-                  description:
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo.",
-                });
-              }}
-            >
-              {selectedLanguage === 'fr' ? contents?.home_page_feedback_button.content_fr : contents?.home_page_feedback_button.content_en}
-            </a>
-          </div>
-          <div className="col-lg-5 position-relative d-none d-lg-block">
-            <img src={nurseImage} alt="Male Nurse" className="man" />
+        <div className="d-flex justify-content-center">
+          <div className="row" style={{ width: '80%' }}>
+            <div className="col-lg-7 align-self-center">
+              <h2 className="text-white home-title">
+                {selectedLanguage === 'fr' ? contents?.home_page_feedback_title.content_fr : contents?.home_page_feedback_title.content_en}
+              </h2>
+              <br />
+              <a
+                href="#"
+                className="btn btn-wht text-white btn-custom"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSelectedDoctor({
+                    name: "Dr. John Doe",
+                    image: nurseImage,
+                    specialty: "Cardiologist, MD, 10+ years experience.",
+                    description:
+                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo.",
+                  });
+                }}
+              >
+                {selectedLanguage === 'fr' ? contents?.home_page_feedback_button.content_fr : contents?.home_page_feedback_button.content_en}
+              </a>
+            </div>
+            <div className="col-lg-5 d-none d-lg-block">
+              <div className="position-relative nurse-container">
+                <img src={contents?.feedback_img.image}  alt="Male Nurse" className="man" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
 
       {/* Modal */}
       {selectedDoctor && (

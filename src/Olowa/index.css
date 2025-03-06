@@ -50,7 +50,8 @@ body{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-top-right-radius: 50px;
+  border-top-right-radius: 15px;
+  margin-left: 10px ;
 }
 
 .carousel-content.carrousseltwo {
@@ -381,15 +382,43 @@ body{
   background-color: #13AB9C;
   color: white;
 }
+.Big {
+  height: 218px;
+  margin-top: 100px;
+}
+
+.home-title {
+  font-size: clamp(25px, 8vw, 35px);
+  font-weight: 700;
+}
+
+.btn-custom {
+  border: 1px solid white;
+}
+
+.nurse-container {
+  position: relative;
+  width: 500px;
+}
+
 .man {
   position: absolute;
-  top: -5rem;
-  left: -12rem;
-  width: 500px;
+  top: -10.3rem;
+  left: -5rem;
+  width: 100%;
   height: auto;
   transition: all 0.3s ease;
+  max-width: 500px;
 }
-@media (min-width: 1568px) {
+
+/* .man {
+  position: absolute;
+  top: -3.1rem;
+  left: -5rem;
+  height: auto;
+  transition: all 0.3s ease;
+} */
+/* @media (min-width: 1568px) {
   .man {
     position: absolute;
     top: -9.2rem;
@@ -398,7 +427,7 @@ body{
     height: auto;
     transition: all 0.3s ease;
   }
-}
+} */
 .feedback-title {
   text-transform: uppercase;
   font-size: 40px;
@@ -409,10 +438,10 @@ body{
   color: white;
   border: 1px solid white;
 }
-.Big{
-  height: 235px;
+/* .Big{
+  height: 40vh;
   margin-top: 100px;
-}
+} */
 .footer-title {
   font-size: clamp(20px, 8vw, 25px);
   color: #17416F;
