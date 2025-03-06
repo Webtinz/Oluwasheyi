@@ -148,7 +148,7 @@ const Navbar = () => {
           {/* Desktop View */}
           <div className="d-none d-lg-block">
             <div className="d-flex">
-              <div className="me-2 position-relative">
+              {/* <div className="me-2 position-relative">
                 <input
                   type="search"
                   className="form-control ppoo"
@@ -158,7 +158,7 @@ const Navbar = () => {
                 <a href="" className="text-decoration-none text-dark position-absolute ppo-container">
                   <i className="bi bi-search ppo"></i>
                 </a>
-              </div>
+              </div> */}
               <div className="d-flex">
                 <div>
                   <Link to="/donate"
