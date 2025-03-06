@@ -115,7 +115,7 @@ const CommunityEngagement = () => {
                 <>
                   <div className="col-lg-6 mx-auto mb-4 p-4 order-1">
                     <div className="position-relative">
-                      <img src={item.image} alt="" className="image-fluid w-100" style={{ borderRadius: item.borderRadius, maxHeight: '100vh', objectFit: 'cover' }} />
+                      <img src={item.image} alt="" className="image-fluid w-100 main-img1" style={{ borderRadius: item.borderRadius, objectFit: 'cover' }} />
                       <div className={item.positionClass}>
                         <img src={Lg} alt="" style={{ width: "80%" }} />
                       </div>
@@ -157,7 +157,7 @@ const CommunityEngagement = () => {
                   </div>
                   <div className="col-lg-6 mx-auto mb-4 p-4 order-1 order-lg-2">
                     <div className="position-relative">
-                      <img src={item.image} alt="" className="image-fluid w-100" style={{ borderRadius: item.borderRadius, maxHeight: '100vh', objectFit: 'cover' }} />
+                      <img src={item.image} alt="" className="image-fluid w-100 main-img1" style={{ borderRadius: item.borderRadius, objectFit: 'cover' }} />
                       <div className={item.positionClass}>
                         <img src={Lg} alt="" style={{ width: "80%" }} />
                       </div>

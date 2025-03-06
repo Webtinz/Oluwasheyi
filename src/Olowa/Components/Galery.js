@@ -74,7 +74,7 @@ const CustomCarousel = () => {
   return (
     <div className="container">
       {/* Container de l'image principale avec boutons de navigation */}
-      <div className="mt-5">
+      <div className="mt-4">
         {/* Image principale */}
         <img 
           src={mainImage} 
@@ -92,7 +92,7 @@ const CustomCarousel = () => {
               key={index} 
               className="custom-carousel-item" 
               src={src} 
-              style={{width:'200px', height:'100px'}}
+              style={{width:'500px', height:'150px'}}
               alt="logo" 
               onClick={() => changeMainImage(src)} 
             />

@@ -43,7 +43,7 @@ const WelcomeSection = () => {
         {/* Image principale avec l'image circulaire en superposition */}
         <div className="col-lg-5 mb-3 mx-auto">
           <div className="position-relative">
-            <img src={contents?.welcoms_img.image}  alt="" className="image-fluid w-100 main-img" style={{ height: '80vh', objectFit: 'cover' }} />
+            <img src={contents?.welcoms_img.image}  alt="" className="image-fluid w-100 main-img" style={{objectFit: 'cover', }} />
             <div className="position-absolute overlay-img">
               <img src={img2} alt="" className="image-fluid small-img" />
             </div>

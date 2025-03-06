@@ -224,7 +224,7 @@
 
   .search-link {
     font-weight: bold;
-    font-size: 18px; /* Ajuste la taille pour éviter qu'ils ne se superposent */
+    font-size: 24px; /* Ajuste la taille pour éviter qu'ils ne se superposent */
     color: #555;
     text-decoration: none;
     display: block;
@@ -251,7 +251,7 @@
   .contpos{
     position: absolute;
     bottom: -10%;
-    right: -19%;
+    right: -10%;
   }
   .contpos1{
     position: absolute;

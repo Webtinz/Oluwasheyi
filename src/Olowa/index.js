@@ -172,7 +172,7 @@ const Home = () => {
             </div>
             <br /><br />
             <div>
-                <Event events={events} />
+                <Event />
             </div>
             <br /><br />
             <div>

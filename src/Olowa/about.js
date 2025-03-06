@@ -152,7 +152,7 @@ const Home = () => {
                 <div className="row">
                     <div className="col-md-5 col-12 mx-auto mb-3 p-4">
                         <div className='position-relative'>
-                            <img src={contents?.about_section_img.image} alt="" className="img-fluid w-100" style={{ borderTopRightRadius: '30px', objectFit: 'cover', height: '100vh' }} />
+                            <img src={contents?.about_section_img.image} alt="" className="img-fluid w-100 main-img1" style={{ borderTopRightRadius: '30px', objectFit: 'cover' }} />
                             <div className='contpos'>
                                 <img src={Mask1} alt="Wellness Programs" className="img-fluid" style={{ width: '80%' }} />
                             </div>
@@ -221,7 +221,7 @@ const Home = () => {
             <>
                 {/* Our Values Section */}
                 <section className="container mt-5">
-                    <h2 style={{ color: '#17416F', fontSize: 'clamp(25px, 8vw, 36px)', fontWeight: '700' }}>  {selectedLanguage === 'fr' ? contents?.about_page_value_title.content_fr : contents?.about_page_value_title.content_en} </h2>
+                    <h2 style={{ color: '#17416F', fontSize: 'clamp(25px, 8vw, 36px)', fontWeight: '700',textTransform:'uppercase' }}>  {selectedLanguage === 'fr' ? contents?.about_page_value_title.content_fr : contents?.about_page_value_title.content_en} </h2>
                     <br />
                     <div className="row mt-4">
                         {values.map((value, index) => (

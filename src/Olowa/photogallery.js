@@ -59,7 +59,7 @@ const Home = () => {
                 {activeTab === "cont1" && (
                     <div className="search-content1">
                         <div>
-                            <h2 class="ms-3" 
+                            <h2 class="ms-3 mt-5" 
                                 style={{textTransform:'uppercase', color:'#17416F', fontWeight:'700', fontSize:'36px'}}>
                                 equipment Gallery
                             </h2>

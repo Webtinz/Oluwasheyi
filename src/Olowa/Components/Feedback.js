@@ -78,7 +78,7 @@ const FeedbackSection = () => {
         <div className="d-flex justify-content-center">
           <div className="row" style={{ width: '80%' }}>
             <div className="col-lg-7 align-self-center">
-              <h2 className="text-white home-title">
+              <h2 className="text-white home-title" style={{textTransform:'uppercase'}}>
                 {selectedLanguage === 'fr' ? contents?.home_page_feedback_title.content_fr : contents?.home_page_feedback_title.content_en}
               </h2>
               <br />
