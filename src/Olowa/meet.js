@@ -187,7 +187,7 @@ const Home = () => {
                 <div className="row">
                     <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
                         <div className='position-relative'>
-                            <img src={contents?.community_section_img.image}  alt="Staff Members" className="img-fluid w-100" style={{ objectFit: 'cover', borderTopRightRadius: '30px' }} />
+                            <img src={contents?.community_section_img.image} alt="Staff Members" className="img-fluid w-100" style={{ objectFit: 'cover', borderTopRightRadius: '30px' }} />
                             <div className='contpos'>
                                 <img src={Mask2} alt="Staff Members" className="img-fluid" />
                             </div>

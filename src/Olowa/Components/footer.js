@@ -4,6 +4,7 @@ import chatbotIcon from "../../assets/chatbot.png";
 import whatsappIcon from "../../assets/whatsapp.png";
 import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
+import { format } from "date-fns";
 
 const Footer = () => {
   const { selectedLanguage } = useContext(LanguageContext);
@@ -123,7 +124,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="text-center">
-          <p className="copyright-text">©2025 Clinique Polyvalente OLUWA SHEYI</p>
+          <p className="copyright-text">©{format(new Date(), "yyyy")} Clinique Polyvalente OLUWA SHEYI</p>
         </div>
       </div>
     </footer>

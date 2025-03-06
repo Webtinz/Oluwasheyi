@@ -110,7 +110,7 @@ const Home = () => {
                                 <div className="row">
                                     <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
                                         <div className='position-relative'>
-                                            <img src={contents?.community_section_img.image} alt="Wellness Programs" className="img-fluid w-100" style={{ borderTopRightRadius: '30px' }} />
+                                            <img src={contents?.communoty_page_menu_1_img.image} alt="Wellness Programs" className="img-fluid w-100" style={{ borderTopRightRadius: '30px' }} />
                                             <div className='contpos'>
                                                 <img src={Mask1} alt="Wellness Programs" className="img-fluid" style={{ width: '70%' }} />
                                             </div>
@@ -140,7 +140,7 @@ const Home = () => {
                                 <div className="row">
                                     <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
                                         <div className='position-relative'>
-                                            <img src={contents?.community_section_img.image} alt="Wellness Programs" className="img-fluid w-100" style={{ borderTopRightRadius: '30px' }} />
+                                            <img src={contents?.communoty_page_menu_2_img.image} alt="Wellness Programs" className="img-fluid w-100" style={{ borderTopRightRadius: '30px' }} />
                                             <div className='contpos'>
                                                 <img src={Mask1} alt="Wellness Programs" className="img-fluid" style={{ width: '70%' }} />
                                             </div>
@@ -172,7 +172,7 @@ const Home = () => {
                                 <div className="row">
                                     <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
                                         <div className='position-relative'>
-                                            <img src={Mask} alt="Wellness Programs" className="img-fluid w-100" style={{ borderTopRightRadius: '30px' }} />
+                                            <img src={contents?.communoty_page_menu_3_img.image} alt="Wellness Programs" className="img-fluid w-100" style={{ borderTopRightRadius: '30px' }} />
                                             <div className='contpos'>
                                                 <img src={Mask1} alt="Wellness Programs" className="img-fluid" style={{ width: '70%' }} />
                                             </div>
@@ -204,7 +204,7 @@ const Home = () => {
                                 <div className="row">
                                     <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
                                         <div className='position-relative'>
-                                            <img src={Mask} alt="Wellness Programs" className="img-fluid w-100" style={{ borderTopRightRadius: '30px' }} />
+                                            <img src={contents?.communoty_page_menu_4_img.image} alt="Wellness Programs" className="img-fluid w-100" style={{ borderTopRightRadius: '30px' }} />
                                             <div className='contpos'>
                                                 <img src={Mask1} alt="Wellness Programs" className="img-fluid" style={{ width: '70%' }} />
                                             </div>
@@ -236,7 +236,7 @@ const Home = () => {
                                 <div className="row">
                                     <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
                                         <div className='position-relative'>
-                                            <img src={Mask} alt="Wellness Programs" className="img-fluid w-100" style={{ borderTopRightRadius: '30px' }} />
+                                            <img src={contents?.communoty_page_menu_5_img.image} alt="Wellness Programs" className="img-fluid w-100" style={{ borderTopRightRadius: '30px' }} />
                                             <div className='contpos'>
                                                 <img src={Mask1} alt="Wellness Programs" className="img-fluid" style={{ width: '70%' }} />
                                             </div>
