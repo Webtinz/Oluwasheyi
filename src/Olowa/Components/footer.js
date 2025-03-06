@@ -124,7 +124,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="text-center">
-          <p className="copyright-text">©{format(new Date(), "yyyy")} Clinique Polyvalente OLUWA SHEYI</p>
+          <p className="copyright-text">©{format(new Date(), "yyyy")} {selectedLanguage === 'fr' ? contents?.footer_foot.content_fr : contents?.footer_foot.content_en}</p>
         </div>
       </div>
     </footer>
