@@ -18,7 +18,7 @@ const s3Storage = (folder) => multerS3({
 const uploadService = multer({ storage: s3Storage("services") });
 const uploadEvent = multer({ storage: s3Storage("events") });
 const uploadContent = multer({ storage: s3Storage("content") });
-const uploadTemoigne = multer({ storage: s3Storage("temoigne") });
+const uploadTemoigne = multer({ storage: s3Storage("testimonials") });
 const uploadMedicalProgram = multer({ storage: s3Storage("medical-programs") });
 const uploadCertification = multer({ storage: s3Storage("certifications") });
 const uploadMember = multer({ storage: s3Storage("members") });

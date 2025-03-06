@@ -30,10 +30,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       allowNull: true,
       get() {
-        return JSON.parse(this.getDataValue("photos")); 
+        return JSON.parse(this.getDataValue("photos"));
       },
       set(value) {
-        this.setDataValue("photos", JSON.stringify(value)); 
+        this.setDataValue("photos", JSON.stringify(value));
       },
     },
   });
