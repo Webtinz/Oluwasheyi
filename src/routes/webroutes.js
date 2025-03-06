@@ -78,12 +78,13 @@ router.get('/getevent/:id', EventController.getEventById);
 // medical programms
 router.post('/addprogram', uploadMedicalProgram.single('photo'), MedicalProgramController.addProgram);
 router.get('/getallprograms', MedicalProgramController.getAllPrograms);
-router.get('/getalldonations', getDonations);
-router.get('/getdonation/:id', getDonation);
-router.get('/adddonnation', addDonation);
 router.get('/getprogram/:id', MedicalProgramController.getProgram);
 router.put('/updateprogram/:id', uploadMedicalProgram.single('photo'), MedicalProgramController.updateProgram);
 router.delete('/deleteprogram/:id', MedicalProgramController.deleteProgram);
+
+router.get('/getalldonations', getDonations);
+router.get('/getdonation/:id', getDonation);
+router.post('/adddonnation', addDonation);
 
 // certifications
 router.post('/addcertification', uploadCertification.single('photo'), CertificationController.addCertification);
