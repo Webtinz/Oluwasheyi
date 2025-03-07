@@ -21,6 +21,16 @@
     z-index: 1000;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
   }
+  @media (max-width: 1467px) {
+    .menu {
+      width: 400px;
+      display: none;
+      flex-direction: column;
+      /* align-items: center; */
+      justify-content: center;
+      height: 370px;
+    }
+  }
   @media (max-width: 767px) {
     .menu {
       width: 90%;
