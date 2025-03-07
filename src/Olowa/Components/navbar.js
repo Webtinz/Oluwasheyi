@@ -74,7 +74,7 @@ const StyledLanguageSelect = ({ selectedLanguage, handleLanguageChange }) => {
   const selectStyle = {
     paddingLeft: '32px',
     paddingRight: '24px',
-    border:'none',
+    border: 'none',
     cursor: 'pointer',
     WebkitAppearance: 'none',
     MozAppearance: 'none',
@@ -215,9 +215,23 @@ const Navbar = () => {
               <li>
                 <Link to="/sugery" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>{selectedLanguage === 'fr' ? contents?.home_page_menu_Sugery.content_fr : contents?.home_page_menu_Sugery.content_en}</Link>
               </li>
+              <li className='d-lg-none'>
+                <Link to="/donate"
+                  className="btn btn-white px-5"
+                  style={{ backgroundColor: '#13AB9C', color: 'white', fontWeight: 700, fontSize: '22px' }}
+                >
+                  {selectedLanguage === 'fr' ? contents?.home_page_header_donate.content_fr : contents?.home_page_header_donate.content_en}
+                </Link>
+              </li>
+              <li className='d-lg-none'>
+                <StyledLanguageSelect
+                  selectedLanguage={selectedLanguage}
+                  handleLanguageChange={handleLanguageChange}
+                />
+              </li>
             </ul>
 
-            <div className="d-lg-none">
+            {/* <div className="d-lg-none">
               <div className="d-flex flex-column">
                 <div className="d-flex mt-4">
                   <div>
@@ -228,7 +242,6 @@ const Navbar = () => {
                       {selectedLanguage === 'fr' ? contents?.home_page_header_donate.content_fr : contents?.home_page_header_donate.content_en}
                     </Link>
                   </div>
-                  {/* Sélecteur de langue stylisé pour la version mobile */}
                   <div className="ms-2">
                     <StyledLanguageSelect
                       selectedLanguage={selectedLanguage}
@@ -237,7 +250,7 @@ const Navbar = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
 
 
