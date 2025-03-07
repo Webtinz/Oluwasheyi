@@ -94,8 +94,8 @@ exports.deletecontents = async (req, res) => {
 exports.getallcontents = async (req, res) => {
   try {
     const contents = await Content.findAll();
-    console.log('Requête reçue pour récupérer les contenus');
-    console.log('Contenus:', contents);
+    // console.log('Requête reçue pour récupérer les contenus');
+    // console.log('Contenus:', contents);
     res.status(200).json(contents);
   } catch (error) {
     console.error(error);

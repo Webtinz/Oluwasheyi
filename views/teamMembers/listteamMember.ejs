@@ -20,7 +20,9 @@
                         <th>Name</th>
                         <th>Image</th>
                         <th>Titre</th>
-                        <th>Descritions</th>
+                        <th>Titre Anglais</th>
+                        <th>Descrition</th>
+                        <th>Descrition Anglais</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -57,8 +59,16 @@
                         <input type="text" id="teamMemberTitle" class="form-control" required>
                     </div>
                     <div class="form-group">
+                        <label>Title Anglais</label>
+                        <input type="text" id="teamMemberTitleEn" class="form-control" required>
+                    </div>
+                    <div class="form-group">
                         <label>Description</label>
                         <textarea id="teamMemberDescription" class="form-control" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Description Anglais</label>
+                        <textarea id="teamMemberDescriptionEn" class="form-control" required></textarea>
                     </div>
                     <div class="form-group">
                         <label>Image</label>
@@ -91,7 +101,9 @@
                         <td>${teamMember.nom} ${teamMember.prenom}</td>
                         <td><img src="${teamMember.photo}" width="50" height="50" alt="Image"></td>
                         <td>${teamMember.titre}</td>
+                        <td>${teamMember.titre_en}</td>
                         <td>${teamMember.description}</td>
+                        <td>${teamMember.description_en}</td>
                         <td>
                             <button class="btn btn-primary btn-sm view-btn" data-id="${teamMember.id}">Edit</button>
                             <button class="btn btn-danger btn-sm delete-btn" data-id="${teamMember.id}">Delete</button>
@@ -119,7 +131,9 @@
                         document.getElementById('teamMemberId').value = teamMember.id;
                         document.getElementById('teamMemberName').value = teamMember.nom + ' ' + teamMember.prenom;
                         document.getElementById('teamMemberTitle').value = teamMember.titre;
+                        document.getElementById('teamMemberTitleEn').value = teamMember.titre_en;
                         document.getElementById('teamMemberDescription').value = teamMember.description;
+                        document.getElementById('teamMemberDescriptionEn').value = teamMember.description_en;
 
                         // Display the current image in the modal
                         const imageUrl = `${teamMember.photo}`;
@@ -142,7 +156,9 @@
                 nom: document.getElementById('teamMemberName').value.split(' ')[0],
                 prenom: document.getElementById('teamMemberName').value.split(' ')[1],
                 titre: document.getElementById('teamMemberTitle').value,
+                titre_en: document.getElementById('teamMemberTitleEn').value,
                 description: document.getElementById('teamMemberDescription').value,
+                description_en: document.getElementById('teamMemberDescriptionEn').value,
                 photo: document.getElementById('newPhoto').files[0]
             };
 

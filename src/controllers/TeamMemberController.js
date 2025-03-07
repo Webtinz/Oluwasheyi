@@ -7,7 +7,7 @@ const { generateSignedUrl } = require("../../config/AWSConfig")
 exports.addTeamMember = async (req, res) => {
   try {
     // Récupérer les données du formulaire et le fichier téléchargé
-    const { nom, prenom, titre, description } = req.body;
+    const { nom, prenom, titre, titre_en, description, description_en } = req.body;
     const photo = req.file ? req.file.key : null;
 
     let signedUrl = null;
@@ -20,7 +20,9 @@ exports.addTeamMember = async (req, res) => {
       nom,
       prenom,
       titre,
+      titre_en,
       description,
+      description_en,
       photo: signedUrl,
     });
 
@@ -38,7 +40,7 @@ exports.addTeamMember = async (req, res) => {
 // API pour modifier un membre
 exports.updateTeamMember = async (req, res) => {
   const { id } = req.params;
-  const { nom, prenom, titre, description } = req.body;
+  const { nom, prenom, titre, titre_en, description, description_en } = req.body;
   const photo = req.file ? req.file.key : null;
 
   try {
@@ -51,7 +53,9 @@ exports.updateTeamMember = async (req, res) => {
     teamMember.nom = nom || teamMember.nom;
     teamMember.prenom = prenom || teamMember.prenom;
     teamMember.titre = titre || teamMember.titre;
+    teamMember.titre_en = titre_en || teamMember.titre_en;
     teamMember.description = description || teamMember.description;
+    teamMember.description_en = description_en || teamMember.description_en;
     if (photo) {
       let signedUrl = await generateSignedUrl(photo);
       teamMember.photo = signedUrl || teamMember.photo;
@@ -94,8 +98,8 @@ exports.deleteTeamMember = async (req, res) => {
 exports.getAllTeamMembers = async (req, res) => {
   try {
     const teamMembers = await TeamMember.findAll();
-    console.log('Requête reçue pour récupérer les membres');
-    console.log('membres:', teamMembers);
+    // console.log('Requête reçue pour récupérer les membres');
+    // console.log('membres:', teamMembers);
     res.status(200).json(teamMembers);
   } catch (error) {
     console.error(error);
