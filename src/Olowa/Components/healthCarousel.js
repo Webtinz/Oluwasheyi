@@ -8,7 +8,7 @@ import pregnancy from '../../assets/pregnancy.png';
 import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 
-const HealthAdviceCarousel = ({healthAdvices}) => {
+const HealthAdviceCarousel = ({ healthAdvices }) => {
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [itemsToShow, setItemsToShow] = React.useState(1);
 
@@ -73,27 +73,27 @@ const HealthAdviceCarousel = ({healthAdvices}) => {
   // Calculate visible advices
   const visibleAdvices = healthAdvices?.slice(currentIndex, currentIndex + itemsToShow);
 
-  const {selectedLanguage} = useContext(LanguageContext);
+  const { selectedLanguage } = useContext(LanguageContext);
   const [contents, setContents] = useState();
 
   // Get contents on component mount
   useEffect(() => {
-      const fetchContents = async () => {
-          try {
-              const savedContents = localStorage.getItem("contents");
-              if (savedContents) {
-                  setContents(JSON.parse(savedContents));
-              } else {
-                  // Fetch contents if not in localStorage
-                  const response = await getAllContents();
-                  setContents(response.data);
-                  localStorage.setItem("contents", JSON.stringify(response.data));
-              }
-          } catch (error) {
-              console.error('Failed to fetch contents:', error.message || error);
-          }
-      };
-      fetchContents();
+    const fetchContents = async () => {
+      try {
+        const savedContents = localStorage.getItem("contents");
+        if (savedContents) {
+          setContents(JSON.parse(savedContents));
+        } else {
+          // Fetch contents if not in localStorage
+          const response = await getAllContents();
+          setContents(response.data);
+          localStorage.setItem("contents", JSON.stringify(response.data));
+        }
+      } catch (error) {
+        console.error('Failed to fetch contents:', error.message || error);
+      }
+    };
+    fetchContents();
   }, []);
 
 
@@ -101,7 +101,9 @@ const HealthAdviceCarousel = ({healthAdvices}) => {
     <div className="py-4" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
       <div className='hhe'>
         <div className='container'>
-          <h2 className='text-center mb-5' style={{ textTransform: 'uppercase', fontSize: '36px', fontWeight: '700', color: '#17416F' }}>{selectedLanguage === 'fr' ? contents?.	home_page_banner_link5.content_fr : contents?.home_page_banner_link5.content_en}</h2>
+          <h2 className='text-center mb-5' style={{ textTransform: 'uppercase', fontSize: '36px', fontWeight: '700', color: '#17416F' }}>
+            {selectedLanguage === 'fr' ? contents?.home_page_banner_link5.content_fr : contents?.home_page_banner_link5.content_en}
+          </h2>
           <div className="relative px-8">
             {/* Navigation Buttons */}
             <button

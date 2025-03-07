@@ -9,10 +9,120 @@ import { Link } from "react-router-dom";
 import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 
+// Composant pour le sélecteur de langue stylisé
+const StyledLanguageSelect = ({ selectedLanguage, handleLanguageChange }) => {
+  // Drapeaux SVG pour chaque langue
+  const flagComponents = {
+    en: (
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        style={{
+          position: "absolute",
+          left: "0.3rem", // équivalent à left-2
+          top: "50%", // équivalent à top-1/2
+          transform: "translateY(-50%)", // équivalent à -translate-y-1/2
+          borderRadius: '50%'
+        }}
+      >
+        <circle cx="12" cy="12" r="12" fill="#FFFFFF" />
+        <clipPath id="flagClip">
+          <circle cx="12" cy="12" r="11" />
+        </clipPath>
+        <g clipPath="url(#flagClip)">
+          {/* Union Jack */}
+          <rect x="0" y="0" width="24" height="24" fill="#012169" />
+          <path d="M0,0 L24,24 M24,0 L0,24" stroke="#FFFFFF" strokeWidth="4" />
+          <path d="M12,0 L12,24 M0,12 L24,12" stroke="#FFFFFF" strokeWidth="6" />
+          <path d="M12,0 L12,24 M0,12 L24,12" stroke="#C8102E" strokeWidth="4" />
+          <path d="M0,0 L24,24 M24,0 L0,24" stroke="#C8102E" strokeWidth="2" />
+        </g>
+      </svg>
+    ),
+    fr: (
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        style={{
+          position: "absolute",
+          left: "0.3rem", // équivalent à left-2
+          top: "50%", // équivalent à top-1/2
+          transform: "translateY(-50%)", // équivalent à -translate-y-1/2
+          borderRadius: '50%'
+        }}
+      >
+        <circle cx="12" cy="12" r="12" fill="#FFFFFF" />
+        <clipPath id="flagClipFr">
+          <circle cx="12" cy="12" r="11" />
+        </clipPath>
+        <g clipPath="url(#flagClipFr)">
+          <rect x="0" y="0" width="8" height="24" fill="#0055A4" />
+          <rect x="8" y="0" width="8" height="24" fill="#FFFFFF" />
+          <rect x="16" y="0" width="8" height="24" fill="#EF4135" />
+        </g>
+      </svg>
+    )
+  };
+
+  const containerStyle = {
+    position: 'relative',
+    display: 'inline-block'
+  };
+
+  const selectStyle = {
+    paddingLeft: '32px',
+    paddingRight: '24px',
+    border: 'none',
+    cursor: 'pointer',
+    WebkitAppearance: 'none',
+    MozAppearance: 'none',
+    appearance: 'none'
+  };
+
+  const arrowStyle = {
+    position: 'absolute',
+    right: '8px',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    pointerEvents: 'none'
+  };
+
+  return (
+    <div style={containerStyle}>
+      {/* Affiche le drapeau de la langue sélectionnée */}
+      <div style={{ position: 'absolute', left: '5px', top: '50%', transform: 'translateY(-50%)', zIndex: 1, pointerEvents: 'none' }}>
+        {flagComponents[selectedLanguage]}
+      </div>
+
+      {/* Flèche personnalisée */}
+      <div style={arrowStyle}>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </div>
+
+      {/* Le select original avec style modifié */}
+      <select
+        className="form-control"
+        id="languageSelect"
+        onChange={(e) => handleLanguageChange(e.target.value)}
+        value={selectedLanguage}
+        style={selectStyle}
+        aria-label="Small select example"
+      >
+        <option value="en">En</option>
+        <option value="fr">Fr</option>
+      </select>
+    </div>
+  );
+};
+
 const Navbar = () => {
   const [isMenuActive, setIsMenuActive] = useState(false);
   const languageSelectRef = useRef(null);
-  const {selectedLanguage, setSelectedLanguage} = useContext(LanguageContext);
+  const { selectedLanguage, setSelectedLanguage } = useContext(LanguageContext);
   const [contents, setContents] = useState();
 
   // Handle language change and store the selected language in localStorage
@@ -70,7 +180,7 @@ const Navbar = () => {
           {/* Logo Section */}
           <div className='d-flex'>
             <div className='align-self-center'>
-              <span onClick={toggleMenu} className='d-flex' style={{cursor:'pointer'}}>
+              <span onClick={toggleMenu} className='d-flex' style={{ cursor: 'pointer' }}>
                 <img src={Img1} alt="" className="menu-icon ms-2" /> <span className='mt-3'>Menu</span>
               </span>
             </div>
@@ -105,21 +215,24 @@ const Navbar = () => {
               <li>
                 <Link to="/sugery" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>{selectedLanguage === 'fr' ? contents?.home_page_menu_Sugery.content_fr : contents?.home_page_menu_Sugery.content_en}</Link>
               </li>
+              <li className='d-lg-none'>
+                <Link to="/donate"
+                  className="btn btn-white px-5"
+                  style={{ backgroundColor: '#13AB9C', color: 'white', fontWeight: 700, fontSize: '22px' }}
+                >
+                  {selectedLanguage === 'fr' ? contents?.home_page_header_donate.content_fr : contents?.home_page_header_donate.content_en}
+                </Link>
+              </li>
+              <li className='d-lg-none'>
+                <StyledLanguageSelect
+                  selectedLanguage={selectedLanguage}
+                  handleLanguageChange={handleLanguageChange}
+                />
+              </li>
             </ul>
 
-            <div className="d-lg-none">
+            {/* <div className="d-lg-none">
               <div className="d-flex flex-column">
-                {/* <div className="me-2 position-relative">
-                  <input
-                    type="search"
-                    className="form-control ppoo"
-                    placeholder="Search"
-                    style={{ border: 'none', borderBottom: '1px solid #0000001A', borderRadius: 0 }}
-                  />
-                  <a href="" className="text-decoration-none text-dark position-absolute ppo-container">
-                    <i className="bi bi-search ppo"></i>
-                  </a>
-                </div> */}
                 <div className="d-flex mt-4">
                   <div>
                     <Link to="/donate"
@@ -129,36 +242,21 @@ const Navbar = () => {
                       {selectedLanguage === 'fr' ? contents?.home_page_header_donate.content_fr : contents?.home_page_header_donate.content_en}
                     </Link>
                   </div>
-                  {/* <div className="ms-2">
-                    <select className="form-select" id="languageSelect" ref={languageSelectRef} aria-label="Small select example">
-                      <option value="en" selected>
-                         EN
-                      </option>
-                      <option value="fr">
-                         Fr
-                      </option>
-                    </select>
-                  </div> */}
+                  <div className="ms-2">
+                    <StyledLanguageSelect
+                      selectedLanguage={selectedLanguage}
+                      handleLanguageChange={handleLanguageChange}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
 
 
           {/* Desktop View */}
           <div className="d-none d-lg-block">
             <div className="d-flex">
-              {/* <div className="me-2 position-relative">
-                <input
-                  type="search"
-                  className="form-control ppoo"
-                  placeholder={selectedLanguage === 'fr' ? contents?.home_page_menu_search.content_fr : contents?.home_page_menu_search.content_en}
-                  style={{ border: 'none', borderBottom: '1px solid #0000001A', borderRadius: 0 }}
-                />
-                <a href="" className="text-decoration-none text-dark position-absolute ppo-container">
-                  <i className="bi bi-search ppo"></i>
-                </a>
-              </div> */}
               <div className="d-flex">
                 <div>
                   <Link to="/donate"
@@ -168,20 +266,12 @@ const Navbar = () => {
                     {selectedLanguage === 'fr' ? contents?.home_page_header_donate.content_fr : contents?.home_page_header_donate.content_en}
                   </Link>
                 </div>
+                {/* Sélecteur de langue stylisé pour la version desktop */}
                 <div className="ms-2">
-                  <select className="form-select"
-                    id="languageSelect"
-                    onChange={(e) => handleLanguageChange(e.target.value)}
-                    // ref={languageSelectRef}
-                    value={selectedLanguage}
-                    aria-label="Small select example">
-                    <option value="en" selected>
-                      En
-                    </option>
-                    <option value="fr">
-                      Fr
-                    </option>
-                  </select>
+                  <StyledLanguageSelect
+                    selectedLanguage={selectedLanguage}
+                    handleLanguageChange={handleLanguageChange}
+                  />
                 </div>
               </div>
             </div>

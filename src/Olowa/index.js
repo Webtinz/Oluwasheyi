@@ -60,7 +60,7 @@ const Home = () => {
     }, []);
 
     return (
-        <div className="container-fluid">
+        <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
             <div><Navbar /></div>
             <div><Banner /></div>
             <br /><br />
@@ -113,7 +113,7 @@ const Home = () => {
                 </div>
 
             </div>
-            <br /><br />
+            <br /><br /><br /><br />
             <div>
                 <Testimonial testimonials={testimonials} />
             </div>
@@ -121,7 +121,7 @@ const Home = () => {
             <div>
                 <Logo logos={certificates} />
             </div>
-            <br /><br />
+            <br /><br /><br /><br />
             <section className="container-fluid mt-4 position-relative" style={{ backgroundColor: "#17416F" }}>
                 <div className="container pt-4">
                     <div className="row">
@@ -162,7 +162,7 @@ const Home = () => {
             <div>
                 <Smeet doctors={teamMembers} />
             </div>
-            <br /><br />
+            <br /><br /><br /><br />
             <div>
                 <h2 class="text-center"
                     style={{ textTransform: 'uppercase', color: '#17416F', fontWeight: '700', fontSize: '36px' }}>
@@ -170,14 +170,15 @@ const Home = () => {
                 </h2>
                 <Galery />
             </div>
-            <br /><br />
+            <br /><br /><br /><br />
             <div>
                 <Event />
             </div>
-            <br /><br />
+            <br /><br /><br />
             <div>
                 <WelcomeSection />
             </div>
+            <br /><br /><br />
             <div>
                 <Feedback />
             </div>

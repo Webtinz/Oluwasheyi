@@ -8,14 +8,14 @@
   .menu {
     display: none;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
     background-color: #17416F;
     position: absolute;
     top: 100%;
-    left: -12px;
-    width: 50%;
-    height: 70vh;
+    /* left: -12px; */
+    width: 400px;
+    height: 500px;
     border-top-right-radius: 30px;
     padding: 20px;
     z-index: 1000;
@@ -23,11 +23,12 @@
   }
   @media (max-width: 767px) {
     .menu {
-      width: 100%;
+      width: 90%;
       display: none;
       flex-direction: column;
-      align-items: center;
+      /* align-items: center; */
       justify-content: center;
+      height: 35vh;
     }
   }
   
