@@ -36,8 +36,8 @@ const Home = () => {
     const [contents, setContents] = useState();
 
     const directors = [
-        { id: 1, image: contents?.doct_img_1.image , name: "Docteurs Name" },
-        { id: 2, image: contents?.doct_img_2.image , name: "Docteurs Name" },
+        { id: 1, image: contents?.doct_img_1.image, name: "Docteurs Name" },
+        { id: 2, image: contents?.doct_img_2.image, name: "Docteurs Name" },
     ];
 
     // Get contents on component mount
@@ -127,7 +127,7 @@ const Home = () => {
                     {doctors.map((doctor) => (
                         <div key={doctor.id} className="col-12 col-md-6 col-lg-3 mx-auto mb-4">
                             <a href="#" onClick={(e) => { e.preventDefault(); setSelectedDoctor(doctor); }}>
-                                <img src={doctor.photo} alt={doctor.nom} className="img-fluid w-100" style={{ borderTopRightRadius: "30px",  }} />
+                                <img src={doctor.photo} alt={doctor.nom} className="img-fluid w-100" style={{ borderTopRightRadius: "30px", }} />
                             </a>
                             <h3 className="text-center mt-3" style={{ color: "#17416F", fontWeight: 700, textTransform: "uppercase", fontSize: 'clamp(18px, 8vw, 25px)' }}>
                                 {doctor.nom} {doctor.prenom}
@@ -150,18 +150,23 @@ const Home = () => {
                                             <div className="row">
                                                 <div className="col-12 col-lg-5 mx-auto mb-4">
                                                     <div className="position-relative">
-                                                        <img src={selectedDoctor.image} alt={selectedDoctor.name} className="img-fluid w-100" style={{ borderTopRightRadius: "30px" }} />
+                                                        <img src={selectedDoctor.photo} alt={selectedDoctor.nom} className="img-fluid w-100" style={{ borderTopRightRadius: "30px" }} />
                                                         <div className="poop">
                                                             <a href="#"><img src={LinkedIn} alt="LinkedIn" /></a>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="col-12 col-lg-7 mx-auto mb-4">
-                                                    <h2 style={{ fontSize: "25px", color: "#17416F", fontWeight: 800 }}>{selectedDoctor.name}</h2>
-                                                    <p style={{ color: "#13AB9C", fontWeight: '600' }}>{selectedLanguage === 'fr' ? contents?.modal_title.content_fr : contents?.modal_title.content_en}</p>
+                                                    <h2 style={{ fontSize: "25px", color: "#17416F", fontWeight: 800 }}>{selectedDoctor.nom} {selectedDoctor.prenom}</h2>
+                                                    <p style={{ color: "#13AB9C", fontWeight: '600' }}>{selectedLanguage === 'fr' ? selectedDoctor.titre : selectedDoctor.titre_en}</p>
                                                     <span className="my-4 d-block" style={{ borderBottom: "1px solid #17416F33" }}></span>
                                                     <p style={{ color: "#17416F" }}>
-                                                        {selectedLanguage === 'fr' ? contents?.modal_descp.content_fr : contents?.modal_descp.content_en}
+                                                        {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                                                            __html: selectedDoctor.description
+                                                        }} />) : (<div dangerouslySetInnerHTML={{
+                                                            __html: selectedDoctor.description_en
+                                                        }} />)}
+                                                        {/* {selectedLanguage === 'fr' ? contents?.modal_descp.content_fr : contents?.modal_descp.content_en} */}
                                                     </p>
                                                     <div className="mt-3">
                                                         <button className="btn btn-cont px-4 py-2" style={{ color: "white", backgroundColor: "#13AB9C" }}>
@@ -187,7 +192,7 @@ const Home = () => {
                 <div className="row">
                     <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
                         <div className='position-relative'>
-                            <img src={contents?.community_section_img.image}  alt="Staff Members" className="img-fluid w-100 main-img1" style={{ objectFit: 'cover', borderTopRightRadius: '30px' }} />
+                            <img src={contents?.community_section_img.image} alt="Staff Members" className="img-fluid w-100 main-img1" style={{ objectFit: 'cover', borderTopRightRadius: '30px' }} />
                             <div className='contpos'>
                                 <img src={Mask2} alt="Staff Members" className="img-fluid" />
                             </div>

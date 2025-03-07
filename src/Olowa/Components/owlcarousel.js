@@ -8,7 +8,7 @@ import '../index.css';
 import { getAllContents, getServices } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 const ServicesCarousel = ({ services }) => {
-  
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(3);
   const [activeButton, setActiveButton] = useState(null);
@@ -19,7 +19,7 @@ const ServicesCarousel = ({ services }) => {
 
   // Get contents on component mount
   useEffect(() => {
-    
+
     const fetchContents = async () => {
       try {
         const savedContents = localStorage.getItem("contents");
@@ -199,38 +199,39 @@ const ServicesCarousel = ({ services }) => {
           {visibleServices?.map((service, index) => {
             const photos = service.photos ? JSON.parse(service.photos) : [];
             return (
-            <div
-              key={`${service.id}-${currentIndex}-${index}`}
-              className="w-full px-3"
-            >
               <div
-                className="h-full p-3 back"
-                style={{ backgroundColor: "#13AB9C", borderTopRightRadius: '30px' }}
+                key={`${service.id}-${currentIndex}-${index}`}
+                className="w-full px-3"
               >
-                <div className="relative aspect-video">
-                  <img
-                    src={photos[0]}
-                    alt={service.nom}
-                    className="w-full h-full object-cover"
-                    style={{ borderTopRightRadius: '30px' }}
-                  />
-                </div>
-                <div className="p-4 flex justify-between items-center">
-                  <h3 className="text-white text-xl font-medium" style={{ fontSize: '24px' }}>
-                    {selectedLanguage === 'fr' ? service.nom : service.nom_en}
-                  </h3>
-                  <Link
-                    to="/service"
-                    type="button"
-                    className="text-white hover:opacity-80 transition-opacity"
-                    aria-label={`View ${selectedLanguage === 'fr' ? service.nom : service.nom_en} details`}
-                  >
-                    <i className="bi bi-arrow-right-circle" style={{ fontSize: '24px' }}></i>
-                  </Link>
+                <div
+                  className="h-full p-3 back"
+                  style={{ backgroundColor: "#13AB9C", borderTopRightRadius: '30px' }}
+                >
+                  <div className="relative aspect-video">
+                    <img
+                      src={photos[0]}
+                      alt={service.nom}
+                      className="w-full h-full object-cover"
+                      style={{ borderTopRightRadius: '30px', height: '250px' }}
+                    />
+                  </div>
+                  <div className="p-4 flex justify-between items-center">
+                    <h3 className="text-white text-xl font-medium" style={{ fontSize: '24px' }}>
+                      {selectedLanguage === 'fr' ? service.nom : service.nom_en}
+                    </h3>
+                    <Link
+                      to="/service"
+                      type="button"
+                      className="text-white hover:opacity-80 transition-opacity"
+                      aria-label={`View ${selectedLanguage === 'fr' ? service.nom : service.nom_en} details`}
+                    >
+                      <i className="bi bi-arrow-right-circle" style={{ fontSize: '24px' }}></i>
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          )})}
+            )
+          })}
         </div>
       </div>
 
