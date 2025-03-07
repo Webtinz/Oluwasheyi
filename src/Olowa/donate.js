@@ -64,6 +64,8 @@ const Home = () => {
         };
         fetchContents();
     }, []);
+    // const colors = ["#EE2C28", "#13AB9C", "#17416F", "#F4A261", "#E76F51", "#264653"]; // List of colors
+
 
     const getRandomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
     return (
@@ -116,11 +118,12 @@ const Home = () => {
                 <div className='row mt-3'>
                     {programs?.map((card, index) => {
                         const randomColor = getRandomColor(); 
+                        // const randomColor = colors[index % colors.length];
                         return (
                             <div key={index} className='col-12 col-md-6 col-lg-4 mb-4'>
                                 <div className='p-3' style={{ background: randomColor, borderTopRightRadius: '30px', height: '250px' }}>
-                                    <div className='p-3 bg-white d-flex justify-content-center' style={{ borderTopRightRadius: '30px' }}>
-                                        <img src={Logo} alt='Logo' />
+                                    <div className='p-3 bg-white d-flex justify-content-center' style={{ borderTopRightRadius: '30px', height: '150px' }}>
+                                        <img src={card.photo} alt='Logo' />
                                     </div>
                                     <h3 className='text-white my-4' style={{ fontSize: '24px', fontWeight: '700' }}>
                                         {selectedLanguage === 'fr' ? card.nom : card.name}

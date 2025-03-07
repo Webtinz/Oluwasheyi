@@ -104,7 +104,7 @@ const HealthAdviceCarousel = ({ healthAdvices }) => {
           <h2 className='text-center mb-5' style={{ textTransform: 'uppercase', fontSize: '36px', fontWeight: '700', color: '#17416F' }}>
             {selectedLanguage === 'fr' ? contents?.home_page_banner_link5.content_fr : contents?.home_page_banner_link5.content_en}
           </h2>
-          <div className="relative px-8">
+          <div className="relative" style={{ margin: '0 8rem' }}>
             {/* Navigation Buttons */}
             <button
               onClick={prev}
@@ -127,7 +127,7 @@ const HealthAdviceCarousel = ({ healthAdvices }) => {
             </button>
 
             {/* Cards Container */}
-            <div className="healthcont grid grid-flow-col auto-cols-fr" >
+            <div className="healthcont grid grid-flow-col auto-cols-fr px-4" >
               {visibleAdvices?.map((advice, index) => (
                 <div
                   key={currentIndex + index}
@@ -137,8 +137,16 @@ const HealthAdviceCarousel = ({ healthAdvices }) => {
                   <div className="bg-white shadow-md h-100" style={{ border: '1px solid #17416F', padding: '10px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <div className="flex flex-col items-center text-center gap-4" style={{ flexGrow: 1 }}>
                       <img src={advice.photo} alt={advice.topic} className="object-cover mt-5" />
-                      <h3 className="font-semibold text-lg text-teal-600" dangerouslySetInnerHTML={{ __html: advice.topic }} />
-                      <p className="text-sm text-gray-600" dangerouslySetInnerHTML={{ __html: advice.advice_text }} />
+                      <h3 className="font-semibold text-lg text-teal-600">
+                        {selectedLanguage === 'fr' ? advice.topic : advice.topic_en}
+                      </h3>
+                      <p className="text-sm text-gray-600" >
+                        {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                          __html: advice.advice_text
+                        }} />) : (<div dangerouslySetInnerHTML={{
+                          __html: advice.advice_text_en
+                        }} />)}
+                      </p>
                     </div>
                     {/* Ensure the button is at the bottom of the card */}
                     <button className="w-full mt-2 p-3 btn btn-yt text-white" style={{ background: '#13AB9C' }}>
