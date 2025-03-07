@@ -7,10 +7,10 @@ module.exports = {
     const contentsPath = path.join(__dirname, "../data/contents.json");
     const contents = JSON.parse(fs.readFileSync(contentsPath, "utf8"));
 
-    return queryInterface.bulkInsert("contents", contents, {});
+    return queryInterface.bulkInsert("Contents", contents, {});
   },
 
   async down(queryInterface, Sequelize) {
-    return queryInterface.bulkDelete("contents", null, {});
+    return queryInterface.bulkDelete("Contents", null, {});
   }
 };

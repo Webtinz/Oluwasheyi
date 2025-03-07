@@ -8,15 +8,28 @@
             <form id="adviceForm">
               <div class="form-group mb-3">
                 <label for="nom">Topic</label>
-                <input type="text" class="form-control" name="topic" id="nom" required />
+                <input type="text" class="form-control" name="topic" id="nom"
+                  required />
+              </div>
+              <div class="form-group mb-3">
+                <label for="nom">Topic Anglais</label>
+                <input type="text" class="form-control" name="topic_en" id="nom"
+                  required />
               </div>
               <div class="form-group mb-3">
                 <label for="description">Advice</label>
-                <textarea class="form-control" name="advice_text" id="description" required></textarea>
+                <textarea class="form-control" name="advice_text"
+                  id="description" required></textarea>
+              </div>
+              <div class="form-group mb-3">
+                <label for="description">Advice Anglais</label>
+                <textarea class="form-control" name="advice_text_en"
+                  id="description" required></textarea>
               </div>
               <div class="form-group mb-3">
                 <label for="photo">Photo</label>
-                <input type="file" class="form-control" name="photo" id="photo" />
+                <input type="file" class="form-control" name="photo"
+                  id="photo" />
               </div>
               <button type="submit" class="btn btn-primary">Add Advice</button>
             </form>

@@ -4,7 +4,7 @@ const path = require('path');
 
 exports.addAdvice = async (req, res) => {
   try {
-    const { topic, advice_text } = req.body;
+    const { topic, topic_en, advice_text, advice_text_en } = req.body;
     const photo = req.file ? req.file.key : null;
 
     let signedUrl = null;
@@ -13,7 +13,9 @@ exports.addAdvice = async (req, res) => {
     }
     const advice = await Advice.create({
       topic,
+      topic_en,
       advice_text,
+      advice_text_en,
       photo: signedUrl,
     });
 
@@ -58,7 +60,7 @@ exports.getAdvice = async (req, res) => {
 
 exports.updateAdvice = async (req, res) => {
   try {
-    const { topic, advice_text } = req.body;
+    const { topic, topic_en, advice_text, advice_text_en } = req.body;
     const photo = req.file ? req.file.key : null;
 
     let signedUrl = null;
@@ -72,7 +74,9 @@ exports.updateAdvice = async (req, res) => {
 
     await advice.update({
       topic,
+      topic_en,
       advice_text,
+      advice_text_en,
       photo: signedUrl || advice.photo,
     });
 
