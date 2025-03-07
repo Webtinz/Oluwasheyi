@@ -16,7 +16,7 @@ exports.addDepartment = async (req, res) => {
     // ✅ Generate signed URLs for all uploaded files
     const imageUrls = await Promise.all(
       req.files.map(async (file) => {
-        return await generateSignedUrl(file.key);
+        return file.location;
       })
     );
 
@@ -44,14 +44,14 @@ exports.addDepartment = async (req, res) => {
 exports.updateDepartment = async (req, res) => {
   const { id } = req.params;
   const { nom, nom_en, phone, email, description, description_en } = req.body;
-  // const photo = req.file ? req.file.key : null;
+  // const photo = req.file ? req.file.location : null;
 
   let imageUrls = null;
   // ✅ Ensure files are uploaded
   if (req.files) {
     imageUrls = await Promise.all(
       req.files.map(async (file) => {
-        return await generateSignedUrl(file.key);
+        return file.location;
       })
     );
   }
@@ -94,12 +94,12 @@ exports.deleteDepartment = async (req, res) => {
     }
 
     // Supprimer le fichier image du dossier
-    if (department.photo) {
-      const photoPath = path.join(__dirname, '../../uploads/departments', department.photo);
-      if (fs.existsSync(photoPath)) {
-        fs.unlinkSync(photoPath);
-      }
-    }
+    // if (department.photo) {
+    //   const photoPath = path.join(__dirname, '../../uploads/departments', department.photo);
+    //   if (fs.existsSync(photoPath)) {
+    //     fs.unlinkSync(photoPath);
+    //   }
+    // }
 
     await department.destroy();
 

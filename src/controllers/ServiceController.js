@@ -16,7 +16,7 @@ exports.addservice = async (req, res) => {
     // ✅ Generate signed URLs for all uploaded files
     const imageUrls = await Promise.all(
       req.files.map(async (file) => {
-        return await generateSignedUrl(file.key);
+        return file.location;
       })
     );
 
@@ -50,7 +50,7 @@ exports.updateservice = async (req, res) => {
   if (req.files) {
     imageUrls = await Promise.all(
       req.files.map(async (file) => {
-        return await generateSignedUrl(file.key);
+        return file.location;
       })
     );
   }
@@ -93,13 +93,13 @@ exports.deleteservice = async (req, res) => {
       return res.status(404).json({ message: 'Service non trouvé' });
     }
 
-    // Supprimer le fichier image du dossier
-    if (service.photo) {
-      const photoPath = path.join(__dirname, '../../uploads/services', service.photo);
-      if (fs.existsSync(photoPath)) {
-        fs.unlinkSync(photoPath);
-      }
-    }
+    // // Supprimer le fichier image du dossier
+    // if (service.photo) {
+    //   const photoPath = path.join(__dirname, '../../uploads/services', service.photo);
+    //   if (fs.existsSync(photoPath)) {
+    //     fs.unlinkSync(photoPath);
+    //   }
+    // }
 
     await service.destroy();
 

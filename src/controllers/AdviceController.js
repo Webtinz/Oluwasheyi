@@ -1,22 +1,21 @@
 const { Advice } = require('../models');
 const { generateSignedUrl } = require("../../config/AWSConfig")
-const path = require('path');
 
 exports.addAdvice = async (req, res) => {
   try {
     const { topic, topic_en, advice_text, advice_text_en } = req.body;
-    const photo = req.file ? req.file.key : null;
+    const photo = req.file ? req.file.location : null;
 
-    let signedUrl = null;
-    if (photo) {
-      signedUrl = await generateSignedUrl(photo);
-    }
+    // let signedUrl = null;
+    // if (photo) {
+    //   signedUrl = await generateSignedUrl(photo);
+    // }
     const advice = await Advice.create({
       topic,
       topic_en,
       advice_text,
       advice_text_en,
-      photo: signedUrl,
+      photo
     });
 
     res.status(201).json({
@@ -61,12 +60,12 @@ exports.getAdvice = async (req, res) => {
 exports.updateAdvice = async (req, res) => {
   try {
     const { topic, topic_en, advice_text, advice_text_en } = req.body;
-    const photo = req.file ? req.file.key : null;
+    const photo = req.file ? req.file.location : null;
 
-    let signedUrl = null;
-    if (photo) {
-      signedUrl = await generateSignedUrl(photo);
-    }
+    // let signedUrl = null;
+    // if (photo) {
+    //   signedUrl = await generateSignedUrl(photo);
+    // }
     const advice = await Advice.findByPk(req.params.id);
     if (!advice) {
       return res.status(404).json({ message: 'Advice non trouvée' });
@@ -77,7 +76,7 @@ exports.updateAdvice = async (req, res) => {
       topic_en,
       advice_text,
       advice_text_en,
-      photo: signedUrl || advice.photo,
+      photo: photo || advice.photo,
     });
 
     res.status(200).json({

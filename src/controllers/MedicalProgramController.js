@@ -4,12 +4,12 @@ const { generateSignedUrl } = require("../../config/AWSConfig")
 exports.addProgram = async (req, res) => {
   try {
     const { nom, name, contact, description, description_en, beneficiaries } = req.body;
-    const photo = req.file ? req.file.key : null;
+    const photo = req.file ? req.file.location : null;
 
-    let signedUrl = null;
-    if (photo) {
-      signedUrl = await generateSignedUrl(photo);
-    }
+    // let signedUrl = null;
+    // if (photo) {
+    //   signedUrl = await generateSignedUrl(photo);
+    // }
 
     const program = await MedicalProgram.create({
       nom,
@@ -18,7 +18,7 @@ exports.addProgram = async (req, res) => {
       description,
       description_en,
       beneficiaries,
-      photo: signedUrl,
+      photo
     });
 
     res.status(201).json({
@@ -63,12 +63,12 @@ exports.getProgram = async (req, res) => {
 exports.updateProgram = async (req, res) => {
   try {
     const { nom, name, contact, description, description_en, beneficiaries } = req.body;
-    const photo = req.file ? req.file.key : null;
+    const photo = req.file ? req.file.location : null;
 
-    let signedUrl = null;
-    if (photo) {
-      signedUrl = await generateSignedUrl(photo);
-    }
+    // let signedUrl = null;
+    // if (photo) {
+    //   signedUrl = await generateSignedUrl(photo);
+    // }
 
     const program = await MedicalProgram.findByPk(req.params.id);
     if (!program) {
@@ -82,7 +82,7 @@ exports.updateProgram = async (req, res) => {
       description,
       description_en,
       beneficiaries,
-      photo: signedUrl || program.photo,
+      photo: photo || program.photo,
     });
 
     res.status(200).json({

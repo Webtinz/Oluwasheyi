@@ -7,16 +7,16 @@ const { generateSignedUrl } = require("../../config/AWSConfig")
 exports.createEvent = async (req, res) => {
     try {
         const { nom, name, dateevent, location, description, description_en } = req.body;
-        const photo = req.file ? req.file.key : null;
+        const photo = req.file ? req.file.location : null;
 
-        let signedUrl = null;
-        if (photo) {
-            signedUrl = await generateSignedUrl(photo);
-        }
+        // let signedUrl = null;
+        // if (photo) {
+        //     signedUrl = await generateSignedUrl(photo);
+        // }
 
         const newEvent = await Event.create({
             nom, name, dateevent, location, description, description_en,
-            photo: signedUrl,
+            photo,
         });
 
         res.status(201).json({
@@ -33,7 +33,7 @@ exports.createEvent = async (req, res) => {
 exports.updateEvent = async (req, res) => {
     const { id } = req.params;
     const { nom, name, dateevent, location, description, description_en } = req.body;
-    const photo = req.file ? req.file.key : null;
+    const photo = req.file ? req.file.location : null;
 
 
     try {
@@ -42,13 +42,13 @@ exports.updateEvent = async (req, res) => {
             return res.status(404).json({ message: 'Event non trouvé' });
         }
 
-        // Supprimer l'ancienne photo si une nouvelle est téléchargée
-        if (photo && event.photo) {
-            const oldPhotoPath = path.join(__dirname, '../../uploads/events', event.photo);
-            if (fs.existsSync(oldPhotoPath)) {
-                fs.unlinkSync(oldPhotoPath);
-            }
-        }
+        // // Supprimer l'ancienne photo si une nouvelle est téléchargée
+        // if (photo && event.photo) {
+        //     const oldPhotoPath = path.join(__dirname, '../../uploads/events', event.photo);
+        //     if (fs.existsSync(oldPhotoPath)) {
+        //         fs.unlinkSync(oldPhotoPath);
+        //     }
+        // }
 
         // Mise à jour des informations
         event.nom = nom || event.nom;
@@ -57,10 +57,10 @@ exports.updateEvent = async (req, res) => {
         event.dateevent = dateevent || event.dateevent;
         event.description = description || event.description;
         event.description_en = description_en || event.description_en;
-        if (photo) {
-            let signedUrl = await generateSignedUrl(photo);
-            event.photo = signedUrl || event.photo;
-        }
+        event.photo = photo || event.photo;
+        // if (photo) {
+        //     let signedUrl = await generateSignedUrl(photo);
+        // }
 
         await event.save();
 

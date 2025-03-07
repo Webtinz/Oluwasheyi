@@ -5,18 +5,18 @@ const path = require('path');
 exports.addCertification = async (req, res) => {
   try {
     const { name, description, date_obtention } = req.body;
-    const photo = req.file ? req.file.key : null;
+    const photo = req.file ? req.file.location : null;
 
-    let signedUrl = null;
-    if (photo) {
-      signedUrl = await generateSignedUrl(photo);
-    }
+    // let signedUrl = null;
+    // if (photo) {
+    //   signedUrl = await generateSignedUrl(photo);
+    // }
 
     const certification = await Certification.create({
       name,
       description,
       date_obtention,
-      photo: signedUrl
+      photo
     });
 
     res.status(201).json({
@@ -61,12 +61,12 @@ exports.getCertification = async (req, res) => {
 exports.updateCertification = async (req, res) => {
   try {
     const { name, description, date_obtention } = req.body;
-    const photo = req.file ? req.file.key : null;
+    const photo = req.file ? req.file.location : null;
 
-    let signedUrl = null;
-    if (photo) {
-      signedUrl = await generateSignedUrl(photo);
-    }
+    // let signedUrl = null;
+    // if (photo) {
+    //   signedUrl = await generateSignedUrl(photo);
+    // }
 
     const certification = await Certification.findByPk(req.params.id);
     if (!certification) {
@@ -77,7 +77,7 @@ exports.updateCertification = async (req, res) => {
       name,
       description,
       date_obtention,
-      photo: signedUrl || certification.photo,
+      photo: photo || certification.photo,
     });
 
     res.status(200).json({

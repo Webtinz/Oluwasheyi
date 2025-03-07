@@ -7,20 +7,20 @@ exports.addcontent = async (req, res) => {
   try {
     // Récupérer les données du formulaire et le fichier téléchargé
     const { content_en, content_fr, title } = req.body;
-    const image = req.file ? req.file.key : null;  // Le nom du fichier si image téléchargée
+    const image = req.file ? req.file.location : null;  // Le nom du fichier si image téléchargée
 
-    // ✅ Generate signed URL
-    let signedUrl = null;
-    if (image) {
-      signedUrl = await generateSignedUrl(image);
-    }
+    // // ✅ Generate signed URL
+    // let signedUrl = null;
+    // if (image) {
+    //   signedUrl = await generateSignedUrl(image);
+    // }
 
     // Création d'un nouveau contenu dans la base de données
     const newContent = await Content.create({
       title,
       content_en,
       content_fr,
-      image: signedUrl
+      image
     });
 
     // Réponse JSON avec succès
@@ -39,7 +39,7 @@ exports.updatecontent = async (req, res) => {
   const { id } = req.params;
   const { content_en, content_fr, title } = req.body;
 
-  const image = req.file ? req.file.key : null;
+  const image = req.file ? req.file.location : null;
 
   try {
     const content = await Content.findByPk(id);
@@ -52,10 +52,10 @@ exports.updatecontent = async (req, res) => {
     content.content_en = content_en || content.content_en;
     content.content_fr = content_fr || content.content_fr;
     content.title = title || content.title;
-    if (image) {
-      let signedUrl = await generateSignedUrl(image);
-      content.image = signedUrl || content.image;
-    }
+    content.image = image || content.image;
+    // if (image) {
+    //   let signedUrl = await generateSignedUrl(image);
+    // }
 
     await content.save();
 

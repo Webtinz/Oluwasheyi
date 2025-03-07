@@ -8,12 +8,12 @@ exports.addtestimonial = async (req, res) => {
   try {
     // Récupérer les données du formulaire et le fichier téléchargé
     const { nom, prenom, titre, description, address } = req.body;
-    const photo = req.file ? req.file.key : null;
+    const photo = req.file ? req.file.location : null;
 
-    let signedUrl = null;
-    if (photo) {
-      signedUrl = await generateSignedUrl(photo);
-    }
+    // let signedUrl = null;
+    // if (photo) {
+    //   signedUrl = await generateSignedUrl(photo);
+    // }
 
     // Création d'un nouveau témoignage dans la base de données
     const newTestimonial = await Testimonial.create({
@@ -21,7 +21,7 @@ exports.addtestimonial = async (req, res) => {
       prenom,
       titre,
       description,
-      photo: signedUrl,
+      photo,
       address
     });
 
@@ -40,7 +40,7 @@ exports.addtestimonial = async (req, res) => {
 exports.updatetestimonials = async (req, res) => {
   const { id } = req.params;
   const { nom, prenom, titre, description, address } = req.body;
-  const photo = req.file ? req.file.key : null;
+  const photo = req.file ? req.file.location : null;
 
   try {
     const testimonial = await Testimonial.findByPk(id);
@@ -53,10 +53,10 @@ exports.updatetestimonials = async (req, res) => {
     testimonial.prenom = prenom || testimonial.prenom;
     testimonial.titre = titre || testimonial.titre;
     testimonial.description = description || testimonial.description;
-    if (photo) {
-      let signedUrl = await generateSignedUrl(photo);
-      testimonial.photo = signedUrl || testimonial.photo;
-    }
+    testimonial.photo = photo || testimonial.photo;
+    // if (photo) {
+    //   let signedUrl = await generateSignedUrl(photo);
+    // }
     testimonial.address = address || testimonial.address;
 
     await testimonial.save();
