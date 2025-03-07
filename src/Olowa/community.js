@@ -110,7 +110,7 @@ const Home = () => {
                                 <div className="row">
                                     <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
                                         <div className='position-relative'>
-                                            <img src={contents?.community_section_img.image} alt="Wellness Programs" className="img-fluid w-100 main-img1 main-img1" style={{ borderTopRightRadius: '30px' }} />
+                                            <img src={contents?.community_section_img.image} alt="Wellness Programs" className="img-fluid w-100 main-img1 " style={{ borderTopRightRadius: '30px' }} />
                                             <div className='contpos'>
                                                 <img src={Mask1} alt="Wellness Programs" className="img-fluid" style={{ width: '70%' }} />
                                             </div>

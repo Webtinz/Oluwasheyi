@@ -73,7 +73,6 @@ const ServicesCarousel = ({ services }) => {
       setCurrentIndex(prev => prev - 1);
       setIsAnimating(false);
       setAnimationDirection(null);
-      setActiveButton(null);
     }, 300);
   };
 
@@ -88,7 +87,6 @@ const ServicesCarousel = ({ services }) => {
       setCurrentIndex(prev => prev + 1);
       setIsAnimating(false);
       setAnimationDirection(null);
-      setActiveButton(null);
     }, 300);
   };
 
@@ -128,7 +126,7 @@ const ServicesCarousel = ({ services }) => {
       {/* Header avec titre et boutons de navigation */}
       <div className="flex justify-between items-center gap-4 relative mb-8" style={{ margin: '30px 10px' }}>
         <div>
-          <h2 className="text-2xl font-bold" style={{ fontSize: '36px', color: '#17416F' }}>{selectedLanguage === 'fr' ? contents?.home_page_banner_link3.content_fr : contents?.home_page_banner_link3.content_en}</h2>
+          <h2 className="text-2xl font-bold" style={{ fontSize: '36px', color: '#17416F',textTransform:'uppercase' }}>{selectedLanguage === 'fr' ? contents?.home_page_banner_link3.content_fr : contents?.home_page_banner_link3.content_en}</h2>
         </div>
         <div className="flex gap-4">
           <button
@@ -136,9 +134,8 @@ const ServicesCarousel = ({ services }) => {
             onClick={handlePrevious}
             className="rounded-full p-2 shadow-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             style={{
-              backgroundColor: activeButton === "prev" ? "#13AB9C" : "#E3E3E3",
-              color: activeButton === "prev" ? "white" : "black",
-              cursor: currentIndex === 0 ? 'not-allowed' : 'pointer',
+              backgroundColor: (activeButton === "prev" || animationDirection === 'prev') ? "#13AB9C" : "#E3E3E3",
+              color: (activeButton === "prev" || animationDirection === 'prev') ? "white" : "black",
               opacity: currentIndex === 0 ? 0.6 : 1
             }}
             aria-label="Previous service"
@@ -152,9 +149,8 @@ const ServicesCarousel = ({ services }) => {
             onClick={handleNext}
             className="rounded-full p-2 shadow-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             style={{
-              backgroundColor: activeButton === "next" ? "#13AB9C" : "#E3E3E3",
-              color: activeButton === "next" ? "white" : "black",
-              cursor: currentIndex === totalPages - 1 ? 'not-allowed' : 'pointer',
+              backgroundColor: (activeButton === "next" || animationDirection === 'next') ? "#13AB9C" : "#E3E3E3",
+              color: (activeButton === "next" || animationDirection === 'next') ? "white" : "black",
               opacity: currentIndex === totalPages - 1 ? 0.6 : 1
             }}
             aria-label="Next service"
@@ -210,7 +206,7 @@ const ServicesCarousel = ({ services }) => {
                     src={service.photo}
                     alt={service.nom}
                     className="w-full h-full object-cover"
-                    style={{ borderTopRightRadius: '30px' }}
+                    style={{ borderTopRightRadius: '30px', height:'250px' }}
                   />
                 </div>
                 <div className="p-4 flex justify-between items-center">
