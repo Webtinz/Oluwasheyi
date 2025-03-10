@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
@@ -24,6 +25,7 @@ const Home = () => {
     const [programs, setPrograms] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [selectedProgram, setSelectedProgram] = useState(null);
+    // Toujours afficher le carousel par défaut
     const [showCarousel, setShowCarousel] = useState(true);
 
     // Format donation steps from content
@@ -78,16 +80,18 @@ const Home = () => {
         setSelectedProgram(program);
         setShowModal(true);
     };
+    const handleModalClose = () => {
+        setShowModal(false);
+    };
 
     const handleCloseModal = () => {
         // Close the modal
         setShowModal(false);
-        setSelectedProgram(null);
-        
-        // Hide carousel
-        setShowCarousel(false);
-        
-        // Scroll to target section with a slight delay to ensure the DOM has updated
+
+        // NE PAS cacher le carousel
+        // setShowCarousel(false);
+
+        // On peut toujours faire défiler vers la section cible
         setTimeout(() => {
             const targetSection = document.getElementById('targetSection');
             if (targetSection) {
@@ -99,15 +103,24 @@ const Home = () => {
     // Content display helpers
     const renderContent = (content) => {
         if (!content) return null;
-        
+
         const text = selectedLanguage === 'fr' ? content.content_fr : content.content_en;
         return <div dangerouslySetInnerHTML={{ __html: text }} />;
     };
 
+    // Effect for disabling the scroll when modal is open
+    useEffect(() => {
+        if (showModal) {
+            document.body.style.overflow = 'hidden';  // Disable scroll
+        } else {
+            document.body.style.overflow = 'auto';  // Enable scroll
+        }
+    }, [showModal]);
+
     return (
         <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
             <div><Navbar /></div>
-            
+
             {/* Header Section */}
             <section className="mt-4 position-relative" style={{ backgroundColor: '#17416F', padding: '100px 0' }}>
                 <h1 className="text-center text-white" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '40px' }}>
@@ -121,17 +134,17 @@ const Home = () => {
                 </div>
             </section>
             <br />
-            
+
             {/* Support Section */}
             <section className="container mt-4">
                 <div className="row">
                     <div className="col-md-5 mx-auto mb-3">
                         <div>
-                            <img 
-                                src={contents?.donate_page_support_img.image} 
-                                alt="" 
-                                className="img-fluid main-img1 w-100" 
-                                style={{ width: '100%', borderTopRightRadius: '30px', objectFit: 'cover' }} 
+                            <img
+                                src={contents?.donate_page_support_img.image}
+                                alt=""
+                                className="img-fluid main-img1 w-100"
+                                style={{ width: '100%', borderTopRightRadius: '30px', objectFit: 'cover' }}
                             />
                         </div>
                     </div>
@@ -153,8 +166,8 @@ const Home = () => {
                 <span className='d-block my-4' style={{ borderBottom: '1px solid #17416F' }}></span>
             </section>
             <br /><br />
-            
-            {/* Programs Section - Only show if showCarousel is true */}
+
+            {/* Programs Section - toujours affiché car showCarousel est toujours true */}
             {showCarousel && (
                 <section className='container mt-4'>
                     <h2 className='text-center' style={{ textTransform: 'uppercase', color: '#17416F', fontWeight: '700', fontSize: '36px' }}>
@@ -163,8 +176,8 @@ const Home = () => {
                     <br /><br />
                     <div className='row mt-3'>
                         {programs?.map((card, index) => {
-                        const randomColor = colors[index % colors.length];
-                        // const randomColor = getRandomColor();
+                            const randomColor = colors[index % colors.length];
+                            // const randomColor = getRandomColor();
                             return (
                                 <div key={index} className='col-12 col-md-6 col-lg-4 mb-4'>
                                     <div className='p-3' style={{ background: randomColor, borderTopRightRadius: '30px', height: '250px' }}>
@@ -175,7 +188,13 @@ const Home = () => {
                                             data-bs-toggle="modal"
                                             data-bs-target="#programModal"
                                         >
-                                            <img src={selectedProgram.photo} alt='Logo' />
+                                            {/* Afficher l'image du programme si disponible, sinon utiliser Logo */}
+                                            <img
+                                                src={card.photo}
+                                                alt={selectedLanguage === 'fr' ? card.nom : card.name}
+                                                className="img-fluid"
+                                                style={{ maxHeight: '120px', objectFit: 'contain' }}
+                                            />
                                         </div>
                                         <h3 className='text-white my-4' style={{ fontSize: '24px', fontWeight: '700' }}>
                                             {selectedLanguage === 'fr' ? card.nom : card.name}
@@ -187,7 +206,7 @@ const Home = () => {
                     </div>
                 </section>
             )}
-            
+
             {/* Modal */}
             <div className={`modal fade ${showModal ? 'show' : ''}`} id="programModal" tabIndex="-1" aria-labelledby="programModalLabel" aria-hidden={!showModal} style={{ display: showModal ? 'block' : 'none' }}>
                 <div className="modal-dialog modal-lg bg-white">
@@ -196,37 +215,53 @@ const Home = () => {
                             <h5 className="modal-title text-white" id="programModalLabel">
                                 {selectedProgram && (selectedLanguage === 'fr' ? selectedProgram.nom : selectedProgram.name)}
                             </h5>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={handleCloseModal}></button>
+                            {/* Utiliser handleModalClose ici pour simplement fermer le modal */}
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={handleModalClose}></button>
                         </div>
                         <div className="modal-body">
                             {selectedProgram && (
                                 <div>
                                     <div className="text-center mb-4">
-                                        <img src={selectedProgram.photo} alt="Logo" className="img-fluid" style={{ maxHeight: '100px' }} />
+                                        <img
+                                            src={selectedProgram.photo}
+                                            alt={selectedLanguage === 'fr' ? selectedProgram.nom : selectedProgram.name}
+                                            className="img-fluid"
+                                            style={{ maxHeight: '150px', objectFit: 'contain' }}
+                                        />
                                     </div>
 
                                     <h4>{selectedLanguage === 'fr' ? 'Description' : 'Description'}</h4>
-                                    <p>{selectedLanguage === 'fr' ? selectedProgram.description_fr : selectedProgram.description_en}</p>
-
+                                    <div>
+                                        {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                                            __html: selectedProgram.description_fr
+                                        }} />) : (<div dangerouslySetInnerHTML={{
+                                            __html: selectedProgram.description_en
+                                        }} />)}
+                                    </div>
                                     {selectedProgram.beneficiaries && (
                                         <div className="mt-3">
-                                            <h4>{selectedLanguage === 'fr' ? 'Durée' : 'Duration'}</h4>
+                                            <h4>{selectedLanguage === 'fr' ? 'Bénéficiaires' : 'Beneficiaries'}</h4>
                                             <p>{selectedProgram.beneficiaries}</p>
                                         </div>
                                     )}
 
                                     {selectedProgram.contact && (
                                         <div className="mt-3">
-                                            <h4>{selectedLanguage === 'fr' ? 'Prérequis' : 'Requirements'}</h4>
-                                            <p>{ selectedProgram.contact}</p>
+                                            <h4>{selectedLanguage === 'fr' ? 'Contact' : 'Contact'}</h4>
+                                            <p>{selectedProgram.contact}</p>
                                         </div>
                                     )}
                                 </div>
                             )}
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>
-                                {selectedLanguage === 'fr' ? 'Fermer' : 'Close'}
+                            {selectedProgram && selectedProgram.link && (
+                                <a href={selectedProgram.link} className="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                                    {selectedLanguage === 'fr' ? 'Plus d\'informations' : 'More Information'}
+                                </a>
+                            )}
+                            <button type="button" className="btn btn-light" onClick={handleCloseModal}>
+                                {selectedLanguage === 'fr' ? 'Donation' : 'Donate'}
                             </button>
                         </div>
                     </div>
@@ -237,7 +272,7 @@ const Home = () => {
             {showModal && (
                 <div className="modal-backdrop fade show" onClick={handleCloseModal}></div>
             )}
-            
+
             {/* Steps Section */}
             <br /><br />
             <section className='container-fluid py-4' style={{ background: '#17416F' }}>
@@ -267,17 +302,17 @@ const Home = () => {
                 </div>
             </section>
             <br /><br /><br />
-            
+
             {/* Target Section for Scrolling */}
             <section id="targetSection" className='container mt-4'>
                 <div className='d-flex justify-content-center'>
                     <div className='row' style={{ background: '#F2F2F2', borderTopRightRadius: '30px', width: '80%' }}>
                         <div className='col-md-5 mb-3 mb-md-0 mx-auto' style={{ padding: '0px' }}>
                             <div className='position-relative'>
-                                <img 
-                                    src={contents?.donate_page_support_img.image} 
-                                    className='img-fluid w-100' 
-                                    style={{ height: '80vh', objectFit: 'cover' }} 
+                                <img
+                                    src={contents?.donate_page_support_img.image}
+                                    className='img-fluid w-100'
+                                    style={{ height: '80vh', objectFit: 'cover' }}
                                 />
                             </div>
                         </div>
@@ -288,7 +323,7 @@ const Home = () => {
                 </div>
             </section>
             <br /><br />
-            
+
             {/* Footer Components */}
             <div>
                 <Feedback />
