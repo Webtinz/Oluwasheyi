@@ -1,17 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import './index.css';
 import './about.css';
 import Navbar from "./Components/navbar";
 import Feedback from "./Components/Feedback";
 import Footer from "./Components/footer";
 import Group1 from '../assets/Group1.png';
-import Img from '../assets/6.png';
-import Img1 from '../assets/7.png';
-import Img2 from '../assets/8.png';
-import Img3 from '../assets/cardiology.png';
-import Img4 from '../assets/mri.png';
-import Img5 from '../assets/pediatrics.png';
+// import Img from '../assets/6.png';
+// import Img1 from '../assets/7.png';
+// import Img2 from '../assets/8.png';
+// import Img3 from '../assets/cardiology.png';
+// import Img4 from '../assets/mri.png';
+// import Img5 from '../assets/pediatrics.png';
 import Img6 from '../assets/phone.png';
 import Img7 from '../assets/mail.png';
 import Mask1 from '../assets/Fr1.png';
@@ -64,15 +64,15 @@ const Home = () => {
     useEffect(() => {
         const fetchContents = async () => {
             try {
-                const savedContents = localStorage.getItem("contents");
-                if (savedContents) {
-                    setContents(JSON.parse(savedContents));
-                } else {
-                    // Fetch contents if not in localStorage
-                    const response = await getAllContents();
-                    setContents(response.data);
-                    localStorage.setItem("contents", JSON.stringify(response.data));
-                }
+                // const savedContents = localStorage.getItem("contents");
+                // if (savedContents) {
+                //     setContents(JSON.parse(savedContents));
+                // } else {
+                // Fetch contents if not in localStorage
+                const response = await getAllContents();
+                setContents(response.data);
+                //     localStorage.setItem("contents", JSON.stringify(response.data));
+                // }
                 setDepartments(await getDepartments())
             } catch (error) {
                 console.error('Failed to fetch contents:', error.message || error);
@@ -126,13 +126,13 @@ const Home = () => {
                                     <div className="col-10 mx-auto">
                                         <h2 className="mt-3" style={{ color: '#17416F', fontSize: '30px', fontWeight: '700' }}>
                                             {selectedLanguage === 'fr' ? section.nom : section.nom_en}</h2>
-                                        <p className="mt-3" style={{ color: '#17416F' }}>
+                                        <div className="mt-3" style={{ color: '#17416F' }}>
                                             {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                                                 __html: section.description
                                             }} />) : (<div dangerouslySetInnerHTML={{
                                                 __html: section.description_en
                                             }} />)}
-                                        </p>
+                                        </div>
                                         {activeSection === index && (
                                             <div className="extra-content" style={{ display: 'block', marginTop: '2rem' }}>
                                                 <span className="d-block mb-3" style={{ borderBottom: '2px solid #17416F' }}></span>

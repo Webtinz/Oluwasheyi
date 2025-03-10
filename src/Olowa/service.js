@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import './index.css';
 import './about.css';
 import Navbar from "./Components/navbar";
@@ -8,36 +8,41 @@ import Footer from "./Components/footer";
 import Logo from "./Components/logo";
 import Carousel from "./Components/upcomingcarousel";
 import Group1 from '../assets/Group1.png';
-import Img from '../assets/6.png';
-import Img1 from '../assets/7.png';
-import Img2 from '../assets/8.png';
-import Img3 from '../assets/cardiology.png';
-import Img4 from '../assets/mri.png';
-import Img5 from '../assets/pediatrics.png';
+// import Img from '../assets/6.png';
+// import Img1 from '../assets/7.png';
+// import Img2 from '../assets/8.png';
+// import Img3 from '../assets/cardiology.png';
+// import Img4 from '../assets/mri.png';
+// import Img5 from '../assets/pediatrics.png';
 import Img6 from '../assets/phone.png';
 import Img7 from '../assets/mail.png';
 import Mask1 from '../assets/Fr1.png';
-import { getAllContents, getServices } from '../services/content.service';
+import { getAllContents, getCertificates, getEvents, getServices } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
 
 const Home = () => {
     const { selectedLanguage } = useContext(LanguageContext);
     const [contents, setContents] = useState();
     const [services, setServices] = useState([]);
+    const [events, setEvents] = useState([]);
+    const [certificates, setCerificates] = useState([]);
 
     // Get contents on component mount
     useEffect(() => {
         const fetchContents = async () => {
             try {
-                const savedContents = localStorage.getItem("contents");
-                if (savedContents) {
-                    setContents(JSON.parse(savedContents));
-                } else {
-                    // Fetch contents if not in localStorage
-                    const response = await getAllContents();
-                    setContents(response.data);
-                    localStorage.setItem("contents", JSON.stringify(response.data));
-                }
+                // const savedContents = localStorage.getItem("contents");
+                // if (savedContents) {
+                //     setContents(JSON.parse(savedContents));
+                // } else {
+                // Fetch contents if not in localStorage
+                const response = await getAllContents();
+                setContents(response.data);
+                //     localStorage.setItem("contents", JSON.stringify(response.data));
+                // }
+                setEvents(await getEvents());
+                setCerificates(await getCertificates());
+
                 setServices(await getServices());
             } catch (error) {
                 console.error('Failed to fetch contents:', error.message || error);
@@ -77,13 +82,13 @@ const Home = () => {
                         </h2>
                     </div>
                     <div className="col-md-8 mx-auto">
-                        <p style={{ color: '#17416F' }}>
+                        <div style={{ color: '#17416F' }}>
                             {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                                 __html: contents?.service_descp.content_fr
                             }} />) : (<div dangerouslySetInnerHTML={{
                                 __html: contents?.service_descp.content_en
                             }} />)}
-                        </p>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -106,14 +111,14 @@ const Home = () => {
                                     <div className="col-10 mx-auto">
                                         <h2 className="mt-3" style={{ color: '#17416F', fontSize: '30px', fontWeight: '700' }}>
                                             {selectedLanguage === 'fr' ? section.nom : section.nom_en}</h2>
-                                        <p className="mt-3" style={{ color: '#17416F' }}>
+                                        <div className="mt-3" style={{ color: '#17416F' }}>
                                             {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                                                 __html: section.description
                                             }} />) : (<div dangerouslySetInnerHTML={{
                                                 __html: section.description_en
                                             }} />)}
                                             {/* {selectedLanguage === 'fr' ? section.description : section.description_en} */}
-                                        </p>
+                                        </div>
 
                                         {activeSection === index && (
                                             <div className="extra-content" style={{ display: 'block', marginTop: '2rem' }}>
@@ -161,11 +166,11 @@ const Home = () => {
             </section>
             <br /><br />
             <div>
-                <Carousel />
+                <Carousel events={events} />
             </div>
             <br /><br /><br />
             <div>
-                <Logo />
+                <Logo logos={certificates} />
             </div>
             <br /><br />
             <div>

@@ -1,62 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import './index.css';
 import './about.css';
 import Navbar from "./Components/navbar";
 import Feedback from "./Components/Feedback";
 import Footer from "./Components/footer";
 import Group1 from '../assets/Group1.png';
-import Testi from '../assets/testi.png';
+// import Testi from '../assets/testi.png';
 import Mask1 from '../assets/Fr1.png';
 import { getAllContents, getTestimonials } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
 
 
 const Home = () => {
-    // const testimonials = [
-    //     {
-    //         quote: "Highly Recommended!!",
-    //         text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut smest pretium placerat faucibus faucibus faucibus. Sit quis consequat eget nulla fusce dignissim. Nulla accumsan convallis augue ut tempor.",
-    //         name: "Jane Cooper",
-    //         location: "Cotonou",
-    //         imageSrc: Testi, // Assurez-vous que 'Testi' est bien importé
-    //     },
-    //     {
-    //         quote: "Amazing",
-    //         text: "The doctors were amazing! 10/10 service!",
-    //         name: "John Doe",
-    //         location: "Lagos",
-    //         imageSrc: Testi, // Remplacez si vous avez différentes images
-    //     },
-    //     {
-    //         quote: "Highly Recommended!!",
-    //         text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut smest pretium placerat faucibus faucibus faucibus. Sit quis consequat eget nulla fusce dignissim. Nulla accumsan convallis augue ut tempor.",
-    //         name: "Jane Cooper",
-    //         location: "Cotonou",
-    //         imageSrc: Testi, // Assurez-vous que 'Testi' est bien importé
-    //     },
-    //     {
-    //         quote: "Great Hospital ",
-    //         text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut smest pretium placerat faucibus.",
-    //         name: "Jane Cooper",
-    //         location: "Cotonou",
-    //         imageSrc: Testi, // Assurez-vous que 'Testi' est bien importé
-    //     },
-    //     {
-    //         quote: "Highly Recommended!!",
-    //         text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut smest pretium placerat faucibus faucibus faucibus. Sit quis consequat eget nulla fusce dignissim. A lectus urna sit ut smest pretium placerat faucibus faucibus faucibus.",
-    //         name: "Jane Cooper",
-    //         location: "Cotonou",
-    //         imageSrc: Testi, // Assurez-vous que 'Testi' est bien importé
-    //     },
-    //     {
-    //         quote: "Great Hospital ",
-    //         text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut smest pretium placerat faucibus.",
-    //         name: "Jane Cooper",
-    //         location: "Cotonou",
-    //         imageSrc: Testi, // Assurez-vous que 'Testi' est bien importé
-    //     },
-    // ];
 
     const { selectedLanguage } = useContext(LanguageContext);
     const [contents, setContents] = useState();
@@ -66,15 +22,15 @@ const Home = () => {
     useEffect(() => {
         const fetchContents = async () => {
             try {
-                const savedContents = localStorage.getItem("contents");
-                if (savedContents) {
-                    setContents(JSON.parse(savedContents));
-                } else {
-                    // Fetch contents if not in localStorage
-                    const response = await getAllContents();
-                    setContents(response.data);
-                    localStorage.setItem("contents", JSON.stringify(response.data));
-                }
+                // const savedContents = localStorage.getItem("contents");
+                // if (savedContents) {
+                //     setContents(JSON.parse(savedContents));
+                // } else {
+                // Fetch contents if not in localStorage
+                const response = await getAllContents();
+                setContents(response.data);
+                //     localStorage.setItem("contents", JSON.stringify(response.data));
+                // }
                 setTestimonials(await getTestimonials())
 
             } catch (error) {

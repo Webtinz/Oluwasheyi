@@ -1,6 +1,7 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useContext, useEffect, useState } from 'react';
 import '../index.css'
-import Mask1Image from '../../assets/Mask1.png';
+// import Mask1Image from '../../assets/Mask1.png';
 import { Link } from "react-router-dom";
 import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
@@ -12,14 +13,14 @@ const About = () => {
     useEffect(() => {
         const fetchContents = async () => {
             try {
-                const savedContents = localStorage.getItem("contents");
-                if (savedContents) {
-                    setContents(JSON.parse(savedContents));
-                } else {
-                    const response = await getAllContents();
-                    setContents(response.data);
-                    localStorage.setItem("contents", JSON.stringify(response.data));
-                }
+                // const savedContents = localStorage.getItem("contents");
+                // if (savedContents) {
+                //     setContents(JSON.parse(savedContents));
+                // } else {
+                const response = await getAllContents();
+                setContents(response.data);
+                //     localStorage.setItem("contents", JSON.stringify(response.data));
+                // }
             } catch (error) {
                 console.error('Failed to fetch contents:', error.message || error);
             }
@@ -45,11 +46,11 @@ const About = () => {
                                                         __html: contents?.home_page_banner_title.content_en
                                                     }} />)}</h2>
                                                     <br />
-                                                    <p>{selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                                                    <div>{selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                                                         __html: contents?.home_page_banner_desc_1.content_fr
                                                     }} />) : (<div dangerouslySetInnerHTML={{
                                                         __html: contents?.home_page_banner_desc_1.content_en
-                                                    }} />)}</p>
+                                                    }} />)}</div>
                                                     <br />
                                                     <div>
                                                         <Link to="/about" className="btn btn-cus text-white me-2" style={{ backgroundColor: '#13AB9C', padding: '10px 15px' }}>

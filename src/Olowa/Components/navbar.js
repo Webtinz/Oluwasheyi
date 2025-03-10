@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import './navbar.css'; // Importez le CSS pour votre navbar
-import Img from '../../assets/image 1.svg';
+// import Img from '../../assets/image 1.svg';
 import Img1 from '../../assets/hamburger-menu.svg';
 import $ from 'jquery';
 import 'select2';
@@ -134,15 +134,15 @@ const Navbar = () => {
   useEffect(() => {
     const fetchContents = async () => {
       try {
-        const savedContents = localStorage.getItem("contents");
-        if (savedContents) {
-          setContents(JSON.parse(savedContents));
-        } else {
-          // Fetch contents if not in localStorage
-          const response = await getAllContents();
-          setContents(response.data);
-          localStorage.setItem("contents", JSON.stringify(response.data));
-        }
+        // const savedContents = localStorage.getItem("contents");
+        // if (savedContents) {
+        //   setContents(JSON.parse(savedContents));
+        // } else {
+        // Fetch contents if not in localStorage
+        const response = await getAllContents();
+        setContents(response.data);
+        //   localStorage.setItem("contents", JSON.stringify(response.data));
+        // }
       } catch (error) {
         console.error('Failed to fetch contents:', error.message || error);
       }
@@ -159,7 +159,7 @@ const Navbar = () => {
             return state.text;
           }
           return $(
-            `<span><img src="image/${state.element.value}.png" class="img-flag" style="width: 20px; height: 15px; margin-right: 10px;" /> ${state.text}</span>`
+            `<span><img src="image/${state.element.value}.png" className="img-flag" style="width: 20px; height: 15px; margin-right: 10px;" /> ${state.text}</span>`
           );
         },
         templateSelection: function (state) {

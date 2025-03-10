@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import "../index";
-import Img from '../../assets/image 7.png';
-import Img1 from '../../assets/image 6.png';
-import Img2 from '../../assets/image 8.png';
-import Img3 from '../../assets/image 10.png';
-import Img4 from '../../assets/image 9.png';
-import Img5 from '../../assets/image 11.png';
+// import Img from '../../assets/image 7.png';
+// import Img1 from '../../assets/image 6.png';
+// import Img2 from '../../assets/image 8.png';
+// import Img3 from '../../assets/image 10.png';
+// import Img4 from '../../assets/image 9.png';
+// import Img5 from '../../assets/image 11.png';
 import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 
@@ -53,15 +53,15 @@ const LogoCarousel = ({ logos }) => {
   useEffect(() => {
     const fetchContents = async () => {
       try {
-        const savedContents = localStorage.getItem("contents");
-        if (savedContents) {
-          setContents(JSON.parse(savedContents));
-        } else {
-          // Fetch contents if not in localStorage
-          const response = await getAllContents();
-          setContents(response.data);
-          localStorage.setItem("contents", JSON.stringify(response.data));
-        }
+        // const savedContents = localStorage.getItem("contents");
+        // if (savedContents) {
+        //   setContents(JSON.parse(savedContents));
+        // } else {
+        // Fetch contents if not in localStorage
+        const response = await getAllContents();
+        setContents(response.data);
+        //   localStorage.setItem("contents", JSON.stringify(response.data));
+        // }
       } catch (error) {
         console.error('Failed to fetch contents:', error.message || error);
       }

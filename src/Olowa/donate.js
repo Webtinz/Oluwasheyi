@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import './index.css';
@@ -7,11 +8,11 @@ import Feedback from "./Components/Feedback";
 import Subscription from "./Components/subscription";
 import Footer from "./Components/footer";
 import Group1 from '../assets/Group1.png';
-import Image from '../assets/M1.png';
-import Img from '../assets/c4.png';
 import Img1 from '../assets/donate.png';
-import Logo from '../assets/heart-health.png';
-import Mask1 from '../assets/Fr.png';
+// import Image from '../assets/M1.png';
+// import Img from '../assets/c4.png';
+// import Logo from '../assets/heart-health.png';
+// import Mask1 from '../assets/Fr.png';
 import Mask2 from '../assets/Fr1.png';
 import { getAllContents, getPrograms } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
@@ -49,14 +50,14 @@ const Home = () => {
     useEffect(() => {
         const fetchContents = async () => {
             try {
-                const savedContents = localStorage.getItem("contents");
-                if (savedContents) {
-                    setContents(JSON.parse(savedContents));
-                } else {
-                    const response = await getAllContents();
-                    setContents(response.data);
-                    localStorage.setItem("contents", JSON.stringify(response.data));
-                }
+                // const savedContents = localStorage.getItem("contents");
+                // if (savedContents) {
+                //     setContents(JSON.parse(savedContents));
+                // } else {
+                const response = await getAllContents();
+                setContents(response.data);
+                //     localStorage.setItem("contents", JSON.stringify(response.data));
+                // }
                 setPrograms(await getPrograms());
             } catch (error) {
                 console.error('Failed to fetch contents:', error.message || error);
@@ -64,10 +65,10 @@ const Home = () => {
         };
         fetchContents();
     }, []);
-    // const colors = ["#EE2C28", "#13AB9C", "#17416F", "#F4A261", "#E76F51", "#264653"]; // List of colors
+    const colors = ["#EE2C28", "#13AB9C", "#17416F", "#F4A261", "#E76F51", "#264653"]; // List of colors
 
 
-    const getRandomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+    // const getRandomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
     return (
         <div className="container-fluid">
             <div><Navbar /></div>
@@ -92,13 +93,13 @@ const Home = () => {
                         <div className='p-4'>
                             <div><img src={Img1} /></div>
                             <h2 className='mt-4' style={{ textTransform: 'uppercase', color: '#17416F', fontWeight: '700', fontSize: '30px' }}> {selectedLanguage === 'fr' ? contents?.donate_page_support_title.content_fr : contents?.donate_page_support_title.content_en}</h2>
-                            <p className='mt-3' style={{ color: '#17416F' }}>
+                            <div className='mt-3' style={{ color: '#17416F' }}>
                                 {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                                     __html: contents?.donate_page_support_descp.content_fr
                                 }} />) : (<div dangerouslySetInnerHTML={{
                                     __html: contents?.donate_page_support_descp.content_en
                                 }} />)}
-                            </p>
+                            </div>
                             <Link to="/donate" className='btn btn-pri mt-4 text-white px-4' style={{ background: '#13AB9C' }}>{selectedLanguage === 'fr' ? contents?.donate_page_steps_button.content_fr : contents?.donate_page_steps_button.content_en}</Link>
                         </div>
                     </div>
@@ -117,8 +118,8 @@ const Home = () => {
                 <br /><br />
                 <div className='row mt-3'>
                     {programs?.map((card, index) => {
-                        const randomColor = getRandomColor(); 
-                        // const randomColor = colors[index % colors.length];
+                        // const randomColor = getRandomColor();
+                        const randomColor = colors[index % colors.length];
                         return (
                             <div key={index} className='col-12 col-md-6 col-lg-4 mb-4'>
                                 <div className='p-3' style={{ background: randomColor, borderTopRightRadius: '30px', height: '250px' }}>
@@ -181,12 +182,12 @@ const Home = () => {
                             </div>
                         </div>
                         <div className='col-md-7 mb-3 mb-md-0 mx-auto align-self-center'>
-                            <Subscription programs={programs}/>
+                            <Subscription programs={programs} />
                         </div>
                     </div>
                 </div>
             </section>
-            <br/><br/>
+            <br /><br />
             <div>
                 <Feedback />
             </div>

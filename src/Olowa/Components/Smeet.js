@@ -4,10 +4,10 @@ import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 
 // Importez vos images ici
-import Img1 from '../../assets/1.png';
-import Img2 from '../../assets/2.png';
-import Img3 from '../../assets/3.png';
-import Img4 from '../../assets/4.png';
+// import Img1 from '../../assets/1.png';
+// import Img2 from '../../assets/2.png';
+// import Img3 from '../../assets/3.png';
+// import Img4 from '../../assets/4.png';
 
 
 const DoctorCard = ({ nom, prenom, titre, description, photo }) => (
@@ -143,15 +143,15 @@ const DoctorCarousel = ({ doctors }) => {
   useEffect(() => {
     const fetchContents = async () => {
       try {
-        const savedContents = localStorage.getItem("contents");
-        if (savedContents) {
-          setContents(JSON.parse(savedContents));
-        } else {
+        // const savedContents = localStorage.getItem("contents");
+        // if (savedContents) {
+        //   setContents(JSON.parse(savedContents));
+        // } else {
           // Fetch contents if not in localStorage
           const response = await getAllContents();
           setContents(response.data);
-          localStorage.setItem("contents", JSON.stringify(response.data));
-        }
+        //   localStorage.setItem("contents", JSON.stringify(response.data));
+        // }
       } catch (error) {
         console.error('Failed to fetch contents:', error.message || error);
       }
@@ -160,12 +160,12 @@ const DoctorCarousel = ({ doctors }) => {
   }, []);
 
   // Style du conteneur pour que les cartes soient toutes visibles
-  const containerStyle = {
-    width: "100%",
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "center",
-  };
+  // const containerStyle = {
+  //   width: "100%",
+  //   display: "flex",
+  //   flexWrap: "wrap",
+  //   justifyContent: "center",
+  // };
 
   return (
     <div className="container mt-4 meetteam">

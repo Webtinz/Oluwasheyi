@@ -5,7 +5,7 @@ import MTN from '../../assets/MTN.png';
 import { ChevronDown } from "lucide-react";
 import { addDonation, getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
-import { error } from 'jquery';
+// import { error } from 'jquery';
 
 const DonationForm = ({ programs }) => {
   const [donationType, setDonationType] = useState('once');
@@ -20,15 +20,15 @@ const DonationForm = ({ programs }) => {
   useEffect(() => {
     const fetchContents = async () => {
       try {
-        const savedContents = localStorage.getItem("contents");
-        if (savedContents) {
-          setContents(JSON.parse(savedContents));
-        } else {
+        // const savedContents = localStorage.getItem("contents");
+        // if (savedContents) {
+        //   setContents(JSON.parse(savedContents));
+        // } else {
           // Fetch contents if not in localStorage
           const response = await getAllContents();
           setContents(response.data);
-          localStorage.setItem("contents", JSON.stringify(response.data));
-        }
+        //   localStorage.setItem("contents", JSON.stringify(response.data));
+        // }
       } catch (error) {
         console.error('Failed to fetch contents:', error.message || error);
       }
@@ -172,7 +172,7 @@ const DonationForm = ({ programs }) => {
             <option value="">
               {selectedLanguage === 'fr' ? contents?.donate_page_payment_input.content_fr : contents?.donate_page_payment_input.content_en}
             </option>
-            {programs.map((program) => (
+            {programs?.map((program) => (
               <option key={program.id} value={program.id}>
                 {selectedLanguage === 'fr' ? program.nom : program.name}
               </option>

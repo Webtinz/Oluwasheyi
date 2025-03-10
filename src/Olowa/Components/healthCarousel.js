@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import '../index.css';
-import nutrition from '../../assets/nutrition.png';
-import exercise from '../../assets/exercise.png';
-import healthtrack from '../../assets/natural-supplement.png';
-import pregnancy from '../../assets/pregnancy.png';
+// import nutrition from '../../assets/nutrition.png';
+// import exercise from '../../assets/exercise.png';
+// import healthtrack from '../../assets/natural-supplement.png';
+// import pregnancy from '../../assets/pregnancy.png';
 import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 
@@ -80,15 +80,15 @@ const HealthAdviceCarousel = ({ healthAdvices }) => {
   useEffect(() => {
     const fetchContents = async () => {
       try {
-        const savedContents = localStorage.getItem("contents");
-        if (savedContents) {
-          setContents(JSON.parse(savedContents));
-        } else {
-          // Fetch contents if not in localStorage
-          const response = await getAllContents();
-          setContents(response.data);
-          localStorage.setItem("contents", JSON.stringify(response.data));
-        }
+        // const savedContents = localStorage.getItem("contents");
+        // if (savedContents) {
+        //   setContents(JSON.parse(savedContents));
+        // } else {
+        // Fetch contents if not in localStorage
+        const response = await getAllContents();
+        setContents(response.data);
+        //   localStorage.setItem("contents", JSON.stringify(response.data));
+        // }
       } catch (error) {
         console.error('Failed to fetch contents:', error.message || error);
       }
@@ -140,13 +140,13 @@ const HealthAdviceCarousel = ({ healthAdvices }) => {
                       <h3 className="font-semibold text-lg text-teal-600">
                         {selectedLanguage === 'fr' ? advice.topic : advice.topic_en}
                       </h3>
-                      <p className="text-sm text-gray-600" >
+                      <div className="text-sm text-gray-600" >
                         {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                           __html: advice.advice_text
                         }} />) : (<div dangerouslySetInnerHTML={{
                           __html: advice.advice_text_en
                         }} />)}
-                      </p>
+                      </div>
                     </div>
                     {/* Ensure the button is at the bottom of the card */}
                     <button className="w-full mt-2 p-3 btn btn-yt text-white" style={{ background: '#13AB9C' }}>

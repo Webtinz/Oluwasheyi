@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { React, useEffect, useState, useContext } from "react";
 import "../index.css"; // Fichier CSS pour les styles
 import chatbotIcon from "../../assets/chatbot.png";
@@ -14,15 +15,15 @@ const Footer = () => {
   useEffect(() => {
     const fetchContents = async () => {
       try {
-        const savedContents = localStorage.getItem("contents");
-        if (savedContents) {
-          setContents(JSON.parse(savedContents));
-        } else {
-          // Fetch contents if not in localStorage
-          const response = await getAllContents();
-          setContents(response.data);
-          localStorage.setItem("contents", JSON.stringify(response.data));
-        }
+        // const savedContents = localStorage.getItem("contents");
+        // if (savedContents) {
+        //   setContents(JSON.parse(savedContents));
+        // } else {
+        // Fetch contents if not in localStorage
+        const response = await getAllContents();
+        setContents(response.data);
+        //   localStorage.setItem("contents", JSON.stringify(response.data));
+        // }
       } catch (error) {
         console.error('Failed to fetch contents:', error.message || error);
       }
@@ -49,10 +50,10 @@ const Footer = () => {
               </a>
             </div>
             <div className="d-flex mt-3">
-              <i className="bi bi-facebook social-icon"></i>
-              <i className="bi bi-instagram social-icon"></i>
-              <i className="bi bi-youtube social-icon"></i>
-              <i className="bi bi-linkedin social-icon"></i>
+              <i className={'bi bi-' + contents?.footer_social_1.content_fr + ' social-icon'}></i>
+              <i className={'bi bi-' + contents?.footer_social_2.content_fr + ' social-icon'}></i>
+              <i className={'bi bi-' + contents?.footer_social_3.content_fr + ' social-icon'}></i>
+              <i className={'bi bi-' + contents?.footer_social_4.content_fr + ' social-icon'}></i>
             </div>
           </div>
 
