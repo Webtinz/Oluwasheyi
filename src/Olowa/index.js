@@ -133,15 +133,15 @@ const Home = () => {
                         </div>
                         <div className="col-lg-4 mb-3 mx-auto align-self-center order-1 order-lg-2" style={{ padding: "0px" }}>
                             <div className="p-3">
-                                <h2 className="text-white text-uppercase fw-bold" style={{ fontSize: '30px' }}>{selectedLanguage === 'fr' ? contents?.home_page_banner_link4.content_fr : contents?.home_page_banner_link4.content_en}</h2>
-                                <div className="mt-3 text-white text-uppercase fw-light">
+                                <h2 className="text-white text-uppercase fw-bold text-center text-md-start" style={{ fontSize: '30px' }}>{selectedLanguage === 'fr' ? contents?.home_page_banner_link4.content_fr : contents?.home_page_banner_link4.content_en}</h2>
+                                <div className="mt-3 text-white text-uppercase fw-light text-center text-md-start">
                                     {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                                         __html: contents?.home_page_patient_portal_desc.content_fr
                                     }} />) : (<div dangerouslySetInnerHTML={{
                                         __html: contents?.home_page_patient_portal_desc.content_en
                                     }} />)}
                                 </div>
-                                <div className="mt-3">
+                                <div className="mt-3 d-flex justify-content-center justify-content-lg-start">
                                     <button
                                         className="btn btn-t text-white"
                                         style={{ backgroundColor: "#13AB9C", padding: "10px 25px" }}

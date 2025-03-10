@@ -342,3 +342,14 @@
     background-color: #22a18d;
   }
   
+  .modal-backdrop {
+    --bs-backdrop-zindex: unset;
+    --bs-backdrop-opacity: 0.5;
+    position: unset; /* Ne pas définir position explicitement */
+    top: unset; /* Ne pas définir top */
+    left: unset; /* Ne pas définir left */
+    z-index: var(--bs-backdrop-zindex);
+    width: unset;
+    height: unset;
+    background-color: unset; /* Ne pas définir la couleur de fond */
+}

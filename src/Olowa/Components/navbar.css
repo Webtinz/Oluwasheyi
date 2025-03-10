@@ -41,6 +41,16 @@
       height: 35vh;
     }
   }
+  @media (max-width: 567px) {
+    .menu {
+      width: 90%;
+      display: none;
+      flex-direction: column;
+      /* align-items: center; */
+      justify-content: center;
+      height: 55vh;
+    }
+  }
   
   .menu a {
     padding: 15px;

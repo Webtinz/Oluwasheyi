@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-// import "../index";
+import "../index.css";
 import { Link } from "react-router-dom";
 // import Img from '../../assets/i1.png';
 // import Img1 from '../../assets/i2.png';
@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 import Lg from '../../assets/Group.png';
 import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
-
 
 const CommunityEngagement = () => {
   const { selectedLanguage } = useContext(LanguageContext);
@@ -37,6 +36,7 @@ const CommunityEngagement = () => {
 
   const contentData = [
     {
+      anchor: "section1",
       title: selectedLanguage === 'fr' ? contents?.communoty_page_menu_1_title.content_fr : contents?.communoty_page_menu_1_title.content_en,
       description: selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
         __html: contents?.communoty_page_menu_1_desc.content_fr
@@ -49,6 +49,7 @@ const CommunityEngagement = () => {
       imageFirst: true,
     },
     {
+      anchor: "section2",
       title: selectedLanguage === 'fr' ? contents?.communoty_page_menu_2_title.content_fr : contents?.communoty_page_menu_2_title.content_en,
       description: selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
         __html: contents?.communoty_page_menu_2_desc.content_fr
@@ -61,6 +62,7 @@ const CommunityEngagement = () => {
       imageFirst: false,
     },
     {
+      anchor: "section3",
       title: selectedLanguage === 'fr' ? contents?.communoty_page_menu_3_title.content_fr : contents?.communoty_page_menu_3_title.content_en,
       description: selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
         __html: contents?.communoty_page_menu_3_desc.content_fr
@@ -73,6 +75,7 @@ const CommunityEngagement = () => {
       imageFirst: true,
     },
     {
+      anchor: "section4",
       title: selectedLanguage === 'fr' ? contents?.communoty_page_menu_4_title.content_fr : contents?.communoty_page_menu_4_title.content_en,
       description: selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
         __html: contents?.communoty_page_menu_4_desc.content_fr
@@ -85,6 +88,7 @@ const CommunityEngagement = () => {
       imageFirst: false,
     },
     {
+      anchor: "section5",
       title: selectedLanguage === 'fr' ? contents?.communoty_page_menu_5_title.content_fr : contents?.communoty_page_menu_5_title.content_en,
       description: selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
         __html: contents?.communoty_page_menu_5_desc.content_fr
@@ -98,11 +102,10 @@ const CommunityEngagement = () => {
     },
   ];
 
-
   return (
     <div className="container">
       <div className="d-flex justify-content-center">
-        <div style={{ padding: "0 6rem" }}>
+        <div className='comm'>
           <div className="d-flex align-items-center">
             <h1 className="position-relative title-certifications" style={{ textTransform: "uppercase", fontSize: '30px', fontWeight: '700' }}>
               {selectedLanguage === 'fr' ? contents?.communoty_page_title.content_fr : contents?.communoty_page_title.content_en}
@@ -111,9 +114,8 @@ const CommunityEngagement = () => {
           {contentData.map((item, index) => (
             <div className="row mt-4" key={index}>
               {index % 2 === 0 ? (
-                // Pair: Image (gauche) - Texte (droite) sur grand écran, Image puis Texte sur petit écran
                 <>
-                  <div className="col-lg-6 mx-auto mb-4 p-4 order-1">
+                  <div className="col-lg-6 mx-auto mb-4 p-2 p-lg-4 order-1">
                     <div className="position-relative">
                       <img src={item.image} alt="" className="image-fluid w-100 main-img1" style={{ borderRadius: item.borderRadius, objectFit: 'cover' }} />
                       <div className={item.positionClass}>
@@ -121,13 +123,13 @@ const CommunityEngagement = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-lg-6 mx-auto mb-4 p-4 align-self-center order-2">
-                    <div className="p-4">
+                  <div className="col-lg-6 mx-auto mb-4 p-0 p-lg-4 align-self-center order-2">
+                    <div className="p-2 p-lg-4">
                       <h2 style={{ color: "#17416F", fontWeight: 700, textTransform: "uppercase", fontSize: '30px' }}>{item.title}</h2>
                       <div className="mt-3" style={{ color: "#17416F", display: "-webkit-box", WebkitLineClamp: 10, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{item.description}</div>
                       <div className="mt-4">
                         <Link
-                          to="/community"
+                          to={`/community#${item.anchor}`}
                           className="btn btn-r text-white px-4"
                           style={{ backgroundColor: "#13AB9C", padding: "8px 0" }}
                         >
@@ -138,15 +140,14 @@ const CommunityEngagement = () => {
                   </div>
                 </>
               ) : (
-                // Impair: Texte (gauche) - Image (droite) sur grand écran, Image puis Texte sur petit écran
                 <>
-                  <div className="col-lg-6 mx-auto mb-4 p-4 align-self-center order-2 order-lg-1">
-                    <div className="p-4">
+                  <div className="col-lg-6 mx-auto mb-4 p-0 p-lg-4 align-self-center order-2 order-lg-1">
+                    <div className="p-2 p-lg-4">
                       <h2 style={{ color: "#17416F", fontWeight: 700, textTransform: "uppercase", fontSize: '30px' }}>{item.title}</h2>
                       <div className="mt-3" style={{ color: "#17416F", display: "-webkit-box", WebkitLineClamp: 10, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{item.description}</div>
                       <div className="mt-4">
                         <Link
-                          to="/community"
+                          to={`/community#${item.anchor}`}
                           className="btn btn-r text-white px-4"
                           style={{ backgroundColor: "#13AB9C", padding: "8px 0" }}
                         >
@@ -155,7 +156,7 @@ const CommunityEngagement = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-lg-6 mx-auto mb-4 p-4 order-1 order-lg-2">
+                  <div className="col-lg-6 mx-auto mb-4 p-2 p-lg-4 order-1 order-lg-2">
                     <div className="position-relative">
                       <img src={item.image} alt="" className="image-fluid w-100 main-img1" style={{ borderRadius: item.borderRadius, objectFit: 'cover' }} />
                       <div className={item.positionClass}>
@@ -175,7 +176,5 @@ const CommunityEngagement = () => {
     </div>
   );
 };
-
-
 
 export default CommunityEngagement;

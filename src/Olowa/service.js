@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 // import { Link } from "react-router-dom";
 import './index.css';
 import './about.css';
@@ -26,6 +27,20 @@ const Home = () => {
     const [services, setServices] = useState([]);
     const [events, setEvents] = useState([]);
     const [certificates, setCerificates] = useState([]);
+    const location = useLocation();
+    
+    // Ajoutez ce useEffect pour gérer le défilement vers l'ancre
+    useEffect(() => {
+        if (location.hash) {
+            const id = location.hash.substring(1);
+            const element = document.getElementById(id);
+            if (element) {
+                setTimeout(() => {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            }
+        }
+    }, [location, services]);
 
     // Get contents on component mount
     useEffect(() => {
@@ -98,8 +113,7 @@ const Home = () => {
                 {services?.map((section, index) => {
                     const photos = section.photos ? JSON.parse(section.photos) : [];
                     return (
-
-                        <div key={index} className="row cpt" style={{ padding: '50px 0', margin: 0 }}>
+                        <div id={section.id} key={index} className="row cpt" style={{ padding: '50px 0', margin: 0 }}>
                             <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
                                 <img src={photos?.[0]} alt="" className="image-fluid w-100 main-img1" style={{ objectFit: 'cover', borderTopRightRadius: '30px' }} />
                             </div>

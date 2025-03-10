@@ -12,7 +12,7 @@ import LanguageContext from '../../context/LanguageContext';
 
 const DoctorCard = ({ nom, prenom, titre, description, photo }) => (
 
-  <div className="flex flex-col items-center p-4 min-w-[280px]">
+  <div className="flex flex-col items-center p-3 min-w-[300px]">
     <div className="relative w-full aspect-square mb-4">
       <img
         src={photo}

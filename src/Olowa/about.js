@@ -115,7 +115,7 @@ const Home = () => {
     };
 
     return (
-        <div className="container-fluid">
+        <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
             <div><Navbar /></div>
             <section className="mt-4 position-relative" style={{ backgroundColor: '#17416F', padding: '100px 0' }}>
                 <h1 className="text-center text-white" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '40px' }}>{selectedLanguage === 'fr' ? contents?.about_page_title.content_fr : contents?.about_page_title.content_en}</h1>
@@ -187,10 +187,10 @@ const Home = () => {
             <br />
             <section className="container-fluid py-5" style={{ backgroundColor: '#17416F', marginTop: '-1.5rem' }}>
                 <div className="text-white py-4">
-                    <h2 className="text-center" style={{ fontSize: 'clamp(25px, 8vw, 36px)', fontWeight: '700' }}>{selectedLanguage === 'fr' ? contents?.about_page_vision_title.content_fr : contents?.about_page_vision_title.content_en}</h2>
+                    <h2 className="text-center" style={{ fontSize: 'clamp(25px, 8vw, 36px)', fontWeight: '700',textTransform:'uppercase' }}>{selectedLanguage === 'fr' ? contents?.about_page_vision_title.content_fr : contents?.about_page_vision_title.content_en}</h2>
                     <br />
                     <div className="d-flex justify-content-center">
-                        <p className="text-center" style={{ width: '40%' }}>
+                        <p className="text-center vpc">
                             {selectedLanguage === 'fr' ? contents?.about_page_vision_desc.content_fr : contents?.about_page_vision_desc.content_en}
                         </p>
                     </div>
@@ -226,7 +226,7 @@ const Home = () => {
                 </h2>
                 <br />
                 <div className="mt-4 hero">
-                    <div className="p-5 flx" style={{ borderTopRightRadius: '30px', backgroundColor: '#17416F', width: '40vw', height: '60vh' }}>
+                    <div className="p-5 flx" style={{ borderTopRightRadius: '30px', backgroundColor: '#17416F' }}>
                         <div className='position-relative'>
                             <p style={{ color: '#13AB9C', fontWeight: '700', fontSize: 'clamp(22px, 8vw, 28px)' }}>{currentYear}</p>
                             <p className="text-white" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: 'clamp(30px, 8vw, 40px)' }}>

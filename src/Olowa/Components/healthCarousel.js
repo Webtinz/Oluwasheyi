@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Link } from "react-router-dom";
 import '../index.css';
 // import nutrition from '../../assets/nutrition.png';
 // import exercise from '../../assets/exercise.png';
@@ -149,9 +150,13 @@ const HealthAdviceCarousel = ({ healthAdvices }) => {
                       </div>
                     </div>
                     {/* Ensure the button is at the bottom of the card */}
-                    <button className="w-full mt-2 p-3 btn btn-yt text-white" style={{ background: '#13AB9C' }}>
+                    <Link
+                      // to={`/service#${service.id}`}
+                      type="button"
+                      className="w-full mt-2 p-3 btn btn-yt text-white" style={{ background: '#13AB9C' }}
+                    >
                       {selectedLanguage === 'fr' ? "Voir Plus" : "Learn More"}
-                    </button>
+                    </Link>
                   </div>
                 </div>
               ))}

@@ -32,7 +32,7 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="container-fluid py-4 mt-4">
+    <footer className="container-fluid mt-4">
       <div className="container">
         <div className="row text-center text-md-start p-4">
           {/* Section Abonnement Email */}
