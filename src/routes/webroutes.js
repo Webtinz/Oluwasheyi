@@ -12,6 +12,7 @@ const { uploadService, uploadDepartment, uploadTemoigne, uploadMedicalProgram, u
 const ServiceController = require('../controllers/ServiceController');
 const DepartmentController = require('../controllers/DepartmentController');
 const EventController = require('../controllers/EventController');
+const Patientappointment = require('../controllers/PatientappointmentController');
 const { getDonations, addDonation, getDonation } = require('../controllers/DonationController');
 
 
@@ -53,6 +54,10 @@ router.get('/getallcontents', ContentController.getallcontents);
 router.delete('/deletecontent/:id', ContentController.deletecontents);
 router.get('/getcontent/:id', ContentController.getcontent);
 router.get('/getcontentbytitle', ContentController.getcontentbytitle);
+
+// new patient appointment 
+router.post('/register-patient',  Patientappointment.registerNewpatient); 
+
 
 // Service
 router.post('/addservice', uploadService.array('photos', 2), ServiceController.addservice); // Middleware upload utilisé ici
