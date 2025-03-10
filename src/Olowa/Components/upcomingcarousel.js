@@ -89,8 +89,8 @@ const EventsCarousel = ({ events }) => {
 
 
   return (
-    <div className="container-fluid p-5" style={{background:'#17416F'}}>
-      <div className="container px-5">
+    <div className="container-fluid py-5" style={{background:'#17416F'}}>
+      <div className="container px-lg-5 px-0">
         <div className="d-flex justify-content-between align-items-center mb-8">
           <h2 className="text-white" style={{fontSize: isMobile ? '24px' : '36px', fontWeight: 'bold', textTransform:'uppercase'}}> {selectedLanguage === 'fr' ? contents?.communoty_page_event_title.content_fr : contents?.communoty_page_event_title.content_en}</h2>
           <div className="d-flex gap-4">

@@ -94,7 +94,7 @@ const PatientTestimonials = ({ testimonials }) => {
 
   return (
     <div className='container-fluid py-5' style={{background:' #F6F6F6',paddingLeft:'0px',paddingRight:'0px'}}>
-        <div className='container p-3'>
+        <div className='container p-lg-3 p-0'>
             <div className="flex flex-col md:flex-row gap-8 p-6">
                 <div className="md:w-1/4">
                     <h2 className="text-2xl font-bold mb-4" style={{fontSize:'36px',color:'#17416F', textTransform:'uppercase'}}>
@@ -134,10 +134,11 @@ const PatientTestimonials = ({ testimonials }) => {
                         <i className="bi bi-chevron-right fs-3"></i>
                       </button>
                     </div>
-                    <div className='d-flex justify-content-end mt-4'>
+                    <div className='d-flex justify-content-end mt-4 vpl'>
                       <img src={Msk} alt="Mask logo" />
                     </div>
                 </div>
+
                 <div className="md:w-3/4 overflow-hidden">
                     <div 
                     className="flex transition-transform duration-500 ease-in-out"
@@ -147,7 +148,7 @@ const PatientTestimonials = ({ testimonials }) => {
                     }}
                     >
                     {testimonials?.map((testimonial) => (
-                        <div key={testimonial.id} className="px-4" style={{ width: `${100 / testimonials?.length * cardsToShow}%` }}>
+                        <div key={testimonial.id} className="px-lg-4 px-0" style={{ width: `${100 / testimonials?.length * cardsToShow}%` }}>
                         <div className=" p-6 h-full" 
                             style={{
                                 border:'1px solid #17416F',

@@ -48,7 +48,7 @@ const Footer = () => {
                 <i className="bi bi-chevron-right ppo" style={{ background: '#13AB9C', color: 'white' }}></i>
               </a>
             </div>
-            <div className="d-flex mt-3">
+            <div className="d-flex mt-3 justify-content-lg-start justify-content-center">
               <i className="bi bi-facebook social-icon"></i>
               <i className="bi bi-instagram social-icon"></i>
               <i className="bi bi-youtube social-icon"></i>
