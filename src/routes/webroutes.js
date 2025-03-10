@@ -56,7 +56,7 @@ router.get('/getcontent/:id', ContentController.getcontent);
 router.get('/getcontentbytitle', ContentController.getcontentbytitle);
 
 // new patient appointment 
-router.post('/register-patient',  Patientappointment.registerNewpatient); 
+router.post('/registerpatient',  Patientappointment.registerNewpatient);
 
 
 // Service
