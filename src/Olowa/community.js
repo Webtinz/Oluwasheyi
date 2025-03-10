@@ -22,6 +22,39 @@ const Home = () => {
     const [certificates, setCerificates] = useState([]);
 
 
+    
+    useEffect(() => {
+        // Vérifier si une ancre est présente dans l'URL
+        const hash = window.location.hash;
+        if (hash) {
+            // Extraire l'ID de l'ancre (ex: #section1 → section1)
+            const sectionId = hash.replace('#', '');
+
+            // Trouver l'onglet correspondant à cette section
+            const tabMapping = {
+                "section1": "cont1",
+                "section2": "cont2",
+                "section3": "cont3",
+                "section4": "cont4",
+                "section5": "cont5"
+            };
+
+            // Activer l'onglet correspondant
+            if (tabMapping[sectionId]) {
+                setActiveTab(tabMapping[sectionId]);
+
+                // Faire défiler jusqu'à la section après un court délai
+                setTimeout(() => {
+                    const element = document.getElementById(sectionId);
+                    if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }, 300);
+            }
+        }
+    }, []);
+
+
     // Récupération des contenus
     useEffect(() => {
         const fetchContents = async () => {
@@ -75,7 +108,7 @@ const Home = () => {
     ] : [];
 
     return (
-        <div className="container-fluid">
+        <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
             <div><Navbar /></div>
             <section className="mt-4 position-relative" style={{ backgroundColor: '#17416F', padding: '100px 0' }}>
                 <h1 className="text-center text-white" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '40px' }}>{selectedLanguage === 'fr' ? contents?.communoty_page_title.content_fr : contents?.communoty_page_title.content_en}</h1>
@@ -106,7 +139,7 @@ const Home = () => {
                     {/* Contenu dynamique */}
                     <div className="search-content-container">
                         {activeTab === "cont1" && (
-                            <div className="search-content">
+                            <div className="search-content" id="section1">
                                 <div className="row">
                                     <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
                                         <div className='position-relative'>
@@ -136,7 +169,7 @@ const Home = () => {
                         )}
 
                         {activeTab === "cont2" && (
-                            <div className="search-content">
+                            <div className="search-content" id="section2">
                                 <div className="row">
                                     <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
                                         <div className='position-relative'>
@@ -168,7 +201,7 @@ const Home = () => {
                         )}
 
                         {activeTab === "cont3" && (
-                            <div className="search-content">
+                            <div className="search-content" id="section3">
                                 <div className="row">
                                     <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
                                         <div className='position-relative'>
@@ -200,7 +233,7 @@ const Home = () => {
                         )}
 
                         {activeTab === "cont4" && (
-                            <div className="search-content">
+                            <div className="search-content" id="section4">
                                 <div className="row">
                                     <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
                                         <div className='position-relative'>
@@ -232,7 +265,7 @@ const Home = () => {
                         )}
 
                         {activeTab === "cont5" && (
-                            <div className="search-content">
+                            <div className="search-content" id="section5">
                                 <div className="row">
                                     <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
                                         <div className='position-relative'>
@@ -243,11 +276,11 @@ const Home = () => {
                                         </div>
                                     </div>
                                     <div className="col-12 col-md-6 mx-auto mb-3 mb-md-0 p-4 align-self-center">
-                                            <h2 style={{ textTransform: "uppercase", color: "#17416F", fontSize: '30px', fontWeight: '700' }}>
-                                                {selectedLanguage === 'fr' ? contents?.communoty_page_menu_5_title.content_fr : contents?.communoty_page_menu_5_title.content_en}
-                                            </h2>
-                                            <p className="mt-3" style={{ color: "#17416F" }}>
-                                                {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                                        <h2 style={{ textTransform: "uppercase", color: "#17416F", fontSize: '30px', fontWeight: '700' }}>
+                                            {selectedLanguage === 'fr' ? contents?.communoty_page_menu_5_title.content_fr : contents?.communoty_page_menu_5_title.content_en}
+                                        </h2>
+                                        <p className="mt-3" style={{ color: "#17416F" }}>
+                                            {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                                                 __html: contents?.communoty_page_menu_5_desc.content_fr
                                             }} />) : (<div dangerouslySetInnerHTML={{
                                                 __html: contents?.communoty_page_menu_5_desc.content_en

@@ -92,7 +92,7 @@ const EventsCarousel = ({ events }) => {
     <div className="container-fluid p-5" style={{background:'#17416F'}}>
       <div className="container px-5">
         <div className="d-flex justify-content-between align-items-center mb-8">
-          <h2 className="text-white" style={{fontSize: isMobile ? '24px' : '36px', fontWeight: 'bold'}}> {selectedLanguage === 'fr' ? contents?.communoty_page_event_title.content_fr : contents?.communoty_page_event_title.content_en}</h2>
+          <h2 className="text-white" style={{fontSize: isMobile ? '24px' : '36px', fontWeight: 'bold', textTransform:'uppercase'}}> {selectedLanguage === 'fr' ? contents?.communoty_page_event_title.content_fr : contents?.communoty_page_event_title.content_en}</h2>
           <div className="d-flex gap-4">
             <button
               onClick={prevSlide}

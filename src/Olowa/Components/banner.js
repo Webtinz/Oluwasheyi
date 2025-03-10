@@ -80,7 +80,7 @@ const About = () => {
                                             <div className="wm text-start">
                                                 <ul className="list-unstyled m-0 p-0">
                                                     <li><Link to="/about" className="text-white d-block">{selectedLanguage === 'fr' ? contents?.home_page_banner_link1.content_fr : contents?.home_page_banner_link1.content_en}</Link></li>
-                                                    <li><Link to="/community" className="text-white d-block">{selectedLanguage === 'fr' ? contents?.home_page_banner_link2.content_fr : contents?.home_page_banner_link2.content_en}</Link></li>
+                                                    <li><Link to="/community" className="text-white d-block"> {selectedLanguage === 'fr' ? contents?.home_page_banner_link2.content_fr : contents?.home_page_banner_link2.content_en}</Link></li>
                                                     <li><Link to="/service" className="text-white d-block">{selectedLanguage === 'fr' ? contents?.home_page_banner_link3.content_fr : contents?.home_page_banner_link3.content_en}</Link></li>
                                                     <li><Link to="/" className="text-white d-block">{selectedLanguage === 'fr' ? contents?.home_page_banner_link4.content_fr : contents?.home_page_banner_link4.content_en}</Link></li>
                                                     <li><Link to="/" className="text-white d-block">{selectedLanguage === 'fr' ? contents?.home_page_banner_link5.content_fr : contents?.home_page_banner_link5.content_en}</Link></li>

@@ -72,7 +72,7 @@ const CustomCarousel = () => {
   const showButtons = images.length >= 6;
   
   return (
-    <div className="container">
+    <div className="container" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
       {/* Container de l'image principale avec boutons de navigation */}
       <div className="mt-4">
         {/* Image principale */}

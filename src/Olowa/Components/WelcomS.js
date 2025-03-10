@@ -38,12 +38,12 @@ const WelcomeSection = () => {
 
 
   return (
-    <section className="mt-4 container">
+    <section className="mt-4 container" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
       <div className="row">
         {/* Image principale avec l'image circulaire en superposition */}
-        <div className="col-lg-5 mb-3 mx-auto">
+        <div className="col-lg-5 mb-3 mx-auto" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
           <div className="position-relative">
-            <img src={contents?.welcoms_img.image}  alt="" className="image-fluid w-100 main-img" style={{objectFit: 'cover', }} />
+            <img src={contents?.welcoms_img.image}  alt="" className="image-fluid w-100 main-img" style={{objectFit: 'cover'}} />
             <div className="position-absolute overlay-img">
               <img src={img2} alt="" className="image-fluid small-img" />
             </div>
@@ -54,8 +54,8 @@ const WelcomeSection = () => {
         </div>
 
         {/* Texte et bouton Learn More */}
-        <div className="col-lg-6 mb-3 mx-auto px-5">
-          <div className="p-4 trt">
+        <div className="col-lg-6 mb-3 mx-auto px-3">
+          <div className="p-2 p-lg-4 trt">
             <h2 className="mt-3 section-title" style={{ fontSize: '36px' }}>
               {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                 __html: contents?.home_page_welcome_title.content_fr

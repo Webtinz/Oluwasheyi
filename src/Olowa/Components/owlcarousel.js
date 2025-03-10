@@ -122,7 +122,7 @@ const ServicesCarousel = ({ services }) => {
 
 
   return (
-    <div className="container mx-auto px-4">
+    <div className="container" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
       {/* Header avec titre et boutons de navigation */}
       <div className="flex justify-between items-center gap-4 relative mb-8" style={{ margin: '30px 10px' }}>
         <div>
@@ -216,7 +216,7 @@ const ServicesCarousel = ({ services }) => {
                       {selectedLanguage === 'fr' ? service.nom : service.nom_en}
                     </h3>
                     <Link
-                      to="/service"
+                      to={`/service#${service.id}`}
                       type="button"
                       className="text-white hover:opacity-80 transition-opacity"
                       aria-label={`View ${selectedLanguage === 'fr' ? service.nom : service.nom_en} details`}

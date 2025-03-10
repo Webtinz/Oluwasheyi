@@ -1,8 +1,19 @@
-body{
-  overflow-x: hidden;
+body {
+  overflow-x: hidden !important;
+}
+.comm{
+  padding: 0 6rem;
+}
+@media (max-width: 800px) {
+  .comm{
+    padding: 0;
+  }
+  .mybanner .mybannercontent {
+    height: 60vh !important;
+  }
 }
 .mybanner .mybannercontent {
-  height: 70vh !important;
+  height: 70vh;
 }
 
 .carousel-control-next,
@@ -51,7 +62,7 @@ body{
   justify-content: center;
   align-items: center;
   border-top-right-radius: 25px;
-  margin-left: 10px ;
+  /* margin-left: 10px; */
 }
 
 .carousel-content.carrousseltwo {
@@ -88,11 +99,12 @@ body{
 }
 
 .image-container img {
-    width: 100%;
-    margin-left: -20px;
-    height: 60vh;
-    object-fit: cover;
+  width: 100%;
+  margin-left: -20px;
+  height: 60vh;
+  object-fit: cover;
 }
+
 @media (max-width: 770px) {
   .image-container img {
     width: 100%;
@@ -100,11 +112,13 @@ body{
     height: 60vh;
     object-fit: cover;
   }
-  .wm{
+
+  .wm {
     width: 100%;
   }
 }
-.wm{
+
+.wm {
   width: 80%;
   display: flex;
   justify-content: center;
@@ -128,15 +142,33 @@ body{
 
 .hhe {
   background-image: url('../assets/Mask2.png');
-  background-size: contain; /* Assure que l'image est affichée en entier */
-  background-repeat: no-repeat; /* Évite la répétition de l'image */
-  background-position: center; /* Centre l'image */
-  width: 100vw; /* Occupe toute la largeur de l'écran */
-  height: 100vh; /* Occupe toute la hauteur de l'écran */
+  background-size: contain;
+  /* Assure que l'image est affichée en entier */
+  background-repeat: no-repeat;
+  /* Évite la répétition de l'image */
+  background-position: center;
+  /* Centre l'image */
+  width: 100vw;
+  /* Occupe toute la largeur de l'écran */
+  height: 100vh;
+  /* Occupe toute la hauteur de l'écran */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+@media (max-width: 1100px) {
+  .hhe {
+    background-image: url('../assets/Mask2.png');
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    color: white;
+    padding: 0px !important;
+    height: 50vh;
+    display: flex;
+  }
 }
 
 .hhe h3 {
@@ -177,45 +209,62 @@ body{
 .title-certifications {
   color: #17416F;
   position: relative;
-  display: inline-block; /* Pour que la bordure s'ajuste à la largeur du texte */
-  padding-bottom: 10px; /* Espacement entre le texte et la bordure */
+  display: inline-block;
+  /* Pour que la bordure s'ajuste à la largeur du texte */
+  padding-bottom: 10px;
+  /* Espacement entre le texte et la bordure */
 }
+
 .title-certifications::after {
   content: "";
   display: block;
-  width: 38vw; /* La bordure prend toute la largeur du texte */
-  height: 3px; /* Épaisseur de la bordure */
+  width: 38vw;
+  /* La bordure prend toute la largeur du texte */
+  height: 3px;
+  /* Épaisseur de la bordure */
   background-color: #17416F;
   position: absolute;
   bottom: 50%;
   left: 104%;
 }
+
 @media (max-width: 1000px) {
   .title-certifications::after {
     content: "";
     display: block;
-    width: 100%; /* La bordure prend toute la largeur du texte */
-    height: 3px; /* Épaisseur de la bordure */
+    width: 100%;
+    /* La bordure prend toute la largeur du texte */
+    height: 3px;
+    /* Épaisseur de la bordure */
     background-color: #17416F;
     position: absolute;
     bottom: 0;
     left: 0;
   }
 }
-.position{
+
+.position {
   position: absolute;
   top: 100%;
   right: -15%;
   transform: translateY(-50%);
 }
-.position1{
+
+.position1 {
   position: absolute;
   top: 100%;
   left: 150%;
   transform: translateY(-50%);
 }
-
-.pott{
+@media (max-width: 970px) {
+  .position {
+    display: none;
+  }
+  .position1 {
+    display: none;
+  }
+}
+.pott {
   position: absolute;
   top: 90%;
   left: 0;
@@ -278,26 +327,28 @@ body{
 
 @media (max-width: 1024px) {
   .custom-carousel-item {
-      width: 24%;
+    width: 24%;
   }
 }
 
 @media (max-width: 768px) {
   .custom-carousel-item {
-      width: 48%;
+    width: 48%;
   }
 }
 
-.ppo1{
+.ppo1 {
   width: 80px;
   position: absolute;
   top: 80%;
   left: 5%;
   z-index: 10000;
 }
+
 .event-card {
   border-top-right-radius: 30px;
 }
+
 .event-day {
   color: white;
   display: flex;
@@ -352,6 +403,7 @@ body{
   height: 45vh;
   object-fit: cover;
 }
+
 @media (max-width: 1368px) {
   .main-img {
     border-top-right-radius: 30px;
@@ -359,7 +411,8 @@ body{
     object-fit: cover;
   }
 }
-@media (max-width: 968px) {
+
+@media (max-width: 800px) {
   .main-img {
     border-top-right-radius: 30px;
     height: 50vh;
@@ -372,16 +425,25 @@ body{
   height: 55vh;
   object-fit: cover;
 }
+
 @media (max-width: 1368px) {
   .main-img1 {
     height: 80vh;
     object-fit: cover;
   }
 }
+
 @media (max-width: 968px) {
   .main-img1 {
-    height: 50vh;
+    padding: 0px !important;
+    height: 40vh;
     object-fit: cover;
+  }
+  .overlay-img {
+    display: none;
+  }
+  .abso {
+    display: none;
   }
 }
 
@@ -415,11 +477,31 @@ body{
   background-color: #13AB9C;
   color: white;
 }
+
 .Big {
   height: 218px;
   margin-top: 100px;
 }
-
+.flx{
+  width: 40vw; 
+  height: 60vh;
+}
+.vpc{
+  width: 40%;
+}
+@media (max-width: 968px) {
+  .Big {
+    height: auto;
+    margin-top: 0px;
+  }
+  .flx{
+    width: 100%; 
+    height: 60vh;
+  }
+  .vpc{
+    width: 80%;
+  }
+}
 .home-title {
   font-size: clamp(25px, 8vw, 35px);
   font-weight: 700;
@@ -471,6 +553,7 @@ body{
   color: white;
   border: 1px solid white;
 }
+
 /* .Big{
   height: 40vh;
   margin-top: 100px;
@@ -490,10 +573,12 @@ body{
   color: #17416F;
   margin-right: 10px;
 }
-.copyright-text{
+
+.copyright-text {
   font-size: clamp(16px, 8vw, 20px);
   color: #17416F;
 }
+
 .separator {
   border-bottom: 2px solid black;
 }
@@ -501,58 +586,69 @@ body{
 .chat-icon {
   width: 35px;
 }
-.ppoo::placeholder{
+
+.ppoo::placeholder {
   padding-left: 1rem;
 }
-.ppoo:focus-visible{
+
+.ppoo:focus-visible {
   outline: none;
   box-shadow: 0 0 .5px .5px #0000001A;
 }
+
 /* Positionnement initial de l'icône */
 .ppo-container {
   top: 50%;
-  left: 5px; /* Position initiale */
+  left: 5px;
+  /* Position initiale */
   transform: translateY(-50%);
   transition: left 0.3s ease-in-out;
 }
 
-.ppoo:focus + .ppo-container {
-  left: 85%; /* Décale l'icône vers la droite */
+.ppoo:focus+.ppo-container {
+  left: 85%;
+  /* Décale l'icône vers la droite */
 }
-.poss{
+
+.poss {
   top: 50%;
   right: 5px;
   transform: translateY(-50%)
 }
-.ppo{
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  width: 30px; 
-  height: 30px; 
-  border-radius: 50%; 
+
+.ppo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
   /* background-color: #13AB9C;  */
   color: black;
 }
-.ppos{
+
+.ppos {
   position: absolute;
   right: 10px;
   top: -60px;
 }
+
 @media (max-width: 800px) {
-  .cov{
+  .cov {
     height: 30vh !important;
   }
 }
-.hover:hover{
+
+.hover:hover {
   background-color: #13AB9C;
   color: white;
 }
-.back:hover{
+
+.back:hover {
   background-color: #17416F !important;
 }
 
-.edn{
+.edn {
   position: absolute;
   top: 80%;
   right: 10px;
@@ -562,12 +658,14 @@ body{
 .fifth-column .scur {
   margin-top: -4.5rem !important;
 }
+
 @media (max-width: 1000px) {
   .fifth-column .scur {
     margin-top: 0rem !important;
   }
 }
-.abso{
+
+.abso {
   position: absolute;
   right: -15%;
   top: 80%;

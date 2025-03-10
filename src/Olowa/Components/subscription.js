@@ -172,7 +172,7 @@ const DonationForm = ({ programs }) => {
             <option value="">
               {selectedLanguage === 'fr' ? contents?.donate_page_payment_input.content_fr : contents?.donate_page_payment_input.content_en}
             </option>
-            {programs.map((program) => (
+            {programs?.map((program) => (
               <option key={program.id} value={program.id}>
                 {selectedLanguage === 'fr' ? program.nom : program.name}
               </option>

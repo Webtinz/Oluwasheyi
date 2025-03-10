@@ -16,13 +16,16 @@ import Mask2 from '../assets/Fr1.png';
 import { getAllContents, getPrograms } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
 
-
 const Home = () => {
-
+    // Context and state
     const { selectedLanguage } = useContext(LanguageContext);
-    const [contents, setContents] = useState();
+    const [contents, setContents] = useState(null);
     const [programs, setPrograms] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+    const [selectedProgram, setSelectedProgram] = useState(null);
+    const [showCarousel, setShowCarousel] = useState(true);
 
+    // Format donation steps from content
     const steps = contents ? [
         {
             number: '01',
@@ -46,6 +49,7 @@ const Home = () => {
         }
     ] : [];
 
+    // Fetch content data on component mount
     useEffect(() => {
         const fetchContents = async () => {
             try {
@@ -65,12 +69,48 @@ const Home = () => {
         fetchContents();
     }, []);
 
+    // Helper functions
     const getRandomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+
+    const handleOpenModal = (program) => {
+        setSelectedProgram(program);
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        // Close the modal
+        setShowModal(false);
+        setSelectedProgram(null);
+        
+        // Hide carousel
+        setShowCarousel(false);
+        
+        // Scroll to target section with a slight delay to ensure the DOM has updated
+        setTimeout(() => {
+            const targetSection = document.getElementById('targetSection');
+            if (targetSection) {
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }, 100);
+    };
+
+    // Content display helpers
+    const renderContent = (content) => {
+        if (!content) return null;
+        
+        const text = selectedLanguage === 'fr' ? content.content_fr : content.content_en;
+        return <div dangerouslySetInnerHTML={{ __html: text }} />;
+    };
+
     return (
-        <div className="container-fluid">
+        <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
             <div><Navbar /></div>
+            
+            {/* Header Section */}
             <section className="mt-4 position-relative" style={{ backgroundColor: '#17416F', padding: '100px 0' }}>
-                <h1 className="text-center text-white" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '40px' }}>{selectedLanguage === 'fr' ? contents?.donate_page_title.content_fr : contents?.donate_page_title.content_en}</h1>
+                <h1 className="text-center text-white" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '40px' }}>
+                    {selectedLanguage === 'fr' ? contents?.donate_page_title.content_fr : contents?.donate_page_title.content_en}
+                </h1>
                 <div className="position-absolute bottom-0 start-0">
                     <img src={Group1} alt="" />
                 </div>
@@ -79,58 +119,123 @@ const Home = () => {
                 </div>
             </section>
             <br />
+            
+            {/* Support Section */}
             <section className="container mt-4">
                 <div className="row">
                     <div className="col-md-5 mx-auto mb-3">
                         <div>
-                            <img src={contents?.donate_page_support_img.image} alt="" className="img-fluid main-img1 w-100" style={{ width: '100%', borderTopRightRadius: '30px', objectFit: 'cover' }} />
+                            <img 
+                                src={contents?.donate_page_support_img.image} 
+                                alt="" 
+                                className="img-fluid main-img1 w-100" 
+                                style={{ width: '100%', borderTopRightRadius: '30px', objectFit: 'cover' }} 
+                            />
                         </div>
                     </div>
                     <div className="col-md-6 mx-auto">
                         <div className='p-4'>
-                            <div><img src={Img1} /></div>
-                            <h2 className='mt-4' style={{ textTransform: 'uppercase', color: '#17416F', fontWeight: '700', fontSize: '30px' }}> {selectedLanguage === 'fr' ? contents?.donate_page_support_title.content_fr : contents?.donate_page_support_title.content_en}</h2>
+                            <div><img src={Img1} alt="Donate" /></div>
+                            <h2 className='mt-4' style={{ textTransform: 'uppercase', color: '#17416F', fontWeight: '700', fontSize: '30px' }}>
+                                {selectedLanguage === 'fr' ? contents?.donate_page_support_title.content_fr : contents?.donate_page_support_title.content_en}
+                            </h2>
                             <p className='mt-3' style={{ color: '#17416F' }}>
-                                {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
-                                    __html: contents?.donate_page_support_descp.content_fr
-                                }} />) : (<div dangerouslySetInnerHTML={{
-                                    __html: contents?.donate_page_support_descp.content_en
-                                }} />)}
+                                {renderContent(contents?.donate_page_support_descp)}
                             </p>
-                            <Link to="/donate" className='btn btn-pri mt-4 text-white px-4' style={{ background: '#13AB9C' }}>{selectedLanguage === 'fr' ? contents?.donate_page_steps_button.content_fr : contents?.donate_page_steps_button.content_en}</Link>
+                            <Link to="/donate" className='btn btn-pri mt-4 text-white px-4' style={{ background: '#13AB9C' }}>
+                                {selectedLanguage === 'fr' ? contents?.donate_page_steps_button.content_fr : contents?.donate_page_steps_button.content_en}
+                            </Link>
                         </div>
                     </div>
                 </div>
-
                 <span className='d-block my-4' style={{ borderBottom: '1px solid #17416F' }}></span>
             </section>
             <br /><br />
-            <section className='container mt-4'>
-                <h2 className='text-center' style={{ textTransform: 'uppercase', color: '#17416F', fontWeight: '700', fontSize: '36px' }}>
-                    {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
-                        __html: contents?.donate_page_medical_title.content_fr
-                    }} />) : (<div dangerouslySetInnerHTML={{
-                        __html: contents?.donate_page_medical_title.content_en
-                    }} />)}</h2>
-                <br /><br />
-                <div className='row mt-3'>
-                    {programs?.map((card, index) => {
-                        const randomColor = getRandomColor(); 
-                        return (
-                            <div key={index} className='col-12 col-md-6 col-lg-4 mb-4'>
-                                <div className='p-3' style={{ background: randomColor, borderTopRightRadius: '30px', height: '250px' }}>
-                                    <div className='p-3 bg-white d-flex justify-content-center' style={{ borderTopRightRadius: '30px' }}>
-                                        <img src={Logo} alt='Logo' />
+            
+            {/* Programs Section - Only show if showCarousel is true */}
+            {showCarousel && (
+                <section className='container mt-4'>
+                    <h2 className='text-center' style={{ textTransform: 'uppercase', color: '#17416F', fontWeight: '700', fontSize: '36px' }}>
+                        {renderContent(contents?.donate_page_medical_title)}
+                    </h2>
+                    <br /><br />
+                    <div className='row mt-3'>
+                        {programs?.map((card, index) => {
+                            const randomColor = getRandomColor();
+                            return (
+                                <div key={index} className='col-12 col-md-6 col-lg-4 mb-4'>
+                                    <div className='p-3' style={{ background: randomColor, borderTopRightRadius: '30px', height: '250px' }}>
+                                        <div
+                                            className='p-3 bg-white d-flex justify-content-center'
+                                            style={{ borderTopRightRadius: '30px', cursor: 'pointer' }}
+                                            onClick={() => handleOpenModal(card)}
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#programModal"
+                                        >
+                                            <img src={Logo} alt='Logo' />
+                                        </div>
+                                        <h3 className='text-white my-4' style={{ fontSize: '24px', fontWeight: '700' }}>
+                                            {selectedLanguage === 'fr' ? card.nom : card.name}
+                                        </h3>
                                     </div>
-                                    <h3 className='text-white my-4' style={{ fontSize: '24px', fontWeight: '700' }}>
-                                        {selectedLanguage === 'fr' ? card.nom : card.name}
-                                    </h3>
                                 </div>
-                            </div>
-                        );
-                    })}
+                            );
+                        })}
+                    </div>
+                </section>
+            )}
+            
+            {/* Modal */}
+            <div className={`modal fade ${showModal ? 'show' : ''}`} id="programModal" tabIndex="-1" aria-labelledby="programModalLabel" aria-hidden={!showModal} style={{ display: showModal ? 'block' : 'none' }}>
+                <div className="modal-dialog modal-lg bg-white">
+                    <div className="modal-content">
+                        <div className="modal-header" style={{ background: selectedProgram ? getRandomColor() : '#fff' }}>
+                            <h5 className="modal-title text-white" id="programModalLabel">
+                                {selectedProgram && (selectedLanguage === 'fr' ? selectedProgram.nom : selectedProgram.name)}
+                            </h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={handleCloseModal}></button>
+                        </div>
+                        <div className="modal-body">
+                            {selectedProgram && (
+                                <div>
+                                    <div className="text-center mb-4">
+                                        <img src={Logo} alt="Logo" className="img-fluid" style={{ maxHeight: '100px' }} />
+                                    </div>
+
+                                    <h4>{selectedLanguage === 'fr' ? 'Description' : 'Description'}</h4>
+                                    <p>{selectedLanguage === 'fr' ? selectedProgram.description_fr : selectedProgram.description_en}</p>
+
+                                    {selectedProgram.duration && (
+                                        <div className="mt-3">
+                                            <h4>{selectedLanguage === 'fr' ? 'Durée' : 'Duration'}</h4>
+                                            <p>{selectedProgram.duration}</p>
+                                        </div>
+                                    )}
+
+                                    {selectedProgram.requirements && (
+                                        <div className="mt-3">
+                                            <h4>{selectedLanguage === 'fr' ? 'Prérequis' : 'Requirements'}</h4>
+                                            <p>{selectedLanguage === 'fr' ? selectedProgram.requirements_fr : selectedProgram.requirements_en}</p>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>
+                                {selectedLanguage === 'fr' ? 'Fermer' : 'Close'}
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </section>
+            </div>
+
+            {/* Modal Backdrop */}
+            {showModal && (
+                <div className="modal-backdrop fade show" onClick={handleCloseModal}></div>
+            )}
+            
+            {/* Steps Section */}
             <br /><br />
             <section className='container-fluid py-4' style={{ background: '#17416F' }}>
                 <div className='container py-4'>
@@ -139,51 +244,49 @@ const Home = () => {
                     </h2>
                     <br /><br />
                     <div className="position-relative pt-5">
-                        {/* Steps Container */}
                         <div className="d-flex justify-content-between align-items-start position-relative steps-container">
-                            {/* Horizontal Line */}
                             <div className="step-line"></div>
 
                             {steps.map((step, index) => (
                                 <div key={index} className="d-flex flex-column align-items-center position-relative step-item">
-                                    {/* Circle with Number */}
                                     <div className="step-circle">{step.number}</div>
-
-                                    {/* Text */}
                                     <p className="text-white text-center small" style={{ fontWeight: '700', fontSize: '16px' }}>{step.text}</p>
                                 </div>
                             ))}
                         </div>
 
-                        {/* Donate Now Button */}
                         <div className="d-flex justify-content-center mt-4">
                             <button className="btn btn-primary px-4 py-2">
                                 {selectedLanguage === 'fr' ? contents?.donation_step_button.content_fr : contents?.donation_step_button.content_en}
                             </button>
                         </div>
                     </div>
-
                 </div>
             </section>
             <br /><br /><br />
-            <section className='container mt-4'>
+            
+            {/* Target Section for Scrolling */}
+            <section id="targetSection" className='container mt-4'>
                 <div className='d-flex justify-content-center'>
                     <div className='row' style={{ background: '#F2F2F2', borderTopRightRadius: '30px', width: '80%' }}>
                         <div className='col-md-5 mb-3 mb-md-0 mx-auto' style={{ padding: '0px' }}>
                             <div className='position-relative'>
-                                <img src={contents?.donate_page_support_img.image} className='img-fluid w-100' style={{ height: '80vh', objectFit: 'cover' }} />
-                                {/* <div className='contpos'>
-                                    <img src={Mask1} alt="Wellness Programs" className="img-fluid" style={{ width: '70%' }} />
-                                </div> */}
+                                <img 
+                                    src={contents?.donate_page_support_img.image} 
+                                    className='img-fluid w-100' 
+                                    style={{ height: '80vh', objectFit: 'cover' }} 
+                                />
                             </div>
                         </div>
                         <div className='col-md-7 mb-3 mb-md-0 mx-auto align-self-center'>
-                            <Subscription programs={programs}/>
+                            <Subscription programs={programs} />
                         </div>
                     </div>
                 </div>
             </section>
-            <br/><br/>
+            <br /><br />
+            
+            {/* Footer Components */}
             <div>
                 <Feedback />
             </div>
