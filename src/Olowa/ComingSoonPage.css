@@ -1,0 +1,169 @@
+.coming-soon {
+    height: 100vh;
+}
+
+.coming-soon {
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('../assets/african-american-doctor-man-standing-corridor-hospital.jpg');
+    background-color: blue;
+    background-attachment: fixed;
+}
+
+.coming-soon .highlight {
+    color: #1BA99B;
+}
+
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+/*-- loader  --*/
+
+.coming-soon .content-wrap {
+    margin: 20px auto 40px auto;
+    max-width: 700px;
+    padding: 0 15px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Couleur de fond noire avec 50% d'opacité */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+    /* Ombre douce */
+    border-radius: 8px;
+    /* (Optionnel) Coins arrondis pour un look plus propre */
+    padding: 20px;
+    /* (Optionnel) Espace intérieur pour le contenu */
+    color: #fff;
+    /* Couleur de texte blanche pour contraster */
+}
+.coming-soon .logo-box {
+    display: flex;
+    justify-content: center !important;
+}
+
+.coming-soon .logo-box img {
+    width: 150px;
+    height: auto;
+    margin-bottom: 30px;
+
+}
+
+.coming-soon .cta-box h1 {
+    color: #fff;
+    font-size: 40px;
+    font-weight: 800;
+    text-shadow: 0 5px 10px rgba(0, 0, 0, 0.7);
+}
+
+.coming-soon .cta-box p {
+    color: #fff;
+    font-size: 25px;
+    margin-top: 20px;
+}
+
+.coming-soon .countdown {
+    color: #fff;
+    margin-top: 40px;
+}
+
+.coming-soon .timer-cta {
+    font-size: 18px;
+}
+
+.coming-soon .countdown ul {
+    margin-top: 20px;
+    padding-left: 0;
+}
+
+.coming-soon .countdown ul li {
+    background: rgba(230, 230, 230, 0.12);
+    color: white !important;
+    border-radius: 100%;
+    display: inline-block;
+    height: 100px;
+    list-style: none;
+    position: relative;
+    text-align: center;
+    margin-right: 15px;
+    width: 100px;
+}
+
+.coming-soon .time-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.coming-soon .time {
+    font-size: 32px;
+    font-weight: 800;
+    background-image: none !important;
+}
+
+.coming-soon .time-txt {
+    display: block;
+    font-size: 12px;
+}
+
+@media screen and (min-width:1200px) {
+    .coming-soon .content-wrap {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 700px;
+    }
+}
+
+@media screen and (max-width:767px) {
+    .coming-soon .content-wrap {
+        margin-top: 80px;
+        width: 100%;
+    }
+
+    .coming-soon .cta-box h1 {
+        font-size: 28px;
+    }
+
+    .coming-soon .cta-box p {
+        font-size: 17px;
+    }
+
+    .coming-soon .time {
+        font-size: 22px;
+    }
+
+    .coming-soon .newsletter .form-field,
+    .coming-soon .btn-main {
+        height: 46px;
+    }
+
+    .coming-soon .countdown ul li {
+        height: 75px;
+        width: 75px;
+    }
+}

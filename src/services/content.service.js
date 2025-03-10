@@ -123,3 +123,6 @@ export const addDonation = async (data) => {
     throw error.response?.data || error;
   }
 };
+
+
+// Add patient

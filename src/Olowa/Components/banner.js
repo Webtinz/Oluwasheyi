@@ -5,10 +5,30 @@ import '../index.css'
 import { Link } from "react-router-dom";
 import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
+import Bookpatientappointment from '../Components/Patientsappointmnets';
 
 const About = () => {
     const { selectedLanguage } = useContext(LanguageContext);
     const [contents, setContents] = useState();
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+    const [BookAppointmentmodal, setBookAppointmentmodal] = useState(null);
+
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        experience: 5,
+        yoursuggestions: ''
+    });
+
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+
 
     useEffect(() => {
         const fetchContents = async () => {
@@ -29,7 +49,7 @@ const About = () => {
     }, []);
 
     return (
-        <div className=" mybanner">
+        <div className="mybanner">
             <div className="row align-items-center">
                 <div className="col-md-12" style={{ paddingLeft: 0, paddingRight: 0 }}>
                     <div id="carouselExample" className="carousel slide" data-bs-ride="carousel">
@@ -52,13 +72,15 @@ const About = () => {
                                                         __html: contents?.home_page_banner_desc_1.content_en
                                                     }} />)}</div>
                                                     <br />
-                                                    <div>
+                                                    <div className='d-flex'>
                                                         <Link to="/about" className="btn btn-cus text-white me-2" style={{ backgroundColor: '#13AB9C', padding: '10px 15px' }}>
                                                             {selectedLanguage === 'fr' ? contents?.home_page_banner_about_us.content_fr : contents?.home_page_banner_about_us.content_en}
                                                         </Link>
-                                                        <Link to="/" className="btn btn-outline-light" style={{ padding: '10px 15px' }}>
+
+                                                        {/* <a href="#" onClick={(e) => { e.preventDefault(); setBookAppointmentmodal(); }} className="btn btn-outline-light" style={{ padding: '10px 15px' }}>
                                                             {selectedLanguage === 'fr' ? contents?.home_page_banner_book_appointment.content_fr : contents?.home_page_banner_book_appointment.content_en}
-                                                        </Link>
+                                                        </a> */}
+                                                        < Bookpatientappointment/>   
                                                     </div>
                                                 </div>
                                             </div>
@@ -110,6 +132,10 @@ const About = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Modal */}
+
+
         </div>
     );
 };

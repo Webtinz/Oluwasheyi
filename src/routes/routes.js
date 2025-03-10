@@ -9,12 +9,14 @@ import Donate from "../Olowa/donate";
 import Sugery from "../Olowa/sugery";
 import Testimonial from "../Olowa/testimonial";
 import Photogallery from "../Olowa/photogallery";
+import CommingSoon from "../Olowa/comingsoonpage";
+
 
 const AppRouter = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<CommingSoon />} />
         <Route path="/index" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/department" element={<Department />} />

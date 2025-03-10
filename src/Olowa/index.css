@@ -12,6 +12,7 @@ body {
     height: 60vh !important;
   }
 }
+
 .mybanner .mybannercontent {
   height: 70vh;
 }
@@ -671,3 +672,139 @@ body {
   top: 80%;
   z-index: 100;
 }
+
+.choosestagepatientbtn h1 {
+  font-family: Open Sans;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 40px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.choosestagepatientbtn p , .choosestagepatientbtn .goback{
+  font-family: Roboto;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 18px;
+  text-align: center;
+  margin-top: 40px;
+  color: #17416F !important;
+}
+
+.choosestagepatientbtn .goback{
+  text-decoration: underline;
+  margin-bottom: 30px;
+  margin-top: 30px !important;
+}
+
+.choosestagepatientbtn .newbtn,
+.choosestagepatientbtn .existbtn {
+  padding: 30px 20px;
+  margin-top: 30px;
+  font-family: Open Sans;
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 18px;
+  text-align: center;
+  border-radius: 5px !important;
+}
+
+.choosestagepatientbtn .newbtn {
+  background-color: #F9F9F9;
+  border: 1px solid #17416F;
+  color: #17416F;
+}
+
+.choosestagepatientbtn .existbtn {
+  background: #13AB9C;
+  border: 1px solid #17416F;
+}
+
+.choosestagepatientbtn input{
+  border: 2px solid #17416F !important;
+  padding: 10px 20px;
+}
+
+.choosestagepatientbtn .color{
+  width: 40vw !important;
+}
+
+.choosestagepatientbtn .divider-text {
+  position: relative;
+  text-align: center;
+}
+
+.choosestagepatientbtn .divider-text span {
+  padding: 10px;
+  font-size: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+.choosestagepatientbtn .divider-text:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+  top: 55%;
+  left: 0;
+  z-index: 1;
+}
+
+.choosestagepatientbtn .custom-file-input {
+  position: relative;
+  width: 100%;
+  height: 100px;
+  border: 2px solid #13AB9C !important;
+  background-color: #D8D8D838; /* Gris clair */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.choosestagepatientbtn .custom-file-input input[type="file"] {
+  opacity: 0; /* Cache l'input réel */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+}
+
+.choosestagepatientbtn .file-label {
+  font-size: 14px;
+  color: #555;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.choosestagepatientbtn .react-tel-input .form-control{
+  padding: 20px 50px;
+}
+
+.choosestagepatientbtn .react-tel-input .flag .arrow{
+  left:3px !important;
+}
+
+.choosestagepatientbtn .react-tel-input .flag-dropdown .country-list li {
+  color: #333 !important; /* Couleur du texte dans le dropdown */
+}
+
+/* Option sélectionnée (lorsque l'utilisateur sélectionne un pays) */
+.choosestagepatientbtn .react-tel-input .flag-dropdown .country-list li.selected {
+  background-color: #13AB9C !important; /* Fond de l'élément sélectionné */
+  color: white !important; /* Couleur du texte de l'élément sélectionné */
+}
+
+/* Couleur du texte de l'élément du pays survolé */
+.choosestagepatientbtn .react-tel-input .flag-dropdown .country-list li:hover {
+  background-color: #f0f0f0 !important; /* Fond survolé */
+  color: #000 !important; /* Couleur du texte survolé */
+}
+
+
