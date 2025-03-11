@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import './index.css';
@@ -7,11 +9,11 @@ import Feedback from "./Components/Feedback";
 import Subscription from "./Components/subscription";
 import Footer from "./Components/footer";
 import Group1 from '../assets/Group1.png';
-import Image from '../assets/M1.png';
-import Img from '../assets/c4.png';
 import Img1 from '../assets/donate.png';
-import Logo from '../assets/heart-health.png';
-import Mask1 from '../assets/Fr.png';
+// import Image from '../assets/M1.png';
+// import Img from '../assets/c4.png';
+// import Logo from '../assets/heart-health.png';
+// import Mask1 from '../assets/Fr.png';
 import Mask2 from '../assets/Fr1.png';
 import { getAllContents, getPrograms } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
@@ -29,14 +31,14 @@ const Home = () => {
     useEffect(() => {
         const fetchContents = async () => {
             try {
-                const savedContents = localStorage.getItem("contents");
-                if (savedContents) {
-                    setContents(JSON.parse(savedContents));
-                } else {
-                    const response = await getAllContents();
-                    setContents(response.data);
-                    localStorage.setItem("contents", JSON.stringify(response.data));
-                }
+                // const savedContents = localStorage.getItem("contents");
+                // if (savedContents) {
+                //     setContents(JSON.parse(savedContents));
+                // } else {
+                const response = await getAllContents();
+                setContents(response.data);
+                //     localStorage.setItem("contents", JSON.stringify(response.data));
+                // }
                 setPrograms(await getPrograms());
             } catch (error) {
                 console.error('Failed to fetch contents:', error.message || error);
@@ -164,16 +166,16 @@ const Home = () => {
                     </div>
                     <div className="col-md-6 mx-auto">
                         <div className='p-4'>
-                            <div><img src={Img1} alt="Donate" /></div>
-                            <h2 className='mt-4' style={{ textTransform: 'uppercase', color: '#17416F', fontWeight: '700', fontSize: '30px' }}>
-                                {selectedLanguage === 'fr' ? contents?.donate_page_support_title.content_fr : contents?.donate_page_support_title.content_en}
-                            </h2>
-                            <p className='mt-3' style={{ color: '#17416F' }}>
-                                {renderContent(contents?.donate_page_support_descp)}
-                            </p>
-                            <Link to="/donate" className='btn btn-pri mt-4 text-white px-4' style={{ background: '#13AB9C' }}>
-                                {selectedLanguage === 'fr' ? contents?.donate_page_steps_button.content_fr : contents?.donate_page_steps_button.content_en}
-                            </Link>
+                            <div><img src={Img1} /></div>
+                            <h2 className='mt-4' style={{ textTransform: 'uppercase', color: '#17416F', fontWeight: '700', fontSize: '30px' }}> {selectedLanguage === 'fr' ? contents?.donate_page_support_title.content_fr : contents?.donate_page_support_title.content_en}</h2>
+                            <div className='mt-3' style={{ color: '#17416F' }}>
+                                {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                                    __html: contents?.donate_page_support_descp.content_fr
+                                }} />) : (<div dangerouslySetInnerHTML={{
+                                    __html: contents?.donate_page_support_descp.content_en
+                                }} />)}
+                            </div>
+                            <Link to="/donate" className='btn btn-pri mt-4 text-white px-4' style={{ background: '#13AB9C' }}>{selectedLanguage === 'fr' ? contents?.donate_page_steps_button.content_fr : contents?.donate_page_steps_button.content_en}</Link>
                         </div>
                     </div>
                 </div>
@@ -224,7 +226,7 @@ const Home = () => {
             <div className={`modal fade ${showModal ? 'show' : ''}`} id="programModal" tabIndex="-1" aria-labelledby="programModalLabel" aria-hidden={!showModal} style={{ display: showModal ? 'block' : 'none' }}>
                 <div className="modal-dialog modal-lg bg-white">
                     <div className="modal-content">
-                        <div className="modal-header" style={{ background:  '#fff' }}>
+                        <div className="modal-header" style={{ background: '#fff' }}>
                             <h5 className="modal-title text-white" id="programModalLabel">
                                 {selectedProgram && (selectedLanguage === 'fr' ? selectedProgram.nom : selectedProgram.name)}
                             </h5>
@@ -235,7 +237,7 @@ const Home = () => {
                                 <div>
                                     <div className="text-center mb-4">
                                         <img
-                                            src={selectedProgram.image || Logo}
+                                            src={selectedProgram.photo}
                                             alt={selectedLanguage === 'fr' ? selectedProgram.nom : selectedProgram.name}
                                             className="img-fluid"
                                             style={{ maxHeight: '150px', objectFit: 'contain' }}
@@ -243,33 +245,17 @@ const Home = () => {
                                     </div>
 
                                     <h4>{selectedLanguage === 'fr' ? 'Description' : 'Description'}</h4>
-                                    <p>{selectedLanguage === 'fr' ? selectedProgram.description_fr : selectedProgram.description_en}</p>
-
-                                    {selectedProgram.duration && (
+                                    <div>
+                                        {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                                            __html: selectedProgram.description_fr
+                                        }} />) : (<div dangerouslySetInnerHTML={{
+                                            __html: selectedProgram.description_en
+                                        }} />)}
+                                    </div>
+                                    {selectedProgram.beneficiaries && (
                                         <div className="mt-3">
-                                            <h4>{selectedLanguage === 'fr' ? 'Durée' : 'Duration'}</h4>
-                                            <p>{selectedProgram.duration}</p>
-                                        </div>
-                                    )}
-
-                                    {selectedProgram.requirements && (
-                                        <div className="mt-3">
-                                            <h4>{selectedLanguage === 'fr' ? 'Prérequis' : 'Requirements'}</h4>
-                                            <p>{selectedLanguage === 'fr' ? selectedProgram.requirements_fr : selectedProgram.requirements_en}</p>
-                                        </div>
-                                    )}
-
-                                    {selectedProgram.location && (
-                                        <div className="mt-3">
-                                            <h4>{selectedLanguage === 'fr' ? 'Lieu' : 'Location'}</h4>
-                                            <p>{selectedProgram.location}</p>
-                                        </div>
-                                    )}
-
-                                    {selectedProgram.cost && (
-                                        <div className="mt-3">
-                                            <h4>{selectedLanguage === 'fr' ? 'Coût' : 'Cost'}</h4>
-                                            <p>{selectedProgram.cost}</p>
+                                            <h4>{selectedLanguage === 'fr' ? 'Bénéficiaires' : 'Beneficiaries'}</h4>
+                                            <p>{selectedProgram.beneficiaries}</p>
                                         </div>
                                     )}
 

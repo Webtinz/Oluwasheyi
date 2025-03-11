@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from 'react';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import './index.css'
 import Navbar from "./Components/navbar";
 import Banner from "./Components/banner";
@@ -14,8 +15,8 @@ import Feedback from "./Components/Feedback";
 import Footer from "./Components/footer";
 import Logo from "./Components/logo";
 import HealthCarousel from "./Components/healthCarousel";
-import Img from '../assets/Mask1.png';
-import G3Image from "../assets/G3.png"; // Assure-toi d’avoir les images dans le bon dossier
+// import Img from '../assets/Mask1.png';
+// import G3Image from "../assets/G3.png"; // Assure-toi d’avoir les images dans le bon dossier
 import Group1Image from "../assets/Group1.png";
 import { getAdvices, getAllContents, getCertificates, getEvents, getServices, getTeamMembers, getTestimonials } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
@@ -36,15 +37,15 @@ const Home = () => {
     useEffect(() => {
         const fetchContents = async () => {
             try {
-                const savedContents = localStorage.getItem("contents");
-                if (savedContents) {
-                    setContents(JSON.parse(savedContents));
-                } else {
-                    // Fetch contents if not in localStorage
-                    const response = await getAllContents();
-                    setContents(response.data);
-                    localStorage.setItem("contents", JSON.stringify(response.data));
-                }
+                // const savedContents = localStorage.getItem("contents");
+                // if (savedContents) {
+                //     setContents(JSON.parse(savedContents));
+                // } else {
+                // Fetch contents if not in localStorage
+                const response = await getAllContents();
+                setContents(response.data);
+                //     localStorage.setItem("contents", JSON.stringify(response.data));
+                // }
                 // Fetch others data
                 setServices(await getServices());
                 setEvents(await getEvents());
@@ -72,17 +73,17 @@ const Home = () => {
             <br /><br />
             <div className="container virtualtoursect">
                 {/* <span className="mb-4 d-block w-100" style={{ borderBottom: "1px solid #17416F", padding: '0rem 0rem' }}></span> */}
-                <h2
+                <h1
                     className="text-center"
                     style={{ color: '#17416F', textTransform: 'uppercase', fontWeight: '700', fontSize: '36px', marginBottom: '2%' }}
                 >
                     {selectedLanguage === 'fr' ? contents?.home_page_virtual_tour_title.content_fr : contents?.home_page_virtual_tour_title.content_en}
-                </h2>
+                </h1>
                 <br />
                 <br />
                 <div className="row">
                     <div className="col-md-5 order-2 order-md-1" style={{ paddingLeft: 0, paddingRight: 0 }}>
-                        <div className="carousel-content d-flex justify-content-center align-items-center" style={{
+                        <div className="carousel-content carousel-content1 d-flex justify-content-center align-items-center" style={{
                             background: '#17416F',
                             borderTopRightRadius: '50px',
                             position: 'relative'
@@ -100,7 +101,7 @@ const Home = () => {
                     </div>
 
                     <div className="col-md-7 order-1 order-md-2" style={{
-                        paddingLeft: 0,
+                        // paddingLeft: 0,
                         paddingRight: 0,
                         backgroundImage: `url(${contents?.home_page_virtual_tour_img.image})`,
                         backgroundSize: 'cover',
@@ -132,18 +133,18 @@ const Home = () => {
                         <div className="col-lg-4 mb-3 mx-auto align-self-center order-1 order-lg-2" style={{ padding: "0px" }}>
                             <div className="p-3">
                                 <h2 className="text-white text-uppercase fw-bold text-center text-md-start" style={{ fontSize: '30px' }}>{selectedLanguage === 'fr' ? contents?.home_page_banner_link4.content_fr : contents?.home_page_banner_link4.content_en}</h2>
-                                <p className="mt-3 text-white text-uppercase fw-light text-center text-md-start">
+                                <div className="mt-3 text-white text-uppercase fw-light text-center text-md-start">
                                     {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                                         __html: contents?.home_page_patient_portal_desc.content_fr
                                     }} />) : (<div dangerouslySetInnerHTML={{
                                         __html: contents?.home_page_patient_portal_desc.content_en
                                     }} />)}
-                                </p>
+                                </div>
                                 <div className="mt-3 d-flex justify-content-center justify-content-lg-start">
                                     <button
                                         className="btn btn-t text-white"
                                         style={{ backgroundColor: "#13AB9C", padding: "10px 25px" }}
-                                        // onClick={() => (window.location.href = "Meet.html")}
+                                    // onClick={() => (window.location.href = "Meet.html")}
                                     >
                                         {selectedLanguage === 'fr' ? contents?.home_page_patient_portal_button.content_fr : contents?.home_page_patient_portal_button.content_en}
                                     </button>
@@ -163,7 +164,7 @@ const Home = () => {
             </div>
             <br /><br /><br /><br />
             <div>
-                <h2 class="text-center"
+                <h2 className="text-center"
                     style={{ textTransform: 'uppercase', color: '#17416F', fontWeight: '700', fontSize: '36px' }}>
                     {selectedLanguage === 'fr' ? contents?.home_page_equipment_title.content_fr : contents?.home_page_equipment_title.content_en}
                 </h2>

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import './index.css';
 import './about.css';
 import Navbar from "./Components/navbar";
@@ -8,7 +8,7 @@ import Footer from "./Components/footer";
 import Logo from "./Components/logo";
 import Carousel from "./Components/upcomingcarousel";
 import Group1 from '../assets/Group1.png';
-import Mask from '../assets/Mask group.png';
+// import Mask from '../assets/Mask group.png';
 import Mask1 from '../assets/Fr.png';
 import Mask2 from '../assets/Fr1.png';
 import { getAllContents, getCertificates, getEvents } from '../services/content.service';
@@ -59,14 +59,14 @@ const Home = () => {
     useEffect(() => {
         const fetchContents = async () => {
             try {
-                const savedContents = localStorage.getItem("contents");
-                if (savedContents) {
-                    setContents(JSON.parse(savedContents));
-                } else {
-                    const response = await getAllContents();
-                    setContents(response.data);
-                    localStorage.setItem("contents", JSON.stringify(response.data));
-                }
+                // const savedContents = localStorage.getItem("contents");
+                // if (savedContents) {
+                //     setContents(JSON.parse(savedContents));
+                // } else {
+                const response = await getAllContents();
+                setContents(response.data);
+                //     localStorage.setItem("contents", JSON.stringify(response.data));
+                // }
                 setEvents(await getEvents());
                 setCerificates(await getCertificates());
 
@@ -151,13 +151,13 @@ const Home = () => {
                                     </div>
                                     <div className="col-12 col-md-6 mx-auto mb-3 mb-md-0 p-4 align-self-center">
                                         <h2 style={{ textTransform: "uppercase", color: "#17416F", fontSize: '30px', fontWeight: '700' }}>{selectedLanguage === 'fr' ? contents?.communoty_page_menu_1_title.content_fr : contents?.communoty_page_menu_1_title.content_en}</h2>
-                                        <p className="mt-3" style={{ color: "#17416F", display: "-webkit-box", WebkitLineClamp: 10, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                                        <div className="mt-3" style={{ color: "#17416F", display: "-webkit-box", WebkitLineClamp: 10, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
                                             {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                                                 __html: contents?.communoty_page_menu_1_desc.content_fr
                                             }} />) : (<div dangerouslySetInnerHTML={{
                                                 __html: contents?.communoty_page_menu_1_desc.content_en
                                             }} />)}
-                                        </p>
+                                        </div>
                                         <div className="mt-3">
                                             <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }}>
                                                 {selectedLanguage === 'fr' ? contents?.communoty_page_menu_button.content_fr : contents?.communoty_page_menu_button.content_en}
@@ -183,13 +183,13 @@ const Home = () => {
                                         <h2 style={{ textTransform: "uppercase", color: "#17416F", fontSize: '30px', fontWeight: '700' }}>
                                             {selectedLanguage === 'fr' ? contents?.communoty_page_menu_2_title.content_fr : contents?.communoty_page_menu_2_title.content_en}
                                         </h2>
-                                        <p className="mt-3" style={{ color: "#17416F" }}>
+                                        <div className="mt-3" style={{ color: "#17416F" }}>
                                             {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                                                 __html: contents?.communoty_page_menu_2_desc.content_fr
                                             }} />) : (<div dangerouslySetInnerHTML={{
                                                 __html: contents?.communoty_page_menu_2_desc.content_en
                                             }} />)}
-                                        </p>
+                                        </div>
                                         <div className="mt-3">
                                             <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }}>
                                                 {selectedLanguage === 'fr' ? contents?.communoty_page_menu_button.content_fr : contents?.communoty_page_menu_button.content_en}
@@ -215,13 +215,13 @@ const Home = () => {
                                         <h2 style={{ textTransform: "uppercase", color: "#17416F", fontSize: '30px', fontWeight: '700' }}>
                                             {selectedLanguage === 'fr' ? contents?.communoty_page_menu_3_title.content_fr : contents?.communoty_page_menu_3_title.content_en}
                                         </h2>
-                                        <p className="mt-3" style={{ color: "#17416F" }}>
+                                        <div className="mt-3" style={{ color: "#17416F" }}>
                                             {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                                                 __html: contents?.communoty_page_menu_3_desc.content_fr
                                             }} />) : (<div dangerouslySetInnerHTML={{
                                                 __html: contents?.communoty_page_menu_3_desc.content_en
                                             }} />)}
-                                        </p>
+                                        </div>
                                         <div className="mt-3">
                                             <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }}>
                                                 {selectedLanguage === 'fr' ? contents?.communoty_page_menu_button.content_fr : contents?.communoty_page_menu_button.content_en}
@@ -247,13 +247,13 @@ const Home = () => {
                                         <h2 style={{ textTransform: "uppercase", color: "#17416F", fontSize: '30px', fontWeight: '700' }}>
                                             {selectedLanguage === 'fr' ? contents?.communoty_page_menu_4_title.content_fr : contents?.communoty_page_menu_4_title.content_en}
                                         </h2>
-                                        <p className="mt-3" style={{ color: "#17416F" }}>
+                                        <div className="mt-3" style={{ color: "#17416F" }}>
                                             {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                                                 __html: contents?.communoty_page_menu_4_desc.content_fr
                                             }} />) : (<div dangerouslySetInnerHTML={{
                                                 __html: contents?.communoty_page_menu_4_desc.content_en
                                             }} />)}
-                                        </p>
+                                        </div>
                                         <div className="mt-3">
                                             <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }}>
                                                 {selectedLanguage === 'fr' ? contents?.communoty_page_menu_button.content_fr : contents?.communoty_page_menu_button.content_en}
@@ -279,13 +279,13 @@ const Home = () => {
                                         <h2 style={{ textTransform: "uppercase", color: "#17416F", fontSize: '30px', fontWeight: '700' }}>
                                             {selectedLanguage === 'fr' ? contents?.communoty_page_menu_5_title.content_fr : contents?.communoty_page_menu_5_title.content_en}
                                         </h2>
-                                        <p className="mt-3" style={{ color: "#17416F" }}>
+                                        <div className="mt-3" style={{ color: "#17416F" }}>
                                             {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                                                 __html: contents?.communoty_page_menu_5_desc.content_fr
                                             }} />) : (<div dangerouslySetInnerHTML={{
                                                 __html: contents?.communoty_page_menu_5_desc.content_en
                                             }} />)}
-                                        </p>
+                                        </div>
                                         <div className="mt-3">
                                             <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }}>
                                                 {selectedLanguage === 'fr' ? contents?.communoty_page_menu_button.content_fr : contents?.communoty_page_menu_button.content_en}

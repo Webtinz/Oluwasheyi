@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import './index.css';
 import './about.css';
 import Navbar from "./Components/navbar";
 import Feedback from "./Components/Feedback";
 import Footer from "./Components/footer";
 import Group1 from '../assets/Group1.png';
-import Image33 from '../assets/image 33.png';
+// import Image33 from '../assets/image 33.png';
 import Mask1 from '../assets/Fr.png';
 import Mask2 from '../assets/G122.png';
 import Mask3 from '../assets/Fr1.png';
@@ -56,15 +56,15 @@ const Home = () => {
     useEffect(() => {
         const fetchContents = async () => {
             try {
-                const savedContents = localStorage.getItem("contents");
-                if (savedContents) {
-                    setContents(JSON.parse(savedContents));
-                } else {
-                    // Fetch contents if not in localStorage
-                    const response = await getAllContents();
-                    setContents(response.data);
-                    localStorage.setItem("contents", JSON.stringify(response.data));
-                }
+                // const savedContents = localStorage.getItem("contents");
+                // if (savedContents) {
+                //     setContents(JSON.parse(savedContents));
+                // } else {
+                // Fetch contents if not in localStorage
+                const response = await getAllContents();
+                setContents(response.data);
+                //     localStorage.setItem("contents", JSON.stringify(response.data));
+                // }
             } catch (error) {
                 console.error('Failed to fetch contents:', error.message || error);
             }
@@ -114,27 +114,6 @@ const Home = () => {
         setCurrentYear(years[newIndex]);
     };
 
-    // Get contents on component mount
-    useEffect(() => {
-        const fetchContents = async () => {
-            try {
-                const savedContents = localStorage.getItem("contents");
-                if (savedContents) {
-                    setContents(JSON.parse(savedContents));
-                } else {
-                    // Fetch contents if not in localStorage
-                    const response = await getAllContents();
-                    setContents(response.data);
-                    localStorage.setItem("contents", JSON.stringify(response.data));
-                }
-            } catch (error) {
-                console.error('Failed to fetch contents:', error.message || error);
-            }
-        };
-        fetchContents();
-    }, []);
-
-
     return (
         <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
             <div><Navbar /></div>
@@ -163,13 +142,13 @@ const Home = () => {
                             {selectedLanguage === 'fr' ? contents?.about_page_mission_title.content_fr : contents?.about_page_mission_title.content_en}
                         </h2>
                         <br />
-                        <p className="mt-2">
+                        <div className="mt-2">
                             {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                                 __html: contents?.about_page_mission_desc.content_fr
                             }} />) : (<div dangerouslySetInnerHTML={{
                                 __html: contents?.about_page_mission_desc.content_en
                             }} />)}
-                        </p>
+                        </div>
                         <br />
                         <ul className="list-unstyled">
                             {[
@@ -221,7 +200,7 @@ const Home = () => {
             <>
                 {/* Our Values Section */}
                 <section className="container mt-5">
-                    <h2 style={{ color: '#17416F', fontSize: 'clamp(25px, 8vw, 36px)', fontWeight: '700',textTransform:'uppercase' }}>  {selectedLanguage === 'fr' ? contents?.about_page_value_title.content_fr : contents?.about_page_value_title.content_en} </h2>
+                    <h2 style={{ color: '#17416F', fontSize: 'clamp(25px, 8vw, 36px)', fontWeight: '700', textTransform: 'uppercase' }}>  {selectedLanguage === 'fr' ? contents?.about_page_value_title.content_fr : contents?.about_page_value_title.content_en} </h2>
                     <br />
                     <div className="row mt-4">
                         {values.map((value, index) => (

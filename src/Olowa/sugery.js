@@ -8,7 +8,7 @@ import Footer from "./Components/footer";
 import OwlCarousel from "./Components/owlcarousel";
 import Logo from "./Components/logo";
 import Group1 from '../assets/Group1.png';
-import Img from '../assets/beta.png';
+// import Img from '../assets/beta.png';
 import Mask1 from '../assets/Fr1.png';
 import Mask2 from '../assets/Fr.png';
 import { getAllContents, getCertificates } from '../services/content.service';
@@ -24,15 +24,15 @@ const Home = () => {
     useEffect(() => {
         const fetchContents = async () => {
             try {
-                const savedContents = localStorage.getItem("contents");
-                if (savedContents) {
-                    setContents(JSON.parse(savedContents));
-                } else {
-                    // Fetch contents if not in localStorage
-                    const response = await getAllContents();
-                    setContents(response.data);
-                    localStorage.setItem("contents", JSON.stringify(response.data));
-                }
+                // const savedContents = localStorage.getItem("contents");
+                // if (savedContents) {
+                //     setContents(JSON.parse(savedContents));
+                // } else {
+                // Fetch contents if not in localStorage
+                const response = await getAllContents();
+                setContents(response.data);
+                //     localStorage.setItem("contents", JSON.stringify(response.data));
+                // }
                 setCerificates(await getCertificates());
 
             } catch (error) {
@@ -71,7 +71,7 @@ const Home = () => {
                             <p className='mt-3 ms-2' style={{ color: '#17416F', fontWeight: '600' }}>
                                 {selectedLanguage === 'fr' ? contents?.surgery_page_surgery_title_descp.content_fr : contents?.surgery_page_surgery_title_descp.content_en}
                             </p>
-                            <p className='ms-2 mt-2' style={{ color: '#17416F' }}>
+                            <div className='ms-2 mt-2' style={{ color: '#17416F' }}>
                                 {selectedLanguage === 'fr' ?
                                     (<div dangerouslySetInnerHTML={{
                                         __html: contents?.surgery_page_surgery_descp.content_fr
@@ -81,20 +81,20 @@ const Home = () => {
                                     }} />)
                                 }
 
-                            </p>
+                            </div>
                             <br />
-                            <Link to="/contact" className="btn btn-pri px-4 text-white" style={{ background: '#13AB9C' }}>{selectedLanguage === 'fr' ? contents?.	surgery_page_surgery_button.content_fr : contents?.	surgery_page_surgery_button.content_en}</Link>
+                            <Link to="/contact" className="btn btn-pri px-4 text-white" style={{ background: '#13AB9C' }}>{selectedLanguage === 'fr' ? contents?.surgery_page_surgery_button.content_fr : contents?.surgery_page_surgery_button.content_en}</Link>
                         </div>
                     </div>
                 </div>
-                <br/><br/>
+                <br /><br />
                 <span className='d-flex my-4' style={{ borderBottom: '1px solid #17416F' }}></span>
             </section>
             <br /><br />
             <div><OwlCarousel /></div>
             <br /><br /><br /><br />
             <div>
-                <Logo logos={certificates}/>
+                <Logo logos={certificates} />
             </div>
             <br /><br /><br /><br />
             <div>

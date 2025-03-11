@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useCallback, useContext } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect, useContext } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from "react-router-dom";
-import Img1 from '../../assets/o1.png';
-import Img2 from '../../assets/o2.png';
-import Img3 from '../../assets/o3.png';
+// import Img1 from '../../assets/o1.png';
+// import Img2 from '../../assets/o2.png';
+// import Img3 from '../../assets/o3.png';
 import '../index.css';
-import { getAllContents, getServices } from '../../services/content.service';
+import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 const ServicesCarousel = ({ services }) => {
 
@@ -22,15 +23,15 @@ const ServicesCarousel = ({ services }) => {
 
     const fetchContents = async () => {
       try {
-        const savedContents = localStorage.getItem("contents");
-        if (savedContents) {
-          setContents(JSON.parse(savedContents));
-        } else {
-          // Fetch contents if not in localStorage
-          const response = await getAllContents();
-          setContents(response.data);
-          localStorage.setItem("contents", JSON.stringify(response.data));
-        }
+        // const savedContents = localStorage.getItem("contents");
+        // if (savedContents) {
+        //   setContents(JSON.parse(savedContents));
+        // } else {
+        // Fetch contents if not in localStorage
+        const response = await getAllContents();
+        setContents(response.data);
+        //   localStorage.setItem("contents", JSON.stringify(response.data));
+        // }
 
       } catch (error) {
         console.error('Failed to fetch contents:', error.message || error);
@@ -126,7 +127,7 @@ const ServicesCarousel = ({ services }) => {
       {/* Header avec titre et boutons de navigation */}
       <div className="flex justify-between items-center gap-4 relative mb-8" style={{ margin: '30px 10px' }}>
         <div>
-          <h2 className="text-2xl font-bold" style={{ fontSize: '36px', color: '#17416F',textTransform:'uppercase' }}>{selectedLanguage === 'fr' ? contents?.home_page_banner_link3.content_fr : contents?.home_page_banner_link3.content_en}</h2>
+          <h2 className="text-2xl font-bold" style={{ fontSize: '36px', color: '#17416F', textTransform: 'uppercase' }}>{selectedLanguage === 'fr' ? contents?.home_page_banner_link3.content_fr : contents?.home_page_banner_link3.content_en}</h2>
         </div>
         <div className="flex gap-4">
           <button

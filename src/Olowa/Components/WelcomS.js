@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import "../index.css"; // Fichier CSS pour les styles
-import img1 from "../../assets/img1.png";
+// import img1 from "../../assets/img1.png";
 import img2 from "../../assets/img.png";
 import Mask2 from '../../assets/Fr.png';
 import { getAllContents } from '../../services/content.service';
@@ -20,15 +20,15 @@ const WelcomeSection = () => {
   useEffect(() => {
     const fetchContents = async () => {
       try {
-        const savedContents = localStorage.getItem("contents");
-        if (savedContents) {
-          setContents(JSON.parse(savedContents));
-        } else {
-          // Fetch contents if not in localStorage
-          const response = await getAllContents();
-          setContents(response.data);
-          localStorage.setItem("contents", JSON.stringify(response.data));
-        }
+        // const savedContents = localStorage.getItem("contents");
+        // if (savedContents) {
+        //   setContents(JSON.parse(savedContents));
+        // } else {
+        // Fetch contents if not in localStorage
+        const response = await getAllContents();
+        setContents(response.data);
+        //   localStorage.setItem("contents", JSON.stringify(response.data));
+        // }
       } catch (error) {
         console.error('Failed to fetch contents:', error.message || error);
       }
@@ -65,24 +65,24 @@ const WelcomeSection = () => {
               {/* Welcome to <br/> Clinique Polyvalente <br/> OLUWA SHEYI */}
             </h2>
             <br />
-            <p className="section-text">
+            <div className="section-text">
               {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                 __html: contents?.welcom_desp_2.content_fr
               }} />) : (<div dangerouslySetInnerHTML={{
                 __html: contents?.welcom_desp_2.content_en
               }} />)}
-            </p>
+            </div>
 
             {/* Contenu supplémentaire affiché uniquement si isExpanded est true */}
             {isExpanded && (
               <div className="extra-content">
-                <p className="section-text">
+                <div className="section-text">
                   {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                     __html: contents?.welcom_desp_2.content_fr
                   }} />) : (<div dangerouslySetInnerHTML={{
                     __html: contents?.welcom_desp_2.content_en
                   }} />)}
-                </p>
+                </div>
               </div>
             )}
 

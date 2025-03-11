@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import "../index.css";
 import { Link } from "react-router-dom";
-import Img from '../../assets/i1.png';
-import Img1 from '../../assets/i2.png';
-import Img2 from '../../assets/i3.png';
-import Img3 from '../../assets/i4.png';
-import Img4 from '../../assets/i5.png';
+// import Img from '../../assets/i1.png';
+// import Img1 from '../../assets/i2.png';
+// import Img2 from '../../assets/i3.png';
+// import Img3 from '../../assets/i4.png';
+// import Img4 from '../../assets/i5.png';
 import Lg from '../../assets/Group.png';
 import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
@@ -18,15 +18,15 @@ const CommunityEngagement = () => {
   useEffect(() => {
     const fetchContents = async () => {
       try {
-        const savedContents = localStorage.getItem("contents");
-        if (savedContents) {
-          setContents(JSON.parse(savedContents));
-        } else {
-          // Fetch contents if not in localStorage
-          const response = await getAllContents();
-          setContents(response.data);
-          localStorage.setItem("contents", JSON.stringify(response.data));
-        }
+        // const savedContents = localStorage.getItem("contents");
+        // if (savedContents) {
+        //   setContents(JSON.parse(savedContents));
+        // } else {
+        // Fetch contents if not in localStorage
+        const response = await getAllContents();
+        setContents(response.data);
+        //   localStorage.setItem("contents", JSON.stringify(response.data));
+        // }
       } catch (error) {
         console.error('Failed to fetch contents:', error.message || error);
       }
@@ -126,7 +126,7 @@ const CommunityEngagement = () => {
                   <div className="col-lg-6 mx-auto mb-4 p-0 p-lg-4 align-self-center order-2">
                     <div className="p-2 p-lg-4">
                       <h2 style={{ color: "#17416F", fontWeight: 700, textTransform: "uppercase", fontSize: '30px' }}>{item.title}</h2>
-                      <p className="mt-3" style={{ color: "#17416F", display: "-webkit-box", WebkitLineClamp: 10, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{item.description}</p>
+                      <div className="mt-3" style={{ color: "#17416F", display: "-webkit-box", WebkitLineClamp: 10, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{item.description}</div>
                       <div className="mt-4">
                         <Link
                           to={`/community#${item.anchor}`}
@@ -144,7 +144,7 @@ const CommunityEngagement = () => {
                   <div className="col-lg-6 mx-auto mb-4 p-0 p-lg-4 align-self-center order-2 order-lg-1">
                     <div className="p-2 p-lg-4">
                       <h2 style={{ color: "#17416F", fontWeight: 700, textTransform: "uppercase", fontSize: '30px' }}>{item.title}</h2>
-                      <p className="mt-3" style={{ color: "#17416F", display: "-webkit-box", WebkitLineClamp: 10, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{item.description}</p>
+                      <div className="mt-3" style={{ color: "#17416F", display: "-webkit-box", WebkitLineClamp: 10, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{item.description}</div>
                       <div className="mt-4">
                         <Link
                           to={`/community#${item.anchor}`}

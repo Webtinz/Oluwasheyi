@@ -1,25 +1,46 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useContext, useEffect, useState } from 'react';
 import '../index.css'
-import Mask1Image from '../../assets/Mask1.png';
+// import Mask1Image from '../../assets/Mask1.png';
 import { Link } from "react-router-dom";
 import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
- 
+import Bookpatientappointment from '../Components/Patientsappointmnets';
+
 const About = () => {
     const { selectedLanguage } = useContext(LanguageContext);
     const [contents, setContents] = useState();
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+    const [BookAppointmentmodal, setBookAppointmentmodal] = useState(null);
+
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        experience: 5,
+        yoursuggestions: ''
+    });
+
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+
 
     useEffect(() => {
         const fetchContents = async () => {
             try {
-                const savedContents = localStorage.getItem("contents");
-                if (savedContents) {
-                    setContents(JSON.parse(savedContents));
-                } else {
-                    const response = await getAllContents();
-                    setContents(response.data);
-                    localStorage.setItem("contents", JSON.stringify(response.data));
-                }
+                // const savedContents = localStorage.getItem("contents");
+                // if (savedContents) {
+                //     setContents(JSON.parse(savedContents));
+                // } else {
+                const response = await getAllContents();
+                setContents(response.data);
+                //     localStorage.setItem("contents", JSON.stringify(response.data));
+                // }
             } catch (error) {
                 console.error('Failed to fetch contents:', error.message || error);
             }
@@ -28,7 +49,7 @@ const About = () => {
     }, []);
 
     return (
-        <div className=" mybanner">
+        <div className="mybanner">
             <div className="row align-items-center">
                 <div className="col-md-12" style={{ paddingLeft: 0, paddingRight: 0 }}>
                     <div id="carouselExample" className="carousel slide" data-bs-ride="carousel">
@@ -45,19 +66,21 @@ const About = () => {
                                                         __html: contents?.home_page_banner_title.content_en
                                                     }} />)}</h2>
                                                     <br />
-                                                    <p>{selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                                                    <div>{selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                                                         __html: contents?.home_page_banner_desc_1.content_fr
                                                     }} />) : (<div dangerouslySetInnerHTML={{
                                                         __html: contents?.home_page_banner_desc_1.content_en
-                                                    }} />)}</p>
+                                                    }} />)}</div>
                                                     <br />
                                                     <div className='mnt'>
-                                                        <Link to="/about" className="btn btn-cus text-white me-2" style={{ backgroundColor: '#13AB9C', padding: '10px 15px' }}>
+                                                        <Link to="/about" className="btn btn-cus text-white me-2 mb-3 mb-lg-0" style={{ backgroundColor: '#13AB9C', padding: '10px 15px' }}>
                                                             {selectedLanguage === 'fr' ? contents?.home_page_banner_about_us.content_fr : contents?.home_page_banner_about_us.content_en}
                                                         </Link>
-                                                        <Link to="/" className="btn btn-outline-light" style={{ padding: '10px 15px' }}>
+
+                                                        {/* <a href="#" onClick={(e) => { e.preventDefault(); setBookAppointmentmodal(); }} className="btn btn-outline-light" style={{ padding: '10px 15px' }}>
                                                             {selectedLanguage === 'fr' ? contents?.home_page_banner_book_appointment.content_fr : contents?.home_page_banner_book_appointment.content_en}
-                                                        </Link>
+                                                        </a> */}
+                                                        < Bookpatientappointment/>   
                                                     </div>
                                                 </div>
                                             </div>
@@ -109,6 +132,10 @@ const About = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Modal */}
+
+
         </div>
     );
 };

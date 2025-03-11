@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import Img from '../../assets/image.png';
+// import Img from '../../assets/image.png';
 import '../index.css';
 import '../about.css';
 import { getAllContents } from '../../services/content.service';
@@ -42,15 +42,15 @@ const EventsCarousel = ({ events }) => {
   useEffect(() => {
     const fetchContents = async () => {
       try {
-        const savedContents = localStorage.getItem("contents");
-        if (savedContents) {
-          setContents(JSON.parse(savedContents));
-        } else {
-          // Fetch contents if not in localStorage
-          const response = await getAllContents();
-          setContents(response.data);
-          localStorage.setItem("contents", JSON.stringify(response.data));
-        }
+        // const savedContents = localStorage.getItem("contents");
+        // if (savedContents) {
+        //   setContents(JSON.parse(savedContents));
+        // } else {
+        // Fetch contents if not in localStorage
+        const response = await getAllContents();
+        setContents(response.data);
+        //   localStorage.setItem("contents", JSON.stringify(response.data));
+        // }
       } catch (error) {
         console.error('Failed to fetch contents:', error.message || error);
       }
@@ -119,9 +119,17 @@ const EventsCarousel = ({ events }) => {
                       <h3 className="fs-4 fw-semibold mb-2" style={{ color: '#17416F', fontWeight: '700' }}>
                         {selectedLanguage === 'fr' ? event.nom : event.name}
                       </h3>
-                      <p className="text-muted mb-3" style={{ display: "-webkit-box", WebkitLineClamp: 5, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{selectedLanguage === 'fr' ? event.description : event.description_en}</p>
-                      <button className="btn text-white px-4" style={{ background: '#13AB9C' }}
-                        onClick={() => setSelectedEvent(event)}>
+                      <div className="text-muted mb-3" style={{ display: "-webkit-box", WebkitLineClamp: 5, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                        {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                          __html: event.description
+                        }} />) : (<div dangerouslySetInnerHTML={{
+                          __html: event.description_en
+                        }} />)}
+                        {/* {selectedLanguage === 'fr' ? event.description : event.description_en} */}
+                      </div>
+                      <button className="btn text-white px-4" 
+                      onClick={() => setSelectedEvent(event)}
+                       style={{ background: '#13AB9C' }}>
                         {selectedLanguage === 'fr' ? "Voir Plus" : "Learn More"}
                       </button>
 

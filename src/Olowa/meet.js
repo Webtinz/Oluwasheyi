@@ -1,19 +1,20 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import './index.css';
 import './about.css';
 import Navbar from "./Components/navbar";
 import Feedback from "./Components/Feedback";
 import Footer from "./Components/footer";
 import Group1 from '../assets/Group1.png';
-import Img from '../assets/Mask group1.png';
-import Img1 from '../assets/Mask group2.png';
-import Doc from '../assets/1.png';
-import Doc1 from '../assets/2.png';
-import Doc2 from '../assets/3.png';
-import Doc3 from '../assets/4.png';
+// import Img from '../assets/Mask group1.png';
+// import Img1 from '../assets/Mask group2.png';
+// import Doc from '../assets/1.png';
+// import Doc1 from '../assets/2.png';
+// import Doc2 from '../assets/3.png';
+// import Doc3 from '../assets/4.png';
+// import Mask from '../assets/Mask group.png';
 import LinkedIn from '../assets/linkedin.png';
-import Mask from '../assets/Mask group.png';
 import Mask1 from '../assets/Fr1.png';
 import Mask2 from '../assets/Fr.png';
 import { getAllContents, getTeamMembers } from '../services/content.service';
@@ -36,23 +37,23 @@ const Home = () => {
     const [contents, setContents] = useState();
 
     const directors = [
-        { id: 1, image: contents?.doct_img_1.image, name: "Docteurs Name" },
-        { id: 2, image: contents?.doct_img_2.image, name: "Docteurs Name" },
+        { id: 1, image: contents?.doct_img_1.image, name: contents?.director_1.content_fr, title_fr: contents?.director_1_title.content_fr, title_en: contents?.director_1_title.content_en },
+        { id: 2, image: contents?.doct_img_2.image, name: contents?.director_2.content_fr , title_fr: contents?.director_2_title.content_fr, title_en: contents?.director_2_title.content_en },
     ];
 
     // Get contents on component mount
     useEffect(() => {
         const fetchContents = async () => {
             try {
-                const savedContents = localStorage.getItem("contents");
-                if (savedContents) {
-                    setContents(JSON.parse(savedContents));
-                } else {
-                    // Fetch contents if not in localStorage
-                    const response = await getAllContents();
-                    setContents(response.data);
-                    localStorage.setItem("contents", JSON.stringify(response.data));
-                }
+                // const savedContents = localStorage.getItem("contents");
+                // if (savedContents) {
+                //     setContents(JSON.parse(savedContents));
+                // } else {
+                // Fetch contents if not in localStorage
+                const response = await getAllContents();
+                setContents(response.data);
+                //     localStorage.setItem("contents", JSON.stringify(response.data));
+                // }
                 setDoctors(await getTeamMembers())
             } catch (error) {
                 console.error('Failed to fetch contents:', error.message || error);
@@ -84,13 +85,13 @@ const Home = () => {
                         </h2>
                     </div>
                     <div className="col-md-8 mx-auto">
-                        <p style={{ color: '#17416F' }}>
+                        <div style={{ color: '#17416F' }}>
                             {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                                 __html: contents?.team_descp.content_fr
                             }} />) : (<div dangerouslySetInnerHTML={{
                                 __html: contents?.team_descp.content_en
                             }} />)}
-                        </p>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -109,7 +110,7 @@ const Home = () => {
                                 <h4 className="text-center mt-4" style={{ color: "white", fontWeight: 700, textTransform: "uppercase", fontSize: 'clamp(18px, 8vw, 24px)' }}>
                                     {director.name}
                                 </h4>
-                                <p className="text-white text-center mt-3" style={{ fontSize: 'clamp(16px, 8vw, 20px)' }}>Directors</p>
+                                <p className="text-white text-center mt-3" style={{ fontSize: 'clamp(16px, 8vw, 20px)' }}>{selectedLanguage === 'fr' ? director.title_fr : director.title_en}</p>
                                 <span className="d-block mt-4" style={{ borderBottom: ".3px solid white" }}></span>
                             </div>
                         </div>
@@ -160,14 +161,14 @@ const Home = () => {
                                                     <h2 style={{ fontSize: "25px", color: "#17416F", fontWeight: 800 }}>{selectedDoctor.nom} {selectedDoctor.prenom}</h2>
                                                     <p style={{ color: "#13AB9C", fontWeight: '600' }}>{selectedLanguage === 'fr' ? selectedDoctor.titre : selectedDoctor.titre_en}</p>
                                                     <span className="my-4 d-block" style={{ borderBottom: "1px solid #17416F33" }}></span>
-                                                    <p style={{ color: "#17416F" }}>
+                                                    <div style={{ color: "#17416F" }}>
                                                         {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                                                             __html: selectedDoctor.description
                                                         }} />) : (<div dangerouslySetInnerHTML={{
                                                             __html: selectedDoctor.description_en
                                                         }} />)}
                                                         {/* {selectedLanguage === 'fr' ? contents?.modal_descp.content_fr : contents?.modal_descp.content_en} */}
-                                                    </p>
+                                                    </div>
                                                     <div className="mt-3">
                                                         <button className="btn btn-cont px-4 py-2" style={{ color: "white", backgroundColor: "#13AB9C" }}>
                                                             {selectedLanguage === 'fr' ? contents?.modal_button.content_fr : contents?.modal_button.content_en}

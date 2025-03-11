@@ -1,19 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import './index.css';
 import './about.css';
 import Navbar from "./Components/navbar";
 import Feedback from "./Components/Feedback";
 import Footer from "./Components/footer";
 import Group1 from '../assets/Group1.png';
-import Testi from '../assets/testi.png';
+// import Testi from '../assets/testi.png';
 import Mask1 from '../assets/Fr1.png';
 import { getAllContents, getTestimonials } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
 
 
 const Home = () => {
-
 
     const { selectedLanguage } = useContext(LanguageContext);
     const [contents, setContents] = useState();
@@ -23,15 +22,15 @@ const Home = () => {
     useEffect(() => {
         const fetchContents = async () => {
             try {
-                const savedContents = localStorage.getItem("contents");
-                if (savedContents) {
-                    setContents(JSON.parse(savedContents));
-                } else {
-                    // Fetch contents if not in localStorage
-                    const response = await getAllContents();
-                    setContents(response.data);
-                    localStorage.setItem("contents", JSON.stringify(response.data));
-                }
+                // const savedContents = localStorage.getItem("contents");
+                // if (savedContents) {
+                //     setContents(JSON.parse(savedContents));
+                // } else {
+                // Fetch contents if not in localStorage
+                const response = await getAllContents();
+                setContents(response.data);
+                //     localStorage.setItem("contents", JSON.stringify(response.data));
+                // }
                 setTestimonials(await getTestimonials())
 
             } catch (error) {
