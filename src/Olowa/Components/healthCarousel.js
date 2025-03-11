@@ -103,7 +103,7 @@ const HealthAdviceCarousel = ({ healthAdvices }) => {
                 <div
                   key={currentIndex + index}
                   className="transition-all duration-300 ease-in-out transform"
-                  style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }} // Ensures each card has equal height
+                  style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}
                 >
                   <div className="bg-white shadow-md h-100" style={{ border: '1px solid #17416F', padding: '10px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <div className="flex flex-col items-center text-center gap-4" style={{ flexGrow: 1 }}>
@@ -123,7 +123,6 @@ const HealthAdviceCarousel = ({ healthAdvices }) => {
                     {/* Ensure the button is at the bottom of the card */}
                     < a
                       href='#'
-                      // to={`/service#${service.id}`}
                       type="button"
                       onClick={(e) => { e.preventDefault(); setSelectedAdvice(advice); }}
                       className="w-full mt-2 p-3 btn btn-yt text-white" style={{ background: '#13AB9C' }}
