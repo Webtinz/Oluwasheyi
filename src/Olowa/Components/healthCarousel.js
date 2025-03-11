@@ -2,10 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from "react-router-dom";
 import '../index.css';
-// import nutrition from '../../assets/nutrition.png';
-// import exercise from '../../assets/exercise.png';
-// import healthtrack from '../../assets/natural-supplement.png';
-// import pregnancy from '../../assets/pregnancy.png';
 import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 
@@ -14,33 +10,6 @@ const HealthAdviceCarousel = ({ healthAdvices }) => {
   const [itemsToShow, setItemsToShow] = React.useState(1);
   const [selectedAdvice, setSelectedAdvice] = useState(null);
 
-  // const healthAdvices = [
-  //   {
-  //     title: 'Nutrition ',
-  //     image: nutrition,
-  //     description: 'Lorem ipsum dolor sit<br/> amet nulls const.'
-  //   },
-  //   {
-  //     title: 'Physical Activity',
-  //     image: exercise,
-  //     description: 'Lorem ipsum dolor sit <br/> amet nulls const.'
-  //   },
-  //   {
-  //     title: 'Natural Health',
-  //     image: healthtrack,
-  //     description: 'Lorem ipsum dolor sit <br/> amet nulls const.'
-  //   },
-  //   {
-  //     title: 'Pregnancy Monitoring',
-  //     image: pregnancy,
-  //     description: 'Lorem ipsum dolor sit <br/> amet nulls const.'
-  //   },
-  //   {
-  //     title: 'Health Tracking',
-  //     image: pregnancy,
-  //     description: 'Lorem ipsum dolor sit <br/> amet nulls const.'
-  //   }
-  // ];
 
   React.useEffect(() => {
     const updateItemsToShow = () => {
@@ -106,7 +75,7 @@ const HealthAdviceCarousel = ({ healthAdvices }) => {
           <h2 className='text-center mb-5' style={{ textTransform: 'uppercase', fontSize: '36px', fontWeight: '700', color: '#17416F' }}>
             {selectedLanguage === 'fr' ? contents?.home_page_banner_link5.content_fr : contents?.home_page_banner_link5.content_en}
           </h2>
-          <div className="relative" style={{ margin: '0 8rem' }}>
+          <div className="relative">
             {/* Navigation Buttons */}
             <button
               onClick={prev}

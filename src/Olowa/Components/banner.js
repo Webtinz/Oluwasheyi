@@ -73,7 +73,7 @@ const About = () => {
                                                     }} />)}</div>
                                                     <br />
                                                     <div className='mnt'>
-                                                        <Link to="/about" className="btn btn-cus text-white me-2" style={{ backgroundColor: '#13AB9C', padding: '10px 15px' }}>
+                                                        <Link to="/about" className="btn btn-cus text-white me-2 mb-3 mb-lg-0" style={{ backgroundColor: '#13AB9C', padding: '10px 15px' }}>
                                                             {selectedLanguage === 'fr' ? contents?.home_page_banner_about_us.content_fr : contents?.home_page_banner_about_us.content_en}
                                                         </Link>
 

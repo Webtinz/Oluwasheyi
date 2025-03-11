@@ -73,17 +73,17 @@ const Home = () => {
             <br /><br />
             <div className="container virtualtoursect">
                 {/* <span className="mb-4 d-block w-100" style={{ borderBottom: "1px solid #17416F", padding: '0rem 0rem' }}></span> */}
-                <h2
+                <h1
                     className="text-center"
                     style={{ color: '#17416F', textTransform: 'uppercase', fontWeight: '700', fontSize: '36px', marginBottom: '2%' }}
                 >
                     {selectedLanguage === 'fr' ? contents?.home_page_virtual_tour_title.content_fr : contents?.home_page_virtual_tour_title.content_en}
-                </h2>
+                </h1>
                 <br />
                 <br />
                 <div className="row">
                     <div className="col-md-5 order-2 order-md-1" style={{ paddingLeft: 0, paddingRight: 0 }}>
-                        <div className="carousel-content d-flex justify-content-center align-items-center" style={{
+                        <div className="carousel-content carousel-content1 d-flex justify-content-center align-items-center" style={{
                             background: '#17416F',
                             borderTopRightRadius: '50px',
                             position: 'relative'

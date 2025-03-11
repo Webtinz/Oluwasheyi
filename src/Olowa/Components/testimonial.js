@@ -135,7 +135,7 @@ const PatientTestimonials = ({ testimonials }) => {
                 <i className="bi bi-chevron-right fs-3"></i>
               </button>
             </div>
-            <div className='d-flex justify-content-end mt-4'>
+            <div className='d-flex justify-content-end mt-4 vpl'>
               <img src={Msk} alt="Mask logo" />
             </div>
           </div>
@@ -148,7 +148,7 @@ const PatientTestimonials = ({ testimonials }) => {
               }}
             >
               {testimonials?.map((testimonial) => (
-                <div key={testimonial.id} className="px-4" style={{ width: `${100 / testimonials?.length * cardsToShow}%` }}>
+                <div key={testimonial.id} className="px-lg-4 px-0" style={{ width: `${100 / testimonials?.length * cardsToShow}%` }}>
                   <div className=" p-6 h-full"
                     style={{
                       border: '1px solid #17416F',

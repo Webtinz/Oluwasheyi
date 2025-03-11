@@ -80,7 +80,6 @@ body {
 }
 
 
-
 .carousel-content.carrousseltwo {
   background: #13AB9C;
 }
@@ -141,6 +140,12 @@ body {
   .carousel-content .carrousseltextcont p {
     font-size: 16px;
     margin-top: -1rem;
+  }
+  .carousel-content1 {
+    height: 40vh !important;
+  }
+  .carousel-content1 h2{
+    font-size: 40px !important;
   }
   .mnt{
     margin-top: -1rem !important;
