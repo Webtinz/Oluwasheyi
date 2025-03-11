@@ -60,7 +60,15 @@ const Home = () => {
                     {testimonials?.map((testimonial, index) => (
                         <div
                             key={index}
-                            className={`col-12 col-md-6 col-lg-4`}
+                            className={[
+                                "col-12 col-md-6 col-lg-4 ",
+                                index === 0 ? "first-column" : "",
+                                index === 1 ? "second-column" : "",
+                                index === 2 ? "first-column" : "",
+                                index === 3 ? "three-column" : "",
+                                index === 4 ? "fifth-column" : "",
+                                index === 5 ? "three-column" : "",
+                            ].filter(Boolean).join(" ")}
                         >
                             <div className="p-3 scur" style={{ border: '1px solid #17416F', borderTopRightRadius: '30px' }}>
                                 <div><strong style={{ color: '#13AB9C', fontSize: '120px' }}>"</strong></div>
@@ -85,11 +93,11 @@ const Home = () => {
                 </div>
 
                 {/* CSS avec focus uniquement sur la cinquième colonne */}
-                <style jsx>{`
+                {/* <style jsx>{`
                 .fifth-column .scur {
                     margin-top: -4.5rem;
                 }
-            `}</style>
+            `}</style> */}
             </section>
             <br /><br /><br />
             <div>
