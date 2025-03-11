@@ -4,8 +4,7 @@ import { QrReader } from "react-qr-reader";
 import jsQR from "jsqr";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import api from '../../services/caller.service';
-import { getAllContents } from '../../services/content.service';
+import { getAllContents, addNewpatient } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 import { BsArrowLeftCircle } from "react-icons/bs";
 
@@ -256,12 +255,12 @@ const BookAppointment = () => {
             phoneNumber: phone, // Utilise l'état du téléphone
         };
 
-
-        try {
-            const response = await api.post('/register-patient', formData);
+        try{
+            const response = await addNewpatient(formData)
+            console.log(response);
             setStep("select");
             setShowModalSuccess(true); // Affiche le modal de succès
-        } catch (error) {
+        }catch (error){
             console.error(error);
             alert('Une erreur s\'est produite');
         }
@@ -340,7 +339,7 @@ const BookAppointment = () => {
                                         <div className="color">
                                             <div className="mb-6">
                                                 <h1 className="text-2xl font-bold text-blue-900 text-center">
-                                                    PATIENT <br></br> PORTAL
+                                                    PATIENT  PORTAL
                                                 </h1>
                                                 <p className='text-center'>Choose who you are </p>
                                                 <br></br>
@@ -350,7 +349,7 @@ const BookAppointment = () => {
                                                 }}>
                                                     <span style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'underline' }}>
                                                         <BsArrowLeftCircle style={{ marginRight: '8px' }} />
-                                                        back
+                                                        Back
                                                     </span>
                                                 </a>
                                             </div>
@@ -392,7 +391,7 @@ const BookAppointment = () => {
                             <div className="modal-body position-relative">
                                 <div className="d-flex justify-content-center">
                                     <div className="col">
-                                        <div className="color" style={{ width: '60vw', padding: "40px" }}>
+                                        <div className="color">
                                             <div className="mb-6">
                                                 <h1 className="text-2xl font-bold text-blue-900 text-center">
                                                     EXISTING PATIENT
@@ -408,7 +407,7 @@ const BookAppointment = () => {
                                                 }}>
                                                     <span style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'underline' }}>
                                                         <BsArrowLeftCircle style={{ marginRight: '8px' }} />
-                                                        back
+                                                        Back
                                                     </span>
                                                 </a>
                                             </div>
@@ -574,7 +573,7 @@ const BookAppointment = () => {
                                                 }}>
                                                     <span style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'underline' }}>
                                                         <BsArrowLeftCircle style={{ marginRight: '8px' }} />
-                                                        back
+                                                        Back
                                                     </span>
                                                 </a>
                                             </div>
@@ -626,10 +625,15 @@ const BookAppointment = () => {
                                                             Phone Number<span className="text-red-500">*</span>
                                                         </label>
                                                         <PhoneInput
-                                                            country={"fr"} // Définit le pays par défaut (France ici)
+                                                            country={"bj"} // Définit le pays par défaut (France ici)
                                                             value={phone} // Stocke la valeur saisie
                                                             onChange={setPhone} // Met à jour l’état avec le numéro sélectionné
-                                                            inputStyle={{ width: "100%" }} // Styles personnalisés si besoin
+                                                            inputStyle={{ 
+                                                                width: "100%", 
+                                                                border: "none", 
+                                                                boxShadow: "none",
+                                                                paddingLeft: "50px" // Ajuste selon l'espace voulu entre le flag et l'input
+                                                              }} 
                                                             required
                                                         />
                                                     </div>
@@ -706,7 +710,7 @@ const BookAppointment = () => {
                                                 }}>
                                                     <span style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'underline' }}>
                                                         <BsArrowLeftCircle style={{ marginRight: '8px' }} />
-                                                        back
+                                                        Back
                                                     </span>
 
                                                 </a>
@@ -740,7 +744,7 @@ const BookAppointment = () => {
                                                             Phone Number<span className="text-red-500">*</span>
                                                         </label>
                                                         <PhoneInput
-                                                            country={"fr"} // Définit le pays par défaut (France ici)
+                                                            country={"bj"} // Définit le pays par défaut (France ici)
                                                             value={phone} // Stocke la valeur saisie
                                                             onChange={setPhone} // Met à jour l’état avec le numéro sélectionné
                                                             inputStyle={{ width: "100%" }} // Styles personnalisés si besoin
