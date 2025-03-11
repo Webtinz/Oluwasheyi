@@ -51,7 +51,7 @@ const About = () => {
                                                         __html: contents?.home_page_banner_desc_1.content_en
                                                     }} />)}</p>
                                                     <br />
-                                                    <div>
+                                                    <div className='mnt'>
                                                         <Link to="/about" className="btn btn-cus text-white me-2" style={{ backgroundColor: '#13AB9C', padding: '10px 15px' }}>
                                                             {selectedLanguage === 'fr' ? contents?.home_page_banner_about_us.content_fr : contents?.home_page_banner_about_us.content_en}
                                                         </Link>
