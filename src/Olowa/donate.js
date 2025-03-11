@@ -71,7 +71,7 @@ const Home = () => {
         };
         fetchContents();
     }, []);
-    const colors = ["#EE2C28", "#13AB9C", "#17416F", "#F4A261", "#E76F51", "#264653"]; // List of colors
+    const    colors = ["#EE2C28", "#13AB9C", "#17416F", "#F4A261", "#E76F51", "#264653"]; // List of colors
 
     // Helper functions
     // const getRandomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
