@@ -96,7 +96,7 @@ router.get('/feedbacks', (req, res) => {
 
 // newpatients
 router.get('/newaptpatients', (req, res) => {
-  res.render('Patientbookappointment/newPatientappointment', { title: 'New patient Page' });
+  res.render('Patientbookappointment/newpatientappointment', { title: 'New patient Page' });
 });
 
 module.exports = router;
