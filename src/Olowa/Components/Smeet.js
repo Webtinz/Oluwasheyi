@@ -1,193 +1,146 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { getAllContents } from '../../services/content.service';
-import LanguageContext from '../../context/LanguageContext';
+import React, { useState, useEffect, useRef } from 'react';
+import './DoctorCarousel.css'; // Vous devrez créer ce fichier CSS séparément
 
-// Importez vos images ici
-import Img1 from '../../assets/1.png';
-import Img2 from '../../assets/2.png';
-import Img3 from '../../assets/3.png';
-import Img4 from '../../assets/4.png';
+const DoctorCarousel = ({doctors}) => {
+  // Données des médecins (à remplacer par vos données réelles ou props)
+  // const doctors = [
+  //   { id: 1, name: "Doctor Name", specialty: "Gynecologist", image: "/path/to/doctor1.jpg" },
+  //   { id: 2, name: "Doctor Name", specialty: "Gynecologist", image: "/path/to/doctor2.jpg" },
+  //   { id: 3, name: "Doctor Name", specialty: "Gynecologist", image: "/path/to/doctor3.jpg" },
+  //   { id: 4, name: "Doctor Name", specialty: "Gynecologist", image: "/path/to/doctor4.jpg" },
+  //   { id: 5, name: "Doctor Name", specialty: "Gynecologist", image: "/path/to/doctor5.jpg" },
+  //   { id: 6, name: "Doctor Name", specialty: "Gynecologist", image: "/path/to/doctor6.jpg" },
+  //   { id: 7, name: "Doctor Name", specialty: "Gynecologist", image: "/path/to/doctor7.jpg" },
+  //   { id: 8, name: "Doctor Name", specialty: "Gynecologist", image: "/path/to/doctor8.jpg" }
+  // ];
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [cardsPerView, setCardsPerView] = useState(4);
+  const carouselInnerRef = useRef(null);
 
-const DoctorCard = ({ nom, prenom, titre, description, photo }) => (
-
-  <div className="flex flex-col items-center p-3 min-w-[300px]">
-    <div className="relative w-full aspect-square mb-4">
-      <img
-        src={photo}
-        alt={`Dr. ${nom} ${prenom}`}
-        className="w-full h-full object-cover"
-        style={{ borderTopRightRadius: '30px' }}
-      />
-    </div>
-    <h3 className="text-lg font-semibold text-blue-900">{nom} {prenom}</h3>
-    <p className="text-sm text-teal-600">{titre}</p>
-  </div>
-);
-
-const DoctorCarousel = ({ doctors }) => {
-  
-  const [currentIndex, setCurrentIndex] = React.useState(0);
-  const [maxVisibleCards, setMaxVisibleCards] = React.useState(4);
-  const [activeButton, setActiveButton] = React.useState(null);
-
-  React.useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 640) setMaxVisibleCards(1);
-      else if (window.innerWidth < 768) setMaxVisibleCards(2);
-      else if (window.innerWidth < 1024) setMaxVisibleCards(3);
-      else setMaxVisibleCards(4);
+  // Mettre à jour le nombre de cartes par vue selon la taille d'écran
+  useEffect(() => {
+    const updateLayout = () => {
+      const windowWidth = window.innerWidth;
+      
+      if (windowWidth >= 992) {
+        setCardsPerView(4);
+      } else if (windowWidth >= 768) {
+        setCardsPerView(3);
+      } else {
+        setCardsPerView(1);
+      }
     };
 
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    // Initialisation
+    updateLayout();
+    
+    // Écouter les changements de taille de fenêtre
+    window.addEventListener('resize', updateLayout);
+    
+    // Nettoyage
+    return () => {
+      window.removeEventListener('resize', updateLayout);
+    };
   }, []);
 
-  const maxIndex = Math.max(0, doctors?.length - maxVisibleCards);
+  // S'assurer que l'index actuel reste valide quand cardsPerView change
+  useEffect(() => {
+    if (currentIndex > doctors.length - cardsPerView) {
+      setCurrentIndex(Math.max(0, doctors.length - cardsPerView));
+    }
+  }, [cardsPerView, currentIndex, doctors.length]);
 
-  const nextSlide = () => {
-    const step = 1;
-    setCurrentIndex(prev => Math.min(prev + step, maxIndex));
-    setActiveButton('next');
+  // Navigation
+  const goToPrev = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
   };
 
-  const prevSlide = () => {
-    const step = 1;
-    setCurrentIndex(prev => Math.max(prev - step, 0));
-    setActiveButton('prev');
+  const goToNext = () => {
+    if (currentIndex < doctors.length - cardsPerView) {
+      setCurrentIndex(currentIndex + 1);
+    }
   };
 
   const goToSlide = (index) => {
-    setCurrentIndex(Math.min(Math.max(0, index), maxIndex));
-    setActiveButton(null);
+    setCurrentIndex(index);
   };
 
-  // Styles de boutons modifiés pour maintenir la couleur après le clic
-  const buttonStyle = {
-    position: "absolute",
-    left: 0,
-    top: "50%",
-    transform: "translateY(-50%)",
-    zIndex: 10,
-    borderRadius: "50%",
-    padding: "0.5rem",
-    color: currentIndex === 0 ? "black" : "white",
-    backgroundColor: currentIndex === 0 ? "#D1D5DB" :
-      (activeButton === 'prev' ? "#13AB9C" : "#13AB9C"),
-    cursor: currentIndex === 0 ? "not-allowed" : "pointer",
-    transition: "background-color 0.3s",
-  };
-
-  const buttonStyle1 = {
-    position: "absolute",
-    right: 0,
-    top: "50%",
-    transform: "translateY(-50%)",
-    zIndex: 10,
-    borderRadius: "50%",
-    padding: "0.5rem",
-    color: currentIndex >= maxIndex ? "black" : "white",
-    backgroundColor: currentIndex >= maxIndex ? "#D1D5DB" :
-      (activeButton === 'next' ? "#13AB9C" : "#13AB9C"),
-    cursor: currentIndex >= maxIndex ? "not-allowed" : "pointer",
-    transition: "background-color 0.3s",
-  };
-
-  // Calculer la largeur d'une carte
-  const cardWidth = 100 / maxVisibleCards;
-
-  const { selectedLanguage } = useContext(LanguageContext);
-  const [contents, setContents] = useState();
-
-  // Get contents on component mount
-  useEffect(() => {
-    const fetchContents = async () => {
-      try {
-        const savedContents = localStorage.getItem("contents");
-        if (savedContents) {
-          setContents(JSON.parse(savedContents));
-        } else {
-          // Fetch contents if not in localStorage
-          const response = await getAllContents();
-          setContents(response.data);
-          localStorage.setItem("contents", JSON.stringify(response.data));
-        }
-      } catch (error) {
-        console.error('Failed to fetch contents:', error.message || error);
-      }
+  // Calculer le style de transformation
+  const getCarouselStyle = () => {
+    // On utilise des valeurs relatives plutôt que des pixels pour plus de flexibilité
+    const cardWidth = 100 / cardsPerView;
+    return {
+      transform: `translateX(-${currentIndex * cardWidth}%)`,
+      width: `${(doctors.length / cardsPerView) * 100}%`,
+      display: 'flex'
     };
-    fetchContents();
-  }, []);
+  };
 
-  // Style du conteneur pour que les cartes soient toutes visibles
-  const containerStyle = {
-    width: "100%",
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "center",
+  const getCardStyle = () => {
+    // Calculer la largeur en pourcentage en tenant compte des marges
+    const marginPercentage = 2; // 1% de marge de chaque côté
+    const widthPercentage = 100 / cardsPerView - (marginPercentage * 2);
+    
+    return {
+      width: `${widthPercentage}%`,
+      margin: `0 ${marginPercentage}%`
+    };
   };
 
   return (
-    <div className="container mt-4 meetteam">
-      <h2 className="text-center text-2xl font-bold uppercase mb-8" style={{ fontSize: '36px', color: '#17416F' }}>
-        {selectedLanguage === 'fr' ? contents?.home_page_team_title.content_fr : contents?.home_page_team_title.content_en}
-      </h2>
-      <div className="relative px-4 mt-4">
-        <button
-          onClick={prevSlide}
-          disabled={currentIndex === 0}
-          style={buttonStyle}
+    <div className="doc55-carousel-container container">
+      <button 
+        className={`doc55-nav-btn doc55-prev-btn ${currentIndex <= 0 ? 'doc55-disabled' : ''}`} 
+        onClick={goToPrev}
+        disabled={currentIndex <= 0}
+      >
+        &#10094;
+      </button>
+      
+      <div className="doc55-carousel">
+        <div 
+          className="doc55-carousel-inner" 
+          ref={carouselInnerRef} 
+          style={getCarouselStyle()}
         >
-          <ChevronLeft style={{ width: '40px', height: '40px' }} />
-        </button>
-
-        <div className="overflow-hidden">
-          <div
-            className="flex transition-transform duration-300 ease-in-out"
-            style={{
-              transform: `translateX(-${currentIndex * cardWidth}%)`,
-              width: `${doctors?.length * cardWidth}%`
-            }}
-          >
-            {doctors?.map((doctor, index) => (
-              <div
-                key={index}
-                className="flex-shrink-0"
-                style={{ width: `${100 / doctors?.length}%` }}
-              >
-                <DoctorCard {...doctor} />
-                <span className='d-block my-3' style={{ borderBottom: '1px solid #17416F33', width: '90%' }}></span>
+          {doctors.map((doctor) => (
+            <div 
+              key={doctor.id} 
+              className="doc55-doctor-card" 
+              style={getCardStyle()}
+            >
+              <div className="doc55-doctor-image">
+                <img src={doctor.photo} alt={doctor.nom} />
               </div>
-            ))}
-          </div>
-        </div>
-
-        <button
-          onClick={nextSlide}
-          disabled={currentIndex >= maxIndex}
-          style={buttonStyle1}
-        >
-          <ChevronRight style={{ width: '40px', height: '40px' }} />
-        </button>
-
-        <div className="flex justify-center mt-6 gap-2">
-          {Array.from({ length: maxIndex + 1 }).map((_, index) => (
-            <button
-              key={index}
-              style={{
-                width: '0.8rem', // w-2
-                height: '0.8rem', // h-2
-                borderRadius: '50%', // rounded-full
-                transition: 'background-color 0.3s ease', // transition-colors
-                backgroundColor: index === currentIndex ? '#13AB9C' : '', // bg-secondary / bg-success
-                border: index === currentIndex ? '1px solid #13AB9C' : '2px solid #17416F',
-              }}
-              onClick={() => goToSlide(index)}
-            />
+              <div className="doc55-doctor-info">
+                <div className="doc55-doctor-name">{doctor.nom} {doctor.prenom}</div>
+                <div className="doc55-doctor-specialty">{doctor.titre}</div>
+              </div>
+              <span className='d-block my-3' style={{ borderBottom: '1px solid #17416F33', width: '90%' }}></span>
+            </div>
           ))}
         </div>
+      </div>
+      
+      <button 
+        className={`doc55-nav-btn doc55-next-btn ${currentIndex >= doctors.length - cardsPerView ? 'doc55-disabled' : ''}`} 
+        onClick={goToNext}
+        disabled={currentIndex >= doctors.length - cardsPerView}
+      >
+        &#10095;
+      </button>
+      
+      <div className="doc55-dots-container">
+        {Array.from({ length: Math.ceil((doctors.length - cardsPerView) / 1) + 1 }).map((_, i) => (
+          <span 
+            key={i} 
+            className={`doc55-dot ${i === Math.floor(currentIndex) ? 'doc55-active' : ''}`} 
+            onClick={() => goToSlide(i)}
+          ></span>
+        ))}
       </div>
     </div>
   );

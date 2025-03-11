@@ -12,6 +12,7 @@ import LanguageContext from '../../context/LanguageContext';
 const HealthAdviceCarousel = ({ healthAdvices }) => {
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [itemsToShow, setItemsToShow] = React.useState(1);
+  const [selectedAdvice, setSelectedAdvice] = useState(null);
 
   // const healthAdvices = [
   //   {
@@ -139,19 +140,61 @@ const HealthAdviceCarousel = ({ healthAdvices }) => {
                     <div className="flex flex-col items-center text-center gap-4" style={{ flexGrow: 1 }}>
                       <img src={advice.photo} alt={advice.topic} className="object-cover mt-5" />
                       <h3 className="font-semibold text-lg text-teal-600" dangerouslySetInnerHTML={{ __html: advice.topic }} />
-                      <p className="text-sm text-gray-600" dangerouslySetInnerHTML={{ __html: advice.advice_text }} />
+                      <p className="text-sm text-gray-600" style={{ display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }} dangerouslySetInnerHTML={{ __html: advice.advice_text }} />
                     </div>
                     {/* Ensure the button is at the bottom of the card */}
-                    <Link
+                    <a
+                      href='#'
                       // to={`/service#${service.id}`}
                       type="button"
+                      onClick={(e) => { e.preventDefault(); setSelectedAdvice(advice); }}
                       className="w-full mt-2 p-3 btn btn-yt text-white" style={{ background: '#13AB9C' }}
                     >
                       {selectedLanguage === 'fr' ? "Voir Plus" : "Learn More"}
-                    </Link>
+                    </a>
                   </div>
                 </div>
               ))}
+              {/* Modal */}
+              {selectedAdvice && (
+                <div className="modal fade show d-block" tabIndex="-1">
+                  <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                      <div className="modal-body position-relative">
+                        <div className='d-flex'>
+                          <div className='color1'>
+                            <div className="row">
+                              <div className="col-12 col-lg-5 mx-auto mb-4">
+                                <div className="d-flex justify-content-center">
+                                  <img src={selectedAdvice.photo} alt={selectedAdvice.topic} className="img-fluid" style={{ borderTopRightRadius: "30px" }} />
+                                </div>
+                              </div>
+                              <div className="col-12 col-lg-7 mx-auto mb-4">
+                                <h2 style={{ fontSize: "25px", color: "#17416F", fontWeight: 800 }}>{selectedLanguage === 'fr' ? selectedAdvice.topic : selectedAdvice.topic_en}</h2>
+                                <span className="my-4 d-block" style={{ borderBottom: "1px solid #17416F33" }}></span>
+                                <p style={{ color: "#17416F" }}>
+                                  {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                                    __html: selectedAdvice.advice_text
+                                  }} />) : (<div dangerouslySetInnerHTML={{
+                                    __html: selectedAdvice.advice_text_en
+                                  }} />)}
+                                  {/* {selectedLanguage === 'fr' ? contents?.modal_descp.content_fr : contents?.modal_descp.content_en} */}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="col">
+                            <button onClick={() => setSelectedAdvice(null)} className="btn-cl fs-3 text-white">
+                              <i class="bi bi-x-lg"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {selectedAdvice && <div className="modal-backdrop fade show" onClick={() => setSelectedAdvice(null)}></div>}
             </div>
           </div>
         </div>

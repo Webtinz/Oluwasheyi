@@ -18,15 +18,15 @@ import Img5 from '../assets/pediatrics.png';
 import Img6 from '../assets/phone.png';
 import Img7 from '../assets/mail.png';
 import Mask1 from '../assets/Fr1.png';
-import { getAllContents, getServices } from '../services/content.service';
-import LanguageContext from '../context/LanguageContext';
+import { getAllContents, getCertificates, getEvents, getServices } from '../services/content.service'; import LanguageContext from '../context/LanguageContext';
 
 const Home = () => {
     const { selectedLanguage } = useContext(LanguageContext);
     const [contents, setContents] = useState();
     const [services, setServices] = useState([]);
     const location = useLocation();
-    
+    const [events, setEvents] = useState([]);
+    const [certificates, setCerificates] = useState([]);
     // Ajoutez ce useEffect pour gérer le défilement vers l'ancre
     useEffect(() => {
         if (location.hash) {
@@ -54,6 +54,8 @@ const Home = () => {
                     localStorage.setItem("contents", JSON.stringify(response.data));
                 }
                 setServices(await getServices());
+                setEvents(await getEvents());
+                setCerificates(await getCertificates());
             } catch (error) {
                 console.error('Failed to fetch contents:', error.message || error);
             }
@@ -87,7 +89,7 @@ const Home = () => {
             <section className="container mt-4">
                 <div className="row">
                     <div className="col-md-2 mx-auto mb-3">
-                        <h2 className='text-center' style={{ color: '#17416F', textTransform: 'uppercase', fontWeight: 700, fontSize: '30px' }}>
+                        <h2 className='text-center' style={{ color: '#17416F', textTransform: 'uppercase', fontWeight: 700, fontSize: 'clamp(20px, 6vw, 30px)' }}>
                             {selectedLanguage === 'fr' ? contents?.support_page_title1.content_fr : contents?.support_page_title1.content_en}
                         </h2>
                     </div>
@@ -175,11 +177,11 @@ const Home = () => {
             </section>
             <br /><br />
             <div>
-                <Carousel />
+                <Carousel events={events} />
             </div>
             <br /><br /><br />
             <div>
-                <Logo />
+                <Logo logos={certificates} />
             </div>
             <br /><br />
             <div>

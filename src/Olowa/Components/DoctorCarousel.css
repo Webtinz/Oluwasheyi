@@ -1,0 +1,150 @@
+/* DoctorCarousel.css */
+.doc55-carousel-container {
+    width: 100%;
+    /* max-width: 1200px; */
+    position: relative;
+    /* padding: 0 50px; */
+    margin: 0 auto;
+  }
+  
+  .doc55-carousel {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+  }
+  
+  .doc55-carousel-inner {
+    transition: transform 0.4s ease;
+  }
+  
+  .doc55-doctor-card {
+    background-color: #fff;
+    /* border-radius: 16px; */
+    overflow: hidden;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  
+  .doc55-doctor-image {
+    width: 100%;
+    border-top-right-radius: 30px;
+    /* height: 180px; */
+    background-color: #f0f0f0;
+  }
+  
+  .doc55-doctor-image img {
+    width: 100%;
+    height: 28em;
+    border-top-right-radius: 30px;
+    object-fit: cover;
+  }
+  
+  .doc55-doctor-info {
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+    border-top: 1px solid #eee;
+  }
+  
+  .doc55-doctor-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #17416F;
+    margin-bottom: 5px;
+  }
+  
+  .doc55-doctor-specialty {
+    font-size: 14px;
+    color: #10b981;
+  }
+  
+  .doc55-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background-color: #10b981;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    z-index: 10;
+  }
+  
+  .doc55-nav-btn.doc55-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .doc55-prev-btn {
+    left: 5px;
+  }
+  
+  .doc55-next-btn {
+    right: 5px;
+  }
+  
+  .doc55-dots-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 8px;
+  }
+  
+  .doc55-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ccc;
+    cursor: pointer;
+  }
+  
+  .doc55-dot.doc55-active {
+    background-color: #10b981;
+  }
+
+  /* Ajoutez ces styles à votre fichier DoctorCarousel.css */
+@media screen and (max-width: 680px) {
+    .doc55-carousel-container {
+      padding: 0 15px; /* Réduit le padding sur les petits écrans */
+    }
+    
+    .doc55-carousel {
+      display: flex;
+      justify-content: center; /* Centre les éléments horizontalement */
+    }
+    
+    .doc55-doctor-card {
+      width: 90%; /* Largeur relative pour s'adapter à l'écran */
+      max-width: 550px; /* Largeur maximale pour éviter que la carte ne soit trop large */
+      margin: 0 auto; /* Centre la carte */
+    }
+    
+    .doc55-doctor-image img {
+      height: auto; /* Hauteur automatique pour maintenir les proportions */
+      max-height: 20em; /* Hauteur maximale réduite pour les petits écrans */
+    }
+    
+    /* Ajustement des boutons de navigation pour qu'ils ne chevauchent pas la carte */
+    .doc55-nav-btn {
+      width: 30px;
+      height: 30px;
+      font-size: 14px;
+    }
+    
+    .doc55-prev-btn {
+      left: 0;
+    }
+    
+    .doc55-next-btn {
+      right: 0;
+    }
+  }

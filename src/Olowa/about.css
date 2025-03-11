@@ -204,12 +204,25 @@
 
   .color {
     width: 90vw !important;
+    padding: 10px;
   }
 
   .color1 {
     width: 90vw;
+    padding: 10px;
   }
 }
+/* .btn-close {
+  --bs-btn-close-color: white !important;
+  width: 1em;
+  height: 1em;
+  padding: .25em .25em;
+  color: var(--bs-btn-close-color);
+  background: transparent var(--bs-btn-close-bg) center / 1em auto no-repeat;
+  border: 0;
+  border-radius: .375rem;
+  opacity: var(--bs-btn-close-opacity);
+} */
 
 /* community */
 .search-section {

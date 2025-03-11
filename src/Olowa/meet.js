@@ -125,7 +125,7 @@ const Home = () => {
                 <br />
                 <div className="row mt-4">
                     {doctors.map((doctor) => (
-                        <div key={doctor.id} className="col-12 col-md-6 col-lg-3 mx-auto mb-4">
+                        <div key={doctor.id} className="col-12 col-md-6 col-lg-3 mb-4">
                             <a href="#" onClick={(e) => { e.preventDefault(); setSelectedDoctor(doctor); }}>
                                 <img src={doctor.photo} alt={doctor.nom} className="img-fluid w-100" style={{ borderTopRightRadius: "30px", }} />
                             </a>
@@ -177,7 +177,9 @@ const Home = () => {
                                             </div>
                                         </div>
                                         <div className="col">
-                                            <button onClick={() => setSelectedDoctor(null)} className="btn-close text-white fs-4 fw-bold bg-white"></button>
+                                            <button onClick={() => setSelectedDoctor(null)} className="btn-cl fs-3 text-white">
+                                                <i class="bi bi-x-lg"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

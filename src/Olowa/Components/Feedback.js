@@ -194,8 +194,10 @@ const FeedbackSection = () => {
                   <div className="col">
                     <button
                       onClick={() => setSelectedDoctor(null)}
-                      className="btn-close"
-                    ></button>
+                      className="btn-cl fs-3 text-white"
+                    >
+                      <i class="bi bi-x-lg"></i>
+                    </button>
                   </div>
                 </div>
               </div>
