@@ -59,7 +59,7 @@ const About = () => {
                                     <div className="col-lg-6 col-md-12 textbannercontent">
                                         <div className="carousel-content">
                                             <div className='d-flex justify-content-center carrousseltextcont'>
-                                                <div className="text-start px-2">
+                                                <div className="text-start px-2 ttk">
                                                     <h2>{selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                                                         __html: contents?.home_page_banner_title.content_fr
                                                     }} />) : (<div dangerouslySetInnerHTML={{
