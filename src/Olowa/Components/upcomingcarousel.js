@@ -11,6 +11,7 @@ const EventsCarousel = ({ events }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [activeButton, setActiveButton] = useState(null);
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -21,36 +22,6 @@ const EventsCarousel = ({ events }) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // const events = [
-  //   {
-  //     id: 1,
-  //     date: { day: 10, month: 'FEB', date: 25 },
-  //     title: 'Free Diabetes Screening',
-  //     description: 'Nam et turpis pellentesque, pharetra metus eu, lacinia eraestibulum.',
-  //     image: Img
-  //   },
-  //   {
-  //     id: 2,
-  //     date: { day: 11, month: 'FEB', date: 25 },
-  //     title: 'Free Diabetes Screening',
-  //     description: 'Nam et turpis pellentesque, pharetra metus eu, lacinia eraestibulum.',
-  //     image: Img
-  //   },
-  //   {
-  //     id: 3,
-  //     date: { day: 15, month: 'FEB', date: 25 },
-  //     title: 'Free Diabetes Screening',
-  //     description: 'Nam et turpis pellentesque, pharetra metus eu, lacinia eraestibulum.',
-  //     image: Img
-  //   },
-  //   {
-  //     id: 4,
-  //     date: { day: 20, month: 'FEB', date: 25 },
-  //     title: 'Free Diabetes Screening',
-  //     description: 'Nam et turpis pellentesque, pharetra metus eu, lacinia eraestibulum.',
-  //     image: Img
-  //   },
-  // ];
 
   const slidesToShow = isMobile ? 1 : 2;
 
@@ -89,10 +60,10 @@ const EventsCarousel = ({ events }) => {
 
 
   return (
-    <div className="container-fluid py-5" style={{background:'#17416F'}}>
+    <div className="container-fluid py-5" style={{ background: '#17416F' }}>
       <div className="container px-lg-5 px-0">
         <div className="d-flex justify-content-between align-items-center mb-8">
-          <h2 className="text-white" style={{fontSize: isMobile ? '24px' : '36px', fontWeight: 'bold', textTransform:'uppercase'}}> {selectedLanguage === 'fr' ? contents?.communoty_page_event_title.content_fr : contents?.communoty_page_event_title.content_en}</h2>
+          <h2 className="text-white" style={{ fontSize: isMobile ? '24px' : '36px', fontWeight: 'bold', textTransform: 'uppercase' }}> {selectedLanguage === 'fr' ? contents?.communoty_page_event_title.content_fr : contents?.communoty_page_event_title.content_en}</h2>
           <div className="d-flex gap-4">
             <button
               onClick={prevSlide}
@@ -137,7 +108,7 @@ const EventsCarousel = ({ events }) => {
                   <div className='row'>
                     <div className='col-lg-6 mb-4'>
                       <div className="position-relative mb-4">
-                        <img src={event.photo} alt={selectedLanguage === 'fr' ? event.nom : event.name} className="w-100 object-fit-cover" style={{ maxHeight: '200px' }} />
+                        <img src={event.photo} alt={selectedLanguage === 'fr' ? event.nom : event.name} className="w-100 object-fit-cover" style={{ maxHeight: '250px' }} />
                         <div className="ppo1">
                           <span className='day'>{format(new Date(event.dateevent), "dd")}</span>
                           <span className="py-3 date">{format(new Date(event.dateevent), "MMM.yy")}</span>
@@ -148,7 +119,7 @@ const EventsCarousel = ({ events }) => {
                       <h3 className="fs-4 fw-semibold mb-2" style={{ color: '#17416F', fontWeight: '700' }}>
                         {selectedLanguage === 'fr' ? event.nom : event.name}
                       </h3>
-                      <div className="text-muted mb-3">
+                      <div className="text-muted mb-3" style={{ display: "-webkit-box", WebkitLineClamp: 5, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
                         {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                           __html: event.description
                         }} />) : (<div dangerouslySetInnerHTML={{
@@ -156,17 +127,36 @@ const EventsCarousel = ({ events }) => {
                         }} />)}
                         {/* {selectedLanguage === 'fr' ? event.description : event.description_en} */}
                       </div>
-                      <button className="btn text-white px-4" style={{ background: '#13AB9C' }}>
+                      <button className="btn text-white px-4" 
+                      onClick={() => setSelectedEvent(event)}
+                       style={{ background: '#13AB9C' }}>
                         {selectedLanguage === 'fr' ? "Voir Plus" : "Learn More"}
                       </button>
-                    </div>
-                  </div>
 
+                    </div>
+
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
+        {selectedEvent && (
+          <div className="modal fade show d-block" tabIndex="-1">
+            <div className="modal-dialog modal-dialog-centered">
+              <div className="modal-content">
+                <div className="modal-body position-relative">
+                  <div className='color1'>
+                    <button onClick={() => setSelectedEvent(null)} className="btn-cl fs-3 text-whiteposition-absolute top-0 end-0 m-3"><i class="bi bi-x-lg"></i></button>
+                    <h2>{selectedLanguage === 'fr' ? selectedEvent.nom : selectedEvent.name}</h2>
+                    <p>{selectedLanguage === 'fr' ? selectedEvent.description : selectedEvent.description_en}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="modal-backdrop fade show" onClick={() => setSelectedEvent(null)}></div>
+          </div>
+        )}
       </div>
     </div>
   );

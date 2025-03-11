@@ -28,7 +28,6 @@ const Home = () => {
     const [events, setEvents] = useState([]);
     const [certificates, setCerificates] = useState([]);
     const location = useLocation();
-
     // Ajoutez ce useEffect pour gérer le défilement vers l'ancre
     useEffect(() => {
         if (location.hash) {
@@ -59,6 +58,8 @@ const Home = () => {
                 setCerificates(await getCertificates());
 
                 setServices(await getServices());
+                setEvents(await getEvents());
+                setCerificates(await getCertificates());
             } catch (error) {
                 console.error('Failed to fetch contents:', error.message || error);
             }
@@ -92,7 +93,7 @@ const Home = () => {
             <section className="container mt-4">
                 <div className="row">
                     <div className="col-md-2 mx-auto mb-3">
-                        <h2 className='text-center' style={{ color: '#17416F', textTransform: 'uppercase', fontWeight: 700, fontSize: '30px' }}>
+                        <h2 className='text-center' style={{ color: '#17416F', textTransform: 'uppercase', fontWeight: 700, fontSize: 'clamp(20px, 6vw, 30px)' }}>
                             {selectedLanguage === 'fr' ? contents?.support_page_title1.content_fr : contents?.support_page_title1.content_en}
                         </h2>
                     </div>

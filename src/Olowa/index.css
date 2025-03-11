@@ -526,7 +526,7 @@ body {
   }
 }
 .home-title {
-  font-size: clamp(25px, 8vw, 35px);
+  font-size: clamp(20px, 6vw, 35px);
   font-weight: 700;
 }
 
