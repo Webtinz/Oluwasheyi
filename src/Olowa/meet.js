@@ -37,8 +37,8 @@ const Home = () => {
     const [contents, setContents] = useState();
 
     const directors = [
-        { id: 1, image: contents?.doct_img_1.image, name: "Docteurs Name" },
-        { id: 2, image: contents?.doct_img_2.image, name: "Docteurs Name" },
+        { id: 1, image: contents?.doct_img_1.image, name: contents?.director_1.content_fr, title_fr: contents?.director_1_title.content_fr, title_en: contents?.director_1_title.content_en },
+        { id: 2, image: contents?.doct_img_2.image, name: contents?.director_2.content_fr , title_fr: contents?.director_2_title.content_fr, title_en: contents?.director_2_title.content_en },
     ];
 
     // Get contents on component mount
@@ -110,7 +110,7 @@ const Home = () => {
                                 <h4 className="text-center mt-4" style={{ color: "white", fontWeight: 700, textTransform: "uppercase", fontSize: 'clamp(18px, 8vw, 24px)' }}>
                                     {director.name}
                                 </h4>
-                                <p className="text-white text-center mt-3" style={{ fontSize: 'clamp(16px, 8vw, 20px)' }}>Directors</p>
+                                <p className="text-white text-center mt-3" style={{ fontSize: 'clamp(16px, 8vw, 20px)' }}>{selectedLanguage === 'fr' ? director.title_fr : director.title_en}</p>
                                 <span className="d-block mt-4" style={{ borderBottom: ".3px solid white" }}></span>
                             </div>
                         </div>

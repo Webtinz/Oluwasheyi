@@ -49,11 +49,11 @@ const Footer = () => {
                 <i className="bi bi-chevron-right ppo" style={{ background: '#13AB9C', color: 'white' }}></i>
               </a>
             </div>
-            <div className="d-flex mt-3">
-              <i className={'bi bi-' + contents?.footer_social_1.content_fr + ' social-icon'}></i>
-              <i className={'bi bi-' + contents?.footer_social_2.content_fr + ' social-icon'}></i>
-              <i className={'bi bi-' + contents?.footer_social_3.content_fr + ' social-icon'}></i>
-              <i className={'bi bi-' + contents?.footer_social_4.content_fr + ' social-icon'}></i>
+            <div className="d-flex mt-3 justify-content-lg-start justify-content-center">
+              <a href={contents?.footer_social_1_link.content_fr} ><i className={'bi bi-' + contents?.footer_social_1.content_fr + ' social-icon'}></i></a> 
+              <a href={contents?.footer_social_2_link.content_fr} ><i className={'bi bi-' + contents?.footer_social_2.content_fr + ' social-icon'}></i></a> 
+              <a href={contents?.footer_social_3_link.content_fr} ><i className={'bi bi-' + contents?.footer_social_3.content_fr + ' social-icon'}></i></a> 
+              <a href={contents?.footer_social_4_link.content_fr} ><i className={'bi bi-' + contents?.footer_social_4.content_fr + ' social-icon'}></i></a> 
             </div>
           </div>
 

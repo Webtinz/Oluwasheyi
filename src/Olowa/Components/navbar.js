@@ -212,9 +212,9 @@ const Navbar = () => {
               <li>
                 <Link to="/service" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>{selectedLanguage === 'fr' ? contents?.home_page_menu_Service.content_fr : contents?.home_page_menu_Service.content_en}</Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/sugery" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>{selectedLanguage === 'fr' ? contents?.home_page_menu_Sugery.content_fr : contents?.home_page_menu_Sugery.content_en}</Link>
-              </li>
+              </li> */}
               <li className='d-lg-none'>
                 <Link to="/donate"
                   className="btn btn-white px-5"

@@ -12,7 +12,14 @@ body {
     height: 60vh !important;
   }
 }
-
+@media (max-width: 400px) {
+  .mybanner .mybannercontent {
+    height: 70vh !important;
+  }
+  .ibb{
+    display: none;
+  }
+}
 .mybanner .mybannercontent {
   height: 70vh;
 }
@@ -63,7 +70,7 @@ body {
   justify-content: center;
   align-items: center;
   border-top-right-radius: 25px;
-  /* margin-left: 10px; */
+  margin-left: 10px;
 }
 
 .carousel-content.carrousseltwo {
@@ -168,6 +175,18 @@ body {
     color: white;
     padding: 0px !important;
     height: 50vh;
+    display: flex;
+  }
+}
+@media (max-width: 400px) {
+  .hhe {
+    background-image: url('../assets/Mask2.png');
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    color: white;
+    padding: 0px !important;
+    height: 70vh;
     display: flex;
   }
 }
@@ -335,6 +354,9 @@ body {
 @media (max-width: 768px) {
   .custom-carousel-item {
     width: 48%;
+  }
+  .vpl{
+    display: none !important;
   }
 }
 

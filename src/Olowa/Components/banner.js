@@ -59,7 +59,7 @@ const About = () => {
                                     <div className="col-lg-6 col-md-12 textbannercontent">
                                         <div className="carousel-content">
                                             <div className='d-flex justify-content-center carrousseltextcont'>
-                                                <div className="text-start">
+                                                <div className="text-start px-2">
                                                     <h2>{selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                                                         __html: contents?.home_page_banner_title.content_fr
                                                     }} />) : (<div dangerouslySetInnerHTML={{
@@ -90,7 +90,7 @@ const About = () => {
                                         <img
                                             src={contents?.home_page_banner_img.image}
                                             alt="Image de la clinique"
-                                            className="img-fluid w-100 h-100"
+                                            className="img-fluid w-100 h-100 ibb"
                                             style={{ objectFit: 'cover', marginLeft: '-10px' }}
                                         />
                                     </div>
@@ -116,7 +116,7 @@ const About = () => {
                                         <img
                                             src={contents?.home_page_banner_img.image}
                                             alt="Image de la clinique"
-                                            className="img-fluid w-100 h-100"
+                                            className="img-fluid w-100 h-100 ibb"
                                             style={{ objectFit: 'cover', marginLeft: '-10px' }}
                                         />
                                     </div>

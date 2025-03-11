@@ -27,45 +27,7 @@ const DoctorCard = ({ nom, prenom, titre, description, photo }) => (
 );
 
 const DoctorCarousel = ({ doctors }) => {
-  // Définissez vos données de médecins ici avec les images importées
-  // const doctors = [
-  //   {
-  //     imageUrl: Img1, // Utilisez l'image importée
-  //     name: "Dr. Smith",
-  //     specialty: "Gynecologist"
-  //   },
-  //   {
-  //     imageUrl: Img2,
-  //     name: "Dr. Johnson",
-  //     specialty: "Gynecologist"
-  //   },
-  //   {
-  //     imageUrl: Img3,
-  //     name: "Dr. Williams",
-  //     specialty: "Gynecologist"
-  //   },
-  //   {
-  //     imageUrl: Img4,
-  //     name: "Dr. Brown",
-  //     specialty: "Gynecologist"
-  //   },
-  //   {
-  //     imageUrl: Img3,
-  //     name: "Dr. Williams",
-  //     specialty: "Gynecologist"
-  //   },
-  //   {
-  //     imageUrl: Img4,
-  //     name: "Dr. Williams",
-  //     specialty: "Gynecologist"
-  //   },
-  //   {
-  //     imageUrl: Img2,
-  //     name: "Dr. Williams",
-  //     specialty: "Gynecologist"
-  //   },
-  // ];
-
+  
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [maxVisibleCards, setMaxVisibleCards] = React.useState(4);
   const [activeButton, setActiveButton] = React.useState(null);

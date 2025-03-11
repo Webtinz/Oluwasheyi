@@ -28,7 +28,25 @@ const Home = () => {
     // Toujours afficher le carousel par défaut
     const [showCarousel, setShowCarousel] = useState(true);
 
-    // Format donation steps from content
+    useEffect(() => {
+        const fetchContents = async () => {
+            try {
+                // const savedContents = localStorage.getItem("contents");
+                // if (savedContents) {
+                //     setContents(JSON.parse(savedContents));
+                // } else {
+                const response = await getAllContents();
+                setContents(response.data);
+                //     localStorage.setItem("contents", JSON.stringify(response.data));
+                // }
+                setPrograms(await getPrograms());
+            } catch (error) {
+                console.error('Failed to fetch contents:', error.message || error);
+            }
+        };
+        fetchContents();
+    }, []);
+
     const steps = contents ? [
         {
             number: '01',
@@ -52,29 +70,27 @@ const Home = () => {
         }
     ] : [];
 
-    // Fetch content data on component mount
+    const [visibleSteps, setVisibleSteps] = useState(steps);
+
     useEffect(() => {
-        const fetchContents = async () => {
-            try {
-                // const savedContents = localStorage.getItem("contents");
-                // if (savedContents) {
-                //     setContents(JSON.parse(savedContents));
-                // } else {
-                const response = await getAllContents();
-                setContents(response.data);
-                //     localStorage.setItem("contents", JSON.stringify(response.data));
-                // }
-                setPrograms(await getPrograms());
-            } catch (error) {
-                console.error('Failed to fetch contents:', error.message || error);
+        const updateVisibleSteps = () => {
+            if (window.innerWidth < 639) {
+                setVisibleSteps(steps.slice(0, 3));
+            } else {
+                setVisibleSteps(steps);
             }
         };
-        fetchContents();
-    }, []);
-    const    colors = ["#EE2C28", "#13AB9C", "#17416F", "#F4A261", "#E76F51", "#264653"]; // List of colors
+
+        updateVisibleSteps();
+        window.addEventListener('resize', updateVisibleSteps);
+        return () => window.removeEventListener('resize', updateVisibleSteps);
+    }, [steps]);
+
 
     // Helper functions
     // const getRandomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+    const colors = ["#EE2C28", "#13AB9C", "#17416F", "#F4A261", "#E76F51", "#264653"]; // List of colors
+
 
     const handleOpenModal = (program) => {
         setSelectedProgram(program);
@@ -136,7 +152,7 @@ const Home = () => {
             <br />
 
             {/* Support Section */}
-            <section className="container mt-4">
+            <section className="container mt-4" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
                 <div className="row">
                     <div className="col-md-5 mx-auto mb-3">
                         <div>
@@ -188,12 +204,11 @@ const Home = () => {
                                             data-bs-toggle="modal"
                                             data-bs-target="#programModal"
                                         >
-                                            {/* Afficher l'image du programme si disponible, sinon utiliser Logo */}
                                             <img
                                                 src={card.photo}
                                                 alt={selectedLanguage === 'fr' ? card.nom : card.name}
                                                 className="img-fluid"
-                                                style={{ maxHeight: '120px', objectFit: 'contain' }}
+                                                style={{ maxHeight: '150px', objectFit: 'contain' }}
                                             />
                                         </div>
                                         <h3 className='text-white my-4' style={{ fontSize: '24px', fontWeight: '700' }}>
@@ -215,7 +230,6 @@ const Home = () => {
                             <h5 className="modal-title text-white" id="programModalLabel">
                                 {selectedProgram && (selectedLanguage === 'fr' ? selectedProgram.nom : selectedProgram.name)}
                             </h5>
-                            {/* Utiliser handleModalClose ici pour simplement fermer le modal */}
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={handleModalClose}></button>
                         </div>
                         <div className="modal-body">
@@ -268,7 +282,6 @@ const Home = () => {
                 </div>
             </div>
 
-            {/* Modal Backdrop */}
             {showModal && (
                 <div className="modal-backdrop fade show" onClick={handleCloseModal}></div>
             )}
@@ -284,15 +297,13 @@ const Home = () => {
                     <div className="position-relative pt-5">
                         <div className="d-flex justify-content-between align-items-start position-relative steps-container">
                             <div className="step-line"></div>
-
-                            {steps.map((step, index) => (
+                            {visibleSteps.map((step, index) => (
                                 <div key={index} className="d-flex flex-column align-items-center position-relative step-item">
                                     <div className="step-circle">{step.number}</div>
                                     <p className="text-white text-center small" style={{ fontWeight: '700', fontSize: '16px' }}>{step.text}</p>
                                 </div>
                             ))}
                         </div>
-
                         <div className="d-flex justify-content-center mt-4">
                             <button className="btn btn-primary px-4 py-2">
                                 {selectedLanguage === 'fr' ? contents?.donation_step_button.content_fr : contents?.donation_step_button.content_en}
@@ -301,12 +312,11 @@ const Home = () => {
                     </div>
                 </div>
             </section>
-            <br /><br /><br />
 
             {/* Target Section for Scrolling */}
-            <section id="targetSection" className='container mt-4'>
+            <section id="targetSection" className='container mt-lg-5 mt-0' style={{ paddingLeft: '0px', paddingRight: '0px' }}>
                 <div className='d-flex justify-content-center'>
-                    <div className='row' style={{ background: '#F2F2F2', borderTopRightRadius: '30px', width: '80%' }}>
+                    <div className='row pxc' style={{ background: '#F2F2F2', borderTopRightRadius: '30px' }}>
                         <div className='col-md-5 mb-3 mb-md-0 mx-auto' style={{ padding: '0px' }}>
                             <div className='position-relative'>
                                 <img

@@ -114,8 +114,7 @@ const Home = () => {
                 </div>
 
             </div>
-            <br /><br /><br /><br />
-            <div>
+            <div className="mt-5">
                 <Testimonial testimonials={testimonials} />
             </div>
             <br /><br /><br />
@@ -171,11 +170,10 @@ const Home = () => {
                 </h2>
                 <Galery />
             </div>
-            <br /><br /><br /><br />
             <div>
                 <Event />
             </div>
-            <br /><br /><br />
+            <br />
             <div>
                 <WelcomeSection />
             </div>
