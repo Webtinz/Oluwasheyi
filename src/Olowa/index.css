@@ -740,13 +740,14 @@ body {
 .choosestagepatientbtn h1 {
   font-family: Open Sans;
   font-weight: 700;
-  font-size: 36px;
+  font-size: 34px;
   line-height: 40px;
   text-align: center;
   text-transform: uppercase;
 }
 
-.choosestagepatientbtn p , .choosestagepatientbtn .goback{
+.choosestagepatientbtn p,
+.choosestagepatientbtn .goback {
   font-family: Roboto;
   font-weight: 700;
   font-size: 26px;
@@ -756,7 +757,7 @@ body {
   color: #17416F !important;
 }
 
-.choosestagepatientbtn .goback{
+.choosestagepatientbtn .goback {
   text-decoration: underline;
   margin-bottom: 30px;
   margin-top: 30px !important;
@@ -785,13 +786,14 @@ body {
   border: 1px solid #17416F;
 }
 
-.choosestagepatientbtn input{
+.choosestagepatientbtn input {
   border: 2px solid #17416F !important;
   padding: 10px 20px;
 }
 
-.choosestagepatientbtn .color{
+.choosestagepatientbtn .color {
   width: 40vw !important;
+  margin: 0 auto;
 }
 
 .choosestagepatientbtn .divider-text {
@@ -821,7 +823,8 @@ body {
   width: 100%;
   height: 100px;
   border: 2px solid #13AB9C !important;
-  background-color: #D8D8D838; /* Gris clair */
+  background-color: #D8D8D838;
+  /* Gris clair */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -830,7 +833,8 @@ body {
 }
 
 .choosestagepatientbtn .custom-file-input input[type="file"] {
-  opacity: 0; /* Cache l'input réel */
+  opacity: 0;
+  /* Cache l'input réel */
   position: absolute;
   top: 0;
   left: 0;
@@ -847,28 +851,27 @@ body {
   cursor: pointer;
 }
 
-.choosestagepatientbtn .react-tel-input .form-control{
+.choosestagepatientbtn .react-tel-input .form-control {
   padding: 20px 50px;
 }
 
-.choosestagepatientbtn .react-tel-input .flag .arrow{
-  left:3px !important;
+.choosestagepatientbtn .react-tel-input .flag-dropdown {
+  padding: 20px 10px !important;
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.choosestagepatientbtn .react-tel-input .flag {
+  border-radius: 50%;
+}
+
+.choosestagepatientbtn .react-tel-input .flag .arrow {
+  left: 3px !important;
 }
 
 .choosestagepatientbtn .react-tel-input .flag-dropdown .country-list li {
-  color: #333 !important; /* Couleur du texte dans le dropdown */
-}
-
-/* Option sélectionnée (lorsque l'utilisateur sélectionne un pays) */
-.choosestagepatientbtn .react-tel-input .flag-dropdown .country-list li.selected {
-  background-color: #13AB9C !important; /* Fond de l'élément sélectionné */
-  color: white !important; /* Couleur du texte de l'élément sélectionné */
-}
-
-/* Couleur du texte de l'élément du pays survolé */
-.choosestagepatientbtn .react-tel-input .flag-dropdown .country-list li:hover {
-  background-color: #f0f0f0 !important; /* Fond survolé */
-  color: #000 !important; /* Couleur du texte survolé */
+  color: #333 !important;
+  /* Couleur du texte dans le dropdown */
 }
 
 
@@ -876,4 +879,75 @@ body {
   width: 100%;
   height: 80vh;
   object-fit: cover
+}
+
+/* RESPONSIVES BOOKAPPOINTMENT */
+@media (max-width: 1200px) {
+  .choosestagepatientbtn .color {
+    padding: 80px 50px !important;
+    width: 50vw !important;
+  }
+
+  .choosestagepatientbtn h1 {
+    font-size: 32px;
+  }
+
+  .choosestagepatientbtn p {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 992px) {
+  .choosestagepatientbtn .color {
+    width: 60vw !important;
+  }
+
+  .choosestagepatientbtn h1 {
+    font-size: 28px;
+  }
+
+  .choosestagepatientbtn .goback {
+    font-size: 20px;
+  }
+
+  .choosestagepatientbtn .newbtn,
+  .choosestagepatientbtn .existbtn {
+    font-size: 17px;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .choosestagepatientbtn .color {
+    padding: 80px 30px !important;
+    width: 80vw !important;
+  }
+
+  .choosestagepatientbtn .newbtn,
+  .choosestagepatientbtn .existbtn {
+    padding: 20px 20px;
+  }
+
+  .choosestagepatientbtn h1 {
+    font-size: 25px;
+  }
+
+  .choosestagepatientbtn p {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .choosestagepatientbtn .color {
+    padding: 80px 20px !important;
+    width: 95vw !important;
+  }
+
+  .choosestagepatientbtn h1 {
+    font-size: 20px;
+  }
+
+  .choosestagepatientbtn p {
+    font-size: 15px;
+  }
 }

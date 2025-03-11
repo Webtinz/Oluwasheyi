@@ -126,3 +126,12 @@ export const addDonation = async (data) => {
 
 
 // Add patient
+export const addNewpatient = async (data) => {
+  try {
+    const response = await api.post('/registerpatient', data);
+    return response.data;
+  } catch (error) {
+    console.error('Error adding patient:', error);
+    throw error.response?.data || error;
+  }
+};
