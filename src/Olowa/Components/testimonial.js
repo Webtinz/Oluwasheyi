@@ -5,40 +5,6 @@ import Ic from '../../assets/11d.png';
 import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 
-// const testimonials = [
-//   {
-//     id: 1,
-//     title: "Highly Recommended!!",
-//     text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut eniset pretium placerat faucibus faucibus. St quis consequat eget nulla fusce dignissim.",
-//     author: "Jane Cooper",
-//     location: "Cotonou",
-//     avatar: Logo
-//   },
-//   {
-//     id: 2,
-//     title: "Great Hospital",
-//     text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut eniset pretium placerat faucibus faucibus. St quis consequat eget nulla fusce dignissim.",
-//     author: "Jane Cooper",
-//     location: "Cotonou",
-//     avatar: Logo
-//   },
-//   {
-//     id: 3,
-//     title: "Great Hospital",
-//     text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut eniset pretium placerat faucibus faucibus. St quis consequat eget nulla fusce dignissim.",
-//     author: "Jane Cooper",
-//     location: "Cotonou",
-//     avatar: Logo
-//   },
-//   {
-//     id: 4,
-//     title: "Great Hospital",
-//     text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut eniset pretium placerat faucibus faucibus. St quis consequat eget nulla fusce dignissim.",
-//     author: "Jane Cooper",
-//     location: "Cotonou",
-//     avatar: Logo
-//   }
-// ];
 
 const PatientTestimonials = ({ testimonials }) => {
   const [currentIndex, setCurrentIndex] = useState(0);

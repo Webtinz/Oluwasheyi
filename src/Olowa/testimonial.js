@@ -13,50 +13,7 @@ import LanguageContext from '../context/LanguageContext';
 
 
 const Home = () => {
-    // const testimonials = [
-    //     {
-    //         quote: "Highly Recommended!!",
-    //         text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut smest pretium placerat faucibus faucibus faucibus. Sit quis consequat eget nulla fusce dignissim. Nulla accumsan convallis augue ut tempor.",
-    //         name: "Jane Cooper",
-    //         location: "Cotonou",
-    //         imageSrc: Testi, // Assurez-vous que 'Testi' est bien importé
-    //     },
-    //     {
-    //         quote: "Amazing",
-    //         text: "The doctors were amazing! 10/10 service!",
-    //         name: "John Doe",
-    //         location: "Lagos",
-    //         imageSrc: Testi, // Remplacez si vous avez différentes images
-    //     },
-    //     {
-    //         quote: "Highly Recommended!!",
-    //         text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut smest pretium placerat faucibus faucibus faucibus. Sit quis consequat eget nulla fusce dignissim. Nulla accumsan convallis augue ut tempor.",
-    //         name: "Jane Cooper",
-    //         location: "Cotonou",
-    //         imageSrc: Testi, // Assurez-vous que 'Testi' est bien importé
-    //     },
-    //     {
-    //         quote: "Great Hospital ",
-    //         text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut smest pretium placerat faucibus.",
-    //         name: "Jane Cooper",
-    //         location: "Cotonou",
-    //         imageSrc: Testi, // Assurez-vous que 'Testi' est bien importé
-    //     },
-    //     {
-    //         quote: "Highly Recommended!!",
-    //         text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut smest pretium placerat faucibus faucibus faucibus. Sit quis consequat eget nulla fusce dignissim. A lectus urna sit ut smest pretium placerat faucibus faucibus faucibus.",
-    //         name: "Jane Cooper",
-    //         location: "Cotonou",
-    //         imageSrc: Testi, // Assurez-vous que 'Testi' est bien importé
-    //     },
-    //     {
-    //         quote: "Great Hospital ",
-    //         text: "Lorem ipsum dolor sit amet nulls const consectetur. A lectus urna sit ut smest pretium placerat faucibus.",
-    //         name: "Jane Cooper",
-    //         location: "Cotonou",
-    //         imageSrc: Testi, // Assurez-vous que 'Testi' est bien importé
-    //     },
-    // ];
+
 
     const { selectedLanguage } = useContext(LanguageContext);
     const [contents, setContents] = useState();
@@ -104,10 +61,15 @@ const Home = () => {
                     {testimonials?.map((testimonial, index) => (
                         <div
                             key={index}
-                            className={`col-12 col-md-6 col-lg-4 ${
-                                // On cible uniquement la cinquième colonne (index 4)
-                                index === 4 ? 'fifth-column' : ''
-                                }`}
+                            className={[
+                                "col-12 col-md-6 col-lg-4",
+                                index === 0 ? "first-column" : "",
+                                index === 1 ? "second-column" : "",
+                                index === 2 ? "first-column" : "",
+                                index === 3 ? "three-column" : "",
+                                index === 4 ? "fifth-column" : "",
+                                index === 5 ? "three-column" : "",
+                            ].filter(Boolean).join(" ")}
                         >
                             <div className="p-3 scur" style={{ border: '1px solid #17416F', borderTopRightRadius: '30px' }}>
                                 <div><strong style={{ color: '#13AB9C', fontSize: '120px' }}>"</strong></div>
@@ -132,11 +94,11 @@ const Home = () => {
                 </div>
 
                 {/* CSS avec focus uniquement sur la cinquième colonne */}
-                <style jsx>{`
+                {/* <style jsx>{`
                 .fifth-column .scur {
                     margin-top: -4.5rem;
                 }
-            `}</style>
+            `}</style> */}
             </section>
             <br /><br /><br />
             <div>

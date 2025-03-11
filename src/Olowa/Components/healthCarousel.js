@@ -14,33 +14,7 @@ const HealthAdviceCarousel = ({ healthAdvices }) => {
   const [itemsToShow, setItemsToShow] = React.useState(1);
   const [selectedAdvice, setSelectedAdvice] = useState(null);
 
-  // const healthAdvices = [
-  //   {
-  //     title: 'Nutrition ',
-  //     image: nutrition,
-  //     description: 'Lorem ipsum dolor sit<br/> amet nulls const.'
-  //   },
-  //   {
-  //     title: 'Physical Activity',
-  //     image: exercise,
-  //     description: 'Lorem ipsum dolor sit <br/> amet nulls const.'
-  //   },
-  //   {
-  //     title: 'Natural Health',
-  //     image: healthtrack,
-  //     description: 'Lorem ipsum dolor sit <br/> amet nulls const.'
-  //   },
-  //   {
-  //     title: 'Pregnancy Monitoring',
-  //     image: pregnancy,
-  //     description: 'Lorem ipsum dolor sit <br/> amet nulls const.'
-  //   },
-  //   {
-  //     title: 'Health Tracking',
-  //     image: pregnancy,
-  //     description: 'Lorem ipsum dolor sit <br/> amet nulls const.'
-  //   }
-  // ];
+  
 
   React.useEffect(() => {
     const updateItemsToShow = () => {
@@ -134,7 +108,7 @@ const HealthAdviceCarousel = ({ healthAdvices }) => {
                 <div
                   key={currentIndex + index}
                   className="transition-all duration-300 ease-in-out transform"
-                  style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }} // Ensures each card has equal height
+                  style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}
                 >
                   <div className="bg-white shadow-md h-100" style={{ border: '1px solid #17416F', padding: '10px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <div className="flex flex-col items-center text-center gap-4" style={{ flexGrow: 1 }}>
@@ -142,10 +116,8 @@ const HealthAdviceCarousel = ({ healthAdvices }) => {
                       <h3 className="font-semibold text-lg text-teal-600" dangerouslySetInnerHTML={{ __html: advice.topic }} />
                       <p className="text-sm text-gray-600" style={{ display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }} dangerouslySetInnerHTML={{ __html: advice.advice_text }} />
                     </div>
-                    {/* Ensure the button is at the bottom of the card */}
                     <a
                       href='#'
-                      // to={`/service#${service.id}`}
                       type="button"
                       onClick={(e) => { e.preventDefault(); setSelectedAdvice(advice); }}
                       className="w-full mt-2 p-3 btn btn-yt text-white" style={{ background: '#13AB9C' }}
