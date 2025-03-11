@@ -62,7 +62,7 @@ const Home = () => {
                         <div
                             key={index}
                             className={[
-                                "col-12 col-md-6 col-lg-4",
+                                "col-12 col-md-6 col-lg-4 ",
                                 index === 0 ? "first-column" : "",
                                 index === 1 ? "second-column" : "",
                                 index === 2 ? "first-column" : "",

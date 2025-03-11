@@ -720,53 +720,77 @@ body {
 
 .fifth-column .scur {
   margin-top: -4.5rem !important;
-  
+
 }
-.fifth-column .scur p{
+
+.fifth-column .scur p {
   display: -webkit-box;
-  -webkit-line-clamp: 7;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: normal;
-  max-width: 100%;
+
+  /* Minimum de 3 lignes */
+  min-height: calc(1.5em * 7);
+  /* Ajuste 1.5em selon ton line-height */
+
+  /* Maximum de 5 lignes */
+  -webkit-line-clamp: 7;
+  /* Fixe le max de lignes */
 }
 
 .first-column .scur p {
   display: -webkit-box;
-  -webkit-line-clamp: 7;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: normal;
-  max-width: 100%;
+
+  /* Minimum de 3 lignes */
+  min-height: calc(1.5em * 7);
+  /* Ajuste 1.5em selon ton line-height */
+
+  /* Maximum de 5 lignes */
+  -webkit-line-clamp: 7;
+  /* Fixe le max de lignes */
 }
+
 .second-column .scur p {
   display: -webkit-box;
-  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: normal;
-  max-width: 100%;
+
+  /* Minimum de 3 lignes */
+  min-height: calc(1.5em * 3);
+  /* Ajuste 1.5em selon ton line-height */
+
+  /* Maximum de 5 lignes */
+  -webkit-line-clamp: 3;
+  /* Fixe le max de lignes */
 }
+
 .three-column .scur p {
   display: -webkit-box;
-  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: normal;
-  max-width: 100%;
+
+  /* Minimum de 3 lignes */
+  min-height: calc(1.5em * 4);
+  /* Ajuste 1.5em selon ton line-height */
+
+  /* Maximum de 5 lignes */
+  -webkit-line-clamp: 4;
+  /* Fixe le max de lignes */
 }
+
 .scur p {
   display: -webkit-box;
-  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: normal;
-  max-width: 100%;
+
+  /* Minimum de 3 lignes */
+  min-height: calc(1.5em * 4);
+  /* Ajuste 1.5em selon ton line-height */
+
+  /* Maximum de 5 lignes */
+  -webkit-line-clamp: 4;
+  /* Fixe le max de lignes */
 }
 
 @media (max-width: 1000px) {
