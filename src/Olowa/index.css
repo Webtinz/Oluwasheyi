@@ -744,58 +744,59 @@ body {
 .first-column .scur p {
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  overflow: hidden;
-
-  /* Minimum de 3 lignes */
-  min-height: calc(1.5em * 7);
-  /* Ajuste 1.5em selon ton line-height */
-
-  /* Maximum de 5 lignes */
-  -webkit-line-clamp: 7;
-  /* Fixe le max de lignes */
+  overflow-y: auto; /* Permet le scroll si nécessaire */
+  scrollbar-width: none; /* Cache la scrollbar sur Firefox */
+  
+  /* Cacher la scrollbar sur Chrome, Safari et Edge */
+  -ms-overflow-style: none; /* Internet Explorer / Edge */
 }
 
-.second-column .scur p {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-
-  /* Minimum de 3 lignes */
-  min-height: calc(1.5em * 3);
-  /* Ajuste 1.5em selon ton line-height */
-
-  /* Maximum de 5 lignes */
-  -webkit-line-clamp: 3;
-  /* Fixe le max de lignes */
+.first-column .scur p::-webkit-scrollbar {
+  display: none; /* Cache la scrollbar sur Chrome, Safari et Edge */
 }
 
-.three-column .scur p {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-
-  /* Minimum de 3 lignes */
-  min-height: calc(1.5em * 4);
-  /* Ajuste 1.5em selon ton line-height */
-
-  /* Maximum de 5 lignes */
-  -webkit-line-clamp: 4;
-  /* Fixe le max de lignes */
+/* Limitation des lignes */
+.first-column .scur p {
+  min-height: calc(1.5em * 7); /* Minimum de 7 lignes */
+  -webkit-line-clamp: 7; /* Maximum de 7 lignes */
+  line-height: 1.5em; /* Ajuste selon le design */
 }
 
+.second-column .scur p,
+.three-column .scur p,
 .scur p {
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  overflow: hidden;
-
-  /* Minimum de 3 lignes */
-  min-height: calc(1.5em * 4);
-  /* Ajuste 1.5em selon ton line-height */
-
-  /* Maximum de 5 lignes */
-  -webkit-line-clamp: 4;
-  /* Fixe le max de lignes */
+  overflow-y: auto !important; /* Permet le scroll si nécessaire */
+  scrollbar-width: none; /* Cache la scrollbar sur Firefox */
+  -ms-overflow-style: none; /* Cache la scrollbar sur IE/Edge */
 }
+
+.second-column .scur p::-webkit-scrollbar,
+.three-column .scur p::-webkit-scrollbar,
+.scur p::-webkit-scrollbar {
+  display: none; /* Cache la scrollbar sur Chrome, Safari et Edge */
+}
+
+/* Spécifique à chaque bloc */
+.second-column .scur p {
+  min-height: calc(1.5em * 3); /* Minimum de 3 lignes */
+  -webkit-line-clamp: 3; /* Maximum de 3 lignes */
+  line-height: 1.5em;
+}
+
+.three-column .scur p {
+  min-height: calc(1.5em * 4); /* Minimum de 4 lignes */
+  -webkit-line-clamp: 4; /* Maximum de 4 lignes */
+  line-height: 1.5em;
+}
+
+.scur p {
+  min-height: calc(1.5em * 4); /* Minimum de 4 lignes */
+  -webkit-line-clamp: 4; /* Maximum de 4 lignes */
+  line-height: 1.5em;
+}
+
 
 @media (max-width: 1000px) {
   .fifth-column .scur {

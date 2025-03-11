@@ -58,6 +58,15 @@ const PatientTestimonials = ({ testimonials }) => {
     };
     fetchContents();
   }, []);
+  const style = {
+    display: "-webkit-box",
+    WebkitLineClamp: 6,
+    WebkitBoxOrient: "vertical",
+    overflowY: "auto", // Active le scroll si nécessaire
+    scrollbarWidth: "none", // Cache la scrollbar sur Firefox
+    msOverflowStyle: "none" // Cache la scrollbar sur IE/Edge
+  };
+  
 
   return (
     <div className='container-fluid py-5' style={{ background: ' #F6F6F6', paddingLeft: '0px', paddingRight: '0px' }}>
@@ -115,7 +124,7 @@ const PatientTestimonials = ({ testimonials }) => {
             >
               {testimonials?.map((testimonial) => (
                 <div key={testimonial.id} className="px-lg-4 px-0" style={{ width: `${100 / testimonials?.length * cardsToShow}%` }}>
-                  <div className=" p-6 h-full"
+                  <div className="p-6 mx=2"
                     style={{
                       border: '1px solid #17416F',
                       borderTopRightRadius: '30px',
@@ -124,7 +133,7 @@ const PatientTestimonials = ({ testimonials }) => {
                   >
                     <div className="mb-4"><img src={Ic} /></div>
                     <h3 className="text-xl font-semibold mb-2" style={{ color: '#17416F', fontWeight: '700' }}>{testimonial.titre}</h3>
-                    <div className="text-gray-600 mb-6">
+                    <div className="text-gray-600 mb-6 element" style={style}>
                       {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                         __html: testimonial.description
                       }} />) : (<div dangerouslySetInnerHTML={{

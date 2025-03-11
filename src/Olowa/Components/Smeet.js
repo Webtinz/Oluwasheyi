@@ -2,18 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import './DoctorCarousel.css'; // Vous devrez créer ce fichier CSS séparément
 
 const DoctorCarousel = ({doctors}) => {
-  // Données des médecins (à remplacer par vos données réelles ou props)
-  // const doctors = [
-  //   { id: 1, name: "Doctor Name", specialty: "Gynecologist", image: "/path/to/doctor1.jpg" },
-  //   { id: 2, name: "Doctor Name", specialty: "Gynecologist", image: "/path/to/doctor2.jpg" },
-  //   { id: 3, name: "Doctor Name", specialty: "Gynecologist", image: "/path/to/doctor3.jpg" },
-  //   { id: 4, name: "Doctor Name", specialty: "Gynecologist", image: "/path/to/doctor4.jpg" },
-  //   { id: 5, name: "Doctor Name", specialty: "Gynecologist", image: "/path/to/doctor5.jpg" },
-  //   { id: 6, name: "Doctor Name", specialty: "Gynecologist", image: "/path/to/doctor6.jpg" },
-  //   { id: 7, name: "Doctor Name", specialty: "Gynecologist", image: "/path/to/doctor7.jpg" },
-  //   { id: 8, name: "Doctor Name", specialty: "Gynecologist", image: "/path/to/doctor8.jpg" }
-  // ];
-
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardsPerView, setCardsPerView] = useState(4);
   const carouselInnerRef = useRef(null);
@@ -92,46 +80,50 @@ const DoctorCarousel = ({doctors}) => {
 
   return (
     <div className="doc55-carousel-container container">
-      <button 
-        className={`doc55-nav-btn doc55-prev-btn ${currentIndex <= 0 ? 'doc55-disabled' : ''}`} 
-        onClick={goToPrev}
-        disabled={currentIndex <= 0}
-      >
-        &#10094;
-      </button>
-      
-      <div className="doc55-carousel">
-        <div 
-          className="doc55-carousel-inner" 
-          ref={carouselInnerRef} 
-          style={getCarouselStyle()}
+      <div className="doc55-carousel-wrapper">
+        {/* Bouton précédent centré verticalement */}
+        <button 
+          className={`doc55-nav-btn doc55-prev-btn ${currentIndex <= 0 ? 'doc55-disabled' : ''}`} 
+          onClick={goToPrev}
+          disabled={currentIndex <= 0}
         >
-          {doctors.map((doctor) => (
-            <div 
-              key={doctor.id} 
-              className="doc55-doctor-card" 
-              style={getCardStyle()}
-            >
-              <div className="doc55-doctor-image">
-                <img src={doctor.photo} alt={doctor.nom} />
+          &#10094;
+        </button>
+        
+        <div className="doc55-carousel">
+          <div 
+            className="doc55-carousel-inner" 
+            ref={carouselInnerRef} 
+            style={getCarouselStyle()}
+          >
+            {doctors.map((doctor) => (
+              <div 
+                key={doctor.id} 
+                className="doc55-doctor-card" 
+                style={getCardStyle()}
+              >
+                <div className="doc55-doctor-image">
+                  <img src={doctor.photo} alt={doctor.nom} />
+                </div>
+                <div className="doc55-doctor-info">
+                  <div className="doc55-doctor-name">{doctor.nom} {doctor.prenom}</div>
+                  <div className="doc55-doctor-specialty">{doctor.titre}</div>
+                </div>
+                <span className='d-block my-3' style={{ borderBottom: '1px solid #17416F33', width: '90%' }}></span>
               </div>
-              <div className="doc55-doctor-info">
-                <div className="doc55-doctor-name">{doctor.nom} {doctor.prenom}</div>
-                <div className="doc55-doctor-specialty">{doctor.titre}</div>
-              </div>
-              <span className='d-block my-3' style={{ borderBottom: '1px solid #17416F33', width: '90%' }}></span>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
+
+        {/* Bouton suivant centré verticalement */}
+        <button 
+          className={`doc55-nav-btn doc55-next-btn ${currentIndex >= doctors.length - cardsPerView ? 'doc55-disabled' : ''}`} 
+          onClick={goToNext}
+          disabled={currentIndex >= doctors.length - cardsPerView}
+        >
+          &#10095;
+        </button>
       </div>
-      
-      <button 
-        className={`doc55-nav-btn doc55-next-btn ${currentIndex >= doctors.length - cardsPerView ? 'doc55-disabled' : ''}`} 
-        onClick={goToNext}
-        disabled={currentIndex >= doctors.length - cardsPerView}
-      >
-        &#10095;
-      </button>
       
       <div className="doc55-dots-container">
         {Array.from({ length: Math.ceil((doctors.length - cardsPerView) / 1) + 1 }).map((_, i) => (

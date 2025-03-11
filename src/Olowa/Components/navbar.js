@@ -195,6 +195,13 @@ const Navbar = () => {
           <div className={`menu ${isMenuActive ? 'active' : ''}`} id="menu">
             <ul className='list-unstyled' style={{ lineHeight: '45px' }}>
               <li>
+                <Link to="/index" className="text-white" style={{ fontWeight: '700', fontSize: '24px', textTransform: 'uppercase' }}>{selectedLanguage === 'fr' ? contents?.home_page_home.content_fr : contents?.home_page_home.content_en}
+                </Link>
+              </li>
+              <li>
+                <Link to="/about" className="text-white" style={{ fontWeight: '700', fontSize: '24px', textTransform: 'uppercase' }}>{selectedLanguage === 'fr' ? contents?.home_page_banner_link1.content_fr : contents?.home_page_banner_link1.content_en}</Link>
+              </li>
+              <li>
                 <Link to="/about" className="text-white" style={{ fontWeight: '700', fontSize: '24px', textTransform: 'uppercase' }}>{selectedLanguage === 'fr' ? contents?.home_page_banner_link1.content_fr : contents?.home_page_banner_link1.content_en}</Link>
               </li>
               <li>
