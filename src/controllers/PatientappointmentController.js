@@ -28,3 +28,13 @@ exports.registerNewpatient = async (req, res) => {
   }
 };
 
+exports.getnewAllPatients = async (req, res) => {
+    try {
+      const patients = await Patientappointment.findAll(); // Récupère tous les enregistrements
+      res.status(200).json(patients);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Erreur lors de la récupération des patients", error });
+    }
+  };
+  

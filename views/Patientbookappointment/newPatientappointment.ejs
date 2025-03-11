@@ -1,0 +1,66 @@
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">New Patients</h3>
+        </div>
+        <div class="card-body">
+            <table id="myTable" class="display table table-striped projects">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>FirstName</th>
+                        <th>LastName</th>
+                        <th>Birth Date</th>
+                        <th>Phone Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Les lignes seront insérées ici via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        axios.get('/api/getnewpatientsapt')
+            .then(response => {
+                let data = response.data;
+
+                // Trier par date d'ajout dans la base de données (du plus récent au plus ancien)
+                data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+                const tableBody = document.querySelector('#myTable tbody');
+                tableBody.innerHTML = '';
+
+                data.forEach(newpatient => {
+                    const row = `
+                <tr>
+                    <td>${newpatient.id}</td>
+                    <td>${newpatient.firstName}</td>
+                    <td>${newpatient.lastName}</td>
+                    <td>${new Date(newpatient.birthDate).toISOString().split('T')[0]}</td>
+                    <td>${newpatient.phoneNumber}</td>
+                </tr>`;
+                    tableBody.innerHTML += row;
+                });
+
+                // Initialize DataTable avec tri automatique
+                $('#myTable').DataTable({
+                    "order": [[0, "desc"]], // Tri par ID (peut être modifié selon besoin)
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/1.13.7/i18n/fr-FR.json"
+                    }
+                });
+            })
+            .catch(error => console.error('Error fetching patients:', error));
+    });
+
+</script>
