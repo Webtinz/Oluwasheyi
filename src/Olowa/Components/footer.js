@@ -62,12 +62,12 @@ const Footer = () => {
             <h5 className="footer-title" style={{ fontWeight: '700', fontSize: '25px' }}>
               {selectedLanguage === 'fr' ? contents?.footer_contact_col_title.content_fr : contents?.footer_contact_col_title.content_en}
             </h5>
-            <p className="footer-text mt-3 d-flex">
+            <p className="footer-text mt-3 bck">
               <i className="bi bi-telephone me-2 ocn"></i>
               {selectedLanguage === 'fr' ? contents?.footer_contact_col_number.content_fr : contents?.footer_contact_col_number.content_en}
             </p>
             <p className="footer-text mt-3">
-              <i className="bi bi-geo-alt-fill me-2"></i>
+              <i className="bi bi-geo-alt-fill me-2" style={{fontSize:'28px'}}></i>
               {selectedLanguage === 'fr' ? contents?.footer_contact_col_address.content_fr : contents?.footer_contact_col_address.content_en}
             </p>
           </div>

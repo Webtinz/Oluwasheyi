@@ -323,7 +323,7 @@ const Home = () => {
                                 <img
                                     src={contents?.donate_page_support_img.image}
                                     className='img-fluid w-100'
-                                    style={{ height: '80vh', objectFit: 'cover' }}
+                                    style={{ height: '100vh', objectFit: 'cover' }}
                                 />
                             </div>
                         </div>

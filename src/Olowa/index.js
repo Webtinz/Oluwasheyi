@@ -117,7 +117,7 @@ const Home = () => {
             <div className="mt-5">
                 <Testimonial testimonials={testimonials} />
             </div>
-            <br /><br /><br />
+            <br /><br />
             <div>
                 <Logo logos={certificates} />
             </div>

@@ -106,7 +106,7 @@ const DonationForm = ({ programs }) => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto p-4">
+    <div className="w-full max-w-lg mx-auto p-4">
         {showSuccessMessage && (
           <div className="alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3" role="alert">
             {selectedLanguage === 'fr' ? 'Don effectue avec succes' : "Donation completed successfully"}

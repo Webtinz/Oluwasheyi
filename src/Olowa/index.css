@@ -120,6 +120,9 @@ body {
   object-fit: cover;
 
 }
+.bck{
+  display: flex;
+}
 
 @media (max-width: 770px) {
   .carousel-content.carrousseltwo li a {
@@ -161,6 +164,10 @@ body {
 
   .wm {
     width: 100%;
+  }
+  .bck{
+    display: flex;
+    justify-content: center;
   }
 }
 
