@@ -34,9 +34,9 @@ const Footer = () => {
   return (
     <footer className="container-fluid mt-4">
       <div className="container">
-        <div className="row text-center text-md-start p-4">
+        <div className="row text-md-start p-4">
           {/* Section Abonnement Email */}
-          <div className="col-md-4 mb-4 mb-md-0 px-4">
+          <div className="col-md-4 mb-4 mb-md-0 px-0 px-lg-4">
             <h5 className="footer-title" style={{ fontWeight: '700' }}>
               {selectedLanguage === 'fr' ? contents?.footer_suscribe_col_title.content_fr : contents?.footer_suscribe_col_title.content_en}
             </h5>
@@ -49,7 +49,7 @@ const Footer = () => {
                 <i className="bi bi-chevron-right ppo" style={{ background: '#13AB9C', color: 'white' }}></i>
               </a>
             </div>
-            <div className="d-flex mt-3 justify-content-lg-start justify-content-center">
+            <div className="d-flex mt-3">
               <a href={contents?.footer_social_1_link.content_fr} ><i className={'bi bi-' + contents?.footer_social_1.content_fr + ' social-icon'}></i></a> 
               <a href={contents?.footer_social_2_link.content_fr} ><i className={'bi bi-' + contents?.footer_social_2.content_fr + ' social-icon'}></i></a> 
               <a href={contents?.footer_social_3_link.content_fr} ><i className={'bi bi-' + contents?.footer_social_3.content_fr + ' social-icon'}></i></a> 
@@ -58,11 +58,11 @@ const Footer = () => {
           </div>
 
           {/* Section Contact */}
-          <div className="col-md-3 mb-4 mb-md-0 px-4">
-            <h5 className="footer-title" style={{ fontWeight: '700', fontSize: '25px' }}>
+          <div className="col-md-3 mb-4 mb-md-0 px-0 px-lg-4">
+            <h5 className="footer-title" style={{ fontWeight: '700'}}>
               {selectedLanguage === 'fr' ? contents?.footer_contact_col_title.content_fr : contents?.footer_contact_col_title.content_en}
             </h5>
-            <p className="footer-text mt-3 bck">
+            <p className="footer-text mt-3 d-flex">
               <i className="bi bi-telephone me-2 ocn"></i>
               {selectedLanguage === 'fr' ? contents?.footer_contact_col_number.content_fr : contents?.footer_contact_col_number.content_en}
             </p>
@@ -73,8 +73,8 @@ const Footer = () => {
           </div>
 
           {/* Section Horaires */}
-          <div className="col-md-2 mb-4 mb-md-0 px-4">
-            <h5 className="footer-title" style={{ fontWeight: '700', fontSize: '25px' }}>
+          <div className="col-md-2 mb-4 mb-md-0 px-0 px-lg-4">
+            <h5 className="footer-title" style={{ fontWeight: '700'}}>
               {selectedLanguage === 'fr' ? contents?.footer_hours_col_title.content_fr : contents?.footer_hours_col_title.content_en}
             </h5>
             <p className="footer-text mt-3">
@@ -87,8 +87,8 @@ const Footer = () => {
           </div>
 
           {/* Section À propos */}
-          <div className="col-md-3 mb-4 mb-md-0 px-4">
-            <h5 className="footer-title" style={{ fontWeight: '700', fontSize: '25px' }}>
+          <div className="col-md-3 mb-4 mb-md-0 px-0 px-lg-4">
+            <h5 className="footer-title" style={{ fontWeight: '700' }}>
               {selectedLanguage === 'fr' ? contents?.footer_about_col_title.content_fr : contents?.footer_about_col_title.content}
             </h5>
             <ul className="list-unstyled mt-3">

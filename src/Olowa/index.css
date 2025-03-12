@@ -633,7 +633,7 @@ body {
   margin-top: 100px;
 } */
 .footer-title {
-  font-size: clamp(20px, 6vw, 25px);
+  font-size: clamp(20px, 8vw, 25px);
   color: #17416F;
   text-transform: uppercase;
 }
