@@ -182,7 +182,31 @@ const Home = () => {
                 <span className='d-block my-4' style={{ borderBottom: '1px solid #17416F' }}></span>
             </section>
             <br /><br />
-
+            <section className='container-fluid py-4' style={{ background: '#17416F' }}>
+                <div className='container py-4'>
+                    <h2 className='text-center text-white' style={{ fontWeight: '700', fontSize: '30px', textTransform: 'uppercase' }}>
+                        {selectedLanguage === 'fr' ? contents?.donate_page_steps_title.content_fr : contents?.donate_page_steps_title.content_en}
+                    </h2>
+                    <br /><br />
+                    <div className="position-relative pt-5">
+                        <div className="d-flex justify-content-between align-items-start position-relative steps-container">
+                            <div className="step-line"></div>
+                            {visibleSteps.map((step, index) => (
+                                <div key={index} className="d-flex flex-column align-items-center position-relative step-item">
+                                    <div className="step-circle">{step.number}</div>
+                                    <p className="text-white text-center small" style={{ fontWeight: '700', fontSize: '16px' }}>{step.text}</p>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="d-flex justify-content-center mt-4">
+                            <button className="btn btn-primary px-4 py-2" onClick={handleCloseModal}>
+                                {selectedLanguage === 'fr' ? contents?.donation_step_button.content_fr : contents?.donation_step_button.content_en}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <br /><br />
             {/* Programs Section - toujours affiché car showCarousel est toujours true */}
             {showCarousel && (
                 <section className='container mt-4'>
@@ -288,30 +312,7 @@ const Home = () => {
 
             {/* Steps Section */}
             <br /><br />
-            <section className='container-fluid py-4' style={{ background: '#17416F' }}>
-                <div className='container py-4'>
-                    <h2 className='text-center text-white' style={{ fontWeight: '700', fontSize: '30px', textTransform: 'uppercase' }}>
-                        {selectedLanguage === 'fr' ? contents?.donate_page_steps_title.content_fr : contents?.donate_page_steps_title.content_en}
-                    </h2>
-                    <br /><br />
-                    <div className="position-relative pt-5">
-                        <div className="d-flex justify-content-between align-items-start position-relative steps-container">
-                            <div className="step-line"></div>
-                            {visibleSteps.map((step, index) => (
-                                <div key={index} className="d-flex flex-column align-items-center position-relative step-item">
-                                    <div className="step-circle">{step.number}</div>
-                                    <p className="text-white text-center small" style={{ fontWeight: '700', fontSize: '16px' }}>{step.text}</p>
-                                </div>
-                            ))}
-                        </div>
-                        <div className="d-flex justify-content-center mt-4">
-                            <button className="btn btn-primary px-4 py-2">
-                                {selectedLanguage === 'fr' ? contents?.donation_step_button.content_fr : contents?.donation_step_button.content_en}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            
 
             {/* Target Section for Scrolling */}
             <section id="targetSection" className='container mt-lg-5 mt-0' style={{ paddingLeft: '0px', paddingRight: '0px' }}>

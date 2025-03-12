@@ -36,8 +36,8 @@ const Footer = () => {
       <div className="container">
         <div className="row text-center text-md-start p-4">
           {/* Section Abonnement Email */}
-          <div className="col-md-4 mb-4 mb-md-0">
-            <h5 className="footer-title" style={{ fontWeight: '700', fontSize: '25px' }}>
+          <div className="col-md-4 mb-4 mb-md-0 px-4">
+            <h5 className="footer-title" style={{ fontWeight: '700' }}>
               {selectedLanguage === 'fr' ? contents?.footer_suscribe_col_title.content_fr : contents?.footer_suscribe_col_title.content_en}
             </h5>
             <p className="footer-text mt-3">
@@ -58,12 +58,12 @@ const Footer = () => {
           </div>
 
           {/* Section Contact */}
-          <div className="col-md-3 mb-4 mb-md-0">
+          <div className="col-md-3 mb-4 mb-md-0 px-4">
             <h5 className="footer-title" style={{ fontWeight: '700', fontSize: '25px' }}>
               {selectedLanguage === 'fr' ? contents?.footer_contact_col_title.content_fr : contents?.footer_contact_col_title.content_en}
             </h5>
-            <p className="footer-text mt-3">
-              <i className="bi bi-whatsapp me-2"></i>
+            <p className="footer-text mt-3 d-flex">
+              <i className="bi bi-telephone me-2 ocn"></i>
               {selectedLanguage === 'fr' ? contents?.footer_contact_col_number.content_fr : contents?.footer_contact_col_number.content_en}
             </p>
             <p className="footer-text mt-3">
@@ -73,7 +73,7 @@ const Footer = () => {
           </div>
 
           {/* Section Horaires */}
-          <div className="col-md-2 mb-4 mb-md-0">
+          <div className="col-md-2 mb-4 mb-md-0 px-4">
             <h5 className="footer-title" style={{ fontWeight: '700', fontSize: '25px' }}>
               {selectedLanguage === 'fr' ? contents?.footer_hours_col_title.content_fr : contents?.footer_hours_col_title.content_en}
             </h5>
@@ -87,7 +87,7 @@ const Footer = () => {
           </div>
 
           {/* Section À propos */}
-          <div className="col-md-3 mb-4 mb-md-0">
+          <div className="col-md-3 mb-4 mb-md-0 px-4">
             <h5 className="footer-title" style={{ fontWeight: '700', fontSize: '25px' }}>
               {selectedLanguage === 'fr' ? contents?.footer_about_col_title.content_fr : contents?.footer_about_col_title.content}
             </h5>

@@ -202,9 +202,6 @@ const Navbar = () => {
                 <Link to="/about" className="text-white" style={{ fontWeight: '700', fontSize: '24px', textTransform: 'uppercase' }}>{selectedLanguage === 'fr' ? contents?.home_page_banner_link1.content_fr : contents?.home_page_banner_link1.content_en}</Link>
               </li>
               <li>
-                <Link to="/about" className="text-white" style={{ fontWeight: '700', fontSize: '24px', textTransform: 'uppercase' }}>{selectedLanguage === 'fr' ? contents?.home_page_banner_link1.content_fr : contents?.home_page_banner_link1.content_en}</Link>
-              </li>
-              <li>
                 <Link to="/community" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>{selectedLanguage === 'fr' ? contents?.home_page_menu_community.content_fr : contents?.home_page_menu_community.content_en}</Link>
               </li>
               <li>

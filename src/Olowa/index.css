@@ -626,23 +626,35 @@ body {
   margin-top: 100px;
 } */
 .footer-title {
-  font-size: clamp(20px, 8vw, 25px);
+  font-size: clamp(20px, 6vw, 25px);
   color: #17416F;
+  text-transform: uppercase;
 }
 
 .footer-text {
   color: #17416F;
-  font-size: clamp(16px, 8vw, 20px);
+  font-size: clamp(16px, 6vw, 18px);
 }
 
 .social-icon {
-  font-size: clamp(16px, 8vw, 25px);
+  font-size: clamp(16px, 6vw, 25px);
   color: #17416F;
   margin-right: 10px;
 }
+.ocn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  background-color: #17416F;
+  color: white;
+  font-size: 13px;
+}
 
 .copyright-text {
-  font-size: clamp(16px, 8vw, 20px);
+  font-size: clamp(16px, 6vw, 20px);
   color: #17416F;
 }
 
