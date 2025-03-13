@@ -89,7 +89,7 @@ const Footer = () => {
           {/* Section À propos */}
           <div className="col-md-3 mb-4 mb-md-0 px-0 px-lg-4">
             <h5 className="footer-title" style={{ fontWeight: '700' }}>
-              {selectedLanguage === 'fr' ? contents?.footer_about_col_title.content_fr : contents?.footer_about_col_title.content}
+              {selectedLanguage === 'fr' ? contents?.footer_about_col_title.content_fr : contents?.footer_about_col_title.content_en}
             </h5>
             <ul className="list-unstyled mt-3">
               <li className="footer-text">

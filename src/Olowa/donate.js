@@ -321,7 +321,7 @@ const Home = () => {
                         <div className='col-md-5 mb-3 mb-md-0 mx-auto' style={{ padding: '0px' }}>
                             <div className='position-relative'>
                                 <img
-                                    src={contents?.donate_page_support_img.image}
+                                    src={contents?.donate_page_payment_img.image}
                                     className='img-fluid w-100'
                                     style={{ height: '100vh', objectFit: 'cover' }}
                                 />
