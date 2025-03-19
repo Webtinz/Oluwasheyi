@@ -199,13 +199,15 @@ const Home = () => {
             <br />
             <>
                 {/* Our Values Section */}
-                <section className="container mt-5">
+                <section className="container mt-5 apropos">
                     <h2 style={{ color: '#17416F', fontSize: 'clamp(25px, 8vw, 36px)', fontWeight: '700', textTransform: 'uppercase' }}>  {selectedLanguage === 'fr' ? contents?.about_page_value_title.content_fr : contents?.about_page_value_title.content_en} </h2>
                     <br />
                     <div className="row mt-4">
                         {values.map((value, index) => (
                             <div key={index} className="col-12 col-md-6 col-lg-3 mb-4 mx-auto">
-                                <div className="p-3 text-white cvc position-relative" style={{ backgroundColor: '#13AB9C', borderTopRightRadius: '30px', height: '280px' }}>
+                                <div className="p-3 text-white cvc position-relative" style={{ backgroundColor: '#13AB9C', borderTopRightRadius: '30px', 
+                                    height: '280px' 
+                                    }}>
                                     <p style={{ fontSize: 'clamp(18px, 8vw, 24px)' }}><strong>{value.title}</strong></p>
                                     <p className='mt-2' style={{ fontWeight: '400' }}>{value.description}</p>
                                     <div className='edn'>

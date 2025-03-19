@@ -93,7 +93,7 @@ const Home = () => {
             <section className="container mt-4">
                 <div className="row">
                     <div className="col-md-2 mx-auto mb-3">
-                        <h2 className='text-center' style={{ color: '#17416F', textTransform: 'uppercase', fontWeight: 700, fontSize: 'clamp(20px, 6vw, 30px)' }}>
+                        <h2 className='text-start' style={{ color: '#17416F', textTransform: 'uppercase', fontWeight: 700, fontSize: 'clamp(20px, 6vw, 30px)' }}>
                             {selectedLanguage === 'fr' ? contents?.support_page_title1.content_fr : contents?.support_page_title1.content_en}
                         </h2>
                     </div>

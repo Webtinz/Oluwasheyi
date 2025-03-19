@@ -112,8 +112,8 @@ const StyledLanguageSelect = ({ selectedLanguage, handleLanguageChange }) => {
         style={selectStyle}
         aria-label="Small select example"
       >
-        <option value="en">En</option>
-        <option value="fr">Fr</option>
+        <option value="en"><b>En</b></option>
+        <option value="fr"><b>Fr</b></option>
       </select>
     </div>
   );
@@ -175,13 +175,13 @@ const Navbar = () => {
 
   return (
     <section className="container-fluid">
-      <nav className="navbar navbar-expand-lg navbar-custom">
+      <nav className="navbar navbar-expand-lg navbar-custom pt-3 pb-3">
         <div className="container">
           {/* Logo Section */}
-          <div className='d-flex'>
+          <div className='d-flex' style={{gap:"10px"}}>
             <div className='align-self-center'>
-              <span onClick={toggleMenu} className='d-flex' style={{ cursor: 'pointer' }}>
-                <img src={Img1} alt="" className="menu-icon ms-2" /> <span className='mt-3'>Menu</span>
+              <span onClick={toggleMenu} className='d-flex' style={{ cursor: 'pointer', gap:"10px" }}>
+                <img src={Img1} alt="" className="menu-icon ms-2" /> <span className='mt-3' style={{fontWeight:"700", color:"#17416f"}}>Menu</span>
               </span>
             </div>
             <div>
@@ -195,34 +195,34 @@ const Navbar = () => {
           <div className={`menu ${isMenuActive ? 'active' : ''}`} id="menu">
             <ul className='list-unstyled' style={{ lineHeight: '45px' }}>
               <li>
-                <Link to="/index" className="text-white" style={{ fontWeight: '700', fontSize: '24px', textTransform: 'uppercase' }}>{selectedLanguage === 'fr' ? contents?.home_page_home.content_fr : contents?.home_page_home.content_en}
+                <Link to="/index" className="text-white" style={{ fontWeight: '700', fontSize: '20px', textTransform: 'uppercase' }}>{selectedLanguage === 'fr' ? contents?.home_page_home.content_fr : contents?.home_page_home.content_en}
                 </Link>
               </li>
               <li>
-                <Link to="/about" className="text-white" style={{ fontWeight: '700', fontSize: '24px', textTransform: 'uppercase' }}>{selectedLanguage === 'fr' ? contents?.home_page_banner_link1.content_fr : contents?.home_page_banner_link1.content_en}</Link>
+                <Link to="/about" className="text-white" style={{ fontWeight: '700', fontSize: '20px', textTransform: 'uppercase' }}>{selectedLanguage === 'fr' ? contents?.home_page_banner_link1.content_fr : contents?.home_page_banner_link1.content_en}</Link>
               </li>
               <li>
-                <Link to="/community" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>{selectedLanguage === 'fr' ? contents?.home_page_menu_community.content_fr : contents?.home_page_menu_community.content_en}</Link>
+                <Link to="/community" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '20px', }}>{selectedLanguage === 'fr' ? contents?.home_page_menu_community.content_fr : contents?.home_page_menu_community.content_en}</Link>
               </li>
               <li>
-                <Link to="/meet" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>{selectedLanguage === 'fr' ? contents?.home_page_menu_meet.content_fr : contents?.home_page_menu_meet.content_en}</Link>
+                <Link to="/meet" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '20px', }}>{selectedLanguage === 'fr' ? contents?.home_page_menu_meet.content_fr : contents?.home_page_menu_meet.content_en}</Link>
               </li>
               <li>
-                <Link to="/department" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>{selectedLanguage === 'fr' ? contents?.home_page_menu_departments.content_fr : contents?.home_page_menu_departments.content_en}</Link>
+                <Link to="/department" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '20px', }}>{selectedLanguage === 'fr' ? contents?.home_page_menu_departments.content_fr : contents?.home_page_menu_departments.content_en}</Link>
               </li>
               <li>
-                <Link to="/testimonial" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>{selectedLanguage === 'fr' ? contents?.home_page_menu_Testimonials.content_fr : contents?.home_page_menu_Testimonials.content_en}</Link>
+                <Link to="/testimonial" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '20px', }}>{selectedLanguage === 'fr' ? contents?.home_page_menu_Testimonials.content_fr : contents?.home_page_menu_Testimonials.content_en}</Link>
               </li>
               <li>
-                <Link to="/service" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>{selectedLanguage === 'fr' ? contents?.home_page_menu_Service.content_fr : contents?.home_page_menu_Service.content_en}</Link>
+                <Link to="/service" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '20px', }}>{selectedLanguage === 'fr' ? contents?.home_page_menu_Service.content_fr : contents?.home_page_menu_Service.content_en}</Link>
               </li>
               {/* <li>
                 <Link to="/sugery" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>{selectedLanguage === 'fr' ? contents?.home_page_menu_Sugery.content_fr : contents?.home_page_menu_Sugery.content_en}</Link>
               </li> */}
               <li className='d-lg-none'>
                 <Link to="/donate"
-                  className="btn btn-white px-5"
-                  style={{ backgroundColor: '#13AB9C', color: 'white', fontWeight: 700, fontSize: '22px' }}
+                  className="btn btn-white don px-5"
+                  style={{ backgroundColor: '#13AB9C', color: 'white', fontWeight: 700, fontSize: '20px' }}
                 >
                   {selectedLanguage === 'fr' ? contents?.home_page_header_donate.content_fr : contents?.home_page_header_donate.content_en}
                 </Link>
@@ -261,7 +261,7 @@ const Navbar = () => {
           {/* Desktop View */}
           <div className="d-none d-lg-block">
             <div className="d-flex">
-              <div className="d-flex">
+              <div className="d-flex" style={{gap:"10px"}}>
                 <div>
                   <Link to="/donate"
                     className="btn btn-white px-4"

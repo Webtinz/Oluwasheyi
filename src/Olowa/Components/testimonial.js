@@ -64,7 +64,9 @@ const PatientTestimonials = ({ testimonials }) => {
     WebkitBoxOrient: "vertical",
     overflowY: "auto", // Active le scroll si nécessaire
     scrollbarWidth: "none", // Cache la scrollbar sur Firefox
-    msOverflowStyle: "none" // Cache la scrollbar sur IE/Edge
+    msOverflowStyle: "none", // Cache la scrollbar sur IE/Edge
+    maxHeight: "10vh",
+    overflowY: "scroll"
   };
   
 
@@ -123,12 +125,13 @@ const PatientTestimonials = ({ testimonials }) => {
               }}
             >
               {testimonials?.map((testimonial) => (
-                <div key={testimonial.id} className="px-lg-4 px-0" style={{ width: `${100 / testimonials?.length * cardsToShow}%` }}>
-                  <div className="p-6 mx=2"
+                <div key={testimonial.id} className="px-lg-4 dame px-0" data-aos="fade-left" data-aos-duration="500" style={{ width: `${100 / testimonials?.length * cardsToShow}%` }}>
+                  <div className="p-6 nono mx=2"
                     style={{
                       border: '1px solid #17416F',
                       borderTopRightRadius: '30px',
                       background: 'white',
+                      height:"35vh"
                     }}
                   >
                     <div className="mb-4"><img src={Ic} /></div>

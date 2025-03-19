@@ -103,11 +103,11 @@ const CommunityEngagement = () => {
   ];
 
   return (
-    <div className="container">
+    <div className="container dir">
       <div className="d-flex justify-content-center">
         <div className='comm'>
           <div className="d-flex align-items-center">
-            <h1 className="position-relative title-certifications" style={{ textTransform: "uppercase", fontSize: '30px', fontWeight: '700' }}>
+            <h1 className="position-relative tit title-certifications" style={{ textTransform: "uppercase", fontSize: '30px', fontWeight: '700' }}>
               {selectedLanguage === 'fr' ? contents?.communoty_page_title.content_fr : contents?.communoty_page_title.content_en}
             </h1>
           </div>
@@ -115,7 +115,9 @@ const CommunityEngagement = () => {
             <div className="row mt-4" key={index}>
               {index % 2 === 0 ? (
                 <>
-                  <div className="col-lg-6 mx-auto mb-4 p-2 p-lg-4 order-1">
+                  <div 
+                  data-aos="fade-right" data-aos-duration="500"
+                   className="col-lg-6 mx-auto mb-4 p-2 p-lg-4 order-1">
                     <div className="position-relative">
                       <img src={item.image} alt="" className="image-fluid w-100 main-img1" style={{ borderRadius: item.borderRadius, objectFit: 'cover' }} />
                       <div className={item.positionClass}>
@@ -123,7 +125,9 @@ const CommunityEngagement = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-lg-6 mx-auto mb-4 p-0 p-lg-4 align-self-center order-2">
+                  <div 
+                  data-aos="fade-left" data-aos-duration="500"
+                   className="col-lg-6 mx-auto mb-4 p-0 p-lg-4 align-self-center order-2">
                     <div className="p-2 p-lg-4">
                       <h2 style={{ color: "#17416F", fontWeight: 700, textTransform: "uppercase", fontSize: '30px' }}>{item.title}</h2>
                       <div className="mt-3" style={{ color: "#17416F", display: "-webkit-box", WebkitLineClamp: 10, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{item.description}</div>
@@ -131,7 +135,7 @@ const CommunityEngagement = () => {
                         <Link
                           to={`/community#${item.anchor}`}
                           className="btn btn-r text-white px-4"
-                          style={{ backgroundColor: "#13AB9C", padding: "8px 0" }}
+                          style={{ backgroundColor: "#13AB9C", padding: "10px 45px", fontWeight:"700" }}
                         >
                           {selectedLanguage === 'fr' ? contents?.home_page_welcome_button.content_fr : contents?.home_page_welcome_button.content_en}
                         </Link>
@@ -141,7 +145,9 @@ const CommunityEngagement = () => {
                 </>
               ) : (
                 <>
-                  <div className="col-lg-6 mx-auto mb-4 p-0 p-lg-4 align-self-center order-2 order-lg-1">
+                  <div 
+                  data-aos="fade-right" data-aos-duration="500"
+                   className="col-lg-6 mx-auto mb-4 p-0 p-lg-4 align-self-center order-2 order-lg-1">
                     <div className="p-2 p-lg-4">
                       <h2 style={{ color: "#17416F", fontWeight: 700, textTransform: "uppercase", fontSize: '30px' }}>{item.title}</h2>
                       <div className="mt-3" style={{ color: "#17416F", display: "-webkit-box", WebkitLineClamp: 10, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{item.description}</div>
@@ -149,14 +155,16 @@ const CommunityEngagement = () => {
                         <Link
                           to={`/community#${item.anchor}`}
                           className="btn btn-r text-white px-4"
-                          style={{ backgroundColor: "#13AB9C", padding: "8px 0" }}
+                          style={{ backgroundColor: "#13AB9C", padding: "10px 45px", fontWeight:"700"}}
                         >
                           {selectedLanguage === 'fr' ? contents?.home_page_welcome_button.content_fr : contents?.home_page_welcome_button.content_en}
                         </Link>
                       </div>
                     </div>
                   </div>
-                  <div className="col-lg-6 mx-auto mb-4 p-2 p-lg-4 order-1 order-lg-2">
+                  <div 
+                  data-aos="fade-left" data-aos-duration="500"
+                   className="col-lg-6 mx-auto mb-4 p-2 p-lg-4 order-1 order-lg-2">
                     <div className="position-relative">
                       <img src={item.image} alt="" className="image-fluid w-100 main-img1" style={{ borderRadius: item.borderRadius, objectFit: 'cover' }} />
                       <div className={item.positionClass}>

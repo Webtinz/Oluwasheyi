@@ -114,11 +114,11 @@ const CustomCarousel = () => {
                 alignItems: "center",
                 justifyContent: "center",
                 cursor: "pointer",
-                background: "transparent"
+                background: "#00426f"
               }}
               onClick={() => scrollCustomCarousel(-1)}
             >
-              <i className="bi bi-chevron-left fs-3"></i>
+              <i className="bi bi-chevron-left fs-2"></i>
             </button>
             <button
               className="position-absolute top-50 end-0 translate-middle-y custom-carousel-btn custom-next me-4"
@@ -133,11 +133,11 @@ const CustomCarousel = () => {
                 alignItems: "center",
                 justifyContent: "center",
                 cursor: "pointer",
-                background: "transparent"
+                background: "#00426f"
               }}
               onClick={() => scrollCustomCarousel(1)}
             >
-              <i className="bi bi-chevron-right fs-3"></i>
+              <i className="bi bi-chevron-right fs-2"></i>
             </button>
           </>
         )}

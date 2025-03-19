@@ -98,7 +98,7 @@ const LogoCarousel = ({ logos }) => {
               className="flex transition-transform duration-300 ease-in-out"
               style={{
                 transform: `translateX(-${currentIndex * (100 / getVisibleSlides())}%)`,
-                gap: '2rem'
+                // gap: '2rem'
               }}
             >
               {logos?.map((logo) => (
@@ -113,7 +113,7 @@ const LogoCarousel = ({ logos }) => {
                     src={logo.photo}
                     alt={logo.name}
                     className="img-fluid"
-                    style={{ objectFit: 'contain', width: '120px', height: '120px' }}
+                    style={{ objectFit: 'contain', width: '120px', height: '120px', margin:"0 auto" }}
                   />
                 </div>
               ))}

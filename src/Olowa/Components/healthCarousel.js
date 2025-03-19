@@ -79,20 +79,20 @@ const HealthAdviceCarousel = ({ healthAdvices }) => {
             {/* Navigation Buttons */}
             <button
               onClick={prev}
-              className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 transition-opacity ${currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-100'
+              className={`absolute shadow top-1/2 -translate-y-1/2 -translate-x-4 z-10 transition-opacity ${currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-100'
                 }`}
               disabled={currentIndex === 0}
-              style={{ fontSize: '2rem', color: 'white' }} // Increase the icon size
+              style={{ fontSize: '2rem', color: 'white', backgroundColor:"#17416f", padding:"15px", left:"-15px" }} // Increase the icon size
             >
               <ChevronLeft />
             </button>
 
             <button
               onClick={next}
-              className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 transition-opacity ${currentIndex === maxIndex ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-100'
+              className={`absolute shadow top-1/2 -translate-y-1/2 translate-x-4 z-10 transition-opacity ${currentIndex === maxIndex ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-100'
                 }`}
               disabled={currentIndex === maxIndex}
-              style={{ fontSize: '2rem', color: 'white' }} // Increase the icon size
+              style={{ fontSize: '2rem', color: 'white',  backgroundColor:"#17416f", padding:"15px", right:"-15px" }} // Increase the icon size
             >
               <ChevronRight />
             </button>
@@ -101,6 +101,7 @@ const HealthAdviceCarousel = ({ healthAdvices }) => {
             <div className="healthcont grid grid-flow-col auto-cols-fr px-4" >
               {visibleAdvices?.map((advice, index) => (
                 <div
+                // data-aos="zoom-in-down" data-aos-duration="1000"
                   key={currentIndex + index}
                   className="transition-all duration-300 ease-in-out transform"
                   style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}
@@ -125,7 +126,7 @@ const HealthAdviceCarousel = ({ healthAdvices }) => {
                       href='#'
                       type="button"
                       onClick={(e) => { e.preventDefault(); setSelectedAdvice(advice); }}
-                      className="w-full mt-2 p-3 btn btn-yt text-white" style={{ background: '#13AB9C' }}
+                      className="w-full mt-4 p-3 btn btn-yt text-white" style={{ background: '#13AB9C' }}
                     >
                       {selectedLanguage === 'fr' ? "Voir Plus" : "Learn More"}
                     </a >
@@ -141,7 +142,7 @@ const HealthAdviceCarousel = ({ healthAdvices }) => {
                         <div className="modal-body position-relative">
                           <div className='d-flex'>
                             <div className='color1'>
-                              <div className="row">
+                              <div className="row" style={{alignItems:"center"}}>
                                 <div className="col-12 col-lg-5 mx-auto mb-4">
                                   <div className="d-flex justify-content-center">
                                     <img src={selectedAdvice.photo} alt={selectedAdvice.topic} className="img-fluid" style={{ borderTopRightRadius: "30px" }} />
@@ -150,7 +151,7 @@ const HealthAdviceCarousel = ({ healthAdvices }) => {
                                 <div className="col-12 col-lg-7 mx-auto mb-4">
                                   <h2 style={{ fontSize: "25px", color: "#17416F", fontWeight: 800 }}>{selectedLanguage === 'fr' ? selectedAdvice.topic : selectedAdvice.topic_en}</h2>
                                   <span className="my-4 d-block" style={{ borderBottom: "1px solid #17416F33" }}></span>
-                                  <p style={{ color: "#17416F" }}>
+                                  <p style={{ color: "#17416F", textAlign:"start" }}>
                                     {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                                       __html: selectedAdvice.advice_text
                                     }} />) : (<div dangerouslySetInnerHTML={{

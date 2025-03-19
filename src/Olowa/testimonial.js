@@ -59,6 +59,7 @@ const Home = () => {
                 <div className="row g-4">
                     {testimonials?.map((testimonial, index) => (
                         <div
+                        
                             key={index}
                             className={[
                                 "col-12 col-md-6 col-lg-4 ",

@@ -52,7 +52,7 @@ const About = () => {
         <div className="mybanner">
             <div className="row align-items-center">
                 <div className="col-md-12" style={{ paddingLeft: 0, paddingRight: 0 }}>
-                    <div id="carouselExample" className="carousel slide" data-bs-ride="carousel">
+                    <div id="carouselExample" className="carousel slide carousel-fade" data-bs-ride="carousel">
                         <div className="carousel-inner">
                             <div className="carousel-item active">
                                 <div className="row g-0 align-items-stretch mybannercontent">
@@ -60,27 +60,30 @@ const About = () => {
                                         <div className="carousel-content">
                                             <div className='d-flex justify-content-center carrousseltextcont'>
                                                 <div className="text-start px-2 ttk">
-                                                    <h2>{selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                                                    <h2 >{selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                                                         __html: contents?.home_page_banner_title.content_fr
                                                     }} />) : (<div dangerouslySetInnerHTML={{
                                                         __html: contents?.home_page_banner_title.content_en
                                                     }} />)}</h2>
                                                     <br />
-                                                    <div>{selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+                                                    {/* <br /> */}
+
+                                                    <div>{selectedLanguage === 'fr' ? (<div className='neww' dangerouslySetInnerHTML={{
                                                         __html: contents?.home_page_banner_desc_1.content_fr
-                                                    }} />) : (<div dangerouslySetInnerHTML={{
+                                                    }} />) : (<div className='neww' dangerouslySetInnerHTML={{
                                                         __html: contents?.home_page_banner_desc_1.content_en
                                                     }} />)}</div>
                                                     <br />
-                                                    <div className='mnt d-flex flex-wrap'>
-                                                        <Link to="/about" className="btn btn-cus text-white me-2 mb-3 mb-lg-0" style={{ backgroundColor: '#13AB9C', padding: '10px 15px' }}>
+                                                    {/* <br /> */}
+                                                    <div className='mnt d-flex flex-wrap mt-3'>
+                                                        <Link to="/about" className="btn btn-cus text-white me-2 mb-3 mb-lg-0" style={{ backgroundColor: '#13AB9C', padding: '10px 15px', fontWeight:"700" }}>
                                                             {selectedLanguage === 'fr' ? contents?.home_page_banner_about_us.content_fr : contents?.home_page_banner_about_us.content_en}
                                                         </Link>
 
                                                         {/* <a href="#" onClick={(e) => { e.preventDefault(); setBookAppointmentmodal(); }} className="btn btn-outline-light" style={{ padding: '10px 15px' }}>
                                                             {selectedLanguage === 'fr' ? contents?.home_page_banner_book_appointment.content_fr : contents?.home_page_banner_book_appointment.content_en}
                                                         </a> */}
-                                                        < Bookpatientappointment/>   
+                                                        < Bookpatientappointment className="fontWeight:700"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -129,6 +132,12 @@ const About = () => {
                         <button className="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
                             <span className="carousel-control-next-icon" aria-hidden="true"></span>
                         </button>
+
+                        <svg className='designsvg' width="153" height="141" viewBox="0 0 153 141" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="2.5" cy="150.5" r="150.5" fill="white" fill-opacity="0.05" />
+                            <circle cx="2" cy="151" r="117.5" stroke="white" stroke-opacity="0.1" />
+                        </svg>
+
                     </div>
                 </div>
             </div>

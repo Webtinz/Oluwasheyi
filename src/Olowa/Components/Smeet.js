@@ -79,7 +79,7 @@ const DoctorCarousel = ({doctors}) => {
   };
 
   return (
-    <div className="doc55-carousel-container container">
+    <div className="doc55-carousel-container container mt-5">
       <div className="doc55-carousel-wrapper">
         {/* Bouton précédent centré verticalement */}
         <button 
