@@ -131,7 +131,7 @@ const PatientTestimonials = ({ testimonials }) => {
                       border: '1px solid #17416F',
                       borderTopRightRadius: '30px',
                       background: 'white',
-                      height:"35vh"
+                      minHeight:"35vh"
                     }}
                   >
                     <div className="mb-4"><img src={Ic} /></div>
@@ -146,7 +146,7 @@ const PatientTestimonials = ({ testimonials }) => {
                     </div>
                     <hr className="my-4" />
                     <div className="flex items-center gap-3">
-                      <img src={testimonial.photo || Msk} alt={`${testimonial.nom} ${testimonial.prenom}`} className="w-12 h-12 rounded-full" />
+                      <img src={testimonial.photo || Msk} alt={`${testimonial.nom} ${testimonial.prenom}`} className="w-12 h-12 rounded-full" style={{objectFit: "cover"}} />
                       <div>
                         <p className="font-semibold">{testimonial.nom} {testimonial.prenom}</p>
                         <p className="text-gray-500">{testimonial.address}</p>

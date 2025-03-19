@@ -228,7 +228,7 @@ button:hover .rotating-svg {
 
 @media (max-width: 1348px) {
   .nono {
-    height: 43vh !important;
+    /* height: 43vh !important; */
   }
 
   .dame {
@@ -240,7 +240,7 @@ button:hover .rotating-svg {
 
 @media (max-width: 1000px) {
   .nono {
-    height: 38vh !important;
+    /* height: 38vh !important; */
   }
 }
 
