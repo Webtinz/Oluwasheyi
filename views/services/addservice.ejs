@@ -37,9 +37,12 @@
                   id="description" required></textarea>
               </div>
               <div class="form-group mb-3">
-                <label for="photo">Photo</label>
-                <input type="file" multiple required class="form-control" name="photos"
-                  id="photo" />
+                <label for="smallPhoto">Small Photo</label>
+                <input type="file" id="smallPhoto" class="form-control" name="smallPhoto" accept="image/*">
+              </div>
+              <div class="form-group mb-3">
+                <label for="bigPhoto">Big Photo</label>
+                <input type="file" id="bigPhoto" class="form-control" name="bigPhoto" accept="image/*">
               </div>
               <button type="submit" class="btn btn-primary">Ajouter
                 Services</button>
@@ -62,7 +65,7 @@
     const formData = new FormData(form);
 
     // Log les données du formulaire avant de les envoyer
-    console.log('FormData:', [...formData.entries()]);
+    // console.log('FormData:', [...formData.entries()]);
 
     try {
       const response = await axios.post('/api/addservice', formData, {
@@ -80,8 +83,8 @@
         alert('Error: ' + response.data.message);  // Afficher un message d'erreur
       }
     } catch (error) {
-      console.log('Erreur lors de l\'ajout du témoignage:', error.response || error);
-      alert('Erreur lors de l\'ajout du témoignage');
+      console.log('Erreur lors de l\'ajout du service:', error.response || error);
+      alert('Erreur lors de l\'ajout du service');
     }
   });
 </script>

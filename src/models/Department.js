@@ -25,15 +25,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    photos: {
+    smallPhoto: {
       type: DataTypes.TEXT, 
       allowNull: true,
-      get() {
-        return JSON.parse(this.getDataValue("photos")); 
-      },
-      set(value) {
-        this.setDataValue("photos", JSON.stringify(value)); 
-      },
+    },
+    bigPhoto: {
+      type: DataTypes.TEXT, 
+      allowNull: true,
     },
   });
 

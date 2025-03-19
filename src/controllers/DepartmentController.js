@@ -13,12 +13,16 @@ exports.addDepartment = async (req, res) => {
       return res.status(400).json({ message: "No files uploaded" });
     }
 
-    // ✅ Generate signed URLs for all uploaded files
-    const imageUrls = await Promise.all(
-      req.files.map(async (file) => {
-        return file.location;
-      })
-    );
+    // Assign photos based on order
+    const smallPhoto = req.files.smallPhoto[0]?.location || null;
+    const bigPhoto = req.files.bigPhoto[0]?.location || null;
+
+    // // ✅ Generate signed URLs for all uploaded files
+    // const imageUrls = await Promise.all(
+    //   req.files.map(async (file) => {
+    //     return file.location;
+    //   })
+    // );
 
     const newDepartment = await Department.create({
       nom,
@@ -27,7 +31,8 @@ exports.addDepartment = async (req, res) => {
       email,
       description,
       description_en,
-      photos: JSON.stringify(imageUrls),
+      smallPhoto: smallPhoto,
+      bigPhoto: bigPhoto,
     });
 
     res.status(201).json({
@@ -46,15 +51,17 @@ exports.updateDepartment = async (req, res) => {
   const { nom, nom_en, phone, email, description, description_en } = req.body;
   // const photo = req.file ? req.file.location : null;
 
-  let imageUrls = null;
-  // ✅ Ensure files are uploaded
-  if (req.files) {
-    imageUrls = await Promise.all(
-      req.files.map(async (file) => {
-        return file.location;
-      })
-    );
-  }
+  const smallPhoto = req.files.smallPhoto[0]?.location || null;
+  const bigPhoto = req.files.bigPhoto[0]?.location || null;
+  // let imageUrls = null;
+  // // ✅ Ensure files are uploaded
+  // if (req.files) {
+  //   imageUrls = await Promise.all(
+  //     req.files.map(async (file) => {
+  //       return file.location;
+  //     })
+  //   );
+  // }
 
 
   try {
@@ -70,7 +77,8 @@ exports.updateDepartment = async (req, res) => {
     department.email = email || department.email;
     department.description = description || department.description;
     department.description_en = description_en || department.description_en;
-    department.photos = imageUrls.length > 0 ? JSON.stringify(imageUrls) : department.photos;
+    department.smallPhoto = smallPhoto || department.smallPhoto;
+    department.bigPhoto = bigPhoto || department.bigPhoto;
     await department.save();
 
     res.status(200).json({

@@ -1,117 +1,108 @@
-
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"
-    rel="stylesheet">
-<script
-    src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <section class="content">
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">Departments</h3>
-            <div class="card-tools">
-                <a href="/backoffice/adddepartment" class="btn btn-primary"><i
-                        class="fas fa-plus"></i> Add Department</a>
-            </div>
-        </div>
-        <div class="card-body">
-            <table id="departmentTable"
-                class="display table table-striped projects">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>French Name</th>
-                        <th>English Name</th>
-                        <th>Phone</th>
-                        <th>Email</th>
-                        <th>French Description</th>
-                        <th>English Description</th>
-                        <th>Photos</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Les lignes seront insérées ici via JavaScript -->
-                </tbody>
-            </table>
-        </div>
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Departments</h3>
+      <div class="card-tools">
+        <a href="/backoffice/adddepartment" class="btn btn-primary"><i class="fas fa-plus"></i> Add Department</a>
+      </div>
     </div>
+    <div class="card-body">
+      <table id="departmentTable" class="display table table-striped projects">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>French Name</th>
+            <th>English Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>French Description</th>
+            <th>English Description</th>
+            <th>Small Photo</th>
+            <th>Big Photo</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Les lignes seront insérées ici via JavaScript -->
+        </tbody>
+      </table>
+    </div>
+  </div>
 </section>
 
 <!-- View/Edit Modal -->
 <div class="modal fade" id="departmentModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Department Details</h5>
-                <button type="button" class="close" data-dismiss="modal"
-                    aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="departmentForm">
-                    <input type="hidden" id="departmentId">
-                    <div class="form-group">
-                        <label>French Name</label>
-                        <input type="text" id="departmentName"
-                            class="form-control"
-                            required>
-                    </div>
-                    <div class="form-group">
-                        <label>English Name</label>
-                        <input type="text" id="departmentNameEn"
-                            class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Phone</label>
-                        <input type="text" id="departmentPhone"
-                            class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" id="departmentEmail"
-                            class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Description</label>
-                        <textarea id="departmentDescription"
-                            class="form-control"
-                            required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>English Description</label>
-                        <textarea id="departmentDescriptionEn"
-                            class="form-control"
-                            required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Photo</label>
-                        <input type="file" id="departmentPhotos" multiple
-                            class="form-control">
-                        <div id="currentPhotos" style="margin-top: 10px;"></div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Save
-                        Changes</button>
-                </form>
-            </div>
-        </div>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Department Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="departmentForm">
+          <input type="hidden" id="departmentId">
+          <div class="form-group">
+            <label>French Name</label>
+            <input type="text" id="departmentName" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>English Name</label>
+            <input type="text" id="departmentNameEn" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="text" id="departmentPhone" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="departmentEmail" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea id="departmentDescription" class="form-control" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>English Description</label>
+            <textarea id="departmentDescriptionEn" class="form-control" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Small Photo</label>
+            <input type="file" id="departmentSmallPhoto" class="form-control">
+            <img id="currentSmallPhoto" width="100" style="margin-top: 10px; display: none;">
+          </div>
+          <div class="form-group">
+            <label>Big Photo</label>
+            <input type="file" id="departmentBigPhoto" class="form-control">
+            <img id="currentBigPhoto" width="100" style="margin-top: 10px; display: none;">
+          </div>
+          <button type="submit" class="btn btn-primary">Save
+            Changes</button>
+        </form>
+      </div>
     </div>
+  </div>
+</div>
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        axios.get('/api/getalldepartments')
-            .then(response => {
-                const data = response.data;
-                const tableBody = document.querySelector('#departmentTable tbody');
-                tableBody.innerHTML = '';
+  document.addEventListener("DOMContentLoaded", function() {
+    axios.get('/api/getalldepartments')
+      .then(response => {
+        const data = response.data;
+        const tableBody = document.querySelector('#departmentTable tbody');
+        tableBody.innerHTML = '';
 
-                data.forEach(department => {
-                    console.log(data);
-                    
-                    const row = `
+        data.forEach(department => {
+          console.log(data);
+
+          const row = `
                     <tr>
                         <td>${department.id}</td>
                         <td>${department.nom}</td>
@@ -121,98 +112,98 @@
                         <td>${department.description}</td>
                         <td>${department.description_en}</td>
                         <td>
-                            ${JSON.parse(department.photos || "[]").map(photoUrl => `
-                                <img src="${photoUrl}" width="50" height="50" style="margin: 2px;" alt="Department Photo">
-                            `).join('')}
+                            <img src="${department.smallPhoto}" width="50" height="50" style="margin: 2px;" alt="Department Small Photo">
+                        </td>
+                        <td>
+                            <img src="${department.bigPhoto}" width="50" height="50" style="margin: 2px;" alt="Department Big Photo">
                         </td>
                         <td>
                             <button class="btn btn-primary btn-sm view-btn" data-id="${department.id}">Edit</button>
                             <button class="btn btn-danger btn-sm delete-btn" data-id="${department.id}">Delete</button>
                         </td>
                     </tr>`;
-                    tableBody.innerHTML += row;
-                });
-
-                // Initialize DataTable
-                $('#departmentTable').DataTable({
-                    "language": {
-                        "url": "//cdn.datatables.net/plug-ins/1.13.7/i18n/fr-FR.json"
-                    }
-                });
-            })
-            .catch(error => console.error('Error fetching departments:', error));
-
-        // View department details in modal
-        document.body.addEventListener('click', function (e) {
-            if (e.target.classList.contains('view-btn')) {
-                const id = e.target.dataset.id;
-                axios.get(`/api/getdepartment/${id}`)
-                    .then(response => {
-                        const department = response.data;
-                        document.getElementById('departmentId').value = department.id;
-                        document.getElementById('departmentName').value = department.nom;
-                        document.getElementById('departmentNameEn').value = department.nom;
-                        document.getElementById('departmentPhone').value = department.phone;
-                        document.getElementById('departmentEmail').value = department.email;
-                        document.getElementById('departmentDescription').value = department.description;
-                        document.getElementById('departmentDescriptionEn').value = department.description;
-                        
-                        const photoContainer = document.getElementById('currentPhotos');
-                        photoContainer.innerHTML = ''; // Clear previous images
-                        const photos = JSON.parse(department.photos || "[]");
-
-                        if (photos.length > 0) {
-                            photos.forEach(photoUrl => {
-                                const imgElement = document.createElement("img");
-                                imgElement.src = photoUrl;
-                                imgElement.width = 100;
-                                imgElement.style.margin = "5px";
-                                photoContainer.appendChild(imgElement);
-                            });
-                        } else {
-                            photoContainer.innerHTML = "<p>No photos available</p>";
-                        }
-
-                        $('#departmentModal').modal('show');
-                    })
-                    .catch(error => console.error('Error fetching department:', error));
-            }
+          tableBody.innerHTML += row;
         });
 
-        // Update department
-        document.getElementById('departmentForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const id = document.getElementById('departmentId').value;
-            const formData = new FormData();
-            formData.append('nom', document.getElementById('departmentName').value);
-            formData.append('nom_en', document.getElementById('departmentNameEn').value);
-            formData.append('phone', document.getElementById('departmentPhone').value);
-            formData.append('email', document.getElementById('departmentEmail').value);
-            formData.append('description', document.getElementById('departmentDescription').value);
-            formData.append('description_en', document.getElementById('departmentDescriptionEn').value);
-            const photoFiles = document.getElementById('departmentPhotos').files;
-            for (let i = 0; i < photoFiles.length; i++) {
-                formData.append('photos', photoFiles[i]); // Append multiple photos
-            }
-
-            axios.put(`/api/updatedepartment/${id}`, formData)
-                .then(() => {
-                    $('#departmentModal').modal('hide');
-                    location.reload();
-                })
-                .catch(error => console.error('Error updating department:', error));
+        // Initialize DataTable
+        $('#departmentTable').DataTable({
+          "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.13.7/i18n/fr-FR.json"
+          }
         });
+      })
+      .catch(error => console.error('Error fetching departments:', error));
 
-        // Delete department
-        document.body.addEventListener('click', function (e) {
-            if (e.target.classList.contains('delete-btn')) {
-                const id = e.target.dataset.id;
-                if (confirm('Are you sure you want to delete this department?')) {
-                    axios.delete(`/api/deletedepartment/${id}`)
-                        .then(() => location.reload())
-                        .catch(error => console.error('Error deleting department:', error));
-                }
+    // View department details in modal
+    document.body.addEventListener('click', function(e) {
+      if (e.target.classList.contains('view-btn')) {
+        const id = e.target.dataset.id;
+        axios.get(`/api/getdepartment/${id}`)
+          .then(response => {
+            const department = response.data;
+            document.getElementById('departmentId').value = department.id;
+            document.getElementById('departmentName').value = department.nom;
+            document.getElementById('departmentNameEn').value = department.nom;
+            document.getElementById('departmentPhone').value = department.phone;
+            document.getElementById('departmentEmail').value = department.email;
+            document.getElementById('departmentDescription').value = department.description;
+            document.getElementById('departmentDescriptionEn').value = department.description;
+
+            const photoElement = $('#currentSmallPhoto');
+            const photoElementBig = $('#currentBigPhoto');
+            if (department.smallPhoto) {
+              photoElement.attr('src', `${department.smallPhoto}`).show();
+            } else {
+              photoElement.hide();
             }
-        });
+            if (department.bigPhoto) {
+              photoElementBig.attr('src', `${department.bigPhoto}`).show();
+            } else {
+              photoElementBig.hide();
+            }
+            $('#departmentModal').modal('show');
+          })
+          .catch(error => console.error('Error fetching department:', error));
+      }
     });
+
+    // Update department
+    document.getElementById('departmentForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const id = document.getElementById('departmentId').value;
+      const formData = new FormData();
+      formData.append('nom', document.getElementById('departmentName').value);
+      formData.append('nom_en', document.getElementById('departmentNameEn').value);
+      formData.append('phone', document.getElementById('departmentPhone').value);
+      formData.append('email', document.getElementById('departmentEmail').value);
+      formData.append('description', document.getElementById('departmentDescription').value);
+      formData.append('description_en', document.getElementById('departmentDescriptionEn').value);
+
+      if ($('#departmentSmallPhoto')[0].files[0]) {
+        formData.append('smallPhoto', $('#departmentSmallPhoto')[0].files[0]);
+      }
+      if ($('#departmentBigPhoto')[0].files[0]) {
+        formData.append('bigPhoto', $('#departmentBigPhoto')[0].files[0]);
+      }
+
+      axios.put(`/api/updatedepartment/${id}`, formData)
+        .then(() => {
+          $('#departmentModal').modal('hide');
+          location.reload();
+        })
+        .catch(error => console.error('Error updating department:', error));
+    });
+
+    // Delete department
+    document.body.addEventListener('click', function(e) {
+      if (e.target.classList.contains('delete-btn')) {
+        const id = e.target.dataset.id;
+        if (confirm('Are you sure you want to delete this department?')) {
+          axios.delete(`/api/deletedepartment/${id}`)
+            .then(() => location.reload())
+            .catch(error => console.error('Error deleting department:', error));
+        }
+      }
+    });
+  });
 </script>

@@ -56,20 +56,32 @@ router.get('/getcontent/:id', ContentController.getcontent);
 router.get('/getcontentbytitle', ContentController.getcontentbytitle);
 
 // new patient appointment 
-router.post('/registerpatient',  Patientappointment.registerNewpatient);
+router.post('/registerpatient', Patientappointment.registerNewpatient);
 router.get('/getnewpatientsapt', Patientappointment.getnewAllPatients);
 
 
 // Service
-router.post('/addservice', uploadService.array('photos', 2), ServiceController.addservice); // Middleware upload utilisé ici
-router.put('/updateservice/:id', uploadService.array('photos'), ServiceController.updateservice);
+router.post('/addservice', uploadService.fields([
+    { name: 'smallPhoto', maxCount: 1 },
+    { name: 'bigPhoto', maxCount: 1 }
+]), ServiceController.addservice); // Middleware upload utilisé ici
+router.put('/updateservice/:id', uploadService.fields([
+    { name: 'smallPhoto', maxCount: 1 },
+    { name: 'bigPhoto', maxCount: 1 }
+]), ServiceController.updateservice);
 router.get('/getallservices', ServiceController.getallservices);
 router.delete('/deleteservice/:id', ServiceController.deleteservice);
 router.get('/getservice/:id', ServiceController.getservice);
 
 // Department
-router.post('/adddepartment', uploadDepartment.array('photos', 2), DepartmentController.addDepartment); // Middleware upload utilisé ici
-router.put('/updatedepartment/:id', uploadDepartment.array('photos'), DepartmentController.updateDepartment);
+router.post('/adddepartment', uploadDepartment.fields([
+    { name: 'smallPhoto', maxCount: 1 },
+    { name: 'bigPhoto', maxCount: 1 }
+]), DepartmentController.addDepartment);
+router.put('/updatedepartment/:id', uploadDepartment.fields([
+    { name: 'smallPhoto', maxCount: 1 },
+    { name: 'bigPhoto', maxCount: 1 }
+]), DepartmentController.updateDepartment);
 router.get('/getalldepartments', DepartmentController.getAllDepartments);
 router.delete('/deletedepartment/:id', DepartmentController.deleteDepartment);
 router.get('/getdepartment/:id', DepartmentController.getDepartment);

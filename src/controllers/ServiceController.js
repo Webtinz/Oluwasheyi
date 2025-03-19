@@ -9,16 +9,19 @@ exports.addservice = async (req, res) => {
     const { nom, nom_en, phone, email, description, description_en } = req.body;
 
     // ✅ Ensure files are uploaded
-    if (!req.files || req.files.length === 0) {
-      return res.status(400).json({ message: "No files uploaded" });
-    }
+    // if (!req.files || req.files.length === 0) {
+    //   return res.status(400).json({ message: "No files uploaded" });
+    // }
+
+    const smallPhoto = req.files.smallPhoto[0]?.location || null;
+    const bigPhoto = req.files.bigPhoto[0]?.location || null;
 
     // ✅ Generate signed URLs for all uploaded files
-    const imageUrls = await Promise.all(
-      req.files.map(async (file) => {
-        return file.location;
-      })
-    );
+    // const imageUrls = await Promise.all(
+    //   req.files.map(async (file) => {
+    //     return file.location;
+    //   })
+    // );
 
     const newService = await Service.create({
       nom,
@@ -27,7 +30,8 @@ exports.addservice = async (req, res) => {
       email,
       description,
       description_en,
-      photos: JSON.stringify(imageUrls),
+      smallPhoto: smallPhoto,
+      bigPhoto: bigPhoto,
     });
 
     res.status(201).json({
@@ -45,15 +49,9 @@ exports.updateservice = async (req, res) => {
   const { id } = req.params;
   const { nom, nom_en, phone, email, description, description_en } = req.body;
 
-  let imageUrls = null;
-  // ✅ Ensure files are uploaded
-  if (req.files) {
-    imageUrls = await Promise.all(
-      req.files.map(async (file) => {
-        return file.location;
-      })
-    );
-  }
+  const smallPhoto = req.files.smallPhoto[0]?.location || null;
+  const bigPhoto = req.files.bigPhoto[0]?.location || null;
+
   try {
     const service = await Service.findByPk(id);
     if (!service) {
@@ -69,8 +67,8 @@ exports.updateservice = async (req, res) => {
     service.email = email || service.email;
     service.description = description || service.description;
     service.description_en = description_en || service.description_en;
-    service.photos = imageUrls.length > 0 ? JSON.stringify(imageUrls) : service.photos;
-
+    service.smallPhoto = smallPhoto || service.smallPhoto;
+    service.bigPhoto = bigPhoto || service.bigPhoto;
     await service.save();
 
     res.status(200).json({

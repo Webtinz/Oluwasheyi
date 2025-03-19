@@ -27,7 +27,8 @@
                         <th>Email</th>
                         <th>French Description</th>
                         <th>English Description</th>
-                        <th>Photo</th>
+                        <th>Small Photo</th>
+                        <th>Big Photo</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -84,10 +85,18 @@
                             required></textarea>
                     </div>
                     <div class="form-group">
-                        <label>Photo</label>
-                        <input type="file" id="servicePhotos" multiple
+                        <label>Small Photo</label>
+                        <input type="file" id="serviceSmallPhoto"
                             class="form-control">
-                        <div id="currentPhotos" style="margin-top: 10px;"></div>
+                        <img id="currentSmallPhoto" width="100"
+                            style="margin-top: 10px; display: none;">
+                    </div>
+                    <div class="form-group">
+                        <label>Big Photo</label>
+                        <input type="file" id="serviceBigPhoto"
+                            class="form-control">
+                        <img id="currentBigPhoto" width="100"
+                            style="margin-top: 10px; display: none;">
                     </div>
                     <button type="submit" class="btn btn-primary">Save
                         Changes</button>
@@ -116,9 +125,10 @@
                         <td>${service.description}</td>
                         <td>${service.description_en}</td>
                         <td>
-                            ${JSON.parse(service.photos || "[]").map(photoUrl => `
-                                <img src="${photoUrl}" width="50" height="50" style="margin: 2px;" alt="Service Photo">
-                            `).join('')}
+                            <img src="${service.smallPhoto}" width="50" height="50" style="margin: 2px;" alt="Department Small Photo">
+                        </td>
+                        <td>
+                            <img src="${service.bigPhoto}" width="50" height="50" style="margin: 2px;" alt="Department Big Photo">
                         </td>
                         <td>
                             <button class="btn btn-primary btn-sm view-btn" data-id="${service.id}">Edit</button>
@@ -152,21 +162,18 @@
                         document.getElementById('serviceDescription').value = service.description;
                         document.getElementById('serviceDescriptionEn').value = service.description;
                         
-                        const photoContainer = document.getElementById('currentPhotos');
-                        photoContainer.innerHTML = ''; // Clear previous images
-                        const photos = JSON.parse(service.photos || "[]");
-
-                        if (photos.length > 0) {
-                            photos.forEach(photoUrl => {
-                                const imgElement = document.createElement("img");
-                                imgElement.src = photoUrl;
-                                imgElement.width = 100;
-                                imgElement.style.margin = "5px";
-                                photoContainer.appendChild(imgElement);
-                            });
+                        const photoElement = $('#currentSmallPhoto');
+                        const photoElementBig = $('#currentBigPhoto');
+                        if (service.smallPhoto) {
+                        photoElement.attr('src', `${service.smallPhoto}`).show();
                         } else {
-                            photoContainer.innerHTML = "<p>No photos available</p>";
+                        photoElement.hide();
                         }
+                        if (service.bigPhoto) {
+                        photoElementBig.attr('src', `${service.bigPhoto}`).show();
+                        } else {
+                        photoElementBig.hide();
+                        }       
 
                         $('#serviceModal').modal('show');
                     })
@@ -185,9 +192,12 @@
             formData.append('email', document.getElementById('serviceEmail').value);
             formData.append('description', document.getElementById('serviceDescription').value);
             formData.append('description_en', document.getElementById('serviceDescriptionEn').value);
-            const photoFiles = document.getElementById('servicePhotos').files;
-            for (let i = 0; i < photoFiles.length; i++) {
-                formData.append('photos', photoFiles[i]); // Append multiple photos
+            
+            if ($('#serviceSmallPhoto')[0].files[0]) {
+                formData.append('smallPhoto', $('#serviceSmallPhoto')[0].files[0]);
+            }
+            if ($('#serviceBigPhoto')[0].files[0]) {
+                formData.append('bigPhoto', $('#serviceBigPhoto')[0].files[0]);
             }
 
             axios.put(`/api/updateservice/${id}`, formData)
