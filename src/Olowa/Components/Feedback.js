@@ -6,6 +6,8 @@ import nurseImage from "../../assets/male-nurse-working-clinic-b 1.png"; // Impo
 // import Select from './select';
 import { addFeedback, getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const FeedbackSection = () => {
   const [selectedDoctor, setSelectedDoctor] = useState(null);
@@ -70,6 +72,8 @@ const FeedbackSection = () => {
       }
     };
     fetchContents();
+    AOS.init();
+
   }, []);
 
   return (

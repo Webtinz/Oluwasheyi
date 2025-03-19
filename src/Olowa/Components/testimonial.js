@@ -5,6 +5,8 @@ import Msk from '../../assets/Fr.png';
 import Ic from '../../assets/11d.png';
 import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 
 const PatientTestimonials = ({ testimonials }) => {
@@ -24,6 +26,8 @@ const PatientTestimonials = ({ testimonials }) => {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
+    AOS.init();
+
   }, []);
 
   const handlePrev = () => {

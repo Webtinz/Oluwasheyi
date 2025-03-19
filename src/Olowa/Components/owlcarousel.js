@@ -203,7 +203,7 @@ const ServicesCarousel = ({ services }) => {
           }}
         >
           {visibleServices?.map((service, index) => {
-            const photos = service.photos ? JSON.parse(service.photos) : [];
+            // const photos = service.photos ? JSON.parse(service.photos) : [];
             return (
               <div data-aos="zoom-in"
                 key={`${service.id}-${currentIndex}-${index}`}
@@ -215,7 +215,7 @@ const ServicesCarousel = ({ services }) => {
                 >
                   <div className="relative aspect-video">
                     <img
-                      src={photos[0]}
+                      src={service.bigPhoto}
                       alt={service.nom}
                       className="w-full h-full object-cover"
                       style={{ borderTopRightRadius: '30px', height: '315px' }}

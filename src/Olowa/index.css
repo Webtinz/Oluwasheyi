@@ -1223,7 +1223,7 @@ button:hover .rotating-svg {
 
 .pointpoint2 {
   position: absolute;
-  top: 110%;
+  /* top: 110%; */
   right: 50%;
   fill: white;
   z-index: -1;
