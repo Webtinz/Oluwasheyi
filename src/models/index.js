@@ -15,6 +15,7 @@ const Certification = require("./Certification")(sequelize, DataTypes);
 const Event = require("./Event")(sequelize, DataTypes);
 const Advice = require("./Advice")(sequelize, DataTypes);
 const Patientappointment = require("./Patientappointment")(sequelize, DataTypes);
+const Transaction = require("./Transaction")(sequelize, DataTypes);
 
 
 
@@ -32,7 +33,8 @@ const models = {
   TeamMember,
   Feedback,
   Department,
-  Patientappointment
+  Patientappointment,
+  Transaction,
 };
 
 // **Define associations**

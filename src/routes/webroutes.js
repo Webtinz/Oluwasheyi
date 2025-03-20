@@ -14,6 +14,8 @@ const DepartmentController = require('../controllers/DepartmentController');
 const EventController = require('../controllers/EventController');
 const Patientappointment = require('../controllers/PatientappointmentController');
 const { getDonations, addDonation, getDonation } = require('../controllers/DonationController');
+const { createOrder, captureOrder } = require('../controllers/PaypalController');
+const { initiatePayment, checkStatus } = require('../controllers/PaymentController');
 
 
 // Authentification
@@ -110,5 +112,13 @@ router.get('/getallcertifications', CertificationController.getAllCertifications
 router.get('/getcertification/:id', CertificationController.getCertification);
 router.put('/updatecertification/:id', uploadCertification.single('photo'), CertificationController.updateCertification);
 router.delete('/deletecertification/:id', CertificationController.deleteCertification);
+
+//Paypal
+router.post('/paypal/create-order', createOrder);
+router.post('/paypal/capture-order', captureOrder);
+
+//MTN momom
+router.post('/momo/create-payment', initiatePayment);
+router.get('/momo/check-status/:referenceId', checkStatus);
 
 module.exports = router;
