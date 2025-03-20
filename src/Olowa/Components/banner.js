@@ -80,7 +80,7 @@ const About = () => {
                                                         {/* <a href="#" onClick={(e) => { e.preventDefault(); setBookAppointmentmodal(); }} className="btn btn-outline-light" style={{ padding: '10px 15px' }}>
                                                             {selectedLanguage === 'fr' ? contents?.home_page_banner_book_appointment.content_fr : contents?.home_page_banner_book_appointment.content_en}
                                                         </a> */}
-                                                        < Bookpatientappointment/>   
+                                                        < Bookpatientappointment />
                                                     </div>
                                                 </div>
                                             </div>
@@ -89,7 +89,7 @@ const About = () => {
                                     <div className="col-lg-6 col-md-12">
                                         <img
                                             src={contents?.home_page_banner_img.image}
-                                            alt="Image de la clinique"
+                                            // alt="Image de la clinique"
                                             className="img-fluid w-100 h-100 ibb"
                                             style={{ objectFit: 'cover', marginLeft: '-10px' }}
                                         />
