@@ -108,7 +108,7 @@ const EventsCarousel = ({ events }) => {
                   <div className='row'>
                     <div className='col-lg-6 mb-4'>
                       <div className="position-relative mb-4">
-                        <img src={event.photo} alt={selectedLanguage === 'fr' ? event.nom : event.name} className="w-100 object-fit-cover" style={{ maxHeight: '250px' }} />
+                        <img src={event.photo} alt={selectedLanguage === 'fr' ? event.nom : event.name} className="w-100 object-fit-cover" style={{ height: '250px' }} />
                         <div className="ppo1">
                           <span className='day'>{format(new Date(event.dateevent), "dd")}</span>
                           <span className="py-3 date">{format(new Date(event.dateevent), "MMM.yy")}</span>

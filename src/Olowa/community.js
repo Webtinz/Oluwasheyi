@@ -13,6 +13,8 @@ import Mask1 from '../assets/Fr.png';
 import Mask2 from '../assets/Fr1.png';
 import { getAllContents, getCertificates, getEvents } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const Home = () => {
     const [activeTab, setActiveTab] = useState("cont1");
@@ -22,7 +24,7 @@ const Home = () => {
     const [certificates, setCerificates] = useState([]);
 
 
-    
+
     useEffect(() => {
         // Vérifier si une ancre est présente dans l'URL
         const hash = window.location.hash;
@@ -75,6 +77,8 @@ const Home = () => {
             }
         };
         fetchContents();
+        AOS.init();
+
     }, []);
 
     // Vérification pour éviter une erreur si contents est undefined
@@ -111,7 +115,7 @@ const Home = () => {
         <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
             <div><Navbar /></div>
             <section className="mt-4 position-relative" style={{ backgroundColor: '#17416F', padding: '100px 0' }}>
-                <h1 className="text-center text-white" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '40px' }}>{selectedLanguage === 'fr' ? contents?.communoty_page_title.content_fr : contents?.communoty_page_title.content_en}</h1>
+                <h1 className="text-center text-white tit" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '40px' }}>{selectedLanguage === 'fr' ? contents?.communoty_page_title.content_fr : contents?.communoty_page_title.content_en}</h1>
                 <div className="position-absolute bottom-0 start-0">
                     <img src={Group1} alt="" />
                 </div>
@@ -143,9 +147,9 @@ const Home = () => {
                                 <div className="row">
                                     <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
                                         <div className='position-relative'>
-                                            <img src={contents?.communoty_page_menu_1_img.image} alt="Wellness Programs" className="img-fluid w-100 main-img1" style={{ borderTopRightRadius: '30px' }} />
+                                            <img src={contents?.communoty_page_menu_1_img.image} alt="Wellness Programs" className="img-fluid w-100 main-img1" data-aos="zoom-in" style={{ borderTopRightRadius: '30px' }} />
                                             <div className='contpos'>
-                                                <img src={Mask1} alt="Wellness Programs" className="img-fluid" style={{ width: '70%' }} />
+                                                <img src={Mask1} alt="Wellness Programs" className="img-fluid"  style={{ width: '70%' }} />
                                             </div>
                                         </div>
                                     </div>
@@ -159,7 +163,9 @@ const Home = () => {
                                             }} />)}
                                         </div>
                                         <div className="mt-3">
-                                            <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }}>
+                                            <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }} onClick={() => {
+                                                document.getElementById("feedback-section")?.scrollIntoView({ behavior: "smooth" });
+                                            }}>
                                                 {selectedLanguage === 'fr' ? contents?.communoty_page_menu_button.content_fr : contents?.communoty_page_menu_button.content_en}
                                             </button>
                                         </div>
@@ -173,7 +179,7 @@ const Home = () => {
                                 <div className="row">
                                     <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
                                         <div className='position-relative'>
-                                            <img src={contents?.communoty_page_menu_2_img.image} alt="Wellness Programs" className="img-fluid w-100 main-img1" style={{ borderTopRightRadius: '30px' }} />
+                                            <img src={contents?.communoty_page_menu_2_img.image} alt="Wellness Programs" className="img-fluid w-100 main-img1" data-aos="zoom-in" style={{ borderTopRightRadius: '30px' }} />
                                             <div className='contpos'>
                                                 <img src={Mask1} alt="Wellness Programs" className="img-fluid" style={{ width: '70%' }} />
                                             </div>
@@ -191,7 +197,9 @@ const Home = () => {
                                             }} />)}
                                         </div>
                                         <div className="mt-3">
-                                            <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }}>
+                                            <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }} onClick={() => {
+                                                document.getElementById("feedback-section")?.scrollIntoView({ behavior: "smooth" });
+                                            }}>
                                                 {selectedLanguage === 'fr' ? contents?.communoty_page_menu_button.content_fr : contents?.communoty_page_menu_button.content_en}
                                             </button>
                                         </div>
@@ -205,7 +213,7 @@ const Home = () => {
                                 <div className="row">
                                     <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
                                         <div className='position-relative'>
-                                            <img src={contents?.communoty_page_menu_3_img.image} alt="Wellness Programs" className="img-fluid w-100 main-img1" style={{ borderTopRightRadius: '30px' }} />
+                                            <img src={contents?.communoty_page_menu_3_img.image} alt="Wellness Programs" data-aos="zoom-in" className="img-fluid w-100 main-img1" style={{ borderTopRightRadius: '30px' }} />
                                             <div className='contpos'>
                                                 <img src={Mask1} alt="Wellness Programs" className="img-fluid" style={{ width: '70%' }} />
                                             </div>
@@ -223,7 +231,9 @@ const Home = () => {
                                             }} />)}
                                         </div>
                                         <div className="mt-3">
-                                            <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }}>
+                                            <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }} onClick={() => {
+                                                document.getElementById("feedback-section")?.scrollIntoView({ behavior: "smooth" });
+                                            }}>
                                                 {selectedLanguage === 'fr' ? contents?.communoty_page_menu_button.content_fr : contents?.communoty_page_menu_button.content_en}
                                             </button>
                                         </div>
@@ -237,7 +247,7 @@ const Home = () => {
                                 <div className="row">
                                     <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
                                         <div className='position-relative'>
-                                            <img src={contents?.communoty_page_menu_4_img.image} alt="Wellness Programs" className="img-fluid w-100 main-img1" style={{ borderTopRightRadius: '30px' }} />
+                                            <img src={contents?.communoty_page_menu_4_img.image} alt="Wellness Programs" data-aos="zoom-in" className="img-fluid w-100 main-img1" style={{ borderTopRightRadius: '30px' }} />
                                             <div className='contpos'>
                                                 <img src={Mask1} alt="Wellness Programs" className="img-fluid" style={{ width: '70%' }} />
                                             </div>
@@ -255,7 +265,9 @@ const Home = () => {
                                             }} />)}
                                         </div>
                                         <div className="mt-3">
-                                            <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }}>
+                                            <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }} onClick={() => {
+                                                document.getElementById("feedback-section")?.scrollIntoView({ behavior: "smooth" });
+                                            }}>
                                                 {selectedLanguage === 'fr' ? contents?.communoty_page_menu_button.content_fr : contents?.communoty_page_menu_button.content_en}
                                             </button>
                                         </div>
@@ -269,7 +281,7 @@ const Home = () => {
                                 <div className="row">
                                     <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
                                         <div className='position-relative'>
-                                            <img src={contents?.communoty_page_menu_5_img.image} alt="Wellness Programs" className="img-fluid w-100 main-img1" style={{ borderTopRightRadius: '30px' }} />
+                                            <img src={contents?.communoty_page_menu_5_img.image} alt="Wellness Programs" data-aos="zoom-in" className="img-fluid w-100 main-img1" style={{ borderTopRightRadius: '30px' }} />
                                             <div className='contpos'>
                                                 <img src={Mask1} alt="Wellness Programs" className="img-fluid" style={{ width: '70%' }} />
                                             </div>
@@ -287,7 +299,9 @@ const Home = () => {
                                             }} />)}
                                         </div>
                                         <div className="mt-3">
-                                            <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }}>
+                                            <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }} onClick={() => {
+                                                document.getElementById("feedback-section")?.scrollIntoView({ behavior: "smooth" });
+                                            }}>
                                                 {selectedLanguage === 'fr' ? contents?.communoty_page_menu_button.content_fr : contents?.communoty_page_menu_button.content_en}
                                             </button>
                                         </div>
@@ -307,7 +321,7 @@ const Home = () => {
                 <Logo logos={certificates} />
             </div>
             <br /><br />
-            <div>
+            <div id="feedback-section">
                 <Feedback />
             </div>
             <div>

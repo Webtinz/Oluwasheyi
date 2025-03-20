@@ -10,7 +10,8 @@ import Group1 from '../assets/Group1.png';
 import Mask1 from '../assets/Fr1.png';
 import { getAllContents, getTestimonials } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
-
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const Home = () => {
 
@@ -38,6 +39,8 @@ const Home = () => {
             }
         };
         fetchContents();
+        AOS.init();
+
     }, []);
 
     return (
@@ -59,6 +62,7 @@ const Home = () => {
                 <div className="row g-4">
                     {testimonials?.map((testimonial, index) => (
                         <div
+                        
                             key={index}
                             className={[
                                 "col-12 col-md-6 col-lg-4 ",
@@ -70,7 +74,7 @@ const Home = () => {
                                 index === 5 ? "three-column" : "",
                             ].filter(Boolean).join(" ")}
                         >
-                            <div className="p-3 scur" style={{ border: '1px solid #17416F', borderTopRightRadius: '30px' }}>
+                            <div data-aos="zoom-in" className="p-3 scur" style={{ border: '1px solid #17416F', borderTopRightRadius: '30px' }}>
                                 <div><strong style={{ color: '#13AB9C', fontSize: '120px' }}>"</strong></div>
                                 <h2 className="ms-2" style={{ color: '#17416F', fontWeight: '700', marginTop: '-4rem', fontSize: '27px' }}>{testimonial.titre}</h2>
                                 <br />
@@ -80,7 +84,7 @@ const Home = () => {
                                 <span className="my-4 d-flex" style={{ borderBottom: '1px solid #B5B5B580' }}></span>
                                 <div className="d-flex mb-3">
                                     <div>
-                                        <img src={testimonial.photo} className="img-fluid" style={{ width: '80px', height: '80px', borderRadius: '50%' }} alt={testimonial.name} />
+                                        <img src={testimonial.photo} className="img-fluid" style={{ width: '80px', height: '80px', borderRadius: '50%', objectFit:"cover" }} alt={testimonial.name} />
                                     </div>
                                     <div className="align-self-center ms-2">
                                         <strong style={{ color: '#17416F' }}>{testimonial.nom} {testimonial.prenom}</strong><br />

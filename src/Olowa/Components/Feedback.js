@@ -6,6 +6,8 @@ import nurseImage from "../../assets/male-nurse-working-clinic-b 1.png"; // Impo
 // import Select from './select';
 import { addFeedback, getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const FeedbackSection = () => {
   const [selectedDoctor, setSelectedDoctor] = useState(null);
@@ -70,13 +72,15 @@ const FeedbackSection = () => {
       }
     };
     fetchContents();
+    AOS.init();
+
   }, []);
 
   return (
     <section className="container-fluid py-5 Big" style={{ backgroundColor: "#13AB9C" }}>
       <div className="container">
         <div className="d-flex justify-content-center">
-          <div className="row" style={{ width: '80%' }}>
+          <div className="row ladit" style={{ width: '80%' }}>
             <div className="col-lg-7 align-self-center">
               <h2 className="text-white home-title" style={{textTransform:'uppercase'}}>
                 {selectedLanguage === 'fr' ? contents?.home_page_feedback_title.content_fr : contents?.home_page_feedback_title.content_en}
@@ -101,7 +105,7 @@ const FeedbackSection = () => {
             </div>
             <div className="col-lg-5 d-none d-lg-block">
               <div className="position-relative nurse-container">
-                <img src={contents?.feedback_img.image}  alt="Male Nurse" className="man" />
+                <img src={contents?.home_page_feedback_img.image}  alt="Male Nurse" className="man" data-aos="zoom-in"/>
               </div>
             </div>
           </div>

@@ -6,6 +6,8 @@ import whatsappIcon from "../../assets/whatsapp.png";
 import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 import { format } from "date-fns";
+import { Link } from "react-router-dom";
+
 
 const Footer = () => {
   const { selectedLanguage } = useContext(LanguageContext);
@@ -32,11 +34,11 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="container-fluid mt-4">
+    <footer className="container-fluid mt-4 mb-4">
       <div className="container">
-        <div className="row text-md-start p-4">
+        <div className="row text-md-start p-4 foo">
           {/* Section Abonnement Email */}
-          <div className="col-md-4 mb-4 mb-md-0 px-0 px-lg-4">
+          <div className="foo2 col-md-4 mb-4 mb-md-0 px-0 px-lg-4">
             <h5 className="footer-title" style={{ fontWeight: '700' }}>
               {selectedLanguage === 'fr' ? contents?.footer_suscribe_col_title.content_fr : contents?.footer_suscribe_col_title.content_en}
             </h5>
@@ -50,16 +52,16 @@ const Footer = () => {
               </a>
             </div>
             <div className="d-flex mt-3">
-              <a href={contents?.footer_social_1_link.content_fr} ><i className={'bi bi-' + contents?.footer_social_1.content_fr + ' social-icon'}></i></a> 
-              <a href={contents?.footer_social_2_link.content_fr} ><i className={'bi bi-' + contents?.footer_social_2.content_fr + ' social-icon'}></i></a> 
-              <a href={contents?.footer_social_3_link.content_fr} ><i className={'bi bi-' + contents?.footer_social_3.content_fr + ' social-icon'}></i></a> 
-              <a href={contents?.footer_social_4_link.content_fr} ><i className={'bi bi-' + contents?.footer_social_4.content_fr + ' social-icon'}></i></a> 
+              <a href={contents?.footer_social_1_link.content_fr} ><i className={'bi bi-' + contents?.footer_social_1.content_fr + ' social-icon'}></i></a>
+              <a href={contents?.footer_social_2_link.content_fr} ><i className={'bi bi-' + contents?.footer_social_2.content_fr + ' social-icon'}></i></a>
+              <a href={contents?.footer_social_3_link.content_fr} ><i className={'bi bi-' + contents?.footer_social_3.content_fr + ' social-icon'}></i></a>
+              <a href={contents?.footer_social_4_link.content_fr} ><i className={'bi bi-' + contents?.footer_social_4.content_fr + ' social-icon'}></i></a>
             </div>
           </div>
 
           {/* Section Contact */}
-          <div className="col-md-3 mb-4 mb-md-0 px-0 px-lg-4">
-            <h5 className="footer-title" style={{ fontWeight: '700'}}>
+          <div className="foo2 col-md-3 mb-4 mb-md-0 px-0 px-lg-4">
+            <h5 className="footer-title" style={{ fontWeight: '700' }}>
               {selectedLanguage === 'fr' ? contents?.footer_contact_col_title.content_fr : contents?.footer_contact_col_title.content_en}
             </h5>
             <p className="footer-text mt-3 d-flex">
@@ -67,14 +69,14 @@ const Footer = () => {
               {selectedLanguage === 'fr' ? contents?.footer_contact_col_number.content_fr : contents?.footer_contact_col_number.content_en}
             </p>
             <p className="footer-text mt-3">
-              <i className="bi bi-geo-alt-fill me-2" style={{fontSize:'28px'}}></i>
+              <i className="bi bi-geo-alt-fill me-2" style={{ fontSize: '28px' }}></i>
               {selectedLanguage === 'fr' ? contents?.footer_contact_col_address.content_fr : contents?.footer_contact_col_address.content_en}
             </p>
           </div>
 
           {/* Section Horaires */}
-          <div className="col-md-2 mb-4 mb-md-0 px-0 px-lg-4">
-            <h5 className="footer-title" style={{ fontWeight: '700'}}>
+          <div className="foo2 col-md-2 mb-4 mb-md-0 px-0 px-lg-4">
+            <h5 className="footer-title" style={{ fontWeight: '700' }}>
               {selectedLanguage === 'fr' ? contents?.footer_hours_col_title.content_fr : contents?.footer_hours_col_title.content_en}
             </h5>
             <p className="footer-text mt-3">
@@ -87,29 +89,35 @@ const Footer = () => {
           </div>
 
           {/* Section À propos */}
-          <div className="col-md-3 mb-4 mb-md-0 px-0 px-lg-4">
+          <div className="foo2 col-md-3 mb-4 mb-md-0 px-0 px-lg-4">
             <h5 className="footer-title" style={{ fontWeight: '700' }}>
               {selectedLanguage === 'fr' ? contents?.footer_about_col_title.content_fr : contents?.footer_about_col_title.content_en}
             </h5>
             <ul className="list-unstyled mt-3">
               <li className="footer-text">
-                {selectedLanguage === 'fr' ? contents?.home_page_banner_link1.content_fr : contents?.home_page_banner_link1.content_en}
+                <Link to="/about">{selectedLanguage === 'fr' ? contents?.home_page_banner_link1.content_fr : contents?.home_page_banner_link1.content_en}
+                </Link>
               </li>
               <li className="footer-text">
-                {selectedLanguage === 'fr' ? contents?.home_page_banner_link2.content_fr : contents?.home_page_banner_link2.content_en}
+              <Link to="/community">{selectedLanguage === 'fr' ? contents?.home_page_banner_link2.content_fr : contents?.home_page_banner_link2.content_en}
+              </Link>
               </li>
               <li className="footer-text">
+              <Link to="/service">
                 {selectedLanguage === 'fr' ? contents?.home_page_banner_link3.content_fr : contents?.home_page_banner_link3.content_en}
+                </Link>
               </li>
-              <li className="footer-text">
+              {/* <li className="footer-text">
+              <Link to="/index">
                 {selectedLanguage === 'fr' ? contents?.home_page_banner_link4.content_fr : contents?.home_page_banner_link4.content_en}
-              </li>
+                </Link>
+              </li> */}
               <li className="footer-text">
+              <Link to="/testimonial">
                 {selectedLanguage === 'fr' ? contents?.home_page_banner_link5.content_fr : contents?.home_page_banner_link5.content_en}
+                </Link>
               </li>
-              <li className="footer-text">
-                {selectedLanguage === 'fr' ? contents?.home_page_banner_link6.content_fr : contents?.home_page_banner_link6.content_en}
-              </li>
+
             </ul>
           </div>
         </div>

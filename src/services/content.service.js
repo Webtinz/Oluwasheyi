@@ -135,3 +135,27 @@ export const addNewpatient = async (data) => {
     throw error.response?.data || error;
   }
 };
+
+
+// Add patient
+export const createPaypalOrder = async (data) => {
+  try {
+    const response = await api.post('/payments/create-order', data);
+    return response.data;
+  } catch (error) {
+    console.error('Error Creating order', error);
+    throw error.response?.data || error;
+  }
+};
+
+
+// Add patient
+export const capturePaypalOrder = async (data) => {
+  try {
+    const response = await api.post('/payments/capture-order', data);
+    return response.data;
+  } catch (error) {
+    console.error('Error Creating order', error);
+    throw error.response?.data || error;
+  }
+};

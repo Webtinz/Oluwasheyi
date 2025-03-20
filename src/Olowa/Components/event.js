@@ -42,7 +42,7 @@ const FeaturedEvents = () => {
 
   return (
     <section className="mt-4 container-fluid p-lg-5 p-0 py-5 position-relative" style={{ backgroundColor: "#17416F", paddingLeft: '0px', paddingRight: '0px' }}>
-      <div className="container p-lg-5 p-0">
+      <div className="container evene p-lg-5 p-0">
         <h2 className="text-white text-uppercase ms-3" style={{ fontWeight: 700, fontSize: '36px' }}> {selectedLanguage === 'fr' ? contents?.home_page_event_title.content_fr : contents?.home_page_event_title.content_en}</h2>
         <br />
         <div className="row mt-2">
@@ -59,7 +59,7 @@ const FeaturedEvents = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-lg-12 px-4 py-3 mt-4 mt-lg-0">
+                  <div className="col-lg-12 px-4 py-3 mt-4 mt-lg-0 ool">
                     <div className="row">
                       <div className="col-md-4"></div>
                       <div className="col-md-8">

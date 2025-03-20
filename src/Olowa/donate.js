@@ -100,6 +100,8 @@ const Home = () => {
         setShowModal(false);
     };
 
+    const [selectedProgramId, setSelectedProgramId] = useState(null);
+
     const handleCloseModal = () => {
         // Close the modal
         setShowModal(false);
@@ -145,7 +147,7 @@ const Home = () => {
                 <div className="position-absolute bottom-0 start-0">
                     <img src={Group1} alt="" />
                 </div>
-                <div className="position-absolute top-0 end-0">
+                <div className="position-absolute top-0 end-0" >
                     <img src={Mask2} alt="" />
                 </div>
             </section>
@@ -258,7 +260,7 @@ const Home = () => {
                         </div>
                         <div className="modal-body">
                             {selectedProgram && (
-                                <div>
+                                <div className='donn'>
                                     <div className="text-center mb-4">
                                         <img
                                             src={selectedProgram.photo}
@@ -268,24 +270,25 @@ const Home = () => {
                                         />
                                     </div>
 
-                                    <h4>{selectedLanguage === 'fr' ? 'Description' : 'Description'}</h4>
                                     <div>
+                                        <h4>{selectedLanguage === 'fr' ? 'Description' : 'Description'}</h4>
                                         {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
-                                            __html: selectedProgram.description_fr
+                                            __html: selectedProgram.description
                                         }} />) : (<div dangerouslySetInnerHTML={{
                                             __html: selectedProgram.description_en
                                         }} />)}
                                     </div>
+
                                     {selectedProgram.beneficiaries && (
-                                        <div className="mt-3">
-                                            <h4>{selectedLanguage === 'fr' ? 'Bénéficiaires' : 'Beneficiaries'}</h4>
+                                        <div className="">
+                                            <h4><b>{selectedLanguage === 'fr' ? 'Bénéficiaires' : 'Beneficiaries'}</b></h4>
                                             <p>{selectedProgram.beneficiaries}</p>
                                         </div>
                                     )}
 
                                     {selectedProgram.contact && (
-                                        <div className="mt-3">
-                                            <h4>{selectedLanguage === 'fr' ? 'Contact' : 'Contact'}</h4>
+                                        <div className="">
+                                            <h4><b>{selectedLanguage === 'fr' ? 'Contact' : 'Contact'}</b></h4>
                                             <p>{selectedProgram.contact}</p>
                                         </div>
                                     )}
@@ -298,7 +301,14 @@ const Home = () => {
                                     {selectedLanguage === 'fr' ? 'Plus d\'informations' : 'More Information'}
                                 </a>
                             )}
-                            <button type="button" className="btn btn-light" onClick={handleCloseModal}>
+                            <button type="button" className="btn btn-light text-white" onClick={ ()=>{
+                                handleCloseModal();
+                                setSelectedProgram(selectedProgram);
+                                // console.log("Selected Program:", selectedProgram);
+                                
+                            }
+                                
+                            } style={{ backgroundColor: "rgb(19, 171, 156)" }}>
                                 {selectedLanguage === 'fr' ? 'Donation' : 'Donate'}
                             </button>
                         </div>
@@ -312,7 +322,7 @@ const Home = () => {
 
             {/* Steps Section */}
             <br /><br />
-            
+
 
             {/* Target Section for Scrolling */}
             <section id="targetSection" className='container mt-lg-5 mt-0' style={{ paddingLeft: '0px', paddingRight: '0px' }}>
@@ -321,14 +331,15 @@ const Home = () => {
                         <div className='col-md-5 mb-3 mb-md-0 mx-auto' style={{ padding: '0px' }}>
                             <div className='position-relative'>
                                 <img
+                                    // data-aos="flip-left" data-aos-duration="500"
                                     src={contents?.donate_page_payment_img.image}
                                     className='img-fluid w-100'
-                                    style={{ height: '100vh', objectFit: 'cover' }}
+                                    style={{ height: '60vh', objectFit: 'cover' }}
                                 />
                             </div>
                         </div>
                         <div className='col-md-7 mb-3 mb-md-0 mx-auto align-self-center'>
-                            <Subscription programs={programs} />
+                            <Subscription programs={programs} preselectedProgram={selectedProgram} />
                         </div>
                     </div>
                 </div>

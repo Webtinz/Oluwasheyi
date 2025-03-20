@@ -7,7 +7,7 @@
   background-size: cover;
   background-position: center;
   object-fit: cover;
-  height: 100vh;
+  height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: end;
@@ -170,7 +170,7 @@
   background-color: white;
   padding: 80px;
   border-top-right-radius: 50px;
-  width: 35vw;
+  width: 45vw;
 }
 
 .color1 {
@@ -203,7 +203,7 @@
   }
 
   .color {
-    width: 90vw !important;
+    width: 80vw !important;
     padding: 10px;
   }
 
@@ -237,7 +237,7 @@
   justify-content: space-between;
   list-style: none;
   padding: 0;
-  border-bottom: 1px solid #555b61;
+  border-bottom: 1px solid #00426f;
   overflow-x: auto;
   /* Ajoute un défilement horizontal si nécessaire */
   white-space: nowrap;
@@ -254,7 +254,7 @@
   font-weight: bold;
   font-size: 24px;
   /* Ajuste la taille pour éviter qu'ils ne se superposent */
-  color: #555;
+  color: #00426f;
   text-decoration: none;
   display: block;
   padding: 10px;
@@ -292,11 +292,11 @@
 }
 
 .ppo1 {
-  width: 80px;
+  width: 69px;
   position: absolute;
   top: 80%;
   left: 5%;
-  z-index: 10000;
+  z-index: 1;
 }
 
 .day {
@@ -390,6 +390,32 @@ input.sub:checked {
   .pxc{
     width:100%;
   }
+}
+@media (max-width: 1537px) {
+.search-tabs {
+  display: flex
+;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  list-style: none;
+  padding: 0;
+  border-bottom: none;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  white-space: nowrap;
+}
+.search-link {
+  font-weight: bold;
+  font-size: 17px;
+  color: #00426f;
+  text-decoration: none;
+  display: block;
+  padding: 10px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.tit{
+  font-size: 32px !important;
+}
 }
 .btn-primary {
   background-color: #26BFA8;

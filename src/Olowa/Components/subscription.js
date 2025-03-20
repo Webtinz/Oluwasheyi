@@ -3,11 +3,11 @@ import '../about.css';
 import Paypal from '../../assets/paypal.png';
 import MTN from '../../assets/MTN.png';
 import { ChevronDown } from "lucide-react";
-import { addDonation, getAllContents } from '../../services/content.service';
+import { addDonation, capturePaypalOrder, createPaypalOrder, getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 // import { error } from 'jquery';
 
-const DonationForm = ({ programs }) => {
+const DonationForm = ({ programs, preselectedProgram = {} }) => {
   const [donationType, setDonationType] = useState('once');
   const [amount, setAmount] = useState('');
   const [customAmount, setCustomAmount] = useState('');
@@ -16,24 +16,20 @@ const DonationForm = ({ programs }) => {
   const { selectedLanguage } = useContext(LanguageContext);
   const [contents, setContents] = useState();
   const [showSuccessMessage, setShowSuccessMessage] = useState(false)
+  const [orderId, setOrderId] = useState(null);
+  const [paymentStatus, setPaymentStatus] = useState('');
   // Get contents on component mount
   useEffect(() => {
     const fetchContents = async () => {
       try {
-        // const savedContents = localStorage.getItem("contents");
-        // if (savedContents) {
-        //   setContents(JSON.parse(savedContents));
-        // } else {
-          // Fetch contents if not in localStorage
-          const response = await getAllContents();
-          setContents(response.data);
-        //   localStorage.setItem("contents", JSON.stringify(response.data));
-        // }
+        const response = await getAllContents();
+        setContents(response.data);
       } catch (error) {
         console.error('Failed to fetch contents:', error.message || error);
       }
     };
     fetchContents();
+    // console.log("Selected Program:",preselectedProgram);
   }, []);
 
   const amounts = {
@@ -105,13 +101,49 @@ const DonationForm = ({ programs }) => {
     }
   };
 
+  // Create PayPal order via your backend
+  const createOrder = async () => {
+    try {
+      const response = await createPaypalOrder({
+        amount: amount
+      });
+      const orderId = response.data.id;
+      setOrderId(orderId);
+      return orderId;
+    } catch (error) {
+      console.error('Error creating PayPal order:', error);
+      setPaymentStatus('Error creating order');
+    }
+  };
+
+  // Capture the PayPal order after approval
+  const onApprove = async (data) => {
+    try {
+      setPaymentStatus('Processing payment...');
+      const response = await capturePaypalOrder({
+        orderId: data.orderID
+      });
+
+      const captureData = response.data;
+
+      // Handle successful payment
+      if (captureData.status === 'COMPLETED') {
+        setPaymentStatus('Payment successful!');
+        // Here you would update your database, show confirmation, etc.
+      }
+    } catch (error) {
+      console.error('Error capturing PayPal order:', error);
+      setPaymentStatus('Payment failed');
+    }
+  };
+
   return (
     <div className="w-full max-w-lg mx-auto p-4">
-        {showSuccessMessage && (
-          <div className="alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3" role="alert">
-            {selectedLanguage === 'fr' ? 'Don effectue avec succes' : "Donation completed successfully"}
-          </div>
-        )}
+      {showSuccessMessage && (
+        <div className="alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3" role="alert">
+          {selectedLanguage === 'fr' ? 'Don effectue avec succes' : "Donation completed successfully"}
+        </div>
+      )}
       <h1 className="text-2xl font-bold text-center mb-4 text-2xl" style={{ color: '#17416F' }}>
         {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
           __html: contents?.donate_subscription_title.content_fr
@@ -172,6 +204,12 @@ const DonationForm = ({ programs }) => {
             <option value="">
               {selectedLanguage === 'fr' ? contents?.donate_page_payment_input.content_fr : contents?.donate_page_payment_input.content_en}
             </option>
+            {preselectedProgram?.id !== null && (
+              <option selected value={preselectedProgram?.id}>
+                {selectedLanguage === 'fr' ? preselectedProgram?.nom : preselectedProgram?.name}
+              </option>
+            )}
+
             {programs?.map((program) => (
               <option key={program.id} value={program.id}>
                 {selectedLanguage === 'fr' ? program.nom : program.name}

@@ -128,7 +128,7 @@ const Home = () => {
                     {doctors.map((doctor) => (
                         <div key={doctor.id} className="col-12 col-md-6 col-lg-3 mb-4">
                             <a href="#" onClick={(e) => { e.preventDefault(); setSelectedDoctor(doctor); }}>
-                                <img src={doctor.photo} alt={doctor.nom} className="img-fluid w-100" style={{ borderTopRightRadius: "30px", }} />
+                                <img src={doctor.photo} alt={doctor.nom} className="img-fluid w-100" style={{ borderTopRightRadius: "30px", height:"40vh", objectFit:"cover" }} />
                             </a>
                             <h3 className="text-center mt-3" style={{ color: "#17416F", fontWeight: 700, textTransform: "uppercase", fontSize: 'clamp(18px, 8vw, 25px)' }}>
                                 {doctor.nom} {doctor.prenom}
