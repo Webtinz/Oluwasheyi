@@ -135,7 +135,7 @@ const EventsCarousel = ({ events }) => {
                       <div className="row">
                         <div className="col-md-4"></div>
                         <div className="col-md-8">
-                          <p className="event-title"  style={{ display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{selectedLanguage === 'fr' ? event.nom : event.name}</p>
+                          <p className="event-title"  style={{ display: "-webkit-box", WebkitLineClamp: 1, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{selectedLanguage === 'fr' ? event.nom : event.name}</p>
                         </div>
                       </div>
                       <span className="event-divider"></span>
