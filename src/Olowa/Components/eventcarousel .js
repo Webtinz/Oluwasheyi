@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import '../index.css';
 import '../about.css';
-import Mask2 from '../../assets/Fr1.png';
 import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 import { format } from 'date-fns';
@@ -74,10 +73,10 @@ const EventsCarousel = ({ events }) => {
   }, []);
 
   return (
-    <section className="container-fluid py-5 position-relative" style={{ backgroundColor: "#17416F", paddingLeft: '0px', paddingRight: '0px' }}>
-      <div className="container px-lg-5 px-0 evene">
-        <div className="d-flex justify-content-between align-items-center mb-4">
-          <h2 className="text-white text-uppercase" style={{ fontWeight: 700, fontSize: screenSize === 'small' ? '24px' : '36px' }}> 
+    <div className="container-fluid py-5" style={{ background: '#17416F' }}>
+      <div className="container px-lg-5 px-0">
+        <div className="d-flex justify-content-between align-items-center mb-8">
+          <h2 className="text-white" style={{ fontSize: screenSize === 'small' ? '24px' : '36px', fontWeight: 'bold', textTransform: 'uppercase' }}> 
             {selectedLanguage === 'fr' ? contents?.communoty_page_event_title.content_fr : contents?.communoty_page_event_title.content_en}
           </h2>
           <div className="d-flex gap-4">
@@ -119,38 +118,36 @@ const EventsCarousel = ({ events }) => {
             style={{ transform: `translateX(-${currentSlide * (100 / slidesToShow)}%)`, transition: 'transform 0.5s ease' }}
           >
             {events?.map((event) => (
-              <div key={event.id} style={{ width: `${100 / slidesToShow}%`, flexShrink: 0, padding: '12px' }}>
-                <div className="p-3 bg-white event-card">
-                  <div className="row">
-                    <div className="col-lg-12 mb-4">
-                      <div className="position-relative">
-                        <img src={event.photo} alt={selectedLanguage === 'fr' ? event.nom : event.name} className="image-fluid w-100" style={{ height: '250px', objectFit: 'cover' }} />
+              <div key={event.id} style={{ width: `${100 / slidesToShow}%`, flexShrink: 0, padding: '6px' }}>
+                <div className="bg-white shadow p-4" style={{ borderTopRightRadius: '30px' }}>
+                  <div className='row'>
+                    <div className='col-lg-6 mb-4'>
+                      <div className="position-relative mb-4">
+                        <img src={event.photo} alt={selectedLanguage === 'fr' ? event.nom : event.name} className="w-100 object-fit-cover" style={{ height: '250px' }} />
                         <div className="ppo1">
-                          <span className="event-day">{format(new Date(event.dateevent), "dd")}</span>
-                          <span className="event-date upper py-3">{format(new Date(event.dateevent), "MMM.yy")}</span>
+                          <span className='day'>{format(new Date(event.dateevent), "dd")}</span>
+                          <span className="py-3 date">{format(new Date(event.dateevent), "MMM.yy")}</span>
                         </div>
                       </div>
                     </div>
-                    <div className="col-lg-12 px-4 py-3 mt-4 mt-lg-0 ool">
-                      <div className="row">
-                        <div className="col-md-4"></div>
-                        <div className="col-md-8">
-                          <p className="event-title"  style={{ display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{selectedLanguage === 'fr' ? event.nom : event.name}</p>
-                        </div>
+                    <div className='col-lg-6'>
+                      <h3 className="fs-4 fw-semibold mb-2" style={{ color: '#17416F', fontWeight: '700' }}>
+                        {selectedLanguage === 'fr' ? event.nom : event.name}
+                      </h3>
+                      <div className="text-muted mb-3" style={{ display: "-webkit-box", WebkitLineClamp: 5, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                        {selectedLanguage === 'fr' ? (
+                          <div dangerouslySetInnerHTML={{ __html: event.description }} />
+                        ) : (
+                          <div dangerouslySetInnerHTML={{ __html: event.description_en }} />
+                        )}
                       </div>
-                      <span className="event-divider"></span>
-                      <div className="d-flex justify-content-end">
-                        <a 
-                          href="#" 
-                          className="event-read-more"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setSelectedEvent(event);
-                          }}
-                        >
-                          {selectedLanguage === 'fr' ? "Voir Plus" : "Learn More"}
-                        </a>
-                      </div>
+                      <button 
+                        className="btn text-white px-4" 
+                        onClick={() => setSelectedEvent(event)}
+                        style={{ background: '#13AB9C' }}
+                      >
+                        {selectedLanguage === 'fr' ? "Voir Plus" : "Learn More"}
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -158,7 +155,6 @@ const EventsCarousel = ({ events }) => {
             ))}
           </div>
         </div>
-
         {selectedEvent && (
           <div className="modal fade show d-block" tabIndex="-1">
             <div className="modal-dialog modal-dialog-centered">
@@ -169,13 +165,7 @@ const EventsCarousel = ({ events }) => {
                       <i className="bi bi-x-lg"></i>
                     </button>
                     <h2>{selectedLanguage === 'fr' ? selectedEvent.nom : selectedEvent.name}</h2>
-                    <p>
-                      {selectedLanguage === 'fr' ? (
-                        <div dangerouslySetInnerHTML={{ __html: selectedEvent.description }} />
-                      ) : (
-                        <div dangerouslySetInnerHTML={{ __html: selectedEvent.description_en }} />
-                      )}
-                    </p>
+                    <p>{selectedLanguage === 'fr' ? selectedEvent.description : selectedEvent.description_en}</p>
                   </div>
                 </div>
               </div>
@@ -184,10 +174,7 @@ const EventsCarousel = ({ events }) => {
           </div>
         )}
       </div>
-      <div className="position-absolute bottom-0 end-0">
-        <img src={Mask2} alt="" style={{width:'70%'}}/>
-      </div>
-    </section>
+    </div>
   );
 };
 

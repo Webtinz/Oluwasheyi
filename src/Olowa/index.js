@@ -74,7 +74,7 @@ const Home = () => {
     }, []);
 
     return (
-        <div className="container-fluid" style={{margin:"0px", padding:"0px"}}>
+        <div className="container-fluid" style={{ margin: "0px", padding: "0px" }}>
             <div><Navbar /></div>
             <div><Banner /></div>
             <br /><br />
@@ -141,7 +141,7 @@ const Home = () => {
                     {/* Left side - Blue box with text */}
                     <div className="bbl text-white p-8 md:p-12 flex items-center justify-center md:w-2/5" style={{ width: "50%", borderTopRightRadius: "15px", zIndex: "2", backgroundColor: "#00426f" }} >
                         <h3 data-aos="flip-left" className="text-2xl md:text-3xl lg:text-4xl font-bold">
-                        {selectedLanguage === 'fr' ? contents?.home_page_virtual_tour_title.content_fr : contents?.home_page_virtual_tour_title.content_en}
+                            {selectedLanguage === 'fr' ? contents?.home_page_virtual_tour_title.content_fr : contents?.home_page_virtual_tour_title.content_en}
                             {/* TAKE A VIRTUAL TOUR OF OUR FACILITIES */}
                         </h3>
                         <svg className='designsvg2' width="153" height="141" viewBox="0 0 153 141" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -220,8 +220,8 @@ const Home = () => {
                             </div>
                         </div>
                         <div className="col-lg-4 mb-3 mx-auto align-self-center order-1 order-lg-2" style={{ padding: "0px" }}>
-                            <div className="p-3" style={{fontWeight: "600"}}>
-                                <h1 className="text-white text-uppercase fw-bold text-center text-md-start" style={{ fontSize: '35px', margin:"20px 0" }}>{selectedLanguage === 'fr' ? contents?.home_page_banner_link4.content_fr : contents?.home_page_banner_link4.content_en}</h1>
+                            <div className="p-3" style={{ fontWeight: "600" }}>
+                                <h1 className="text-white text-uppercase fw-bold text-center text-md-start" style={{ fontSize: '35px', margin: "20px 0" }}>{selectedLanguage === 'fr' ? contents?.home_page_banner_link4.content_fr : contents?.home_page_banner_link4.content_en}</h1>
                                 <div className="mt-3 text-white text-uppercase  text-center text-md-start">
                                     {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                                         __html: contents?.home_page_patient_portal_desc.content_fr
@@ -229,10 +229,10 @@ const Home = () => {
                                         __html: contents?.home_page_patient_portal_desc.content_en
                                     }} />)}
                                 </div>
-                                <div className=" d-flex justify-content-start justify-content-lg-start" style={{margin:"20px 0"}}>
+                                <div className=" d-flex justify-content-start justify-content-lg-start" style={{ margin: "20px 0" }}>
                                     <button
                                         className="btn btn-t text-white"
-                                        style={{ backgroundColor: "#13AB9C", padding: "10px 25px", fontWeight:"600" }}
+                                        style={{ backgroundColor: "#13AB9C", padding: "10px 25px", fontWeight: "600" }}
                                     // onClick={() => (window.location.href = "Meet.html")}
                                     >
                                         {selectedLanguage === 'fr' ? contents?.home_page_patient_portal_button.content_fr : contents?.home_page_patient_portal_button.content_en}
@@ -249,7 +249,7 @@ const Home = () => {
             </section>
             <br /><br />
             <div>
-            <h2 className="text-center mb-4"
+                <h2 className="text-center mb-4"
                     style={{ textTransform: 'uppercase', color: '#17416F', fontWeight: '700', fontSize: '36px' }}>
                     {selectedLanguage === 'fr' ? contents?.home_page_equipment_title.content_fr : contents?.home_page_equipment_title.content_en}
                 </h2>
@@ -264,7 +264,7 @@ const Home = () => {
                 <Galery />
             </div>
             <div>
-                <Event />
+                <Event events={events} />
             </div>
             <br />
             <div>
