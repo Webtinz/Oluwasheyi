@@ -338,7 +338,7 @@ button:hover .rotating-svg {
     background-size: cover !important;
     background-position: center;
     width: 100vw;
-    height: 80vh;
+    height: 100vh;
     color: white;
     padding: 0px !important;
     display: flex;
