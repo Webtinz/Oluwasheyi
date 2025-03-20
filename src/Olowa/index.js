@@ -188,12 +188,15 @@ const Home = () => {
                             </button>
 
                             {/* Here you can embed your 360 tour or video */}
-                            <iframe
+                            {/* <iframe
                                 src="https://www.youtube.com/watch?v=wiJA4_jdX9E&t=6s"
                                 title="360 Virtual Tour"
                                 className="w-full h-full rounded-lg"
                                 allowFullScreen
-                            ></iframe>
+                            ></iframe> */}
+                            {/* <iframe width="560" height="315" src="https://bitmovin.com/demos/vr-360/" frameborder="0" allowfullscreen></iframe> */}
+                            <iframe id="360images_iframe" width="100%" height="100%" src="http://www.360images.fr/360/iframe.html?pano=paris/lafayette.xml" frameborder="0" marginheight="0" marginwidth="0" scrolling="no" framespacing="0" allowfullscreen> </iframe>
+
                         </div>
                     </div>
                 )}
