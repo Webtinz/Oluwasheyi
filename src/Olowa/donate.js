@@ -19,20 +19,13 @@ const Donate = () => {
     const [programs, setPrograms] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [selectedProgram, setSelectedProgram] = useState(null);
-    // Toujours afficher le carousel par défaut
     const [showCarousel, setShowCarousel] = useState(true);
 
     useEffect(() => {
         const fetchContents = async () => {
             try {
-                // const savedContents = localStorage.getItem("contents");
-                // if (savedContents) {
-                //     setContents(JSON.parse(savedContents));
-                // } else {
                 const response = await getAllContents();
                 setContents(response.data);
-                //     localStorage.setItem("contents", JSON.stringify(response.data));
-                // }
                 setPrograms(await getPrograms());
             } catch (error) {
                 console.error('Failed to fetch contents:', error.message || error);
@@ -95,11 +88,7 @@ const Donate = () => {
     };
 
     const handleCloseModal = () => {
-        // Close the modal
         setShowModal(false);
-
-        // NE PAS cacher le carousel
-        // setShowCarousel(false);
 
         // On peut toujours faire défiler vers la section cible
         setTimeout(() => {
@@ -244,9 +233,9 @@ const Donate = () => {
                 <div className="modal-dialog modal-lg bg-white">
                     <div className="modal-content">
                         <div className="modal-header" style={{ background: '#fff' }}>
-                            <h5 className="modal-title text-white" id="programModalLabel">
+                            <h3 className="modal-title text-dark" id="programModalLabel">
                                 {selectedProgram && (selectedLanguage === 'fr' ? selectedProgram.nom : selectedProgram.name)}
-                            </h5>
+                            </h3>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={handleModalClose}></button>
                         </div>
                         <div className="modal-body">
@@ -261,14 +250,15 @@ const Donate = () => {
                                         />
                                     </div>
 
-                                    <h4>{selectedLanguage === 'fr' ? 'Description' : 'Description'}</h4>
                                     <div>
+                                        <h4>{selectedLanguage === 'fr' ? 'Description' : 'Description'}</h4>
                                         {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
-                                            __html: selectedProgram.description_fr
+                                            __html: selectedProgram.description
                                         }} />) : (<div dangerouslySetInnerHTML={{
                                             __html: selectedProgram.description_en
                                         }} />)}
                                     </div>
+
                                     {selectedProgram.beneficiaries && (
                                         <div className="">
                                             <h4><b>{selectedLanguage === 'fr' ? 'Bénéficiaires' : 'Beneficiaries'}</b></h4>
@@ -291,7 +281,13 @@ const Donate = () => {
                                     {selectedLanguage === 'fr' ? 'Plus d\'informations' : 'More Information'}
                                 </a>
                             )}
-                            <button type="button" className="btn btn-light text-white" onClick={handleCloseModal} style={{backgroundColor:"rgb(19, 171, 156)"}}>
+                            <button type="button" className="btn btn-light text-white" onClick={() => {
+                                handleCloseModal();
+                                setSelectedProgram(selectedProgram);
+                                // console.log("Selected Program:", selectedProgram);
+                            }
+
+                            } style={{ backgroundColor: "rgb(19, 171, 156)" }}>
                                 {selectedLanguage === 'fr' ? 'Donation' : 'Donate'}
                             </button>
                         </div>
@@ -305,7 +301,7 @@ const Donate = () => {
 
             {/* Steps Section */}
             <br /><br />
-            
+
 
             {/* Target Section for Scrolling */}
             <section id="targetSection" className='container mt-lg-5 mt-0' style={{ paddingLeft: '0px', paddingRight: '0px' }}>
@@ -313,8 +309,8 @@ const Donate = () => {
                     <div className='row pxc' style={{ background: '#F2F2F2', borderTopRightRadius: '30px' }}>
                         <div className='col-md-5 mb-3 mb-md-0 mx-auto' style={{ padding: '0px' }}>
                             <div className='position-relative'>
-                                <img 
-                                // data-aos="flip-left" data-aos-duration="500"
+                                <img
+                                    // data-aos="flip-left" data-aos-duration="500"
                                     src={contents?.donate_page_payment_img.image}
                                     className='img-fluid w-100'
                                     style={{ height: '60vh', objectFit: 'cover' }}
@@ -322,7 +318,7 @@ const Donate = () => {
                             </div>
                         </div>
                         <div className='col-md-7 mb-3 mb-md-0 mx-auto align-self-center'>
-                            <Subscription programs={programs} />
+                            <Subscription programs={programs} preselectedProgram={selectedProgram} />
                         </div>
                     </div>
                 </div>

@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://backend.clinicoluwasheyi.com/api', // URL de votre backend
-  // baseURL: 'http://localhost:8004/api', // URL de votre backend
+  // baseURL: 'https://backend.clinicoluwasheyi.com/api', // URL de votre backend
+  baseURL: 'http://localhost:8003/api', // URL de votre backend
   headers: {
     'Content-Type': 'application/json',
   },

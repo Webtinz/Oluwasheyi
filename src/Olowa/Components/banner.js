@@ -57,7 +57,7 @@ const About = () => {
                             <div className="carousel-item active">
                                 <div className="row g-0 align-items-stretch mybannercontent">
                                     <div className="col-lg-6 col-md-12 textbannercontent">
-                                        <div className="carousel-content">
+                                        <div className="carousel-content braca">
                                             <div className='d-flex justify-content-center carrousseltextcont'>
                                                 <div className="text-start px-2 ttk">
                                                     <h2 >{selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
@@ -89,10 +89,10 @@ const About = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-lg-6 col-md-12">
+                                    <div className="col-lg-6 col-md-12 ibb2">
                                         <img
                                             src={contents?.home_page_banner_img.image}
-                                            alt="Image de la clinique"
+                                            // alt="Image de la clinique"
                                             className="img-fluid w-100 h-100 ibb"
                                             style={{ objectFit: 'cover', marginLeft: '-10px' }}
                                         />

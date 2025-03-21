@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@paypal/react-paypal-js": "^8.8.2",
     "@radix-ui/react-slot": "^1.1.2",
     "@shadcn/ui": "^0.0.4",
     "aos": "^2.3.4",

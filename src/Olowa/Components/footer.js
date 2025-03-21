@@ -3,7 +3,7 @@ import { React, useEffect, useState, useContext } from "react";
 import "../index.css"; // Fichier CSS pour les styles
 import chatbotIcon from "../../assets/chatbot.png";
 import whatsappIcon from "../../assets/whatsapp.png";
-import { getAllContents } from '../../services/content.service';
+import { addSuscriber, getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
@@ -12,7 +12,39 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   const { selectedLanguage } = useContext(LanguageContext);
   const [contents, setContents] = useState();
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
+  const handleSubscribe = async (e) => {
+    e.preventDefault(); // Prevent page reload
+
+    if (!email) {
+      setMessage("Please enter an email address.");
+      return;
+    }
+
+    try {
+
+      const result = await addSuscriber({ email: email });
+
+      if (result) {
+        setMessage("Subscription successful! 🎉");
+        setEmail("");
+        setShowSuccessMessage(true);
+        setTimeout(() => {
+          setShowSuccessMessage(false);
+        }, 2000);
+      }
+    } catch (error) {
+      console.error("Subscription error:", error);
+      setMessage(error.message || "Something went wrong.");
+      setShowSuccessMessage(true);
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+      }, 2000);
+    }
+  };
   // Get contents on component mount
   useEffect(() => {
     const fetchContents = async () => {
@@ -46,10 +78,20 @@ const Footer = () => {
               {selectedLanguage === 'fr' ? contents?.footer_suscribe_col_desc.content_fr : contents?.footer_suscribe_col_desc.content_en}
             </p>
             <div className="me-2 position-relative mt-3">
-              <input type="search" className="form-control py-2" placeholder="Email Address" style={{ border: '1px solid #17416F' }} />
-              <a href="#" className="text-decoration-none text-dark position-absolute poss">
-                <i className="bi bi-chevron-right ppo" style={{ background: '#13AB9C', color: 'white' }}></i>
-              </a>
+              <form onSubmit={handleSubscribe}>
+                <input
+                  type="email"
+                  className="form-control py-2 position-relative"
+                  placeholder="Email Address"
+                  style={{ border: "1px solid #17416F" }}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <button type="submit" className="text-decoration-none text-dark position-absolute poss">
+                  <i className="bi bi-chevron-right ppo" style={{ background: "#13AB9C", color: "white" }}></i>
+                </button>
+              </form>
+                {showSuccessMessage && <p className={message.includes('successful') ? 'text-success' : 'text-danger'} >{message}</p>}
             </div>
             <div className="d-flex mt-3">
               <a href={contents?.footer_social_1_link.content_fr} ><i className={'bi bi-' + contents?.footer_social_1.content_fr + ' social-icon'}></i></a>
@@ -99,12 +141,12 @@ const Footer = () => {
                 </Link>
               </li>
               <li className="footer-text">
-              <Link to="/community">{selectedLanguage === 'fr' ? contents?.home_page_banner_link2.content_fr : contents?.home_page_banner_link2.content_en}
-              </Link>
+                <Link to="/community">{selectedLanguage === 'fr' ? contents?.home_page_banner_link2.content_fr : contents?.home_page_banner_link2.content_en}
+                </Link>
               </li>
               <li className="footer-text">
-              <Link to="/service">
-                {selectedLanguage === 'fr' ? contents?.home_page_banner_link3.content_fr : contents?.home_page_banner_link3.content_en}
+                <Link to="/service">
+                  {selectedLanguage === 'fr' ? contents?.home_page_banner_link3.content_fr : contents?.home_page_banner_link3.content_en}
                 </Link>
               </li>
               {/* <li className="footer-text">
@@ -112,11 +154,10 @@ const Footer = () => {
                 {selectedLanguage === 'fr' ? contents?.home_page_banner_link4.content_fr : contents?.home_page_banner_link4.content_en}
                 </Link>
               </li> */}
-              <li className="footer-text">
-              <Link to="/testimonial">
-                {selectedLanguage === 'fr' ? contents?.home_page_banner_link5.content_fr : contents?.home_page_banner_link5.content_en}
-                </Link>
-              </li>
+              {/* <li className="footer-text">
+                <Link to="/testimonial">
+                  {selectedLanguage === 'fr' ? contents?.home_page_banner_link5.content_fr : contents?.home_page_banner_link5.content_en}                </Link>
+              </li> */}
 
             </ul>
           </div>
@@ -127,7 +168,7 @@ const Footer = () => {
           <span className="d-block my-4 separator"></span>
           <div className="d-flex flex-column ppos">
             <a href="#"><img src={chatbotIcon} alt="Chatbot" className="chat-icon" /></a>
-            <a href="#"><img src={whatsappIcon} alt="WhatsApp" className="chat-icon mt-2" /></a>
+            <a href={"https://wa.me/"+contents?.footer_whatsapp_number.content_fr}><img src={whatsappIcon} alt="WhatsApp" className="chat-icon mt-2" /></a>
           </div>
         </div>
 

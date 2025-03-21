@@ -74,7 +74,7 @@ const Home = () => {
     }, []);
 
     return (
-        <div className="container-fluid" style={{ margin: "0px", padding: "0px" }}>
+        <div className="container-fluid ro" style={{ margin: "0px", padding: "0px" }}>
             <div><Navbar /></div>
             <div><Banner /></div>
             <br /><br />
@@ -83,7 +83,7 @@ const Home = () => {
             <div><HealthCarousel healthAdvices={advices} /></div>
             <br /><br />
             <div><Community /></div>
-            <br /><br />
+            <br />
 
             {/* <div className="container  virtualtoursect">
                 <h1
@@ -256,7 +256,7 @@ const Home = () => {
                 <Smeet doctors={teamMembers} />
             </div>
             <br /><br /><br /><br />
-            <div>
+            <div className='rom'>
                 <h2 className="text-center"
                     style={{ textTransform: 'uppercase', color: '#17416F', fontWeight: '700', fontSize: '36px' }}>
                     {selectedLanguage === 'fr' ? contents?.home_page_equipment_title.content_fr : contents?.home_page_equipment_title.content_en}
@@ -267,7 +267,7 @@ const Home = () => {
                 <Event events={events} />
             </div>
             <br />
-            <div>
+            <div className='nam'>
                 <WelcomeSection />
             </div>
             <br /><br /><br />

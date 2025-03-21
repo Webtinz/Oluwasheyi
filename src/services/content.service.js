@@ -2,10 +2,10 @@ import api from './caller.service';
 
 
 export const getAllContents = async () => {
-  try{
+  try {
     const response = await api.get(`/getcontentbytitle`);
     return response.data;
-  }catch (error){
+  } catch (error) {
     console.error('Failed to fetch contents:', error.message || error);
     return null;
   }
@@ -14,10 +14,10 @@ export const getAllContents = async () => {
 
 // Get sevices
 export const getServices = async () => {
-  try{
+  try {
     const response = await api.get(`/getallservices`);
     return response.data;
-  }catch (error){
+  } catch (error) {
     console.error('Failed to fetch services:', error.message || error);
     return null;
   }
@@ -25,10 +25,10 @@ export const getServices = async () => {
 
 // Get departments
 export const getDepartments = async () => {
-  try{
-    const response = await api.get(`/getalldepartments`);    
+  try {
+    const response = await api.get(`/getalldepartments`);
     return response.data;
-  }catch (error){
+  } catch (error) {
     console.error('Failed to fetch departments:', error.message || error);
     return null;
   }
@@ -36,10 +36,10 @@ export const getDepartments = async () => {
 
 //Get health programs
 export const getPrograms = async () => {
-  try{
+  try {
     const response = await api.get(`/getallprograms`);
     return response.data;
-  }catch (error){
+  } catch (error) {
     console.error('Failed to fetch health programs:', error.message || error);
     return null;
   }
@@ -48,10 +48,10 @@ export const getPrograms = async () => {
 
 //Get certificates
 export const getCertificates = async () => {
-  try{
+  try {
     const response = await api.get(`/getallcertifications`);
     return response.data;
-  }catch (error){
+  } catch (error) {
     console.error('Failed to fetch certificates:', error.message || error);
     return null;
   }
@@ -59,10 +59,10 @@ export const getCertificates = async () => {
 
 //Get Events
 export const getEvents = async () => {
-  try{
+  try {
     const response = await api.get(`/getallevents`);
     return response.data;
-  }catch (error){
+  } catch (error) {
     console.error('Failed to fetch Events:', error.message || error);
     return null;
   }
@@ -70,10 +70,10 @@ export const getEvents = async () => {
 
 //Get Advices
 export const getAdvices = async () => {
-  try{
+  try {
     const response = await api.get(`/getalladvices`);
     return response.data;
-  }catch (error){
+  } catch (error) {
     console.error('Failed to fetch Advices:', error.message || error);
     return null;
   }
@@ -82,10 +82,10 @@ export const getAdvices = async () => {
 
 //Get Team Members
 export const getTeamMembers = async () => {
-  try{
+  try {
     const response = await api.get(`/getallteamMembers`);
     return response.data;
-  }catch (error){
+  } catch (error) {
     console.error('Failed to fetch Team Members:', error.message || error);
     return null;
   }
@@ -93,10 +93,10 @@ export const getTeamMembers = async () => {
 
 //Get Team Members
 export const getTestimonials = async () => {
-  try{
+  try {
     const response = await api.get(`/getalltestimonials`);
     return response.data;
-  }catch (error){
+  } catch (error) {
     console.error('Failed to fetch Team Members:', error.message || error);
     return null;
   }
@@ -116,7 +116,7 @@ export const addFeedback = async (data) => {
 // Ajouter une donation
 export const addDonation = async (data) => {
   try {
-    const response = await api.post('/adddonnation', data);
+    const response = await api.post('/adddonation', data);
     return response.data;
   } catch (error) {
     console.error('Error adding donation:', error);
@@ -132,6 +132,64 @@ export const addNewpatient = async (data) => {
     return response.data;
   } catch (error) {
     console.error('Error adding patient:', error);
+    throw error.response?.data || error;
+  }
+};
+
+
+// Add patient
+export const createPaypalOrder = async (data) => {
+  try {
+    const response = await api.post('/paypal/create-order', data);
+    return response.data;
+  } catch (error) {
+    console.error('Error Creating order', error);
+    throw error.response?.data || error;
+  }
+};
+
+
+// Add patient
+export const capturePaypalOrder = async (data) => {
+  try {
+    const response = await api.post('/paypal/capture-order', data);
+    return response.data;
+  } catch (error) {
+    console.error('Error Creating order', error);
+    throw error.response?.data || error;
+  }
+};
+
+
+// Add patient
+export const initiatePayment = async (data) => {
+  try {
+    const response = await api.post('/momo/create-payment', data);
+    return response.data;
+  } catch (error) {
+    console.error('Error Creating order', error);
+    throw error.response?.data || error;
+  }
+};
+
+// Ajouter une Suscriber
+export const addSuscriber = async (data) => {
+  try {
+    const response = await api.post('/addsuscriber', data);
+    return response.data;
+  } catch (error) {
+    console.error('Error adding suscriber:', error);
+    throw error.response?.data || error;
+  }
+};
+
+// Ajouter une Suscriber
+export const suscribeToEvent = async (data) => {
+  try {
+    const response = await api.post('/registerevent', data);
+    return response.data;
+  } catch (error) {
+    console.error('Error adding user to event:', error);
     throw error.response?.data || error;
   }
 };
