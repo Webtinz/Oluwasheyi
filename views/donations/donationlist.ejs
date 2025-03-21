@@ -47,25 +47,16 @@
                 <form id="donationForm">
                     <input type="hidden" id="donationId">
                     <div class="form-group">
-                        <label>Nom du donationme</label>
-                        <input type="text" id="donationName" class="form-control" required>
+                        <label>Type de donation</label>
+                        <input type="text" id="donationType" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Contact</label>
-                        <input type="text" id="donationContact" class="form-control" required>
+                        <input type="text" id="donationAmount" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label>Description</label>
-                        <textarea id="donationDescription" class="form-control" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Bénéficiaires</label>
-                        <input type="text" id="donationBeneficiaries" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Photo</label>
-                        <input type="file" id="donationPhoto" class="form-control">
-                        <img id="currentDonationPhoto" src="#" alt="Photo du donationme" width="100" style="margin-top: 10px; display: none;">
+                        <label>Program</label>
+                        <input id="donationmedicalProgramId" class="form-control" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Enregistrer</button>
                 </form>
@@ -78,8 +69,8 @@
     document.addEventListener("DOMContentLoaded", function () {
         axios.get('/api/getalldonations')
             .then(response => {
-                const data = response.data.donations;
-                console.log(data);
+                const data = response.data;
+                // console.log(data);
                 
                 const tableBody = document.querySelector('#donationTable tbody');
                 tableBody.innerHTML = '';
@@ -113,7 +104,7 @@
                 const id = e.target.dataset.id;
                 axios.get(`/api/getdonation/${id}`)
                     .then(response => {
-                        const donation = response.data.donation;
+                        const donation = response.data;
                         console.log(donation);
                         
                         document.getElementById('donationId').value = donation.id;

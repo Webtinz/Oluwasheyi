@@ -1,4 +1,4 @@
-const { Event } = require('../models');
+const { Event, InterestedUser } = require('../models');
 const fs = require('fs');
 const path = require('path');
 const { generateSignedUrl } = require("../../config/AWSConfig")
@@ -127,4 +127,53 @@ exports.getEventById = async (req, res) => {
         console.error(error);
         res.status(500).json({ message: 'Erreur lors de la récupération du event' });
     }
+};
+
+// ✅ User Subscribes to an Event
+exports.subscribeToEvent = async (req, res) => {
+  try {
+    const { eventId, email, firstname, lastname, phoneNumber } = req.body;
+
+    // Check if event exists
+    const event = await Event.findByPk(eventId);
+    if (!event) {
+      return res.status(404).json({ message: "Event not found" });
+    }
+
+    // Check if email is already subscribed
+    const existing = await InterestedUser.findOne({ where: { eventId, email } });
+    if (existing) {
+      return res.status(400).json({ message: "You are already subscribed to this event." });
+    }
+
+    // Save interested user
+    await InterestedUser.create({ eventId, email, firstname, lastname, phoneNumber });
+
+    res.status(201).json({ message: "Subscribed successfully!" });
+  } catch (error) {
+    console.error("Error subscribing to event:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+// ✅ Get all interested users for an event
+exports.getInterestedUsers = async (req, res) => {
+
+  try {
+    const users = await InterestedUser.findAll({ 
+        include: [
+            {
+                model: Event,
+                as: 'event',
+                attributes: ['name'],
+            }
+        ],
+        order: [['createdAt', 'DESC']
+        ]
+     });
+    res.status(200).json(users);
+  } catch (error) {
+    console.error("Error fetching interested users:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 };

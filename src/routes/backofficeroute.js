@@ -81,6 +81,11 @@ router.get('/listdonation', (req, res) => {
   res.render('donations/donationlist', { title: 'Donations Page' });
 });
 
+// Suscriber
+router.get('/listsuscribers', (req, res) => {
+  res.render('suscribers/suscriberlist', { title: 'Suscriber Page' });
+});
+
 // certification
 router.get('/listcertifications', (req, res) => {
   res.render('certifications/listcertification', { title: 'certifications Page' });

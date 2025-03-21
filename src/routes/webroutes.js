@@ -13,9 +13,10 @@ const ServiceController = require('../controllers/ServiceController');
 const DepartmentController = require('../controllers/DepartmentController');
 const EventController = require('../controllers/EventController');
 const Patientappointment = require('../controllers/PatientappointmentController');
-const { getDonations, addDonation, getDonation } = require('../controllers/DonationController');
+const { getDonations, addDonation, getDonation, getAllDonations, getDonationById, initiateMomoPayment, checkMomoStatus } = require('../controllers/DonationController');
 const { createOrder, captureOrder } = require('../controllers/PaypalController');
 const { initiatePayment, checkStatus } = require('../controllers/PaymentController');
+const { getSuscribers, getSuscriber, addSuscriber } = require('../controllers/SuscriberController');
 
 
 // Authentification
@@ -94,6 +95,7 @@ router.put('/updateevent/:id', uploadEvent.single('photo'), EventController.upda
 router.get('/getallevents', EventController.getAllEvents);
 router.delete('/deleteevent/:id', EventController.deleteEvent);
 router.get('/getevent/:id', EventController.getEventById);
+router.post('/registerevent', EventController.subscribeToEvent);
 
 // medical programms
 router.post('/addprogram', uploadMedicalProgram.single('photo'), MedicalProgramController.addProgram);
@@ -102,9 +104,15 @@ router.get('/getprogram/:id', MedicalProgramController.getProgram);
 router.put('/updateprogram/:id', uploadMedicalProgram.single('photo'), MedicalProgramController.updateProgram);
 router.delete('/deleteprogram/:id', MedicalProgramController.deleteProgram);
 
-router.get('/getalldonations', getDonations);
-router.get('/getdonation/:id', getDonation);
-router.post('/adddonnation', addDonation);
+router.get('/getalldonations', getAllDonations);
+router.get('/getdonation/:id', getDonationById);
+router.post('/adddonation', addDonation);
+
+
+//Suscriber
+router.get('/getallsuscribers', getSuscribers);
+router.get('/getsuscriber/:id', getSuscriber);
+router.post('/addsuscriber', addSuscriber);
 
 // certifications
 router.post('/addcertification', uploadCertification.single('photo'), CertificationController.addCertification);
@@ -118,7 +126,7 @@ router.post('/paypal/create-order', createOrder);
 router.post('/paypal/capture-order', captureOrder);
 
 //MTN momom
-router.post('/momo/create-payment', initiatePayment);
-router.get('/momo/check-status/:referenceId', checkStatus);
+router.post('/momo/create-payment', initiateMomoPayment);
+router.get('/momo/check-status/:referenceId', checkMomoStatus);
 
 module.exports = router;

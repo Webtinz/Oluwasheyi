@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     });
 
-    MedicalProgram.associate = (models) => {
+    MedicalProgram.associate = (models) => {  
       MedicalProgram.hasMany(models.Donation, {
         foreignKey: "medicalProgramId",
         as: "donations",

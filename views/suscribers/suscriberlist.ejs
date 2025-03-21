@@ -1,0 +1,128 @@
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"
+    rel="stylesheet">
+<script
+    src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<section class="content">
+    <div class="card">
+        <div class="card-body">
+            <table id="suscriberTable"
+                class="display table table-striped projects">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Les lignes seront insérées ici via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- View/Edit Modal -->
+<div class="modal fade" id="suscriberModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Détails du suscriberme</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="suscriberForm">
+                    <input type="hidden" id="suscriberId">
+                    <div class="form-group mb-2">
+                        <label>Email</label>
+                        <input type="email" id="suscriberEmail" class="form-control" required>
+                    </div>
+
+                    <button data-bs-dismiss="modal" class="btn btn-danger">Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        axios.get('/api/getallsuscribers')
+            .then(response => {
+                const data = response.data.suscribers;
+                console.log(data);
+                
+                const tableBody = document.querySelector('#suscriberTable tbody');
+                tableBody.innerHTML = '';
+
+                data.forEach(suscriber => {
+                    const row = `
+                    <tr>
+                        <td>${suscriber.id}</td>
+                        <td>${suscriber.email}</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm view-btn" data-id="${suscriber.id}">Veiw</button>
+                        </td>
+                    </tr>`;
+                    tableBody.innerHTML += row;
+                });
+
+                // Initialize DataTable
+                $('#suscriberTable').DataTable({
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/1.13.7/i18n/fr-FR.json"
+                    }
+                });
+            })
+            .catch(error => console.error('Erreur lors de la récupération des suscribers :', error));
+
+        // View suscriber details in modal
+        document.body.addEventListener('click', function (e) {
+            if (e.target.classList.contains('view-btn')) {
+                const id = e.target.dataset.id;
+                axios.get(`/api/getsuscriber/${id}`)
+                    .then(response => {
+                        const suscriber = response.data.suscriber;
+                        // console.log(suscriber);
+                        
+                        document.getElementById('suscriberId').value = suscriber.id;
+                        document.getElementById('suscriberEmail').value = suscriber.email;
+
+                        $('#suscriberModal').modal('show');
+                    })
+                    .catch(error => console.error('Erreur lors de la récupération du suscriber :', error));
+            }
+        });
+
+        // Update suscriber
+        document.getElementById('suscriberForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const id = document.getElementById('suscriberId').value;
+            const formData = new FormData();
+            formData.append('suscriberEmail', document.getElementById('suscriberEmail').value);
+            axios.put(`/api/updatesuscriber/${id}`, formData)
+                .then(() => {
+                    $('#suscriberModal').modal('hide');
+                    location.reload();
+                })
+                .catch(error => console.error('Erreur lors de la mise à jour du suscriber :', error));
+        });
+
+        // Delete suscriber
+        document.body.addEventListener('click', function (e) {
+            if (e.target.classList.contains('delete-btn')) {
+                const id = e.target.dataset.id;
+                if (confirm('Voulez-vous vraiment supprimer ce suscriberme ?')) {
+                    axios.delete(`/api/deletesuscriber/${id}`)
+                        .then(() => location.reload())
+                        .catch(error => console.error('Erreur lors de la suppression du suscriberme :', error));
+                }
+            }
+        });
+    });
+</script>
