@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 // import Img from '../../assets/image.png';
 import '../index.css';
 import '../about.css';
-import { getAllContents } from '../../services/content.service';
+import { getAllContents, suscribeToEvent } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 import { format } from 'date-fns';
 
@@ -58,6 +58,49 @@ const EventsCarousel = ({ events }) => {
     fetchContents();
   }, []);
 
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [message, setMessage] = useState('')
+
+  const [formData, setFormData] = useState({
+    firstname: '',
+    lastname: '',
+    email: '',
+    phoneNumber: '',
+    eventId: ''
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      formData.eventId = selectedEvent.id;
+      console.log('Form to submit:', formData);
+      await suscribeToEvent(formData);
+      setMessage(selectedLanguage === 'en' ? "Registration successful! 🎉" : "Inscription à l'événement réussi 🎉")
+      // Fermer le modal
+      setSelectedEvent(null);
+
+      setFormData({})
+
+      // Afficher la notification de succès
+      setShowSuccessMessage(true);
+
+      // Masquer la notification après 5 secondes
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+      }, 5000);
+    } catch (error) {
+      console.error('Error submitting feedback:', error);
+      setMessage(selectedLanguage === 'en' ? "You are already subscribed to this event. " : "Vous êtes déjà inscrit à cet événement.")
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
 
   return (
     <div className="container-fluid py-5" style={{ background: '#17416F' }}>
@@ -127,9 +170,9 @@ const EventsCarousel = ({ events }) => {
                         }} />)}
                         {/* {selectedLanguage === 'fr' ? event.description : event.description_en} */}
                       </div>
-                      <button className="btn text-white px-4" 
-                      onClick={() => setSelectedEvent(event)}
-                       style={{ background: '#13AB9C' }}>
+                      <button className="btn text-white px-4"
+                        onClick={() => setSelectedEvent(event)}
+                        style={{ background: '#13AB9C' }}>
                         {selectedLanguage === 'fr' ? "Voir Plus" : "Learn More"}
                       </button>
 
@@ -148,13 +191,102 @@ const EventsCarousel = ({ events }) => {
                 <div className="modal-body position-relative">
                   <div className='color1'>
                     <button onClick={() => setSelectedEvent(null)} className="btn-cl fs-3 text-whiteposition-absolute top-0 end-0 m-3"><i class="bi bi-x-lg"></i></button>
-                    <h2>{selectedLanguage === 'fr' ? selectedEvent.nom : selectedEvent.name}</h2>
-                    <p>{selectedLanguage === 'fr' ? selectedEvent.description : selectedEvent.description_en}</p>
+                    <strong>
+                      <h2>{selectedLanguage === 'fr' ? selectedEvent.nom : selectedEvent.name}</h2>
+                    </strong>
+                    <br/>
+                    <div>
+                      {selectedLanguage === 'fr' ? (
+                        <div dangerouslySetInnerHTML={{ __html: selectedEvent.description }} />
+                      ) : (
+                        <div dangerouslySetInnerHTML={{ __html: selectedEvent.description_en }} />
+                      )}
+                    </div>
+                    <div className="mt-4">
+                      <div className="mb-6">
+                        <h1 className="text-2xl font-bold text-blue-900 text-center">
+                          {selectedLanguage === 'fr' ? "S'inscrire" : "Register"}
+                        </h1>
+                      </div>
+
+                      <form onSubmit={handleSubmit} className="space-y-6">
+                        <div className="space-y-2">
+                          <label className="block text-blue-900">
+                            {selectedLanguage === 'fr' ? "Prenom" : "Firstname"}
+                          </label>
+                          <input
+                            type="text"
+                            name="firstname"
+                            value={formData.firstname}
+                            onChange={handleChange}
+                            required
+                            placeholder="firstname"
+                            className="form-control"
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <label className="block text-blue-900">
+                            {selectedLanguage === 'fr' ? "Nom" : "Lastname"}
+                          </label>
+                          <input
+                            type="text"
+                            name="lastname"
+                            value={formData.lastname}
+                            onChange={handleChange}
+                            required
+                            placeholder="lastname"
+                            className="form-control"
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <label className="block text-blue-900">
+                            {selectedLanguage === 'fr' ? contents?.feedback_label_2.content_fr : contents?.feedback_label_2.content_en} <span className="text-red-500">*</span>
+                          </label>
+                          <input
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            required
+                            placeholder="Email Address"
+                            className="form-control"
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <label className="block text-blue-900">
+                            {selectedLanguage === 'fr' ? 'Telephone' : 'Phone number'} <span className="text-red-500">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            name="phoneNumber"
+                            value={formData.phoneNumber}
+                            onChange={handleChange}
+                            required
+                            placeholder="Phone number"
+                            className="form-control"
+                          />
+                        </div>
+
+                        <div className="d-flex justify-content-center">
+                          <button type="submit" className="btn btn-primary">
+                            {selectedLanguage === 'fr' ? contents?.feedback_button.content_fr : contents?.feedback_button.content_en}
+                          </button>
+                        </div>
+                      </form>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
             <div className="modal-backdrop fade show" onClick={() => setSelectedEvent(null)}></div>
+          </div>
+        )}
+        {showSuccessMessage && (
+          <div className="alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3" role="alert">
+            {message}
           </div>
         )}
       </div>

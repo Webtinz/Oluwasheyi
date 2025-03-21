@@ -212,7 +212,9 @@ const EventsCarousel = ({ events }) => {
                     <button onClick={() => setSelectedEvent(null)} className="btn-cl fs-3 text-whiteposition-absolute top-0 end-0 m-3">
                       <i className="bi bi-x-lg"></i>
                     </button>
-                    <h2>{selectedLanguage === 'fr' ? selectedEvent.nom : selectedEvent.name}</h2>
+                    <strong>
+                      <h2>{selectedLanguage === 'fr' ? selectedEvent.nom : selectedEvent.name}</h2>
+                    </strong> <br/>
                     <div>
                       {selectedLanguage === 'fr' ? (
                         <div dangerouslySetInnerHTML={{ __html: selectedEvent.description }} />
