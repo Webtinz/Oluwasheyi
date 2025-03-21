@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 // import { Link } from "react-router-dom";
 import './index.css';
 import './about.css';
@@ -11,6 +11,7 @@ import Img1 from '../assets/donate.png';
 import Mask2 from '../assets/Fr1.png';
 import { getAllContents, getPrograms } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
+import { useLocation } from 'react-router-dom';
 
 const Donate = () => {
     // Context and state
@@ -25,6 +26,7 @@ const Donate = () => {
         const fetchContents = async () => {
             try {
                 const response = await getAllContents();
+                console.log("Contents fetched:", response.data);
                 setContents(response.data);
                 setPrograms(await getPrograms());
             } catch (error) {
@@ -34,28 +36,41 @@ const Donate = () => {
         fetchContents();
     }, []);
 
-    const steps = contents ? [
-        {
-            number: '01',
-            text: selectedLanguage === 'fr' ? contents.donation_step_1.content_fr : contents.donation_step_1.content_en
-        },
-        {
-            number: '02',
-            text: selectedLanguage === 'fr' ? contents.donation_step_2.content_fr : contents.donation_step_2.content_en
-        },
-        {
-            number: '03',
-            text: selectedLanguage === 'fr' ? contents.donation_step_3.content_fr : contents.donation_step_3.content_en
-        },
-        {
-            number: '04',
-            text: selectedLanguage === 'fr' ? contents.donation_step_4.content_fr : contents.donation_step_4.content_en
-        },
-        {
-            number: '05',
-            text: selectedLanguage === 'fr' ? contents.donation_step_5.content_fr : contents.donation_step_5.content_en
-        }
-    ] : [];
+    const location = useLocation();
+    useEffect(() => {
+        console.log("Donate page mounted or updated", location.pathname);
+    }, [location.pathname]);
+
+    // const steps = contents ? [
+    //     {
+    //         number: '01',
+    //         text: selectedLanguage === 'fr' ? contents.donation_step_1.content_fr : contents.donation_step_1.content_en
+    //     },
+    //     {
+    //         number: '02',
+    //         text: selectedLanguage === 'fr' ? contents.donation_step_2.content_fr : contents.donation_step_2.content_en
+    //     },
+    //     {
+    //         number: '03',
+    //         text: selectedLanguage === 'fr' ? contents.donation_step_3.content_fr : contents.donation_step_3.content_en
+    //     },
+    //     {
+    //         number: '04',
+    //         text: selectedLanguage === 'fr' ? contents.donation_step_4.content_fr : contents.donation_step_4.content_en
+    //     },
+    //     {
+    //         number: '05',
+    //         text: selectedLanguage === 'fr' ? contents.donation_step_5.content_fr : contents.donation_step_5.content_en
+    //     }
+    // ] : [];
+
+    const steps = useMemo(() => contents ? [
+        { number: '01', text: selectedLanguage === 'fr' ? contents.donation_step_1.content_fr : contents.donation_step_1.content_en },
+        { number: '02', text: selectedLanguage === 'fr' ? contents.donation_step_2.content_fr : contents.donation_step_2.content_en },
+        { number: '03', text: selectedLanguage === 'fr' ? contents.donation_step_3.content_fr : contents.donation_step_3.content_en },
+        { number: '04', text: selectedLanguage === 'fr' ? contents.donation_step_4.content_fr : contents.donation_step_4.content_en },
+        { number: '05', text: selectedLanguage === 'fr' ? contents.donation_step_5.content_fr : contents.donation_step_5.content_en }
+    ] : [], [contents, selectedLanguage]);
 
     const [visibleSteps, setVisibleSteps] = useState(steps);
 
@@ -117,7 +132,7 @@ const Donate = () => {
     }, [showModal]);
 
     return (
-        <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
+        <div key={location.pathname} className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
             <div><Navbar /></div>
 
             <section className="mt-4 position-relative" style={{ backgroundColor: '#17416F', padding: '100px 0' }}>
