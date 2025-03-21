@@ -129,7 +129,7 @@ const ServicesCarousel = ({ services }) => {
 
 
   return (
-    <div className="container" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
+    <div className="container" style={{  }}>
       {/* Header avec titre et boutons de navigation */}
       <div className="flex justify-between items-center gap-4 relative mb-8" style={{ margin: '30px 10px' }}>
         <div>

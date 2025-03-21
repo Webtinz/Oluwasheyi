@@ -82,7 +82,7 @@ const HealthAdviceCarousel = ({ healthAdvices }) => {
               className={`absolute shadow top-1/2 -translate-y-1/2 -translate-x-4 z-10 transition-opacity ${currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-100'
                 }`}
               disabled={currentIndex === 0}
-              style={{ fontSize: '2rem', color: 'white', backgroundColor:"#17416f", padding:"15px", left:"-15px" }} // Increase the icon size
+              style={{ fontSize: '2rem', color: 'white', backgroundColor:"#17416f", padding:"15px", left:"-10px" }} // Increase the icon size
             >
               <ChevronLeft />
             </button>
@@ -92,7 +92,7 @@ const HealthAdviceCarousel = ({ healthAdvices }) => {
               className={`absolute shadow top-1/2 -translate-y-1/2 translate-x-4 z-10 transition-opacity ${currentIndex === maxIndex ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-100'
                 }`}
               disabled={currentIndex === maxIndex}
-              style={{ fontSize: '2rem', color: 'white',  backgroundColor:"#17416f", padding:"15px", right:"-15px" }} // Increase the icon size
+              style={{ fontSize: '2rem', color: 'white',  backgroundColor:"#17416f", padding:"15px", right:"-10px" }} // Increase the icon size
             >
               <ChevronRight />
             </button>

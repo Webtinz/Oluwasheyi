@@ -154,11 +154,10 @@ const Footer = () => {
                 {selectedLanguage === 'fr' ? contents?.home_page_banner_link4.content_fr : contents?.home_page_banner_link4.content_en}
                 </Link>
               </li> */}
-              <li className="footer-text">
+              {/* <li className="footer-text">
                 <Link to="/testimonial">
-                  {selectedLanguage === 'fr' ? contents?.home_page_banner_link5.content_fr : contents?.home_page_banner_link5.content_en}
-                </Link>
-              </li>
+                  {selectedLanguage === 'fr' ? contents?.home_page_banner_link5.content_fr : contents?.home_page_banner_link5.content_en}                </Link>
+              </li> */}
 
             </ul>
           </div>
