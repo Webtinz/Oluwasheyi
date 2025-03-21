@@ -26,7 +26,7 @@ const FeedbackSection = () => {
 
     try {
       await addFeedback(formData);
-      console.log('Form submitted:', formData);
+      // console.log('Form submitted:', formData);
 
       // Fermer le modal
       setSelectedDoctor(null);

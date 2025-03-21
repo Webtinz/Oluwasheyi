@@ -25,20 +25,13 @@ const Home = () => {
     const [programs, setPrograms] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [selectedProgram, setSelectedProgram] = useState(null);
-    // Toujours afficher le carousel par défaut
     const [showCarousel, setShowCarousel] = useState(true);
 
     useEffect(() => {
         const fetchContents = async () => {
             try {
-                // const savedContents = localStorage.getItem("contents");
-                // if (savedContents) {
-                //     setContents(JSON.parse(savedContents));
-                // } else {
                 const response = await getAllContents();
                 setContents(response.data);
-                //     localStorage.setItem("contents", JSON.stringify(response.data));
-                // }
                 setPrograms(await getPrograms());
             } catch (error) {
                 console.error('Failed to fetch contents:', error.message || error);
@@ -100,14 +93,8 @@ const Home = () => {
         setShowModal(false);
     };
 
-    const [selectedProgramId, setSelectedProgramId] = useState(null);
-
     const handleCloseModal = () => {
-        // Close the modal
         setShowModal(false);
-
-        // NE PAS cacher le carousel
-        // setShowCarousel(false);
 
         // On peut toujours faire défiler vers la section cible
         setTimeout(() => {
@@ -253,9 +240,9 @@ const Home = () => {
                 <div className="modal-dialog modal-lg bg-white">
                     <div className="modal-content">
                         <div className="modal-header" style={{ background: '#fff' }}>
-                            <h5 className="modal-title text-white" id="programModalLabel">
+                            <h3 className="modal-title text-dark" id="programModalLabel">
                                 {selectedProgram && (selectedLanguage === 'fr' ? selectedProgram.nom : selectedProgram.name)}
-                            </h5>
+                            </h3>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={handleModalClose}></button>
                         </div>
                         <div className="modal-body">
@@ -301,13 +288,12 @@ const Home = () => {
                                     {selectedLanguage === 'fr' ? 'Plus d\'informations' : 'More Information'}
                                 </a>
                             )}
-                            <button type="button" className="btn btn-light text-white" onClick={ ()=>{
+                            <button type="button" className="btn btn-light text-white" onClick={() => {
                                 handleCloseModal();
                                 setSelectedProgram(selectedProgram);
                                 // console.log("Selected Program:", selectedProgram);
-                                
                             }
-                                
+
                             } style={{ backgroundColor: "rgb(19, 171, 156)" }}>
                                 {selectedLanguage === 'fr' ? 'Donation' : 'Donate'}
                             </button>
