@@ -30,7 +30,7 @@ import LanguageContext from '../context/LanguageContext';
 //     { id: 7, image: Doc2, name: "Docteurs Name", specialty: "Gynecologist" },
 //     { id: 8, image: Doc3, name: "Docteurs Name", specialty: "Gynecologist" },
 // ];
-const Home = () => {
+const Meet = () => {
     const [selectedDoctor, setSelectedDoctor] = useState(null);
     const [doctors, setDoctors] = useState([]);
     const { selectedLanguage } = useContext(LanguageContext);
@@ -224,4 +224,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Meet;

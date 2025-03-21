@@ -18,7 +18,7 @@ import Mask1 from '../assets/Fr1.png';
 import { getAllContents, getDepartments } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
 
-const Home = () => {
+const Departement = () => {
     const [activeSection, setActiveSection] = useState(null);
 
     const toggleContent = (index) => {
@@ -414,4 +414,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Departement;

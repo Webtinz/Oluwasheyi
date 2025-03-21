@@ -16,7 +16,7 @@ import LanguageContext from '../context/LanguageContext';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-const Home = () => {
+const Community = () => {
     const [activeTab, setActiveTab] = useState("cont1");
     const { selectedLanguage } = useContext(LanguageContext);
     const [contents, setContents] = useState();
@@ -331,4 +331,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Community;

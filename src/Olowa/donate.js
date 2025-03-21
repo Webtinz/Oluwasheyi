@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/alt-text */
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import './index.css';
 import './about.css';
 import Navbar from "./Components/navbar";
@@ -10,15 +8,11 @@ import Subscription from "./Components/subscription";
 import Footer from "./Components/footer";
 import Group1 from '../assets/Group1.png';
 import Img1 from '../assets/donate.png';
-// import Image from '../assets/M1.png';
-// import Img from '../assets/c4.png';
-// import Logo from '../assets/heart-health.png';
-// import Mask1 from '../assets/Fr.png';
 import Mask2 from '../assets/Fr1.png';
 import { getAllContents, getPrograms } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
 
-const Home = () => {
+const Donate = () => {
     // Context and state
     const { selectedLanguage } = useContext(LanguageContext);
     const [contents, setContents] = useState(null);
@@ -137,7 +131,6 @@ const Home = () => {
         <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
             <div><Navbar /></div>
 
-            {/* Header Section */}
             <section className="mt-4 position-relative" style={{ backgroundColor: '#17416F', padding: '100px 0' }}>
                 <h1 className="text-center text-white" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '40px' }}>
                     {selectedLanguage === 'fr' ? contents?.donate_page_title.content_fr : contents?.donate_page_title.content_en}
@@ -175,7 +168,7 @@ const Home = () => {
                                     __html: contents?.donate_page_support_descp.content_en
                                 }} />)}
                             </div>
-                            <Link to="/donate" className='btn btn-pri mt-4 text-white px-4' style={{ background: '#13AB9C' }}>{selectedLanguage === 'fr' ? contents?.donate_page_steps_button.content_fr : contents?.donate_page_steps_button.content_en}</Link>
+                            <button className='btn btn-pri mt-4 text-white px-4' style={{ background: '#13AB9C' }}>{selectedLanguage === 'fr' ? contents?.donate_page_steps_button.content_fr : contents?.donate_page_steps_button.content_en}</button>
                         </div>
                     </div>
                 </div>
@@ -347,4 +340,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Donate;

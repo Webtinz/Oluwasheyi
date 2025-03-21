@@ -176,6 +176,7 @@ const EventsCarousel = ({ events }) => {
                         <div dangerouslySetInnerHTML={{ __html: selectedEvent.description_en }} />
                       )}
                     </p>
+                    
                   </div>
                 </div>
               </div>
