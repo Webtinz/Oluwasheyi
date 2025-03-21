@@ -168,7 +168,7 @@ const Footer = () => {
           <span className="d-block my-4 separator"></span>
           <div className="d-flex flex-column ppos">
             <a href="#"><img src={chatbotIcon} alt="Chatbot" className="chat-icon" /></a>
-            <a href="#"><img src={whatsappIcon} alt="WhatsApp" className="chat-icon mt-2" /></a>
+            <a href={"https://wa.me/"+contents?.footer_whatsapp_number.content_fr}><img src={whatsappIcon} alt="WhatsApp" className="chat-icon mt-2" /></a>
           </div>
         </div>
 
