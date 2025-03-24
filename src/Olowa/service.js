@@ -20,6 +20,7 @@ import Img7 from '../assets/mail.png';
 import Mask1 from '../assets/Fr1.png';
 import { getAllContents, getCertificates, getEvents, getServices } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
+import { useLoader } from '../context/LoaderContext';
 
 const Home = () => {
     const { selectedLanguage } = useContext(LanguageContext);
@@ -45,15 +46,8 @@ const Home = () => {
     useEffect(() => {
         const fetchContents = async () => {
             try {
-                // const savedContents = localStorage.getItem("contents");
-                // if (savedContents) {
-                //     setContents(JSON.parse(savedContents));
-                // } else {
-                // Fetch contents if not in localStorage
                 const response = await getAllContents();
                 setContents(response.data);
-                //     localStorage.setItem("contents", JSON.stringify(response.data));
-                // }
                 setEvents(await getEvents());
                 setCerificates(await getCertificates());
 
@@ -76,6 +70,16 @@ const Home = () => {
             setActiveSection(index); // Ouvrir la nouvelle section
         }
     };
+
+    const { setLoading } = useLoader();
+
+    useEffect(() => {
+        setLoading(true);
+        // Simulate loading data
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+    }, [setLoading]);
 
     return (
         <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>

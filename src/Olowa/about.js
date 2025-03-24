@@ -12,6 +12,7 @@ import Mask2 from '../assets/G122.png';
 import Mask3 from '../assets/Fr1.png';
 import { getAllContents } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
+import { useLoader } from '../context/LoaderContext';
 
 
 const Home = () => {
@@ -56,15 +57,8 @@ const Home = () => {
     useEffect(() => {
         const fetchContents = async () => {
             try {
-                // const savedContents = localStorage.getItem("contents");
-                // if (savedContents) {
-                //     setContents(JSON.parse(savedContents));
-                // } else {
-                // Fetch contents if not in localStorage
                 const response = await getAllContents();
                 setContents(response.data);
-                //     localStorage.setItem("contents", JSON.stringify(response.data));
-                // }
             } catch (error) {
                 console.error('Failed to fetch contents:', error.message || error);
             }
@@ -72,6 +66,15 @@ const Home = () => {
         fetchContents();
     }, []);
 
+    const { setLoading } = useLoader();
+
+    useEffect(() => {
+        setLoading(true);
+        // Simulate loading data
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+    }, [setLoading]);
 
     const yearsData = {
         "2011": {
@@ -187,7 +190,7 @@ const Home = () => {
             <br />
             <section className="container-fluid py-5" style={{ backgroundColor: '#17416F', marginTop: '-1.5rem' }}>
                 <div className="text-white py-4">
-                    <h2 className="text-center" style={{ fontSize: 'clamp(25px, 8vw, 36px)', fontWeight: '700',textTransform:'uppercase' }}>{selectedLanguage === 'fr' ? contents?.about_page_vision_title.content_fr : contents?.about_page_vision_title.content_en}</h2>
+                    <h2 className="text-center" style={{ fontSize: 'clamp(25px, 8vw, 36px)', fontWeight: '700', textTransform: 'uppercase' }}>{selectedLanguage === 'fr' ? contents?.about_page_vision_title.content_fr : contents?.about_page_vision_title.content_en}</h2>
                     <br />
                     <div className="d-flex justify-content-center">
                         <p className="text-center vpc">
@@ -205,9 +208,10 @@ const Home = () => {
                     <div className="row mt-4">
                         {values.map((value, index) => (
                             <div key={index} className="col-12 col-md-6 col-lg-3 mb-4 mx-auto">
-                                <div className="p-3 text-white cvc position-relative" style={{ backgroundColor: '#13AB9C', borderTopRightRadius: '30px', 
-                                    height: '280px' 
-                                    }}>
+                                <div className="p-3 text-white cvc position-relative" style={{
+                                    backgroundColor: '#13AB9C', borderTopRightRadius: '30px',
+                                    height: '280px'
+                                }}>
                                     <p style={{ fontSize: 'clamp(18px, 8vw, 24px)' }}><strong>{value.title}</strong></p>
                                     <p className='mt-2' style={{ fontWeight: '400' }}>{value.description}</p>
                                     <div className='edn'>

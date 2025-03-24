@@ -17,6 +17,7 @@ import Img7 from '../assets/mail.png';
 import Mask1 from '../assets/Fr1.png';
 import { getAllContents, getDepartments } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
+import { useLoader } from '../context/LoaderContext';
 
 const Departement = () => {
     const [activeSection, setActiveSection] = useState(null);
@@ -29,33 +30,6 @@ const Departement = () => {
         }
     };
 
-    // const sections = [
-    //     {
-    //         title: "Cardiology",
-    //         imageSrc: Img3,
-    //         description: "Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio.Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio. Proin sed nunc quis ex faucibus volutpat. Quisque faucibus in quam quis lobortis. Donec metus neque, euismod a volutpat eget, porta sed ligula. Phasellus consequat risus sit amet mi dapibus vehicula.",
-    //         phone: "+229 123456789",
-    //         email: "cardiology@cliniqueoluwasheyi.com",
-    //         imgSrc: Img
-    //     },
-    //     {
-    //         title: "Radiology",
-    //         imageSrc: Img4,
-    //         description: "Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio.Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio. Proin sed nunc quis ex faucibus volutpat. Quisque faucibus in quam quis lobortis. Donec metus neque, euismod a volutpat eget, porta sed ligula. Phasellus consequat risus sit amet mi dapibus vehicula.",
-    //         phone: "+229 123456789",
-    //         email: "radiology@cliniqueoluwasheyi.com",
-    //         imgSrc: Img1
-    //     },
-    //     {
-    //         title: "Pediatrics",
-    //         imageSrc: Img5,
-    //         description: "Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio.Nullam maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo. Sed nisi ligula, pulvinar non nibh vitae, blandit vulputate odio. Proin sed nunc quis ex faucibus volutpat. Quisque faucibus in quam quis lobortis. Donec metus neque, euismod a volutpat eget, porta sed ligula. Phasellus consequat risus sit amet mi dapibus vehicula.",
-    //         phone: "+229 123456789",
-    //         email: "pediatrics@cliniqueoluwasheyi.com",
-    //         imgSrc: Img2
-    //     }
-    // ];
-
     const { selectedLanguage } = useContext(LanguageContext);
     const [contents, setContents] = useState();
     const [departments, setDepartments] = useState();
@@ -64,15 +38,8 @@ const Departement = () => {
     useEffect(() => {
         const fetchContents = async () => {
             try {
-                // const savedContents = localStorage.getItem("contents");
-                // if (savedContents) {
-                //     setContents(JSON.parse(savedContents));
-                // } else {
-                // Fetch contents if not in localStorage
                 const response = await getAllContents();
                 setContents(response.data);
-                //     localStorage.setItem("contents", JSON.stringify(response.data));
-                // }
                 setDepartments(await getDepartments())
             } catch (error) {
                 console.error('Failed to fetch contents:', error.message || error);
@@ -80,6 +47,16 @@ const Departement = () => {
         };
         fetchContents();
     }, []);
+
+    const { setLoading } = useLoader();
+
+    useEffect(() => {
+        setLoading(true);
+        // Simulate loading data
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+    }, [setLoading]);
 
     return (
         <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>

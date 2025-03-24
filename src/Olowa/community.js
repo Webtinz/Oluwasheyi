@@ -15,6 +15,7 @@ import { getAllContents, getCertificates, getEvents } from '../services/content.
 import LanguageContext from '../context/LanguageContext';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { useLoader } from '../context/LoaderContext';
 
 const Community = () => {
     const [activeTab, setActiveTab] = useState("cont1");
@@ -23,7 +24,15 @@ const Community = () => {
     const [events, setEvents] = useState([]);
     const [certificates, setCerificates] = useState([]);
 
+    const { setLoading } = useLoader();
 
+    useEffect(() => {
+        setLoading(true);
+        // Simulate loading data
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+    }, [setLoading]);
 
     useEffect(() => {
         // Vérifier si une ancre est présente dans l'URL
@@ -61,14 +70,8 @@ const Community = () => {
     useEffect(() => {
         const fetchContents = async () => {
             try {
-                // const savedContents = localStorage.getItem("contents");
-                // if (savedContents) {
-                //     setContents(JSON.parse(savedContents));
-                // } else {
                 const response = await getAllContents();
                 setContents(response.data);
-                //     localStorage.setItem("contents", JSON.stringify(response.data));
-                // }
                 setEvents(await getEvents());
                 setCerificates(await getCertificates());
 
@@ -149,7 +152,7 @@ const Community = () => {
                                         <div className='position-relative'>
                                             <img src={contents?.communoty_page_menu_1_img.image} alt="Wellness Programs" className="img-fluid w-100 main-img1" data-aos="zoom-in" style={{ borderTopRightRadius: '30px' }} />
                                             <div className='contpos'>
-                                                <img src={Mask1} alt="Wellness Programs" className="img-fluid"  style={{ width: '70%' }} />
+                                                <img src={Mask1} alt="Wellness Programs" className="img-fluid" style={{ width: '70%' }} />
                                             </div>
                                         </div>
                                     </div>

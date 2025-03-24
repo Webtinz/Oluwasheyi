@@ -12,6 +12,7 @@ import Mask2 from '../assets/Fr1.png';
 import { getAllContents, getPrograms } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
 import { useLocation } from 'react-router-dom';
+import { useLoader } from '../context/LoaderContext';
 
 const Donate = () => {
     // Context and state
@@ -35,6 +36,16 @@ const Donate = () => {
         };
         fetchContents();
     }, []);
+
+    const { setLoading } = useLoader();
+
+    useEffect(() => {
+        setLoading(true);
+        // Simulate loading data
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+    }, [setLoading]);
 
     const location = useLocation();
     useEffect(() => {

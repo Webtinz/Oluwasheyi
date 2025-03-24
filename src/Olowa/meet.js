@@ -38,7 +38,7 @@ const Meet = () => {
 
     const directors = [
         { id: 1, image: contents?.doct_img_1.image, name: contents?.director_1.content_fr, title_fr: contents?.director_1_title.content_fr, title_en: contents?.director_1_title.content_en },
-        { id: 2, image: contents?.doct_img_2.image, name: contents?.director_2.content_fr , title_fr: contents?.director_2_title.content_fr, title_en: contents?.director_2_title.content_en },
+        { id: 2, image: contents?.doct_img_2.image, name: contents?.director_2.content_fr, title_fr: contents?.director_2_title.content_fr, title_en: contents?.director_2_title.content_en },
     ];
 
     // Get contents on component mount
@@ -128,7 +128,7 @@ const Meet = () => {
                     {doctors.map((doctor) => (
                         <div key={doctor.id} className="col-12 col-md-6 col-lg-3 mb-4">
                             <a href="#" onClick={(e) => { e.preventDefault(); setSelectedDoctor(doctor); }}>
-                                <img src={doctor.photo} alt={doctor.nom} className="img-fluid w-100" style={{ borderTopRightRadius: "30px", height:"40vh", objectFit:"cover" }} />
+                                <img src={doctor.photo} alt={doctor.nom} className="img-fluid w-100" style={{ borderTopRightRadius: "30px", height: "40vh", objectFit: "cover" }} />
                             </a>
                             <h3 className="text-center mt-3" style={{ color: "#17416F", fontWeight: 700, textTransform: "uppercase", fontSize: 'clamp(18px, 8vw, 25px)' }}>
                                 {doctor.nom} {doctor.prenom}
@@ -195,7 +195,7 @@ const Meet = () => {
                 <div className="row">
                     <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
                         <div className='position-relative'>
-                            <img src={contents?.community_section_img.image} alt="Staff Members" className="img-fluid w-100 main-img1" style={{ objectFit: 'cover', borderTopRightRadius: '30px' }} />
+                            <img src={contents?.team_page_staff_img.image} alt="Staff Members" className="img-fluid w-100 main-img1" style={{ objectFit: 'cover', borderTopRightRadius: '30px' }} />
                             <div className='contpos'>
                                 <img src={Mask2} alt="Staff Members" className="img-fluid" />
                             </div>
