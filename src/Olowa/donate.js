@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/alt-text */
-import React, { useContext, useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useMemo, useState } from 'react';
+// import { Link } from "react-router-dom";
 import './index.css';
 import './about.css';
 import Navbar from "./Components/navbar";
@@ -10,15 +8,12 @@ import Subscription from "./Components/subscription";
 import Footer from "./Components/footer";
 import Group1 from '../assets/Group1.png';
 import Img1 from '../assets/donate.png';
-// import Image from '../assets/M1.png';
-// import Img from '../assets/c4.png';
-// import Logo from '../assets/heart-health.png';
-// import Mask1 from '../assets/Fr.png';
 import Mask2 from '../assets/Fr1.png';
 import { getAllContents, getPrograms } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
+import { useLocation } from 'react-router-dom';
 
-const Home = () => {
+const Donate = () => {
     // Context and state
     const { selectedLanguage } = useContext(LanguageContext);
     const [contents, setContents] = useState(null);
@@ -31,6 +26,7 @@ const Home = () => {
         const fetchContents = async () => {
             try {
                 const response = await getAllContents();
+                console.log("Contents fetched:", response.data);
                 setContents(response.data);
                 setPrograms(await getPrograms());
             } catch (error) {
@@ -40,28 +36,41 @@ const Home = () => {
         fetchContents();
     }, []);
 
-    const steps = contents ? [
-        {
-            number: '01',
-            text: selectedLanguage === 'fr' ? contents.donation_step_1.content_fr : contents.donation_step_1.content_en
-        },
-        {
-            number: '02',
-            text: selectedLanguage === 'fr' ? contents.donation_step_2.content_fr : contents.donation_step_2.content_en
-        },
-        {
-            number: '03',
-            text: selectedLanguage === 'fr' ? contents.donation_step_3.content_fr : contents.donation_step_3.content_en
-        },
-        {
-            number: '04',
-            text: selectedLanguage === 'fr' ? contents.donation_step_4.content_fr : contents.donation_step_4.content_en
-        },
-        {
-            number: '05',
-            text: selectedLanguage === 'fr' ? contents.donation_step_5.content_fr : contents.donation_step_5.content_en
-        }
-    ] : [];
+    const location = useLocation();
+    useEffect(() => {
+        console.log("Donate page mounted or updated", location.pathname);
+    }, [location.pathname]);
+
+    // const steps = contents ? [
+    //     {
+    //         number: '01',
+    //         text: selectedLanguage === 'fr' ? contents.donation_step_1.content_fr : contents.donation_step_1.content_en
+    //     },
+    //     {
+    //         number: '02',
+    //         text: selectedLanguage === 'fr' ? contents.donation_step_2.content_fr : contents.donation_step_2.content_en
+    //     },
+    //     {
+    //         number: '03',
+    //         text: selectedLanguage === 'fr' ? contents.donation_step_3.content_fr : contents.donation_step_3.content_en
+    //     },
+    //     {
+    //         number: '04',
+    //         text: selectedLanguage === 'fr' ? contents.donation_step_4.content_fr : contents.donation_step_4.content_en
+    //     },
+    //     {
+    //         number: '05',
+    //         text: selectedLanguage === 'fr' ? contents.donation_step_5.content_fr : contents.donation_step_5.content_en
+    //     }
+    // ] : [];
+
+    const steps = useMemo(() => contents ? [
+        { number: '01', text: selectedLanguage === 'fr' ? contents.donation_step_1.content_fr : contents.donation_step_1.content_en },
+        { number: '02', text: selectedLanguage === 'fr' ? contents.donation_step_2.content_fr : contents.donation_step_2.content_en },
+        { number: '03', text: selectedLanguage === 'fr' ? contents.donation_step_3.content_fr : contents.donation_step_3.content_en },
+        { number: '04', text: selectedLanguage === 'fr' ? contents.donation_step_4.content_fr : contents.donation_step_4.content_en },
+        { number: '05', text: selectedLanguage === 'fr' ? contents.donation_step_5.content_fr : contents.donation_step_5.content_en }
+    ] : [], [contents, selectedLanguage]);
 
     const [visibleSteps, setVisibleSteps] = useState(steps);
 
@@ -123,10 +132,9 @@ const Home = () => {
     }, [showModal]);
 
     return (
-        <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
+        <div key={location.pathname} className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
             <div><Navbar /></div>
 
-            {/* Header Section */}
             <section className="mt-4 position-relative" style={{ backgroundColor: '#17416F', padding: '100px 0' }}>
                 <h1 className="text-center text-white" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '40px' }}>
                     {selectedLanguage === 'fr' ? contents?.donate_page_title.content_fr : contents?.donate_page_title.content_en}
@@ -346,4 +354,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Donate;

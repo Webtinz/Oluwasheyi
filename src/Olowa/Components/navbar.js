@@ -5,7 +5,7 @@ import Img1 from '../../assets/hamburger-menu.svg';
 import $ from 'jquery';
 import 'select2';
 import 'select2/dist/css/select2.min.css';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 
@@ -88,6 +88,8 @@ const StyledLanguageSelect = ({ selectedLanguage, handleLanguageChange }) => {
     transform: 'translateY(-50%)',
     pointerEvents: 'none'
   };
+
+
 
   return (
     <div style={containerStyle}>
@@ -172,22 +174,25 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsMenuActive(!isMenuActive);
   };
+  const navigate = useNavigate();
 
   return (
     <section className="container-fluid">
       <nav className="navbar navbar-expand-lg navbar-custom pt-3 pb-3">
         <div className="container">
           {/* Logo Section */}
-          <div className='d-flex' style={{gap:"10px"}}>
+          <div className='d-flex' style={{ gap: "10px" }}>
             <div className='align-self-center'>
-              <span onClick={toggleMenu} className='d-flex' style={{ cursor: 'pointer', gap:"10px" }}>
-                <img src={Img1} alt="" className="menu-icon ms-2" /> <span className='mt-3' style={{fontWeight:"700", color:"#17416f"}}>Menu</span>
+              <span onClick={toggleMenu} className='d-flex' style={{ cursor: 'pointer', gap: "10px" }}>
+                <img src={Img1} alt="" className="menu-icon ms-2" /> <span className='mt-3' style={{ fontWeight: "700", color: "#17416f" }}>Menu</span>
               </span>
             </div>
             <div>
               <Link to="/index">
-                <img src={contents?.home_page_header_logo.image} alt="" />
-              </Link >
+                <img src={contents?.home_page_header_logo.image} alt="" 
+                // onClick={() => { navigate('/index') }} 
+                />
+              </Link>
             </div>
           </div>
 
@@ -261,7 +266,7 @@ const Navbar = () => {
           {/* Desktop View */}
           <div className="d-none d-lg-block">
             <div className="d-flex">
-              <div className="d-flex" style={{gap:"10px"}}>
+              <div className="d-flex" style={{ gap: "10px" }}>
                 <div>
                   <Link to="/donate"
                     className="btn btn-white px-4"
