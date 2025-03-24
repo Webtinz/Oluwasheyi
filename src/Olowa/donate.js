@@ -164,7 +164,10 @@ const Home = () => {
                                     __html: contents?.donate_page_support_descp.content_en
                                 }} />)}
                             </div>
-                            <Link to="/donate" className='btn btn-pri mt-4 text-white px-4' style={{ background: '#13AB9C' }}>{selectedLanguage === 'fr' ? contents?.donate_page_steps_button.content_fr : contents?.donate_page_steps_button.content_en}</Link>
+                            <button className="btn btn-primary px-4 py-2" onClick={handleCloseModal}>
+                                {selectedLanguage === 'fr' ? contents?.donation_step_button.content_fr : contents?.donation_step_button.content_en}
+                            </button>
+                            {/* <Link to="/donate" className='btn btn-pri mt-4 text-white px-4' style={{ background: '#13AB9C' }}>{selectedLanguage === 'fr' ? contents?.donate_page_steps_button.content_fr : contents?.donate_page_steps_button.content_en}</Link> */}
                         </div>
                     </div>
                 </div>
