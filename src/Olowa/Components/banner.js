@@ -76,25 +76,32 @@ const About = () => {
                                                     <br />
                                                     {/* <br /> */}
                                                     <div className='mnt d-flex flex-wrap mt-3'>
-                                                        <Link to="/about" className="btn btn-cus text-white me-2 mb-3 mb-lg-0" style={{ backgroundColor: '#13AB9C', padding: '10px 15px', fontWeight:"700" }}>
+                                                        <Link to="/about" className="btn btn-cus text-white me-2 mb-3 mb-lg-0" style={{ backgroundColor: '#13AB9C', padding: '10px 15px', fontWeight: "700" }}>
                                                             {selectedLanguage === 'fr' ? contents?.home_page_banner_about_us.content_fr : contents?.home_page_banner_about_us.content_en}
                                                         </Link>
 
                                                         {/* <a href="#" onClick={(e) => { e.preventDefault(); setBookAppointmentmodal(); }} className="btn btn-outline-light" style={{ padding: '10px 15px' }}>
                                                             {selectedLanguage === 'fr' ? contents?.home_page_banner_book_appointment.content_fr : contents?.home_page_banner_book_appointment.content_en}
                                                         </a> */}
-                                                        < Bookpatientappointment className="fontWeight:700"/>
+                                                        < Bookpatientappointment className="fontWeight:700" />
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="col-lg-6 col-md-12 ibb2">
-                                        <img
+                                        {/* <img
                                             src={contents?.home_page_banner_img.image}
                                             // alt="Image de la clinique"
                                             className="img-fluid w-100 h-100 ibb"
                                             style={{ objectFit: 'cover', marginLeft: '-10px' }}
+                                        /> */}
+                                        <img
+                                            loading="lazy"
+                                            src={contents?.home_page_banner_img.image}
+                                            className="img-fluid w-100 h-100 ibb"
+                                            style={{ objectFit: 'cover', marginLeft: '-10px' }}
+                                        // alt="Clinic Banner"
                                         />
                                     </div>
                                 </div>

@@ -10,11 +10,13 @@ import Sugery from "../Olowa/sugery";
 import Testimonial from "../Olowa/testimonial";
 import Photogallery from "../Olowa/photogallery";
 import CommingSoon from "../Olowa/comingsoonpage";
+import Loader from "../Olowa/Components/Loader";
 
 
 const AppRouter = () => {
   return (
     <Router>
+      <Loader />
       <Routes>
         <Route path="/" element={<CommingSoon />} />
         <Route path="/index" element={<Home />} />
