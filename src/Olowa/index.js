@@ -21,6 +21,7 @@ import Group1Image from "../assets/Group1.png";
 import im360 from "../assets/image 35.png";
 import { getAdvices, getAllContents, getCertificates, getEvents, getServices, getTeamMembers, getTestimonials } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
+import { useLoader } from "../context/LoaderContext";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -33,6 +34,15 @@ const Home = () => {
     const [certificates, setCerificates] = useState([]);
     const [advices, setAdvices] = useState([]);
     const [teamMembers, setTeamMembers] = useState([]);
+    const { setLoading } = useLoader();
+
+    useEffect(() => {
+        setLoading(true);
+        // Simulate loading data
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+    }, [setLoading]);
 
     const [isOpen, setIsOpen] = useState(false);
 
