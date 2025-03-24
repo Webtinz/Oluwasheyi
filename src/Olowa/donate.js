@@ -77,7 +77,7 @@ const Donate = () => {
     useEffect(() => {
         const updateVisibleSteps = () => {
             if (window.innerWidth < 639) {
-                setVisibleSteps(steps.slice(0, 3));
+                setVisibleSteps(steps.slice(0, 5));
             } else {
                 setVisibleSteps(steps);
             }
@@ -110,6 +110,28 @@ const Donate = () => {
             const targetSection = document.getElementById('targetSection');
             if (targetSection) {
                 targetSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }, 100);
+    };
+    const handleOpenStep = () => {
+        setShowModal(false);
+
+        // On peut toujours faire défiler vers la section cible
+        setTimeout(() => {
+            const openStep = document.getElementById('openStep');
+            if (openStep) {
+                openStep.scrollIntoView({ behavior: 'smooth' });
+            }
+        }, 100);
+    };
+    const handleOpenProgram = () => {
+        setShowModal(false);
+
+        // On peut toujours faire défiler vers la section cible
+        setTimeout(() => {
+            const program = document.getElementById('program');
+            if (program) {
+                program.scrollIntoView({ behavior: 'smooth' });
             }
         }, 100);
     };
@@ -172,21 +194,23 @@ const Donate = () => {
                                     __html: contents?.donate_page_support_descp.content_en
                                 }} />)}
                             </div>
-                            <button className='btn btn-pri mt-4 text-white px-4' style={{ background: '#13AB9C' }}>{selectedLanguage === 'fr' ? contents?.donate_page_steps_button.content_fr : contents?.donate_page_steps_button.content_en}</button>
+                            <button className='btn btn-pri mt-4 text-white px-4' style={{ background: '#13AB9C' }} onClick={handleOpenStep}>
+                                {selectedLanguage === 'fr' ? contents?.donate_page_steps_button.content_fr : contents?.donate_page_steps_button.content_en}
+                            </button>
                         </div>
                     </div>
                 </div>
                 <span className='d-block my-4' style={{ borderBottom: '1px solid #17416F' }}></span>
             </section>
             <br /><br />
-            <section className='container-fluid py-4' style={{ background: '#17416F' }}>
+            <section id="openStep" className='container-fluid py-4' style={{ background: '#17416F' }}>
                 <div className='container py-4'>
                     <h2 className='text-center text-white' style={{ fontWeight: '700', fontSize: '30px', textTransform: 'uppercase' }}>
                         {selectedLanguage === 'fr' ? contents?.donate_page_steps_title.content_fr : contents?.donate_page_steps_title.content_en}
                     </h2>
                     <br /><br />
-                    <div className="position-relative pt-5">
-                        <div className="d-flex justify-content-between align-items-start position-relative steps-container">
+                    <div className="position-relative pt-md-5 pt-0">
+                        <div className="position-relative steps-container">
                             <div className="step-line"></div>
                             {visibleSteps.map((step, index) => (
                                 <div key={index} className="d-flex flex-column align-items-center position-relative step-item">
@@ -196,7 +220,7 @@ const Donate = () => {
                             ))}
                         </div>
                         <div className="d-flex justify-content-center mt-4">
-                            <button className="btn btn-primary px-4 py-2" onClick={handleCloseModal}>
+                            <button className="btn btn-primary px-4 py-2" onClick={handleOpenProgram}>
                                 {selectedLanguage === 'fr' ? contents?.donation_step_button.content_fr : contents?.donation_step_button.content_en}
                             </button>
                         </div>
@@ -206,7 +230,7 @@ const Donate = () => {
             <br /><br />
             {/* Programs Section - toujours affiché car showCarousel est toujours true */}
             {showCarousel && (
-                <section className='container mt-4'>
+                <section id="program" className='container mt-4'>
                     <h2 className='text-center' style={{ textTransform: 'uppercase', color: '#17416F', fontWeight: '700', fontSize: '36px' }}>
                         {renderContent(contents?.donate_page_medical_title)}
                     </h2>
@@ -274,7 +298,7 @@ const Donate = () => {
                                         }} />)}
                                     </div>
 
-                                    {selectedProgram.beneficiaries && (
+                                    {/* {selectedProgram.beneficiaries && (
                                         <div className="">
                                             <h4><b>{selectedLanguage === 'fr' ? 'Bénéficiaires' : 'Beneficiaries'}</b></h4>
                                             <p>{selectedProgram.beneficiaries}</p>
@@ -286,7 +310,7 @@ const Donate = () => {
                                             <h4><b>{selectedLanguage === 'fr' ? 'Contact' : 'Contact'}</b></h4>
                                             <p>{selectedProgram.contact}</p>
                                         </div>
-                                    )}
+                                    )} */}
                                 </div>
                             )}
                         </div>

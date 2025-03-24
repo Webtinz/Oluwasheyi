@@ -5,6 +5,9 @@ body {
 .comm {
   padding: 0 10rem;
 }
+/* .ibb {
+  margin-left: -20px !important;
+} */
 
 @media (max-width: 1336px) {
   .comm {
@@ -84,6 +87,7 @@ body {
   align-items: center;
   border-top-right-radius: 25px;
   margin-left: 10px;
+  margin-right: -30px;
 }
 
 @media (max-width: 745px) {
@@ -259,11 +263,11 @@ button:hover .rotating-svg {
   }
 }
 
-@media (max-width: 1000px) {
+/* @media (max-width: 1000px) {
   .nono {
-    /* height: 38vh !important; */
+    height: 38vh !important;
   }
-}
+} */
 
 @media (max-width: 770px) {
   .carousel-content.carrousseltwo li a {
@@ -1255,11 +1259,10 @@ button:hover .rotating-svg {
 }
 
 .donn {
-
-  display: flex;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 15px;
+  /* justify-content: space-between; */
 
 }
 
@@ -1270,7 +1273,7 @@ button:hover .rotating-svg {
     justify-content: space-between;
     flex-direction: column;
     align-items: flex-start;
-    gap: 15px;
+    
   }
 
   .modal-dialog {

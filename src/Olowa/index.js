@@ -263,7 +263,7 @@ const Home = () => {
                 </h2>
                 <Galery />
             </div>
-            <div>
+            <div className='mt-5'>
                 <Event events={events} />
             </div>
             <br />
