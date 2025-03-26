@@ -11,28 +11,31 @@ import Group1 from '../assets/Group1.png';
 // import Mask from '../assets/Mask group.png';
 import Mask1 from '../assets/Fr.png';
 import Mask2 from '../assets/Fr1.png';
-import { getAllContents, getCertificates, getEvents } from '../services/content.service';
+// import { getAllContents, getCertificates, getEvents } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
-import AOS from 'aos';
+// import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useLoader } from '../context/LoaderContext';
 
 const Community = () => {
     const [activeTab, setActiveTab] = useState("cont1");
     const { selectedLanguage } = useContext(LanguageContext);
-    const [contents, setContents] = useState();
-    const [events, setEvents] = useState([]);
-    const [certificates, setCerificates] = useState([]);
+    // const [contents, setContents] = useState();
+    // const [events, setEvents] = useState([]);
+    // const [certificates, setCerificates] = useState([]);
 
-    const { setLoading } = useLoader();
+    const { appData } = useLoader();
+    const { contents, events, certificates } = appData;
 
-    useEffect(() => {
-        setLoading(true);
-        // Simulate loading data
-        setTimeout(() => {
-            setLoading(false);
-        }, 2000);
-    }, [setLoading]);
+    // const { setLoading } = useLoader();
+
+    // useEffect(() => {
+    //     setLoading(true);
+    //     // Simulate loading data
+    //     setTimeout(() => {
+    //         setLoading(false);
+    //     }, 2000);
+    // }, [setLoading]);
 
     useEffect(() => {
         // Vérifier si une ancre est présente dans l'URL
@@ -67,49 +70,49 @@ const Community = () => {
 
 
     // Récupération des contenus
-    useEffect(() => {
-        const fetchContents = async () => {
-            try {
-                const response = await getAllContents();
-                setContents(response.data);
-                setEvents(await getEvents());
-                setCerificates(await getCertificates());
+    // useEffect(() => {
+    //     const fetchContents = async () => {
+    //         try {
+    //             const response = await getAllContents();
+    //             setContents(response.data);
+    //             setEvents(await getEvents());
+    //             setCerificates(await getCertificates());
 
-            } catch (error) {
-                console.error('Failed to fetch contents:', error.message || error);
-            }
-        };
-        fetchContents();
-        AOS.init();
+    //         } catch (error) {
+    //             console.error('Failed to fetch contents:', error.message || error);
+    //         }
+    //     };
+    //     fetchContents();
+    //     AOS.init();
 
-    }, []);
+    // }, []);
 
     // Vérification pour éviter une erreur si contents est undefined
     const tabs = contents ? [
         {
             id: "cont1", label: selectedLanguage === 'fr'
-                ? contents?.communoty_page_menu_1_title?.content_fr
-                : contents?.communoty_page_menu_1_title?.content_en
+                ? contents?.data.communoty_page_menu_1_title?.content_fr
+                : contents?.data.communoty_page_menu_1_title?.content_en
         },
         {
             id: "cont2", label: selectedLanguage === 'fr'
-                ? contents?.communoty_page_menu_2_title?.content_fr
-                : contents?.communoty_page_menu_2_title?.content_en
+                ? contents?.data.communoty_page_menu_2_title?.content_fr
+                : contents?.data.communoty_page_menu_2_title?.content_en
         },
         {
             id: "cont3", label: selectedLanguage === 'fr'
-                ? contents?.communoty_page_menu_3_title?.content_fr
-                : contents?.communoty_page_menu_3_title?.content_en
+                ? contents?.data.communoty_page_menu_3_title?.content_fr
+                : contents?.data.communoty_page_menu_3_title?.content_en
         },
         {
             id: "cont4", label: selectedLanguage === 'fr'
-                ? contents?.communoty_page_menu_4_title?.content_fr
-                : contents?.communoty_page_menu_4_title?.content_en
+                ? contents?.data.communoty_page_menu_4_title?.content_fr
+                : contents?.data.communoty_page_menu_4_title?.content_en
         },
         {
             id: "cont5", label: selectedLanguage === 'fr'
-                ? contents?.communoty_page_menu_5_title?.content_fr
-                : contents?.communoty_page_menu_5_title?.content_en
+                ? contents?.data.communoty_page_menu_5_title?.content_fr
+                : contents?.data.communoty_page_menu_5_title?.content_en
         },
         { id: "cont6", label: "" },
     ] : [];
@@ -118,7 +121,7 @@ const Community = () => {
         <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
             <div><Navbar /></div>
             <section className="mt-4 position-relative" style={{ backgroundColor: '#17416F', padding: '100px 0' }}>
-                <h1 className="text-center text-white tit" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '40px' }}>{selectedLanguage === 'fr' ? contents?.communoty_page_title.content_fr : contents?.communoty_page_title.content_en}</h1>
+                <h1 className="text-center text-white tit" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '40px' }}>{selectedLanguage === 'fr' ? contents?.data.communoty_page_title.content_fr : contents?.data.communoty_page_title.content_en}</h1>
                 <div className="position-absolute bottom-0 start-0">
                     <img src={Group1} alt="" />
                 </div>
@@ -150,26 +153,26 @@ const Community = () => {
                                 <div className="row">
                                     <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
                                         <div className='position-relative'>
-                                            <img src={contents?.communoty_page_menu_1_img.image} alt="Wellness Programs" className="img-fluid w-100 main-img1" data-aos="zoom-in" style={{ borderTopRightRadius: '30px' }} />
+                                            <img src={contents?.data.communoty_page_menu_1_img.image} alt="Wellness Programs" className="img-fluid w-100 main-img1" data-aos="zoom-in" style={{ borderTopRightRadius: '30px' }} />
                                             <div className='contpos'>
                                                 <img src={Mask1} alt="Wellness Programs" className="img-fluid" style={{ width: '70%' }} />
                                             </div>
                                         </div>
                                     </div>
                                     <div className="col-12 col-md-6 mx-auto mb-3 mb-md-0 p-4 align-self-center">
-                                        <h2 style={{ textTransform: "uppercase", color: "#17416F", fontSize: '30px', fontWeight: '700' }}>{selectedLanguage === 'fr' ? contents?.communoty_page_menu_1_title.content_fr : contents?.communoty_page_menu_1_title.content_en}</h2>
+                                        <h2 style={{ textTransform: "uppercase", color: "#17416F", fontSize: '30px', fontWeight: '700' }}>{selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_1_title.content_fr : contents?.data.communoty_page_menu_1_title.content_en}</h2>
                                         <div className="mt-3" style={{ color: "#17416F", display: "-webkit-box", WebkitLineClamp: 10, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
                                             {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
-                                                __html: contents?.communoty_page_menu_1_desc.content_fr
+                                                __html: contents?.data.communoty_page_menu_1_desc.content_fr
                                             }} />) : (<div dangerouslySetInnerHTML={{
-                                                __html: contents?.communoty_page_menu_1_desc.content_en
+                                                __html: contents?.data.communoty_page_menu_1_desc.content_en
                                             }} />)}
                                         </div>
                                         <div className="mt-3">
                                             <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }} onClick={() => {
                                                 document.getElementById("feedback-section")?.scrollIntoView({ behavior: "smooth" });
                                             }}>
-                                                {selectedLanguage === 'fr' ? contents?.communoty_page_menu_button.content_fr : contents?.communoty_page_menu_button.content_en}
+                                                {selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_button.content_fr : contents?.data.communoty_page_menu_button.content_en}
                                             </button>
                                         </div>
                                     </div>
@@ -182,7 +185,7 @@ const Community = () => {
                                 <div className="row">
                                     <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
                                         <div className='position-relative'>
-                                            <img src={contents?.communoty_page_menu_2_img.image} alt="Wellness Programs" className="img-fluid w-100 main-img1" data-aos="zoom-in" style={{ borderTopRightRadius: '30px' }} />
+                                            <img src={contents?.data.communoty_page_menu_2_img.image} alt="Wellness Programs" className="img-fluid w-100 main-img1" data-aos="zoom-in" style={{ borderTopRightRadius: '30px' }} />
                                             <div className='contpos'>
                                                 <img src={Mask1} alt="Wellness Programs" className="img-fluid" style={{ width: '70%' }} />
                                             </div>
@@ -190,20 +193,20 @@ const Community = () => {
                                     </div>
                                     <div className="col-12 col-md-6 mx-auto mb-3 mb-md-0 p-4 align-self-center">
                                         <h2 style={{ textTransform: "uppercase", color: "#17416F", fontSize: '30px', fontWeight: '700' }}>
-                                            {selectedLanguage === 'fr' ? contents?.communoty_page_menu_2_title.content_fr : contents?.communoty_page_menu_2_title.content_en}
+                                            {selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_2_title.content_fr : contents?.data.communoty_page_menu_2_title.content_en}
                                         </h2>
                                         <div className="mt-3" style={{ color: "#17416F" }}>
                                             {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
-                                                __html: contents?.communoty_page_menu_2_desc.content_fr
+                                                __html: contents?.data.communoty_page_menu_2_desc.content_fr
                                             }} />) : (<div dangerouslySetInnerHTML={{
-                                                __html: contents?.communoty_page_menu_2_desc.content_en
+                                                __html: contents?.data.communoty_page_menu_2_desc.content_en
                                             }} />)}
                                         </div>
                                         <div className="mt-3">
                                             <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }} onClick={() => {
                                                 document.getElementById("feedback-section")?.scrollIntoView({ behavior: "smooth" });
                                             }}>
-                                                {selectedLanguage === 'fr' ? contents?.communoty_page_menu_button.content_fr : contents?.communoty_page_menu_button.content_en}
+                                                {selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_button.content_fr : contents?.data.communoty_page_menu_button.content_en}
                                             </button>
                                         </div>
                                     </div>
@@ -216,7 +219,7 @@ const Community = () => {
                                 <div className="row">
                                     <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
                                         <div className='position-relative'>
-                                            <img src={contents?.communoty_page_menu_3_img.image} alt="Wellness Programs" data-aos="zoom-in" className="img-fluid w-100 main-img1" style={{ borderTopRightRadius: '30px' }} />
+                                            <img src={contents?.data.communoty_page_menu_3_img.image} alt="Wellness Programs" data-aos="zoom-in" className="img-fluid w-100 main-img1" style={{ borderTopRightRadius: '30px' }} />
                                             <div className='contpos'>
                                                 <img src={Mask1} alt="Wellness Programs" className="img-fluid" style={{ width: '70%' }} />
                                             </div>
@@ -224,20 +227,20 @@ const Community = () => {
                                     </div>
                                     <div className="col-12 col-md-6 mx-auto mb-3 mb-md-0 p-4 align-self-center">
                                         <h2 style={{ textTransform: "uppercase", color: "#17416F", fontSize: '30px', fontWeight: '700' }}>
-                                            {selectedLanguage === 'fr' ? contents?.communoty_page_menu_3_title.content_fr : contents?.communoty_page_menu_3_title.content_en}
+                                            {selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_3_title.content_fr : contents?.data.communoty_page_menu_3_title.content_en}
                                         </h2>
                                         <div className="mt-3" style={{ color: "#17416F" }}>
                                             {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
-                                                __html: contents?.communoty_page_menu_3_desc.content_fr
+                                                __html: contents?.data.communoty_page_menu_3_desc.content_fr
                                             }} />) : (<div dangerouslySetInnerHTML={{
-                                                __html: contents?.communoty_page_menu_3_desc.content_en
+                                                __html: contents?.data.communoty_page_menu_3_desc.content_en
                                             }} />)}
                                         </div>
                                         <div className="mt-3">
                                             <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }} onClick={() => {
                                                 document.getElementById("feedback-section")?.scrollIntoView({ behavior: "smooth" });
                                             }}>
-                                                {selectedLanguage === 'fr' ? contents?.communoty_page_menu_button.content_fr : contents?.communoty_page_menu_button.content_en}
+                                                {selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_button.content_fr : contents?.data.communoty_page_menu_button.content_en}
                                             </button>
                                         </div>
                                     </div>
@@ -250,7 +253,7 @@ const Community = () => {
                                 <div className="row">
                                     <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
                                         <div className='position-relative'>
-                                            <img src={contents?.communoty_page_menu_4_img.image} alt="Wellness Programs" data-aos="zoom-in" className="img-fluid w-100 main-img1" style={{ borderTopRightRadius: '30px' }} />
+                                            <img src={contents?.data.communoty_page_menu_4_img.image} alt="Wellness Programs" data-aos="zoom-in" className="img-fluid w-100 main-img1" style={{ borderTopRightRadius: '30px' }} />
                                             <div className='contpos'>
                                                 <img src={Mask1} alt="Wellness Programs" className="img-fluid" style={{ width: '70%' }} />
                                             </div>
@@ -258,20 +261,20 @@ const Community = () => {
                                     </div>
                                     <div className="col-12 col-md-6 mx-auto mb-3 mb-md-0 p-4 align-self-center">
                                         <h2 style={{ textTransform: "uppercase", color: "#17416F", fontSize: '30px', fontWeight: '700' }}>
-                                            {selectedLanguage === 'fr' ? contents?.communoty_page_menu_4_title.content_fr : contents?.communoty_page_menu_4_title.content_en}
+                                            {selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_4_title.content_fr : contents?.data.communoty_page_menu_4_title.content_en}
                                         </h2>
                                         <div className="mt-3" style={{ color: "#17416F" }}>
                                             {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
-                                                __html: contents?.communoty_page_menu_4_desc.content_fr
+                                                __html: contents?.data.communoty_page_menu_4_desc.content_fr
                                             }} />) : (<div dangerouslySetInnerHTML={{
-                                                __html: contents?.communoty_page_menu_4_desc.content_en
+                                                __html: contents?.data.communoty_page_menu_4_desc.content_en
                                             }} />)}
                                         </div>
                                         <div className="mt-3">
                                             <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }} onClick={() => {
                                                 document.getElementById("feedback-section")?.scrollIntoView({ behavior: "smooth" });
                                             }}>
-                                                {selectedLanguage === 'fr' ? contents?.communoty_page_menu_button.content_fr : contents?.communoty_page_menu_button.content_en}
+                                                {selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_button.content_fr : contents?.data.communoty_page_menu_button.content_en}
                                             </button>
                                         </div>
                                     </div>
@@ -284,7 +287,7 @@ const Community = () => {
                                 <div className="row">
                                     <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
                                         <div className='position-relative'>
-                                            <img src={contents?.communoty_page_menu_5_img.image} alt="Wellness Programs" data-aos="zoom-in" className="img-fluid w-100 main-img1" style={{ borderTopRightRadius: '30px' }} />
+                                            <img src={contents?.data.communoty_page_menu_5_img.image} alt="Wellness Programs" data-aos="zoom-in" className="img-fluid w-100 main-img1" style={{ borderTopRightRadius: '30px' }} />
                                             <div className='contpos'>
                                                 <img src={Mask1} alt="Wellness Programs" className="img-fluid" style={{ width: '70%' }} />
                                             </div>
@@ -292,20 +295,20 @@ const Community = () => {
                                     </div>
                                     <div className="col-12 col-md-6 mx-auto mb-3 mb-md-0 p-4 align-self-center">
                                         <h2 style={{ textTransform: "uppercase", color: "#17416F", fontSize: '30px', fontWeight: '700' }}>
-                                            {selectedLanguage === 'fr' ? contents?.communoty_page_menu_5_title.content_fr : contents?.communoty_page_menu_5_title.content_en}
+                                            {selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_5_title.content_fr : contents?.data.communoty_page_menu_5_title.content_en}
                                         </h2>
                                         <div className="mt-3" style={{ color: "#17416F" }}>
                                             {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
-                                                __html: contents?.communoty_page_menu_5_desc.content_fr
+                                                __html: contents?.data.communoty_page_menu_5_desc.content_fr
                                             }} />) : (<div dangerouslySetInnerHTML={{
-                                                __html: contents?.communoty_page_menu_5_desc.content_en
+                                                __html: contents?.data.communoty_page_menu_5_desc.content_en
                                             }} />)}
                                         </div>
                                         <div className="mt-3">
                                             <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }} onClick={() => {
                                                 document.getElementById("feedback-section")?.scrollIntoView({ behavior: "smooth" });
                                             }}>
-                                                {selectedLanguage === 'fr' ? contents?.communoty_page_menu_button.content_fr : contents?.communoty_page_menu_button.content_en}
+                                                {selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_button.content_fr : contents?.data.communoty_page_menu_button.content_en}
                                             </button>
                                         </div>
                                     </div>

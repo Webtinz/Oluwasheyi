@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import './index.css';
 import './about.css';
 import Navbar from "./Components/navbar";
 import Feedback from "./Components/Feedback";
 import Footer from "./Components/footer";
-import Logo from "./Components/logo";
-import Carousel from "./Components/upcomingcarousel";
+// import Logo from "./Components/logo";
+// import Carousel from "./Components/upcomingcarousel";
 import Galerry from "./Components/Galery";
 import Group1 from '../assets/Group1.png';
 import Mask1 from '../assets/Fr1.png';

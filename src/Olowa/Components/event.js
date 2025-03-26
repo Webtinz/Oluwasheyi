@@ -1,11 +1,13 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useContext, useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import '../index.css';
 import '../about.css';
 import Mask2 from '../../assets/Fr1.png';
-import { getAllContents, suscribeToEvent } from '../../services/content.service';
+import { suscribeToEvent } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 import { format } from 'date-fns';
+import { useLoader } from '../../context/LoaderContext';
 
 const EventsCarousel = ({ events }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -58,20 +60,22 @@ const EventsCarousel = ({ events }) => {
   };
 
   const { selectedLanguage } = useContext(LanguageContext);
-  const [contents, setContents] = useState();
+  // const [contents, setContents] = useState();
 
-  // Get contents on component mount
-  useEffect(() => {
-    const fetchContents = async () => {
-      try {
-        const response = await getAllContents();
-        setContents(response.data);
-      } catch (error) {
-        console.error('Failed to fetch contents:', error.message || error);
-      }
-    };
-    fetchContents();
-  }, []);
+  const { appData } = useLoader();
+  const { contents } = appData;
+  // // Get contents on component mount
+  // useEffect(() => {
+  //   const fetchContents = async () => {
+  //     try {
+  //       const response = await getAllContents();
+  //       setContents(response.data);
+  //     } catch (error) {
+  //       console.error('Failed to fetch contents:', error.message || error);
+  //     }
+  //   };
+  //   fetchContents();
+  // }, []);
 
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [message, setMessage] = useState('')
@@ -122,7 +126,7 @@ const EventsCarousel = ({ events }) => {
       <div className="container px-lg-5 px-0 evene">
         <div className="d-flex justify-content-between align-items-center mb-4">
           <h2 className="text-white text-uppercase" style={{ fontWeight: 700, fontSize: screenSize === 'small' ? '24px' : '36px' }}>
-            {selectedLanguage === 'fr' ? contents?.communoty_page_event_title.content_fr : contents?.communoty_page_event_title.content_en}
+            {selectedLanguage === 'fr' ? contents?.data.communoty_page_event_title.content_fr : contents?.data.communoty_page_event_title.content_en}
           </h2>
           <div className="d-flex gap-4">
             <button
@@ -214,7 +218,7 @@ const EventsCarousel = ({ events }) => {
                     </button>
                     <strong>
                       <h2>{selectedLanguage === 'fr' ? selectedEvent.nom : selectedEvent.name}</h2>
-                    </strong> <br/>
+                    </strong> <br />
                     <div>
                       {selectedLanguage === 'fr' ? (
                         <div dangerouslySetInnerHTML={{ __html: selectedEvent.description }} />
@@ -263,7 +267,7 @@ const EventsCarousel = ({ events }) => {
 
                         <div className="space-y-2">
                           <label className="block text-blue-900">
-                            {selectedLanguage === 'fr' ? contents?.feedback_label_2.content_fr : contents?.feedback_label_2.content_en} <span className="text-red-500">*</span>
+                            {selectedLanguage === 'fr' ? contents?.data.feedback_label_2.content_fr : contents?.data.feedback_label_2.content_en} <span className="text-red-500">*</span>
                           </label>
                           <input
                             type="email"
@@ -293,7 +297,7 @@ const EventsCarousel = ({ events }) => {
 
                         <div className="d-flex justify-content-center">
                           <button type="submit" className="btn btn-primary">
-                            {selectedLanguage === 'fr' ? contents?.feedback_button.content_fr : contents?.feedback_button.content_en}
+                            {selectedLanguage === 'fr' ? contents?.data.feedback_button.content_fr : contents?.data.feedback_button.content_en}
                           </button>
                         </div>
                       </form>

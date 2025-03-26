@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './DoctorCarousel.css'; // Vous devrez créer ce fichier CSS séparément
 
-const DoctorCarousel = ({doctors}) => {
+const DoctorCarousel = ({ doctors }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardsPerView, setCardsPerView] = useState(4);
   const carouselInnerRef = useRef(null);
@@ -10,7 +10,7 @@ const DoctorCarousel = ({doctors}) => {
   useEffect(() => {
     const updateLayout = () => {
       const windowWidth = window.innerWidth;
-      
+
       if (windowWidth >= 992) {
         setCardsPerView(4);
       } else if (windowWidth >= 768) {
@@ -22,10 +22,10 @@ const DoctorCarousel = ({doctors}) => {
 
     // Initialisation
     updateLayout();
-    
+
     // Écouter les changements de taille de fenêtre
     window.addEventListener('resize', updateLayout);
-    
+
     // Nettoyage
     return () => {
       window.removeEventListener('resize', updateLayout);
@@ -71,7 +71,7 @@ const DoctorCarousel = ({doctors}) => {
     // Calculer la largeur en pourcentage en tenant compte des marges
     const marginPercentage = 2; // 1% de marge de chaque côté
     const widthPercentage = 100 / cardsPerView - (marginPercentage * 2);
-    
+
     return {
       width: `${widthPercentage}%`,
       margin: `0 ${marginPercentage}%`
@@ -82,24 +82,24 @@ const DoctorCarousel = ({doctors}) => {
     <div className="doc55-carousel-container container mt-5">
       <div className="doc55-carousel-wrapper">
         {/* Bouton précédent centré verticalement */}
-        <button 
-          className={`doc55-nav-btn doc55-prev-btn ${currentIndex <= 0 ? 'doc55-disabled' : ''}`} 
+        <button
+          className={`doc55-nav-btn doc55-prev-btn ${currentIndex <= 0 ? 'doc55-disabled' : ''}`}
           onClick={goToPrev}
           disabled={currentIndex <= 0}
         >
           &#10094;
         </button>
-        
+
         <div className="doc55-carousel">
-          <div 
-            className="doc55-carousel-inner" 
-            ref={carouselInnerRef} 
+          <div
+            className="doc55-carousel-inner"
+            ref={carouselInnerRef}
             style={getCarouselStyle()}
           >
             {doctors.map((doctor) => (
-              <div 
-                key={doctor.id} 
-                className="doc55-doctor-card" 
+              <div
+                key={doctor.id}
+                className="doc55-doctor-card"
                 style={getCardStyle()}
               >
                 <div className="doc55-doctor-image">
@@ -116,20 +116,20 @@ const DoctorCarousel = ({doctors}) => {
         </div>
 
         {/* Bouton suivant centré verticalement */}
-        <button 
-          className={`doc55-nav-btn doc55-next-btn ${currentIndex >= doctors.length - cardsPerView ? 'doc55-disabled' : ''}`} 
+        <button
+          className={`doc55-nav-btn doc55-next-btn ${currentIndex >= doctors.length - cardsPerView ? 'doc55-disabled' : ''}`}
           onClick={goToNext}
           disabled={currentIndex >= doctors.length - cardsPerView}
         >
           &#10095;
         </button>
       </div>
-      
+
       <div className="doc55-dots-container">
         {Array.from({ length: Math.ceil((doctors.length - cardsPerView) / 1) + 1 }).map((_, i) => (
-          <span 
-            key={i} 
-            className={`doc55-dot ${i === Math.floor(currentIndex) ? 'doc55-active' : ''}`} 
+          <span
+            key={i}
+            className={`doc55-dot ${i === Math.floor(currentIndex) ? 'doc55-active' : ''}`}
             onClick={() => goToSlide(i)}
           ></span>
         ))}

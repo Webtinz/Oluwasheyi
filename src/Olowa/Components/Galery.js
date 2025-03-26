@@ -1,4 +1,4 @@
-import React, {  useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import "../index.css"; // Ajoute un fichier CSS pour le style
 // import p1 from "../../assets/p1.png";
 // import p2 from "../../assets/p2.png";
@@ -6,40 +6,43 @@ import "../index.css"; // Ajoute un fichier CSS pour le style
 // import p4 from "../../assets/p4.png";
 // import p5 from "../../assets/p5.png";
 // import p6 from "../../assets/p6.png";
-import { getAllContents } from '../../services/content.service';
+// import { getAllContents } from '../../services/content.service';
+import { useLoader } from '../../context/LoaderContext';
 // import LanguageContext from '../../context/LanguageContext';
 
 const CustomCarousel = () => {
 
   // const { selectedLanguage } = useContext(LanguageContext);
-  const [contents, setContents] = useState({}); // Initialisation avec un objet vide
+  // const [contents, setContents] = useState({}); // Initialisation avec un objet vide
 
-  // Get contents on component mount
-  useEffect(() => {
-    const fetchContents = async () => {
-      try {
-        // const savedContents = localStorage.getItem("contents");
-        // if (savedContents) {
-        //   setContents(JSON.parse(savedContents));
-        // } else {
-        // Fetch contents if not in localStorage
-        const response = await getAllContents();
-        setContents(response.data);
-        //   localStorage.setItem("contents", JSON.stringify(response.data));
-        // }
-      } catch (error) {
-        console.error('Failed to fetch contents:', error.message || error);
-      }
-    };
-    fetchContents();
-  }, []);
+  const { appData } = useLoader();
+  const { contents } = appData;
+  // // Get contents on component mount
+  // useEffect(() => {
+  //   const fetchContents = async () => {
+  //     try {
+  //       // const savedContents = localStorage.getItem("contents");
+  //       // if (savedContents) {
+  //       //   setContents(JSON.parse(savedContents));
+  //       // } else {
+  //       // Fetch contents if not in localStorage
+  //       const response = await getAllContents();
+  //       setContents(response.data);
+  //       //   localStorage.setItem("contents", JSON.stringify(response.data));
+  //       // }
+  //     } catch (error) {
+  //       console.error('Failed to fetch contents:', error.message || error);
+  //     }
+  //   };
+  //   fetchContents();
+  // }, []);
 
   const [mainImage, setMainImage] = useState(null); // Évite d’accéder à undefined au départ
 
   // Met à jour mainImage lorsque contents est chargé
   useEffect(() => {
-    if (contents?.gallery_img_1?.image) {
-      setMainImage(contents.gallery_img_1.image);
+    if (contents?.data.gallery_img_1?.image) {
+      setMainImage(contents.data.gallery_img_1.image);
     }
   }, [contents]);
 
@@ -58,14 +61,14 @@ const CustomCarousel = () => {
 
   // Liste des images avec filtrage pour éviter les valeurs undefined
   const images = [
-    contents?.gallery_img_2?.image,
-    contents?.gallery_img_3?.image,
-    contents?.gallery_img_4?.image,
-    contents?.gallery_img_5?.image,
-    contents?.gallery_img_6?.image,
-    contents?.gallery_img_1?.image,
-    contents?.gallery_img_2?.image,
-    contents?.gallery_img_3?.image
+    contents?.data.gallery_img_2?.image,
+    contents?.data.gallery_img_3?.image,
+    contents?.data.gallery_img_4?.image,
+    contents?.data.gallery_img_5?.image,
+    contents?.data.gallery_img_6?.image,
+    contents?.data.gallery_img_1?.image,
+    contents?.data.gallery_img_2?.image,
+    contents?.data.gallery_img_3?.image
   ].filter(Boolean); // Supprime les valeurs undefined ou null
 
   // Affiche les boutons de navigation si le nombre d'images est >= 6
@@ -102,6 +105,7 @@ const CustomCarousel = () => {
         {showButtons && (
           <>
             <button
+              role="none"
               className="position-absolute top-50 start-0 translate-middle-y custom-carousel-btn custom-prev ms-4"
               style={{
                 left: "20px",
@@ -121,6 +125,7 @@ const CustomCarousel = () => {
               <i className="bi bi-chevron-left fs-2"></i>
             </button>
             <button
+              role="none"
               className="position-absolute top-50 end-0 translate-middle-y custom-carousel-btn custom-next me-4"
               style={{
                 right: "20px",

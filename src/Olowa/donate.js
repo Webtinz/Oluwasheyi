@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 // import { Link } from "react-router-dom";
 import './index.css';
@@ -17,63 +19,33 @@ import { useLoader } from '../context/LoaderContext';
 const Donate = () => {
     // Context and state
     const { selectedLanguage } = useContext(LanguageContext);
-    const [contents, setContents] = useState(null);
-    const [programs, setPrograms] = useState([]);
+    // const [contents, setContents] = useState(null);
+    // const [programs, setPrograms] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [selectedProgram, setSelectedProgram] = useState(null);
     const [showCarousel, setShowCarousel] = useState(true);
 
-    useEffect(() => {
-        const fetchContents = async () => {
-            try {
-                const response = await getAllContents();
-                console.log("Contents fetched:", response.data);
-                setContents(response.data);
-                setPrograms(await getPrograms());
-            } catch (error) {
-                console.error('Failed to fetch contents:', error.message || error);
-            }
-        };
-        fetchContents();
-    }, []);
+    const { appData } = useLoader();
+    const { contents, programs } = appData;
 
-    const { setLoading } = useLoader();
-
-    useEffect(() => {
-        setLoading(true);
-        // Simulate loading data
-        setTimeout(() => {
-            setLoading(false);
-        }, 2000);
-    }, [setLoading]);
+    // useEffect(() => {
+    //     const fetchContents = async () => {
+    //         try {
+    //             const response = await getAllContents();
+    //             console.log("Contents fetched:", response.data);
+    //             setContents(response.data);
+    //             setPrograms(await getPrograms());
+    //         } catch (error) {
+    //             console.error('Failed to fetch contents:', error.message || error);
+    //         }
+    //     };
+    //     fetchContents();
+    // }, []);
 
     const location = useLocation();
     useEffect(() => {
         console.log("Donate page mounted or updated", location.pathname);
     }, [location.pathname]);
-
-    // const steps = contents ? [
-    //     {
-    //         number: '01',
-    //         text: selectedLanguage === 'fr' ? contents.donation_step_1.content_fr : contents.donation_step_1.content_en
-    //     },
-    //     {
-    //         number: '02',
-    //         text: selectedLanguage === 'fr' ? contents.donation_step_2.content_fr : contents.donation_step_2.content_en
-    //     },
-    //     {
-    //         number: '03',
-    //         text: selectedLanguage === 'fr' ? contents.donation_step_3.content_fr : contents.donation_step_3.content_en
-    //     },
-    //     {
-    //         number: '04',
-    //         text: selectedLanguage === 'fr' ? contents.donation_step_4.content_fr : contents.donation_step_4.content_en
-    //     },
-    //     {
-    //         number: '05',
-    //         text: selectedLanguage === 'fr' ? contents.donation_step_5.content_fr : contents.donation_step_5.content_en
-    //     }
-    // ] : [];
 
     const steps = useMemo(() => contents ? [
         { number: '01', text: selectedLanguage === 'fr' ? contents.donation_step_1.content_fr : contents.donation_step_1.content_en },
@@ -170,7 +142,7 @@ const Donate = () => {
 
             <section className="mt-4 position-relative" style={{ backgroundColor: '#17416F', padding: '100px 0' }}>
                 <h1 className="text-center text-white" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '40px' }}>
-                    {selectedLanguage === 'fr' ? contents?.donate_page_title.content_fr : contents?.donate_page_title.content_en}
+                    {selectedLanguage === 'fr' ? contents?.data.donate_page_title.content_fr : contents?.data.donate_page_title.content_en}
                 </h1>
                 <div className="position-absolute bottom-0 start-0">
                     <img src={Group1} alt="" />
@@ -187,7 +159,7 @@ const Donate = () => {
                     <div className="col-md-5 mx-auto mb-3">
                         <div>
                             <img
-                                src={contents?.donate_page_support_img.image}
+                                src={contents?.data.donate_page_support_img.image}
                                 alt=""
                                 className="img-fluid main-img1 w-100"
                                 style={{ width: '100%', borderTopRightRadius: '30px', objectFit: 'cover' }}
@@ -197,16 +169,16 @@ const Donate = () => {
                     <div className="col-md-6 mx-auto">
                         <div className='p-4'>
                             <div><img src={Img1} /></div>
-                            <h2 className='mt-4' style={{ textTransform: 'uppercase', color: '#17416F', fontWeight: '700', fontSize: '30px' }}> {selectedLanguage === 'fr' ? contents?.donate_page_support_title.content_fr : contents?.donate_page_support_title.content_en}</h2>
+                            <h2 className='mt-4' style={{ textTransform: 'uppercase', color: '#17416F', fontWeight: '700', fontSize: '30px' }}> {selectedLanguage === 'fr' ? contents?.data.donate_page_support_title.content_fr : contents?.data.donate_page_support_title.content_en}</h2>
                             <div className='mt-3' style={{ color: '#17416F' }}>
                                 {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
-                                    __html: contents?.donate_page_support_descp.content_fr
+                                    __html: contents?.data.donate_page_support_descp.content_fr
                                 }} />) : (<div dangerouslySetInnerHTML={{
-                                    __html: contents?.donate_page_support_descp.content_en
+                                    __html: contents?.data.donate_page_support_descp.content_en
                                 }} />)}
                             </div>
                             <button className='btn btn-pri mt-4 text-white px-4' style={{ background: '#13AB9C' }} onClick={handleOpenStep}>
-                                {selectedLanguage === 'fr' ? contents?.donate_page_steps_button.content_fr : contents?.donate_page_steps_button.content_en}
+                                {selectedLanguage === 'fr' ? contents?.data.donate_page_steps_button.content_fr : contents?.data.donate_page_steps_button.content_en}
                             </button>
                         </div>
                     </div>
@@ -217,7 +189,7 @@ const Donate = () => {
             <section id="openStep" className='container-fluid py-4' style={{ background: '#17416F' }}>
                 <div className='container py-4'>
                     <h2 className='text-center text-white' style={{ fontWeight: '700', fontSize: '30px', textTransform: 'uppercase' }}>
-                        {selectedLanguage === 'fr' ? contents?.donate_page_steps_title.content_fr : contents?.donate_page_steps_title.content_en}
+                        {selectedLanguage === 'fr' ? contents?.data.donate_page_steps_title.content_fr : contents?.data.donate_page_steps_title.content_en}
                     </h2>
                     <br /><br />
                     <div className="position-relative pt-md-5 pt-0">
@@ -232,7 +204,7 @@ const Donate = () => {
                         </div>
                         <div className="d-flex justify-content-center mt-4">
                             <button className="btn btn-primary px-4 py-2" onClick={handleOpenProgram}>
-                                {selectedLanguage === 'fr' ? contents?.donation_step_button.content_fr : contents?.donation_step_button.content_en}
+                                {selectedLanguage === 'fr' ? contents?.data.donation_step_button.content_fr : contents?.data.donation_step_button.content_en}
                             </button>
                         </div>
                     </div>
@@ -243,7 +215,7 @@ const Donate = () => {
             {showCarousel && (
                 <section id="program" className='container mt-4'>
                     <h2 className='text-center' style={{ textTransform: 'uppercase', color: '#17416F', fontWeight: '700', fontSize: '36px' }}>
-                        {renderContent(contents?.donate_page_medical_title)}
+                        {renderContent(contents?.data.donate_page_medical_title)}
                     </h2>
                     <br /><br />
                     <div className='row mt-3'>
@@ -361,7 +333,7 @@ const Donate = () => {
                             <div className='position-relative'>
                                 <img
                                     // data-aos="flip-left" data-aos-duration="500"
-                                    src={contents?.donate_page_payment_img.image}
+                                    src={contents?.data.donate_page_payment_img.image}
                                     className='img-fluid w-100'
                                     style={{ height: '60vh', objectFit: 'cover' }}
                                 />

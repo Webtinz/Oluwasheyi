@@ -1,30 +1,32 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { getAllContents } from '../../services/content.service';
+import React, { useContext } from 'react';
+// import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
+import { useLoader } from '../../context/LoaderContext';
 
 const DonationSteps = () => {
   const { selectedLanguage } = useContext(LanguageContext);
-  const [contents, setContents] = useState();
-
+  // const [contents, setContents] = useState();
+  const { appData } = useLoader();
+  const { contents } = appData;
   // Get contents on component mount
-  useEffect(() => {
-    const fetchContents = async () => {
-      try {
-        // const savedContents = localStorage.getItem("contents");
-        // if (savedContents) {
-        //   setContents(JSON.parse(savedContents));
-        // } else {
-        // Fetch contents if not in localStorage
-        const response = await getAllContents();
-        setContents(response.data);
-        //   localStorage.setItem("contents", JSON.stringify(response.data));
-        // }
-      } catch (error) {
-        console.error('Failed to fetch contents:', error.message || error);
-      }
-    };
-    fetchContents();
-  }, []);
+  // useEffect(() => {
+  //   const fetchContents = async () => {
+  //     try {
+  //       // const savedContents = localStorage.getItem("contents");
+  //       // if (savedContents) {
+  //       //   setContents(JSON.parse(savedContents));
+  //       // } else {
+  //       // Fetch contents if not in localStorage
+  //       const response = await getAllContents();
+  //       setContents(response.data);
+  //       //   localStorage.setItem("contents", JSON.stringify(response.data));
+  //       // }
+  //     } catch (error) {
+  //       console.error('Failed to fetch contents:', error.message || error);
+  //     }
+  //   };
+  //   fetchContents();
+  // }, []);
 
   return (
     <div className="bg-blue-900 w-full min-h-[300px] p-8">
@@ -51,7 +53,7 @@ const DonationSteps = () => {
               01
             </div>
             <p className="text-white text-sm leading-tight">
-              {selectedLanguage === 'fr' ? contents?.donation_step_1.content_fr : contents?.donation_step_1.content_en}
+              {selectedLanguage === 'fr' ? contents?.data.donation_step_1.content_fr : contents?.data.donation_step_1.content_en}
             </p>
           </div>
 
@@ -61,7 +63,7 @@ const DonationSteps = () => {
               02
             </div>
             <p className="text-white text-sm leading-tight">
-              {selectedLanguage === 'fr' ? contents?.donation_step_2.content_fr : contents?.donation_step_2.content_en}
+              {selectedLanguage === 'fr' ? contents?.data.donation_step_2.content_fr : contents?.data.donation_step_2.content_en}
             </p>
           </div>
 
@@ -71,7 +73,7 @@ const DonationSteps = () => {
               03
             </div>
             <p className="text-white text-sm leading-tight">
-              {selectedLanguage === 'fr' ? contents?.donation_step_3.content_fr : contents?.donation_step_3.content_en}
+              {selectedLanguage === 'fr' ? contents?.data.donation_step_3.content_fr : contents?.data.donation_step_3.content_en}
             </p>
           </div>
 
@@ -81,7 +83,7 @@ const DonationSteps = () => {
               04
             </div>
             <p className="text-white text-sm leading-tight">
-              {selectedLanguage === 'fr' ? contents?.donation_step_4.content_fr : contents?.donation_step_4.content_en}
+              {selectedLanguage === 'fr' ? contents?.data.donation_step_4.content_fr : contents?.data.donation_step_4.content_en}
             </p>
           </div>
 
@@ -91,14 +93,14 @@ const DonationSteps = () => {
               05
             </div>
             <p className="text-white text-sm leading-tight">
-              {selectedLanguage === 'fr' ? contents?.donation_step_5.content_fr : contents?.donation_step_5.content_en}
+              {selectedLanguage === 'fr' ? contents?.data.donation_step_5.content_fr : contents?.data.donation_step_5.content_en}
             </p>
           </div>
         </div>
 
         <div className="flex justify-center">
           <button className="bg-emerald-500 text-white px-8 py-3 rounded-md hover:bg-emerald-600 transition-colors">
-            {selectedLanguage === 'fr' ? contents?.donation_step_button.content_fr : contents?.donation_step_button.content_en}
+            {selectedLanguage === 'fr' ? contents?.data.donation_step_button.content_fr : contents?.data.donation_step_button.content_en}
           </button>
         </div>
       </div>

@@ -1,73 +1,53 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useContext, useEffect, useState } from 'react';
-// import { Link } from "react-router-dom";
+import React, { useContext, useState } from 'react';
 import './index.css';
 import './about.css';
 import Navbar from "./Components/navbar";
 import Feedback from "./Components/Feedback";
 import Footer from "./Components/footer";
 import Group1 from '../assets/Group1.png';
-// import Img from '../assets/Mask group1.png';
-// import Img1 from '../assets/Mask group2.png';
-// import Doc from '../assets/1.png';
-// import Doc1 from '../assets/2.png';
-// import Doc2 from '../assets/3.png';
-// import Doc3 from '../assets/4.png';
-// import Mask from '../assets/Mask group.png';
 import LinkedIn from '../assets/linkedin.png';
 import Mask1 from '../assets/Fr1.png';
 import Mask2 from '../assets/Fr.png';
-import { getAllContents, getTeamMembers } from '../services/content.service';
+// import { getAllContents, getTeamMembers } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
+import { useLoader } from '../context/LoaderContext';
 
-// const doctors = [
-//     { id: 1, image: Doc, name: "Docteurs Name", specialty: "Gynecologist" },
-//     { id: 2, image: Doc1, name: "Docteurs Name", specialty: "Gynecologist" },
-//     { id: 3, image: Doc2, name: "Docteurs Name", specialty: "Gynecologist" },
-//     { id: 4, image: Doc3, name: "Docteurs Name", specialty: "Gynecologist" },
-//     { id: 5, image: Doc, name: "Docteurs Name", specialty: "Gynecologist" },
-//     { id: 6, image: Doc1, name: "Docteurs Name", specialty: "Gynecologist" },
-//     { id: 7, image: Doc2, name: "Docteurs Name", specialty: "Gynecologist" },
-//     { id: 8, image: Doc3, name: "Docteurs Name", specialty: "Gynecologist" },
-// ];
+
 const Meet = () => {
     const [selectedDoctor, setSelectedDoctor] = useState(null);
-    const [doctors, setDoctors] = useState([]);
+    // const [doctors, setDoctors] = useState([]);
     const { selectedLanguage } = useContext(LanguageContext);
-    const [contents, setContents] = useState();
+    // const [contents, setContents] = useState();
+
+    const { appData } = useLoader();
+    const { contents, teamMembers } = appData;
 
     const directors = [
-        { id: 1, image: contents?.doct_img_1.image, name: contents?.director_1.content_fr, title_fr: contents?.director_1_title.content_fr, title_en: contents?.director_1_title.content_en },
-        { id: 2, image: contents?.doct_img_2.image, name: contents?.director_2.content_fr, title_fr: contents?.director_2_title.content_fr, title_en: contents?.director_2_title.content_en },
+        { id: 1, image: contents?.data.doct_img_1.image, name: contents?.data.director_1.content_fr, title_fr: contents?.data.director_1_title.content_fr, title_en: contents?.data.director_1_title.content_en },
+        { id: 2, image: contents?.data.doct_img_2.image, name: contents?.data.director_2.content_fr, title_fr: contents?.data.director_2_title.content_fr, title_en: contents?.data.director_2_title.content_en },
     ];
 
     // Get contents on component mount
-    useEffect(() => {
-        const fetchContents = async () => {
-            try {
-                // const savedContents = localStorage.getItem("contents");
-                // if (savedContents) {
-                //     setContents(JSON.parse(savedContents));
-                // } else {
-                // Fetch contents if not in localStorage
-                const response = await getAllContents();
-                setContents(response.data);
-                //     localStorage.setItem("contents", JSON.stringify(response.data));
-                // }
-                setDoctors(await getTeamMembers())
-            } catch (error) {
-                console.error('Failed to fetch contents:', error.message || error);
-            }
-        };
-        fetchContents();
-    }, []);
+    // useEffect(() => {
+    //     const fetchContents = async () => {
+    //         try {
+    //             const response = await getAllContents();
+    //             setContents(response.data);
+    //             setDoctors(await getTeamMembers())
+    //         } catch (error) {
+    //             console.error('Failed to fetch contents:', error.message || error);
+    //         }
+    //     };
+    //     fetchContents();
+    // }, []);
 
     return (
         <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
             <div><Navbar /></div>
             <section className="mt-4 position-relative" style={{ backgroundColor: '#17416F', padding: '100px 0' }}>
                 <h1 className="text-center text-white" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '40px' }}>
-                    {selectedLanguage === 'fr' ? contents?.team_page_title.content_fr : contents?.team_page_title.content_en}
+                    {selectedLanguage === 'fr' ? contents?.data.team_page_title.content_fr : contents?.data.team_page_title.content_en}
                 </h1>
                 <div className="position-absolute bottom-0 start-0">
                     <img src={Group1} alt="" />
@@ -81,15 +61,15 @@ const Meet = () => {
                 <div className="row">
                     <div className="col-md-2 mx-auto mb-3">
                         <h2 className='text-center' style={{ color: '#17416F', textTransform: 'uppercase', fontWeight: 700, fontSize: '30px' }}>
-                            {selectedLanguage === 'fr' ? contents?.team_page_team_title.content_fr : contents?.team_page_team_title.content_en}
+                            {selectedLanguage === 'fr' ? contents?.data.team_page_team_title.content_fr : contents?.data.team_page_team_title.content_en}
                         </h2>
                     </div>
                     <div className="col-md-8 mx-auto">
                         <div style={{ color: '#17416F' }}>
                             {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
-                                __html: contents?.team_descp.content_fr
+                                __html: contents?.data.team_descp.content_fr
                             }} />) : (<div dangerouslySetInnerHTML={{
-                                __html: contents?.team_descp.content_en
+                                __html: contents?.data.team_descp.content_en
                             }} />)}
                         </div>
                     </div>
@@ -98,7 +78,7 @@ const Meet = () => {
             <br /><br /><br />
             <section className="container my-4" style={{ backgroundColor: "#13AB9C", padding: "80px 0px" }}>
                 <h2 className="text-center" style={{ color: "white", fontWeight: 700, textTransform: "uppercase", fontSize: 'clamp(25px, 8vw, 36px)' }}>
-                    {selectedLanguage === 'fr' ? contents?.team_page_directors.content_fr : contents?.team_page_directors.content_en}
+                    {selectedLanguage === 'fr' ? contents?.data.team_page_directors.content_fr : contents?.data.team_page_directors.content_en}
                 </h2>
                 <br />
                 <div className="row justify-content-center">
@@ -121,11 +101,11 @@ const Meet = () => {
             <br /><br /><br />
             <section className="container">
                 <h2 className="text-center" style={{ color: "#17416F", textTransform: "uppercase", fontWeight: 700, fontSize: '36px' }}>
-                    {selectedLanguage === 'fr' ? contents?.team_page_doctors_title.content_fr : contents?.team_page_doctors_title.content_en}
+                    {selectedLanguage === 'fr' ? contents?.data.team_page_doctors_title.content_fr : contents?.data.team_page_doctors_title.content_en}
                 </h2>
                 <br />
                 <div className="row mt-4">
-                    {doctors.map((doctor) => (
+                    {teamMembers.map((doctor) => (
                         <div key={doctor.id} className="col-12 col-md-6 col-lg-3 mb-4">
                             <a href="#" onClick={(e) => { e.preventDefault(); setSelectedDoctor(doctor); }}>
                                 <img src={doctor.photo} alt={doctor.nom} className="img-fluid w-100" style={{ borderTopRightRadius: "30px", height: "40vh", objectFit: "cover" }} />
@@ -167,11 +147,11 @@ const Meet = () => {
                                                         }} />) : (<div dangerouslySetInnerHTML={{
                                                             __html: selectedDoctor.description_en
                                                         }} />)}
-                                                        {/* {selectedLanguage === 'fr' ? contents?.modal_descp.content_fr : contents?.modal_descp.content_en} */}
+                                                        {/* {selectedLanguage === 'fr' ? contents?.data.modal_descp.content_fr : contents?.data.modal_descp.content_en} */}
                                                     </div>
                                                     <div className="mt-3">
                                                         <button className="btn btn-cont px-4 py-2" style={{ color: "white", backgroundColor: "#13AB9C" }}>
-                                                            {selectedLanguage === 'fr' ? contents?.modal_button.content_fr : contents?.modal_button.content_en}
+                                                            {selectedLanguage === 'fr' ? contents?.data.modal_button.content_fr : contents?.data.modal_button.content_en}
                                                         </button>
                                                     </div>
                                                 </div>
@@ -195,20 +175,20 @@ const Meet = () => {
                 <div className="row">
                     <div className="col-12 col-md-5 mx-auto mb-3 mb-md-0">
                         <div className='position-relative'>
-                            <img src={contents?.team_page_staff_img.image} alt="Staff Members" className="img-fluid w-100 main-img1" style={{ objectFit: 'cover', borderTopRightRadius: '30px' }} />
+                            <img src={contents?.data.team_page_staff_img.image} alt="Staff Members" className="img-fluid w-100 main-img1" style={{ objectFit: 'cover', borderTopRightRadius: '30px' }} />
                             <div className='contpos'>
                                 <img src={Mask2} alt="Staff Members" className="img-fluid" />
                             </div>
                         </div>
                     </div>
                     <div className="col-12 col-md-6 mx-auto mb-3 mb-md-0 p-5 align-self-center">
-                        <h2 style={{ textTransform: "uppercase", color: "#17416F", fontWeight: '700', fontSize: 'clamp(25px, 8vw, 36px)' }}> {selectedLanguage === 'fr' ? contents?.team_page_staff_title.content_fr : contents?.team_page_staff_title.content_en}</h2>
+                        <h2 style={{ textTransform: "uppercase", color: "#17416F", fontWeight: '700', fontSize: 'clamp(25px, 8vw, 36px)' }}> {selectedLanguage === 'fr' ? contents?.data.team_page_staff_title.content_fr : contents?.data.team_page_staff_title.content_en}</h2>
                         <p className="mt-3" style={{ color: "#17416F" }}>
-                            {selectedLanguage === 'fr' ? contents?.team_page_staff_desc.content_fr : contents?.team_page_staff_desc.content_en}
+                            {selectedLanguage === 'fr' ? contents?.data.team_page_staff_desc.content_fr : contents?.data.team_page_staff_desc.content_en}
                         </p>
                         <div className="mt-3">
                             <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }}>
-                                {selectedLanguage === 'fr' ? contents?.team_page_staff_button.content_fr : contents?.team_page_staff_button.content_en}
+                                {selectedLanguage === 'fr' ? contents?.data.team_page_staff_button.content_fr : contents?.data.team_page_staff_button.content_en}
                             </button>
                         </div>
                     </div>

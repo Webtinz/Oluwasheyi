@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useContext, useState, useRef, useEffect } from "react";
 import { Modal, Button, Tabs, Tab, Form } from "react-bootstrap";
 import { QrReader } from "react-qr-reader";
@@ -7,12 +9,13 @@ import "react-phone-input-2/lib/style.css";
 import { getAllContents, addNewpatient } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 import { BsArrowLeftCircle } from "react-icons/bs";
+import { useLoader } from "../../context/LoaderContext";
 
 // import api from '../../../service/caller';
 
 const BookAppointment = () => {
     const { selectedLanguage } = useContext(LanguageContext);
-    const [contents, setContents] = useState();
+    // const [contents, setContents] = useState();
     const [step, setStep] = useState(null);
     const [phone, setPhone] = useState("");
     const [formData, setFormData] = useState({ firstname: "", lastname: "", birthdate: "", qrCode: "" });
@@ -255,12 +258,12 @@ const BookAppointment = () => {
             phoneNumber: phone, // Utilise l'état du téléphone
         };
 
-        try{
+        try {
             const response = await addNewpatient(formData)
             console.log(response);
             setStep("select");
             setShowModalSuccess(true); // Affiche le modal de succès
-        }catch (error){
+        } catch (error) {
             console.error(error);
             alert('Une erreur s\'est produite');
         }
@@ -300,34 +303,31 @@ const BookAppointment = () => {
     };
 
     // Récupérer le résultat du QR code en fonction de l'onglet actif
-    const getCurrentQrResult = () => {
-        return activeTab === "scan" ? scanTabResult : manualTabResult;
-    };
+    // const getCurrentQrResult = () => {
+    //     return activeTab === "scan" ? scanTabResult : manualTabResult;
+    // };
 
-    useEffect(() => {
-        const fetchContents = async () => {
-            try {
-                const savedContents = localStorage.getItem("contents");
-                if (savedContents) {
-                    setContents(JSON.parse(savedContents));
-                } else {
-                    const response = await getAllContents();
-                    setContents(response.data);
-                    localStorage.setItem("contents", JSON.stringify(response.data));
-                }
-            } catch (error) {
-                console.error('Failed to fetch contents:', error.message || error);
-            }
-        };
-        fetchContents();
-    }, []);
+    // useEffect(() => {
+    //     const fetchContents = async () => {
+    //         try {
+    //             const response = await getAllContents();
+    //             setContents(response.data);
+    //         } catch (error) {
+    //             console.error('Failed to fetch contents:', error.message || error);
+    //         }
+    //     };
+    //     fetchContents();
+    // }, []);
+
+    const { appData } = useLoader();
+          const { contents } = appData;
 
     return (
         <div>
             <a className="btn btn-outline-light" style={{ padding: '10px 15px' }} href="#"
                 onClick={handleModalOpen}>
-                {/* {selectedLanguage === 'fr' ? contents?.home_page_banner_book_appointment.content_fr : contents?.home_page_banner_book_appointment.content_en} */}
-                {selectedLanguage === 'fr' ? contents?.home_page_banner_book_appointment.content_fr : contents?.home_page_banner_book_appointment.content_en}
+                {/* {selectedLanguage === 'fr' ? contents?.data.home_page_banner_book_appointment.content_fr : contents?.data.home_page_banner_book_appointment.content_en} */}
+                {selectedLanguage === 'fr' ? contents?.data.home_page_banner_book_appointment.content_fr : contents?.data.home_page_banner_book_appointment.content_en}
             </a>
             {showModal && (
                 <div className="choosestagepatientbtn modal fade show d-block" tabIndex="-1">
@@ -628,12 +628,12 @@ const BookAppointment = () => {
                                                             country={"bj"} // Définit le pays par défaut (France ici)
                                                             value={phone} // Stocke la valeur saisie
                                                             onChange={setPhone} // Met à jour l’état avec le numéro sélectionné
-                                                            inputStyle={{ 
-                                                                width: "100%", 
-                                                                border: "none", 
+                                                            inputStyle={{
+                                                                width: "100%",
+                                                                border: "none",
                                                                 boxShadow: "none",
                                                                 paddingLeft: "50px" // Ajuste selon l'espace voulu entre le flag et l'input
-                                                              }} 
+                                                            }}
                                                             required
                                                         />
                                                     </div>

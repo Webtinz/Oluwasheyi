@@ -1,12 +1,11 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useContext, useEffect } from 'react';
-// import Logo from '../../assets/76.png';
 import Msk from '../../assets/Fr.png';
 import Ic from '../../assets/11d.png';
-import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { useLoader } from '../../context/LoaderContext';
 
 
 const PatientTestimonials = ({ testimonials }) => {
@@ -26,7 +25,6 @@ const PatientTestimonials = ({ testimonials }) => {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-    AOS.init();
 
   }, []);
 
@@ -41,26 +39,29 @@ const PatientTestimonials = ({ testimonials }) => {
   };
 
   const { selectedLanguage } = useContext(LanguageContext);
-  const [contents, setContents] = useState();
+  // const [contents, setContents] = useState();
+  const { appData } = useLoader();
+  const { contents } = appData;
 
   // Get contents on component mount
   useEffect(() => {
-    const fetchContents = async () => {
-      try {
-        // const savedContents = localStorage.getItem("contents");
-        // if (savedContents) {
-        //     setContents(JSON.parse(savedContents));
-        // } else {
-        // Fetch contents if not in localStorage
-        const response = await getAllContents();
-        setContents(response.data);
-        //     localStorage.setItem("contents", JSON.stringify(response.data));
-        // }
-      } catch (error) {
-        console.error('Failed to fetch contents:', error.message || error);
-      }
-    };
-    fetchContents();
+    // const fetchContents = async () => {
+    //   try {
+    //     // const savedContents = localStorage.getItem("contents");
+    //     // if (savedContents) {
+    //     //     setContents(JSON.parse(savedContents));
+    //     // } else {
+    //     // Fetch contents if not in localStorage
+    //     const response = await getAllContents();
+    //     setContents(response.data);
+    //     //     localStorage.setItem("contents", JSON.stringify(response.data));
+    //     // }
+    //   } catch (error) {
+    //     console.error('Failed to fetch contents:', error.message || error);
+    //   }
+    // };
+    // fetchContents();
+    AOS.init();
   }, []);
   const style = {
     display: "-webkit-box",
@@ -70,9 +71,9 @@ const PatientTestimonials = ({ testimonials }) => {
     scrollbarWidth: "none", // Cache la scrollbar sur Firefox
     msOverflowStyle: "none", // Cache la scrollbar sur IE/Edge
     maxHeight: "10vh",
-    overflowY: "scroll"
+    // overflowY: "scroll"
   };
-  
+
 
   return (
     <div className='container-fluid py-5' style={{ background: ' #F6F6F6', paddingLeft: '0px', paddingRight: '0px' }}>
@@ -80,10 +81,11 @@ const PatientTestimonials = ({ testimonials }) => {
         <div className="flex flex-col md:flex-row gap-8 p-6">
           <div className="md:w-1/4">
             <h2 className="text-2xl font-bold mb-4" style={{ fontSize: '36px', color: '#17416F', textTransform: 'uppercase' }}>
-              {selectedLanguage === 'fr' ? contents?.home_page_testimonials_title.content_fr : contents?.home_page_testimonials_title.content_en}
+              {selectedLanguage === 'fr' ? contents?.data.home_page_testimonials_title.content_fr : contents?.data.home_page_testimonials_title.content_en}
             </h2>
             <div className="flex gap-2">
               <button
+                role="none"
                 onClick={handlePrev}
                 style={{
                   width: '60px',
@@ -100,6 +102,7 @@ const PatientTestimonials = ({ testimonials }) => {
                 <i className="bi bi-chevron-left fs-3"></i>
               </button>
               <button
+                role="none"
                 onClick={handleNext}
                 style={{
                   width: '60px',
@@ -135,10 +138,10 @@ const PatientTestimonials = ({ testimonials }) => {
                       border: '1px solid #17416F',
                       borderTopRightRadius: '30px',
                       background: 'white',
-                      minHeight:"35vh"
+                      minHeight: "35vh"
                     }}
                   >
-                    <div className="mb-4"><img src={Ic} /></div>
+                    <div className="mb-4"><img src={Ic} alt="quoto" /></div>
                     <h3 className="text-xl font-semibold mb-2" style={{ color: '#17416F', fontWeight: '700' }}>{testimonial.titre}</h3>
                     <div className="text-gray-600 mb-6 element" style={style}>
                       {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
@@ -150,7 +153,7 @@ const PatientTestimonials = ({ testimonials }) => {
                     </div>
                     <hr className="my-4" />
                     <div className="flex items-center gap-3">
-                      <img src={testimonial.photo || Msk} alt={`${testimonial.nom} ${testimonial.prenom}`} className="w-12 h-12 rounded-full" style={{objectFit: "cover"}} />
+                      <img src={testimonial.photo || Msk} alt={`${testimonial.nom} ${testimonial.prenom}`} className="w-12 h-12 rounded-full" style={{ objectFit: "cover" }} />
                       <div>
                         <p className="font-semibold">{testimonial.nom} {testimonial.prenom}</p>
                         <p className="text-gray-500">{testimonial.address}</p>

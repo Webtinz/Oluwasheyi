@@ -6,10 +6,11 @@ import { Link } from "react-router-dom";
 // import Img2 from '../../assets/o2.png';
 // import Img3 from '../../assets/o3.png';
 import '../index.css';
-import { getAllContents } from '../../services/content.service';
+// import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { useLoader } from '../../context/LoaderContext';
 
 
 const ServicesCarousel = ({ services }) => {
@@ -20,30 +21,15 @@ const ServicesCarousel = ({ services }) => {
   const [animationDirection, setAnimationDirection] = useState(null);
   const [isAnimating, setIsAnimating] = useState(false);
   const { selectedLanguage } = useContext(LanguageContext);
-  const [contents, setContents] = useState();
+  // const [contents, setContents] = useState();
+  const { appData } = useLoader();
+  const { contents } = appData;
 
   // Get contents on component mount
   useEffect(() => {
 
-    const fetchContents = async () => {
-      try {
-        // const savedContents = localStorage.getItem("contents");
-        // if (savedContents) {
-        //   setContents(JSON.parse(savedContents));
-        // } else {
-        // Fetch contents if not in localStorage
-        const response = await getAllContents();
-        setContents(response.data);
-        //   localStorage.setItem("contents", JSON.stringify(response.data));
-        // }
+    AOS.init();
 
-      } catch (error) {
-        console.error('Failed to fetch contents:', error.message || error);
-      }
-    };
-    fetchContents();
-            AOS.init();
-    
   }, []);
 
   const totalPages = Math.ceil(services?.length / visibleCount);
@@ -64,7 +50,7 @@ const ServicesCarousel = ({ services }) => {
     };
 
     handleResize();
-    handleNext();
+    // handleNext();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [services?.length]);
@@ -129,11 +115,11 @@ const ServicesCarousel = ({ services }) => {
 
 
   return (
-    <div className="container" style={{  }}>
+    <div className="container" style={{}}>
       {/* Header avec titre et boutons de navigation */}
       <div className="flex justify-between items-center gap-4 relative mb-8" style={{ margin: '30px 10px' }}>
         <div>
-          <h2 className="text-2xl font-bold" style={{ fontSize: '36px', color: '#17416F', textTransform: 'uppercase' }}>{selectedLanguage === 'fr' ? contents?.home_page_banner_link3.content_fr : contents?.home_page_banner_link3.content_en}</h2>
+          <h2 className="text-2xl font-bold" style={{ fontSize: '36px', color: '#17416F', textTransform: 'uppercase' }}>{selectedLanguage === 'fr' ? contents?.data.home_page_banner_link3.content_fr : contents?.data.home_page_banner_link3.content_en}</h2>
         </div>
         <div className="flex gap-2">
           <button
@@ -171,7 +157,7 @@ const ServicesCarousel = ({ services }) => {
       </div>
 
       {/* CSS pour les animations */}
-      <style jsx>{`
+      <style jsx="true">{`
         @keyframes slideLeft {
           from { transform: translateX(100%); opacity: 0; }
           to { transform: translateX(0); opacity: 1; }

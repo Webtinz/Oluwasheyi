@@ -1,9 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React, { useContext, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import '../index.css';
-import { getAllContents } from '../../services/content.service';
+// import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
+import { useLoader } from '../../context/LoaderContext';
 
 const HealthAdviceCarousel = ({ healthAdvices }) => {
   const [currentIndex, setCurrentIndex] = React.useState(0);
@@ -45,27 +47,29 @@ const HealthAdviceCarousel = ({ healthAdvices }) => {
   const visibleAdvices = healthAdvices?.slice(currentIndex, currentIndex + itemsToShow);
 
   const { selectedLanguage } = useContext(LanguageContext);
-  const [contents, setContents] = useState();
+  // const [contents, setContents] = useState();
+  const { appData } = useLoader();
+  const { contents } = appData;
 
-  // Get contents on component mount
-  useEffect(() => {
-    const fetchContents = async () => {
-      try {
-        // const savedContents = localStorage.getItem("contents");
-        // if (savedContents) {
-        //   setContents(JSON.parse(savedContents));
-        // } else {
-        // Fetch contents if not in localStorage
-        const response = await getAllContents();
-        setContents(response.data);
-        //   localStorage.setItem("contents", JSON.stringify(response.data));
-        // }
-      } catch (error) {
-        console.error('Failed to fetch contents:', error.message || error);
-      }
-    };
-    fetchContents();
-  }, []);
+  // // Get contents on component mount
+  // useEffect(() => {
+  //   const fetchContents = async () => {
+  //     try {
+  //       // const savedContents = localStorage.getItem("contents");
+  //       // if (savedContents) {
+  //       //   setContents(JSON.parse(savedContents));
+  //       // } else {
+  //       // Fetch contents if not in localStorage
+  //       const response = await getAllContents();
+  //       setContents(response.data);
+  //       //   localStorage.setItem("contents", JSON.stringify(response.data));
+  //       // }
+  //     } catch (error) {
+  //       console.error('Failed to fetch contents:', error.message || error);
+  //     }
+  //   };
+  //   fetchContents();
+  // }, []);
 
 
   return (
@@ -73,26 +77,28 @@ const HealthAdviceCarousel = ({ healthAdvices }) => {
       <div className='hhe'>
         <div className='container'>
           <h2 className='text-center mb-5' style={{ textTransform: 'uppercase', fontSize: '36px', fontWeight: '700', color: '#17416F' }}>
-            {selectedLanguage === 'fr' ? contents?.home_page_banner_link5.content_fr : contents?.home_page_banner_link5.content_en}
+            {selectedLanguage === 'fr' ? contents?.data.home_page_banner_link5.content_fr : contents?.data.home_page_banner_link5.content_en}
           </h2>
           <div className="relative">
             {/* Navigation Buttons */}
             <button
+              role="none"
               onClick={prev}
               className={`absolute shadow top-1/2 -translate-y-1/2 -translate-x-4 z-10 transition-opacity ${currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-100'
                 }`}
               disabled={currentIndex === 0}
-              style={{ fontSize: '2rem', color: 'white', backgroundColor:"#17416f", padding:"15px", left:"-10px" }} // Increase the icon size
+              style={{ fontSize: '2rem', color: 'white', backgroundColor: "#17416f", padding: "15px", left: "-10px" }} // Increase the icon size
             >
               <ChevronLeft />
             </button>
 
             <button
+              role="none"
               onClick={next}
               className={`absolute shadow top-1/2 -translate-y-1/2 translate-x-4 z-10 transition-opacity ${currentIndex === maxIndex ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-100'
                 }`}
               disabled={currentIndex === maxIndex}
-              style={{ fontSize: '2rem', color: 'white',  backgroundColor:"#17416f", padding:"15px", right:"-10px" }} // Increase the icon size
+              style={{ fontSize: '2rem', color: 'white', backgroundColor: "#17416f", padding: "15px", right: "-10px" }} // Increase the icon size
             >
               <ChevronRight />
             </button>
@@ -101,7 +107,7 @@ const HealthAdviceCarousel = ({ healthAdvices }) => {
             <div className="healthcont grid grid-flow-col auto-cols-fr px-4" >
               {visibleAdvices?.map((advice, index) => (
                 <div
-                // data-aos="zoom-in-down" data-aos-duration="1000"
+                  // data-aos="zoom-in-down" data-aos-duration="1000"
                   key={currentIndex + index}
                   className="transition-all duration-300 ease-in-out transform"
                   style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}
@@ -142,7 +148,7 @@ const HealthAdviceCarousel = ({ healthAdvices }) => {
                         <div className="modal-body position-relative">
                           <div className='d-flex'>
                             <div className='color1'>
-                              <div className="row" style={{alignItems:"center"}}>
+                              <div className="row" style={{ alignItems: "center" }}>
                                 <div className="col-12 col-lg-5 mx-auto mb-4">
                                   <div className="d-flex justify-content-center">
                                     <img src={selectedAdvice.photo} alt={selectedAdvice.topic} className="img-fluid" style={{ borderTopRightRadius: "30px" }} />
@@ -151,19 +157,19 @@ const HealthAdviceCarousel = ({ healthAdvices }) => {
                                 <div className="col-12 col-lg-7 mx-auto mb-4">
                                   <h2 style={{ fontSize: "25px", color: "#17416F", fontWeight: 800 }}>{selectedLanguage === 'fr' ? selectedAdvice.topic : selectedAdvice.topic_en}</h2>
                                   <span className="my-4 d-block" style={{ borderBottom: "1px solid #17416F33" }}></span>
-                                  <p style={{ color: "#17416F", textAlign:"start" }}>
+                                  <p style={{ color: "#17416F", textAlign: "start" }}>
                                     {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
                                       __html: selectedAdvice.advice_text
                                     }} />) : (<div dangerouslySetInnerHTML={{
                                       __html: selectedAdvice.advice_text_en
                                     }} />)}
-                                    {/* {selectedLanguage === 'fr' ? contents?.modal_descp.content_fr : contents?.modal_descp.content_en} */}
+                                    {/* {selectedLanguage === 'fr' ? contents?.data.modal_descp.content_fr : contents?.data.modal_descp.content_en} */}
                                   </p>
                                 </div>
                               </div>
                             </div>
                             <div className="col">
-                              <button onClick={() => setSelectedAdvice(null)} className="btn-cl fs-3 text-white">
+                              <button role='none' onClick={() => setSelectedAdvice(null)} className="btn-cl fs-3 text-white">
                                 <i class="bi bi-x-lg"></i>
                               </button>
                             </div>

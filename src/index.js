@@ -5,11 +5,13 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { LanguageProvider } from './context/LanguageContext';
 import { LoaderProvider } from './context/LoaderContext';
+import { fetchInitialData } from './utils/fetchData';
+import './Olowa/Components/Loader.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <LoaderProvider>
+    <LoaderProvider fetchInitialData={fetchInitialData}>
       <LanguageProvider>
         <App />
       </LanguageProvider>

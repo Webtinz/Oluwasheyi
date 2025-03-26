@@ -5,9 +5,10 @@ import Img1 from '../../assets/hamburger-menu.svg';
 import $ from 'jquery';
 import 'select2';
 import 'select2/dist/css/select2.min.css';
-import { Link, useNavigate } from "react-router-dom";
-import { getAllContents } from '../../services/content.service';
+import { Link } from "react-router-dom";
+// import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
+import { useLoader } from '../../context/LoaderContext';
 
 // Composant pour le sélecteur de langue stylisé
 const StyledLanguageSelect = ({ selectedLanguage, handleLanguageChange }) => {
@@ -114,8 +115,8 @@ const StyledLanguageSelect = ({ selectedLanguage, handleLanguageChange }) => {
         style={selectStyle}
         aria-label="Small select example"
       >
-        <option value="en"><b>En</b></option>
-        <option value="fr"><b>Fr</b></option>
+        <option value="en">en</option>
+        <option value="fr">Fr</option>
       </select>
     </div>
   );
@@ -125,32 +126,34 @@ const Navbar = () => {
   const [isMenuActive, setIsMenuActive] = useState(false);
   const languageSelectRef = useRef(null);
   const { selectedLanguage, setSelectedLanguage } = useContext(LanguageContext);
-  const [contents, setContents] = useState();
+  // const [contents, setContents] = useState();
 
+  const { appData } = useLoader();
+        const { contents } = appData;
   // Handle language change and store the selected language in localStorage
   const handleLanguageChange = (language) => {
     setSelectedLanguage(language);
   };
 
   // Get contents on component mount
-  useEffect(() => {
-    const fetchContents = async () => {
-      try {
-        // const savedContents = localStorage.getItem("contents");
-        // if (savedContents) {
-        //   setContents(JSON.parse(savedContents));
-        // } else {
-        // Fetch contents if not in localStorage
-        const response = await getAllContents();
-        setContents(response.data);
-        //   localStorage.setItem("contents", JSON.stringify(response.data));
-        // }
-      } catch (error) {
-        console.error('Failed to fetch contents:', error.message || error);
-      }
-    };
-    fetchContents();
-  }, []);
+  // useEffect(() => {
+  //   const fetchContents = async () => {
+  //     try {
+  //       // const savedContents = localStorage.getItem("contents");
+  //       // if (savedContents) {
+  //       //   setContents(JSON.parse(savedContents));
+  //       // } else {
+  //       // Fetch contents if not in localStorage
+  //       const response = await getAllContents();
+  //       setContents(response.data);
+  //       //   localStorage.setItem("contents", JSON.stringify(response.data));
+  //       // }
+  //     } catch (error) {
+  //       console.error('Failed to fetch contents:', error.message || error);
+  //     }
+  //   };
+  //   fetchContents();
+  // }, []);
 
 
   useEffect(() => {
@@ -174,7 +177,7 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsMenuActive(!isMenuActive);
   };
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   return (
     <section className="container-fluid">
@@ -188,8 +191,8 @@ const Navbar = () => {
               </span>
             </div>
             <div>
-              <Link to="/index">
-                <img src={contents?.home_page_header_logo.image} alt="" 
+              <Link aria-label='Go to home page' to="/index">
+                <img loading='lazy' src={contents?.data.home_page_header_logo.image} alt=""
                 // onClick={() => { navigate('/index') }} 
                 />
               </Link>
@@ -200,36 +203,36 @@ const Navbar = () => {
           <div className={`menu ${isMenuActive ? 'active' : ''}`} id="menu">
             <ul className='list-unstyled' style={{ lineHeight: '45px' }}>
               <li>
-                <Link to="/index" className="text-white" style={{ fontWeight: '700', fontSize: '20px', textTransform: 'uppercase' }}>{selectedLanguage === 'fr' ? contents?.home_page_home.content_fr : contents?.home_page_home.content_en}
+                <Link to="/index" className="text-white" style={{ fontWeight: '700', fontSize: '20px', textTransform: 'uppercase' }}>{selectedLanguage === 'fr' ? contents?.data.home_page_home.content_fr : contents?.data.home_page_home.content_en}
                 </Link>
               </li>
               <li>
-                <Link to="/about" className="text-white" style={{ fontWeight: '700', fontSize: '20px', textTransform: 'uppercase' }}>{selectedLanguage === 'fr' ? contents?.home_page_banner_link1.content_fr : contents?.home_page_banner_link1.content_en}</Link>
+                <Link to="/about" className="text-white" style={{ fontWeight: '700', fontSize: '20px', textTransform: 'uppercase' }}>{selectedLanguage === 'fr' ? contents?.data.home_page_banner_link1.content_fr : contents?.data.home_page_banner_link1.content_en}</Link>
               </li>
               <li>
-                <Link to="/community" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '20px', }}>{selectedLanguage === 'fr' ? contents?.home_page_menu_community.content_fr : contents?.home_page_menu_community.content_en}</Link>
+                <Link to="/community" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '20px', }}>{selectedLanguage === 'fr' ? contents?.data.home_page_menu_community.content_fr : contents?.data.home_page_menu_community.content_en}</Link>
               </li>
               <li>
-                <Link to="/meet" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '20px', }}>{selectedLanguage === 'fr' ? contents?.home_page_menu_meet.content_fr : contents?.home_page_menu_meet.content_en}</Link>
+                <Link to="/meet" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '20px', }}>{selectedLanguage === 'fr' ? contents?.data.home_page_menu_meet.content_fr : contents?.data.home_page_menu_meet.content_en}</Link>
               </li>
               <li>
-                <Link to="/department" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '20px', }}>{selectedLanguage === 'fr' ? contents?.home_page_menu_departments.content_fr : contents?.home_page_menu_departments.content_en}</Link>
+                <Link to="/department" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '20px', }}>{selectedLanguage === 'fr' ? contents?.data.home_page_menu_departments.content_fr : contents?.data.home_page_menu_departments.content_en}</Link>
               </li>
               <li>
-                <Link to="/testimonial" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '20px', }}>{selectedLanguage === 'fr' ? contents?.home_page_menu_Testimonials.content_fr : contents?.home_page_menu_Testimonials.content_en}</Link>
+                <Link to="/testimonial" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '20px', }}>{selectedLanguage === 'fr' ? contents?.data.home_page_menu_Testimonials.content_fr : contents?.data.home_page_menu_Testimonials.content_en}</Link>
               </li>
               <li>
-                <Link to="/service" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '20px', }}>{selectedLanguage === 'fr' ? contents?.home_page_menu_Service.content_fr : contents?.home_page_menu_Service.content_en}</Link>
+                <Link to="/service" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '20px', }}>{selectedLanguage === 'fr' ? contents?.data.home_page_menu_Service.content_fr : contents?.data.home_page_menu_Service.content_en}</Link>
               </li>
               {/* <li>
-                <Link to="/sugery" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>{selectedLanguage === 'fr' ? contents?.home_page_menu_Sugery.content_fr : contents?.home_page_menu_Sugery.content_en}</Link>
+                <Link to="/sugery" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>{selectedLanguage === 'fr' ? contents?.data.home_page_menu_Sugery.content_fr : contents?.data.home_page_menu_Sugery.content_en}</Link>
               </li> */}
               <li className='d-lg-none'>
                 <Link to="/donate"
                   className="btn btn-white don px-5"
                   style={{ backgroundColor: '#13AB9C', color: 'white', fontWeight: 700, fontSize: '20px' }}
                 >
-                  {selectedLanguage === 'fr' ? contents?.home_page_header_donate.content_fr : contents?.home_page_header_donate.content_en}
+                  {selectedLanguage === 'fr' ? contents?.data.home_page_header_donate.content_fr : contents?.data.home_page_header_donate.content_en}
                 </Link>
               </li>
               <li className='d-lg-none'>
@@ -248,7 +251,7 @@ const Navbar = () => {
                       className="btn btn-white px-5"
                       style={{ backgroundColor: '#13AB9C', color: 'white', fontWeight: 700, fontSize: '22px' }}
                     >
-                      {selectedLanguage === 'fr' ? contents?.home_page_header_donate.content_fr : contents?.home_page_header_donate.content_en}
+                      {selectedLanguage === 'fr' ? contents?.data.home_page_header_donate.content_fr : contents?.data.home_page_header_donate.content_en}
                     </Link>
                   </div>
                   <div className="ms-2">
@@ -272,7 +275,7 @@ const Navbar = () => {
                     className="btn btn-white px-4"
                     style={{ backgroundColor: '#13AB9C', color: 'white', fontWeight: 600 }}
                   >
-                    {selectedLanguage === 'fr' ? contents?.home_page_header_donate.content_fr : contents?.home_page_header_donate.content_en}
+                    {selectedLanguage === 'fr' ? contents?.data.home_page_header_donate.content_fr : contents?.data.home_page_header_donate.content_en}
                   </Link>
                 </div>
                 {/* Sélecteur de langue stylisé pour la version desktop */}

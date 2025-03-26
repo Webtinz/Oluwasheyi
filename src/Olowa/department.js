@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 // import { Link } from "react-router-dom";
 import './index.css';
 import './about.css';
@@ -15,7 +15,7 @@ import Group1 from '../assets/Group1.png';
 import Img6 from '../assets/phone.png';
 import Img7 from '../assets/mail.png';
 import Mask1 from '../assets/Fr1.png';
-import { getAllContents, getDepartments } from '../services/content.service';
+// import { getAllContents, getDepartments } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
 import { useLoader } from '../context/LoaderContext';
 
@@ -31,38 +31,32 @@ const Departement = () => {
     };
 
     const { selectedLanguage } = useContext(LanguageContext);
-    const [contents, setContents] = useState();
-    const [departments, setDepartments] = useState();
+    // const [contents, setContents] = useState();
+    // const [departments, setDepartments] = useState();
+
+    const { appData } = useLoader();
+    const { contents, departments } = appData;
 
     // Get contents on component mount
-    useEffect(() => {
-        const fetchContents = async () => {
-            try {
-                const response = await getAllContents();
-                setContents(response.data);
-                setDepartments(await getDepartments())
-            } catch (error) {
-                console.error('Failed to fetch contents:', error.message || error);
-            }
-        };
-        fetchContents();
-    }, []);
+    // useEffect(() => {
+    //     const fetchContents = async () => {
+    //         try {
+    //             const response = await getAllContents();
+    //             setContents(response.data);
+    //             setDepartments(await getDepartments())
+    //         } catch (error) {
+    //             console.error('Failed to fetch contents:', error.message || error);
+    //         }
+    //     };
+    //     fetchContents();
+    // }, []);
 
-    const { setLoading } = useLoader();
-
-    useEffect(() => {
-        setLoading(true);
-        // Simulate loading data
-        setTimeout(() => {
-            setLoading(false);
-        }, 2000);
-    }, [setLoading]);
 
     return (
         <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
             <div><Navbar /></div>
             <section className="mt-4 position-relative" style={{ backgroundColor: '#17416F', padding: '100px 0' }}>
-                <h1 className="text-center text-white" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '40px' }}>{selectedLanguage === 'fr' ? contents?.department_page_title.content_fr : contents?.department_page_title.content_en}</h1>
+                <h1 className="text-center text-white" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '40px' }}>{selectedLanguage === 'fr' ? contents?.data.department_page_title.content_fr : contents?.data.department_page_title.content_en}</h1>
                 <div className="position-absolute bottom-0 start-0">
                     <img src={Group1} alt="" />
                 </div>
@@ -75,12 +69,12 @@ const Departement = () => {
                 <div className="row">
                     <div className="col-md-2 mx-auto mb-3">
                         <h2 className='text-start' style={{ color: '#17416F', textTransform: 'uppercase', fontWeight: 700, fontSize: '30px' }}>
-                            {selectedLanguage === 'fr' ? contents?.department_page_speciality_title.content_fr : contents?.department_page_speciality_title.content_en}
+                            {selectedLanguage === 'fr' ? contents?.data.department_page_speciality_title.content_fr : contents?.data.department_page_speciality_title.content_en}
                         </h2>
                     </div>
                     <div className="col-md-8 mx-auto">
                         <p style={{ color: '#17416F' }}>
-                            {selectedLanguage === 'fr' ? contents?.department_page_speciality_desc.content_fr : contents?.department_page_speciality_desc.content_en}
+                            {selectedLanguage === 'fr' ? contents?.data.department_page_speciality_desc.content_fr : contents?.data.department_page_speciality_desc.content_en}
                         </p>
                     </div>
                 </div>
@@ -116,7 +110,7 @@ const Departement = () => {
                                                 <div className="d-flex">
                                                     <div><img src={Img6} alt="" /></div>
                                                     <div className="ms-2">
-                                                        <p style={{ color: '#17416F' }}>{selectedLanguage === 'fr' ? contents?.call_now.content_fr : contents?.call_now.content_en}</p>
+                                                        <p style={{ color: '#17416F' }}>{selectedLanguage === 'fr' ? contents?.data.call_now.content_fr : contents?.data.call_now.content_en}</p>
                                                         <br />
                                                         <p style={{ color: '#17416F', fontSize: '20px', marginTop: '-1rem' }}><strong>{section.phone}</strong></p>
                                                     </div>
@@ -141,8 +135,8 @@ const Departement = () => {
                                                 onClick={() => toggleContent(index)}
                                             >
                                                 {activeSection === index
-                                                    ? (selectedLanguage === 'fr' ? contents?.button_read_less.content_fr : contents?.button_read_less.content_en)
-                                                    : (selectedLanguage === 'fr' ? contents?.button_learn_more.content_fr : contents?.button_learn_more.content_en)}
+                                                    ? (selectedLanguage === 'fr' ? contents?.data.button_read_less.content_fr : contents?.data.button_read_less.content_en)
+                                                    : (selectedLanguage === 'fr' ? contents?.data.button_learn_more.content_fr : contents?.data.button_learn_more.content_en)}
 
                                                 <i className={`bi ${activeSection === index ? 'bi-chevron-up' : 'bi-chevron-down'} ms-1`}></i>
                                             </button>

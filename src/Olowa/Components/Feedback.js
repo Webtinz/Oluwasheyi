@@ -1,13 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import "../index.css"; // Fichier CSS pour les styles
 import nurseImage from "../../assets/male-nurse-working-clinic-b 1.png"; // Importation de l'image
 // import { Star } from "lucide-react";
 // import Select from './select';
-import { addFeedback, getAllContents } from '../../services/content.service';
+import { addFeedback } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
-import AOS from 'aos';
+// import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { useLoader } from '../../context/LoaderContext';
 
 const FeedbackSection = () => {
   const [selectedDoctor, setSelectedDoctor] = useState(null);
@@ -52,29 +53,31 @@ const FeedbackSection = () => {
   };
 
   const { selectedLanguage } = useContext(LanguageContext);
-  const [contents, setContents] = useState();
+  // const [contents, setContents] = useState();
 
-  // Get contents on component mount
-  useEffect(() => {
-    const fetchContents = async () => {
-      try {
-        // const savedContents = localStorage.getItem("contents");
-        // if (savedContents) {
-        //   setContents(JSON.parse(savedContents));
-        // } else {
-          // Fetch contents if not in localStorage
-          const response = await getAllContents();
-          setContents(response.data);
-        //   localStorage.setItem("contents", JSON.stringify(response.data));
-        // }
-      } catch (error) {
-        console.error('Failed to fetch contents:', error.message || error);
-      }
-    };
-    fetchContents();
-    AOS.init();
+  const { appData } = useLoader();
+  const { contents } = appData;
+  // // Get contents on component mount
+  // useEffect(() => {
+  //   const fetchContents = async () => {
+  //     try {
+  //       // const savedContents = localStorage.getItem("contents");
+  //       // if (savedContents) {
+  //       //   setContents(JSON.parse(savedContents));
+  //       // } else {
+  //         // Fetch contents if not in localStorage
+  //         const response = await getAllContents();
+  //         setContents(response.data);
+  //       //   localStorage.setItem("contents", JSON.stringify(response.data));
+  //       // }
+  //     } catch (error) {
+  //       console.error('Failed to fetch contents:', error.message || error);
+  //     }
+  //   };
+  //   fetchContents();
+  //   AOS.init();
 
-  }, []);
+  // }, []);
 
   return (
     <section className="container-fluid py-5 Big" style={{ backgroundColor: "#13AB9C" }}>
@@ -82,8 +85,8 @@ const FeedbackSection = () => {
         <div className="d-flex justify-content-center">
           <div className="row ladit" style={{ width: '80%' }}>
             <div className="col-lg-7 align-self-center">
-              <h2 className="text-white home-title" style={{textTransform:'uppercase'}}>
-                {selectedLanguage === 'fr' ? contents?.home_page_feedback_title.content_fr : contents?.home_page_feedback_title.content_en}
+              <h2 className="text-white home-title" style={{ textTransform: 'uppercase' }}>
+                {selectedLanguage === 'fr' ? contents?.data.home_page_feedback_title.content_fr : contents?.data.home_page_feedback_title.content_en}
               </h2>
               <br />
               <a
@@ -100,12 +103,12 @@ const FeedbackSection = () => {
                   });
                 }}
               >
-                {selectedLanguage === 'fr' ? contents?.home_page_feedback_button.content_fr : contents?.home_page_feedback_button.content_en}
+                {selectedLanguage === 'fr' ? contents?.data.home_page_feedback_button.content_fr : contents?.data.home_page_feedback_button.content_en}
               </a>
             </div>
             <div className="col-lg-5 d-none d-lg-block">
               <div className="position-relative nurse-container">
-                <img src={contents?.home_page_feedback_img.image}  alt="Male Nurse" className="man" data-aos="zoom-in"/>
+                <img src={contents?.data.home_page_feedback_img.image} alt="Male Nurse" className="man" data-aos="zoom-in" />
               </div>
             </div>
           </div>
@@ -124,14 +127,14 @@ const FeedbackSection = () => {
                     <div className="color">
                       <div className="mb-6">
                         <h1 className="text-2xl font-bold text-blue-900 text-center">
-                          {selectedLanguage === 'fr' ? contents?.feedback_title.content_fr : contents?.feedback_title.content_en}
+                          {selectedLanguage === 'fr' ? contents?.data.feedback_title.content_fr : contents?.data.feedback_title.content_en}
                         </h1>
                       </div>
 
                       <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="space-y-2">
                           <label className="block text-blue-900">
-                            {selectedLanguage === 'fr' ? contents?.feedback_label_1.content_fr : contents?.feedback_label_1.content_en} <span className="text-red-500">*</span>
+                            {selectedLanguage === 'fr' ? contents?.data.feedback_label_1.content_fr : contents?.data.feedback_label_1.content_en} <span className="text-red-500">*</span>
                           </label>
                           <input
                             type="text"
@@ -146,7 +149,7 @@ const FeedbackSection = () => {
 
                         <div className="space-y-2">
                           <label className="block text-blue-900">
-                            {selectedLanguage === 'fr' ? contents?.feedback_label_2.content_fr : contents?.feedback_label_2.content_en} <span className="text-red-500">*</span>
+                            {selectedLanguage === 'fr' ? contents?.data.feedback_label_2.content_fr : contents?.data.feedback_label_2.content_en} <span className="text-red-500">*</span>
                           </label>
                           <input
                             type="email"
@@ -160,7 +163,7 @@ const FeedbackSection = () => {
                         </div>
 
                         <div className="space-y-2">
-                          <label className="block text-blue-900">{selectedLanguage === 'fr' ? contents?.feedback_label_3.content_fr : contents?.feedback_label_3.content_en}</label>
+                          <label className="block text-blue-900">{selectedLanguage === 'fr' ? contents?.data.feedback_label_3.content_fr : contents?.data.feedback_label_3.content_en}</label>
                           <div className="flex gap-1">
                             {[1, 2, 3, 4, 5].map((rating) => (
                               <button
@@ -177,7 +180,7 @@ const FeedbackSection = () => {
                         </div>
 
                         <div className="space-y-2">
-                          <label className="block text-blue-900">{selectedLanguage === 'fr' ? contents?.feedback_label_4.content_fr : contents?.feedback_label_4.content_en}</label>
+                          <label className="block text-blue-900">{selectedLanguage === 'fr' ? contents?.data.feedback_label_4.content_fr : contents?.data.feedback_label_4.content_en}</label>
                           <textarea
                             name="yoursuggestions"
                             value={formData.yoursuggestions}
@@ -189,7 +192,7 @@ const FeedbackSection = () => {
 
                         <div className="d-flex justify-content-center">
                           <button type="submit" className="btn btn-primary">
-                            {selectedLanguage === 'fr' ? contents?.feedback_button.content_fr : contents?.feedback_button.content_en}
+                            {selectedLanguage === 'fr' ? contents?.data.feedback_button.content_fr : contents?.data.feedback_button.content_en}
                           </button>
                         </div>
                       </form>
@@ -214,7 +217,7 @@ const FeedbackSection = () => {
       {/* Notification de succès */}
       {showSuccessMessage && (
         <div className="alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3" role="alert">
-          {selectedLanguage === 'fr' ? contents?.feedback_notif.content_fr : contents?.feedback_notif.content_en}
+          {selectedLanguage === 'fr' ? contents?.data.feedback_notif.content_fr : contents?.data.feedback_notif.content_en}
         </div>
       )}
     </section>

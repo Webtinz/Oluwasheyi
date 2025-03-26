@@ -1,10 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import '../about.css';
 import Paypal from '../../assets/paypal.png';
 import MTN from '../../assets/MTN.png';
 import { ChevronDown, X } from "lucide-react";
-import { addDonation, capturePaypalOrder, createPaypalOrder, getAllContents, initiatePayment } from '../../services/content.service';
+import { capturePaypalOrder, createPaypalOrder, initiatePayment } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
+import { useLoader } from '../../context/LoaderContext';
 
 const DonationForm = ({ programs, preselectedProgram }) => {
   const [donationType, setDonationType] = useState('once');
@@ -13,31 +16,33 @@ const DonationForm = ({ programs, preselectedProgram }) => {
   const [selectedMethod, setSelectedMethod] = useState('');
   const [selectedProgram, setSelectedProgram] = useState("");
   const { selectedLanguage } = useContext(LanguageContext);
-  const [contents, setContents] = useState();
+  // const [contents, setContents] = useState();
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [orderId, setOrderId] = useState(null);
   const [paymentStatus, setPaymentStatus] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [showPaypalButtons, setShowPaypalButtons] = useState(false);
   const paypalButtonsRef = useRef(null);
-  
+
   // New state for MTN MoMo modal
   const [showMomoModal, setShowMomoModal] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [phoneError, setPhoneError] = useState('');
 
+  const { appData } = useLoader();
+  const { contents } = appData;
   // Get contents on component mount
   useEffect(() => {
-    const fetchContents = async () => {
-      try {
-        const response = await getAllContents();
-        setContents(response.data);
-      } catch (error) {
-        console.error('Failed to fetch contents:', error.message || error);
-      }
-    };
-    fetchContents();
-    
+    // const fetchContents = async () => {
+    //   try {
+    //     const response = await getAllContents();
+    //     setContents(response.data);
+    //   } catch (error) {
+    //     console.error('Failed to fetch contents:', error.message || error);
+    //   }
+    // };
+    // fetchContents();
+
     if (preselectedProgram?.id) {
       setSelectedProgram(preselectedProgram.id);
     }
@@ -51,9 +56,9 @@ const DonationForm = ({ programs, preselectedProgram }) => {
       script.src = "https://www.paypal.com/sdk/js?client-id=AcZ0hdwQZs3r6Gfhfpd83eoA3XUXOPe5UOi3qkxMEFfQXkhMZPrXtz82zdzzy7FoHrddS0wq_VYlfIZj&currency=USD";
       script.async = true;
       script.onload = () => initializePayPalButtons();
-      
+
       document.body.appendChild(script);
-      
+
       return () => {
         document.body.removeChild(script);
       };
@@ -63,7 +68,7 @@ const DonationForm = ({ programs, preselectedProgram }) => {
   const initializePayPalButtons = () => {
     if (window.paypal && paypalButtonsRef.current) {
       paypalButtonsRef.current.innerHTML = '';
-      
+
       window.paypal.Buttons({
         createOrder: async () => {
           try {
@@ -97,7 +102,7 @@ const DonationForm = ({ programs, preselectedProgram }) => {
               setPaymentStatus('Payment successful!');
               setShowSuccessMessage(true);
               resetForm();
-              
+
               // Hide success message after 3 seconds
               setTimeout(() => {
                 setShowSuccessMessage(false);
@@ -128,7 +133,7 @@ const DonationForm = ({ programs, preselectedProgram }) => {
           label: 'pay'
         }
       }).render(paypalButtonsRef.current);
-      
+
       setShowPaypalButtons(true);
     }
   };
@@ -176,7 +181,7 @@ const DonationForm = ({ programs, preselectedProgram }) => {
     console.log('Amount:', customAmount || amount);
     console.log('Type:', donationType);
     console.log('Medical Program:', selectedProgram);
-    
+
     // If PayPal is selected and we have an amount, show the buttons
     if (method === 'paypal' && (customAmount || amount)) {
       setShowPaypalButtons(true);
@@ -190,17 +195,17 @@ const DonationForm = ({ programs, preselectedProgram }) => {
       alert(selectedLanguage === 'fr' ? 'Veuillez sélectionner un programme médical' : 'Please select a medical program');
       return false;
     }
-    
+
     if (!amount && !customAmount) {
       alert(selectedLanguage === 'fr' ? 'Veuillez sélectionner ou saisir un montant' : 'Please select or enter an amount');
       return false;
     }
-    
+
     if (!selectedMethod) {
       alert(selectedLanguage === 'fr' ? 'Veuillez sélectionner une méthode de paiement' : 'Please select a payment method');
       return false;
     }
-    
+
     return true;
   };
 
@@ -223,9 +228,9 @@ const DonationForm = ({ programs, preselectedProgram }) => {
   // Function to handle form submission for Mobile Money (MTN)
   const handleMomoSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
-    
+
     // For MTN Momo, open the modal to get phone number
     setShowMomoModal(true);
   };
@@ -237,15 +242,15 @@ const DonationForm = ({ programs, preselectedProgram }) => {
       setPhoneError(selectedLanguage === 'fr' ? 'Numéro de téléphone requis' : 'Phone number is required');
       return;
     }
-    
+
     if (!validatePhoneNumber(phoneNumber)) {
       setPhoneError(selectedLanguage === 'fr' ? 'Numéro de téléphone invalide' : 'Invalid phone number');
       return;
     }
-    
+
     try {
       setIsProcessing(true);
-      
+
       const paymentData = {
         amount: customAmount || amount,
         phoneNumber: phoneNumber,
@@ -257,13 +262,13 @@ const DonationForm = ({ programs, preselectedProgram }) => {
 
       // Initiate the payment
       const response = await initiatePayment(paymentData);
-      
+
       if (response.response && response.transaction) {
         setPaymentStatus(selectedLanguage === 'fr' ? 'Paiement initié avec succès' : 'Payment initiated successfully');
         setShowSuccessMessage(true);
         setShowMomoModal(false);
         resetForm();
-        
+
         // Hide success message after 3 seconds
         setTimeout(() => {
           setShowSuccessMessage(false);
@@ -280,9 +285,9 @@ const DonationForm = ({ programs, preselectedProgram }) => {
   // Generic form submission handler that routes to the correct payment method
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
-    
+
     if (selectedMethod === 'momo') {
       await handleMomoSubmit(e);
     }
@@ -296,21 +301,21 @@ const DonationForm = ({ programs, preselectedProgram }) => {
           {selectedLanguage === 'fr' ? 'Don effectué avec succès' : "Donation completed successfully"}
         </div>
       )} */}
-      
+
       {showSuccessMessage && (
         <div className={`alert ${paymentStatus.includes('success') ? 'alert-success' : 'alert-info'} mb-4`} role="alert">
           {paymentStatus}
         </div>
       )}
-      
+
       <h1 className="text-2xl font-bold text-center mb-4" style={{ color: '#17416F' }}>
         {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
-          __html: contents?.donate_subscription_title?.content_fr
+          __html: contents?.data.donate_subscription_title?.content_fr
         }} />) : (<div dangerouslySetInnerHTML={{
-          __html: contents?.donate_subscription_title?.content_en
+          __html: contents?.data.donate_subscription_title?.content_en
         }} />)}
       </h1>
-      
+
       <form>
         <div className="grid grid-cols-2 gap-2 mb-6">
           {['once', 'monthly'].map((type) => (
@@ -335,11 +340,11 @@ const DonationForm = ({ programs, preselectedProgram }) => {
             >
               {type === 'once'
                 ? (selectedLanguage === 'fr'
-                  ? contents?.donate_page_payment_button_1?.content_fr
-                  : contents?.donate_page_payment_button_1?.content_en)
+                  ? contents?.data.donate_page_payment_button_1?.content_fr
+                  : contents?.data.donate_page_payment_button_1?.content_en)
                 : (selectedLanguage === 'fr'
-                  ? contents?.donate_page_payment_button_2?.content_fr
-                  : contents?.donate_page_payment_button_2?.content_en)
+                  ? contents?.data.donate_page_payment_button_2?.content_fr
+                  : contents?.data.donate_page_payment_button_2?.content_en)
               }
             </button>
           ))}
@@ -404,8 +409,8 @@ const DonationForm = ({ programs, preselectedProgram }) => {
         <input
           type="number"
           min="1"
-          placeholder={selectedLanguage === 'fr' ? 
-            (donationType === 'monthly' ? "Autre montant mensuel" : "Autre montant") : 
+          placeholder={selectedLanguage === 'fr' ?
+            (donationType === 'monthly' ? "Autre montant mensuel" : "Autre montant") :
             (donationType === 'monthly' ? "Other Monthly Amount" : "Other Amount")}
           value={customAmount}
           onChange={handleCustomAmountChange}
@@ -447,20 +452,20 @@ const DonationForm = ({ programs, preselectedProgram }) => {
         {/* Submit button for Mobile Money */}
         {selectedMethod === 'momo' && (
           <div className="text-center">
-            <button 
-              type="submit" 
-              onClick={handleSubmit} 
+            <button
+              type="submit"
+              onClick={handleSubmit}
               className='text-sm mt-4 px-4 py-2 bg-blue-800 text-white rounded hover:bg-blue-700 transition'
               disabled={isProcessing}
             >
-              <i className="bi bi-lock"></i> {isProcessing ? 
-                (selectedLanguage === 'fr' ? 'Traitement...' : 'Processing...') : 
-                (selectedLanguage === 'fr' ? contents?.subs_button?.content_fr : contents?.subs_button?.content_en)}
+              <i className="bi bi-lock"></i> {isProcessing ?
+                (selectedLanguage === 'fr' ? 'Traitement...' : 'Processing...') :
+                (selectedLanguage === 'fr' ? contents?.data.subs_button?.content_fr : contents?.data.subs_button?.content_en)}
             </button>
           </div>
         )}
       </form>
-      
+
       {/* MTN MoMo Phone Number Modal */}
       {showMomoModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -469,14 +474,14 @@ const DonationForm = ({ programs, preselectedProgram }) => {
               <h3 className="text-lg font-semibold text-gray-900">
                 {selectedLanguage === 'fr' ? 'Entrez votre numéro de téléphone' : 'Enter your phone number'}
               </h3>
-              <button 
+              <button
                 onClick={() => setShowMomoModal(false)}
                 className="text-gray-400 hover:text-gray-500"
               >
                 <X size={24} />
               </button>
             </div>
-            
+
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 {selectedLanguage === 'fr' ? 'Numéro de téléphone' : 'Phone Number'}
@@ -495,12 +500,12 @@ const DonationForm = ({ programs, preselectedProgram }) => {
                 <p className="text-red-500 text-xs mt-1">{phoneError}</p>
               )}
               <p className="text-xs text-gray-500 mt-1">
-                {selectedLanguage === 'fr' 
-                  ? 'Entrez votre numéro MTN sans préfixe international (exemple: 679123456)' 
+                {selectedLanguage === 'fr'
+                  ? 'Entrez votre numéro MTN sans préfixe international (exemple: 679123456)'
                   : 'Enter your MTN number without international prefix (example: 679123456)'}
               </p>
             </div>
-            
+
             <div className="flex justify-end gap-2">
               <button
                 onClick={() => setShowMomoModal(false)}
@@ -514,8 +519,8 @@ const DonationForm = ({ programs, preselectedProgram }) => {
                 className="px-4 py-2 bg-blue-800 text-white rounded hover:bg-blue-700"
                 disabled={isProcessing}
               >
-                {isProcessing 
-                  ? (selectedLanguage === 'fr' ? 'Traitement...' : 'Processing...') 
+                {isProcessing
+                  ? (selectedLanguage === 'fr' ? 'Traitement...' : 'Processing...')
                   : (selectedLanguage === 'fr' ? 'Payer' : 'Pay')}
               </button>
             </div>

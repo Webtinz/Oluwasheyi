@@ -2,9 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import '../index.css';
 import '../about.css';
-import { getAllContents } from '../../services/content.service';
+// import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 import { format } from 'date-fns';
+import { useLoader } from '../../context/LoaderContext';
 
 const EventsCarousel = ({ events }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -25,7 +26,7 @@ const EventsCarousel = ({ events }) => {
 
     // Initial screen size check
     handleResize();
-    
+
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -57,27 +58,29 @@ const EventsCarousel = ({ events }) => {
   };
 
   const { selectedLanguage } = useContext(LanguageContext);
-  const [contents, setContents] = useState();
+  // const [contents, setContents] = useState();
 
-  // Get contents on component mount
-  useEffect(() => {
-    const fetchContents = async () => {
-      try {
-        const response = await getAllContents();
-        setContents(response.data);
-      } catch (error) {
-        console.error('Failed to fetch contents:', error.message || error);
-      }
-    };
-    fetchContents();
-  }, []);
+  const { appData } = useLoader();
+  const { contents } = appData;
+  // // Get contents on component mount
+  // useEffect(() => {
+  //   const fetchContents = async () => {
+  //     try {
+  //       const response = await getAllContents();
+  //       setContents(response.data);
+  //     } catch (error) {
+  //       console.error('Failed to fetch contents:', error.message || error);
+  //     }
+  //   };
+  //   fetchContents();
+  // }, []);
 
   return (
     <div className="container-fluid py-5" style={{ background: '#17416F' }}>
       <div className="container px-lg-5 px-0">
         <div className="d-flex justify-content-between align-items-center mb-8">
-          <h2 className="text-white" style={{ fontSize: screenSize === 'small' ? '24px' : '36px', fontWeight: 'bold', textTransform: 'uppercase' }}> 
-            {selectedLanguage === 'fr' ? contents?.communoty_page_event_title.content_fr : contents?.communoty_page_event_title.content_en}
+          <h2 className="text-white" style={{ fontSize: screenSize === 'small' ? '24px' : '36px', fontWeight: 'bold', textTransform: 'uppercase' }}>
+            {selectedLanguage === 'fr' ? contents?.data.communoty_page_event_title.content_fr : contents?.data.communoty_page_event_title.content_en}
           </h2>
           <div className="d-flex gap-4">
             <button
@@ -141,8 +144,8 @@ const EventsCarousel = ({ events }) => {
                           <div dangerouslySetInnerHTML={{ __html: event.description_en }} />
                         )}
                       </div>
-                      <button 
-                        className="btn text-white px-4" 
+                      <button
+                        className="btn text-white px-4"
                         onClick={() => setSelectedEvent(event)}
                         style={{ background: '#13AB9C' }}
                       >

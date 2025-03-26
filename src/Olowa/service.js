@@ -18,17 +18,19 @@ import Group1 from '../assets/Group1.png';
 import Img6 from '../assets/phone.png';
 import Img7 from '../assets/mail.png';
 import Mask1 from '../assets/Fr1.png';
-import { getAllContents, getCertificates, getEvents, getServices } from '../services/content.service';
+// import { getAllContents, getCertificates, getEvents, getServices } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
 import { useLoader } from '../context/LoaderContext';
 
 const Home = () => {
     const { selectedLanguage } = useContext(LanguageContext);
-    const [contents, setContents] = useState();
-    const [services, setServices] = useState([]);
-    const [events, setEvents] = useState([]);
-    const [certificates, setCerificates] = useState([]);
+    // const [contents, setContents] = useState();
+    // const [services, setServices] = useState([]);
+    // const [events, setEvents] = useState([]);
+    // const [certificates, setCerificates] = useState([]);
     const location = useLocation();
+    const { appData } = useLoader();
+    const { contents, services, events, certificates } = appData;
     // Ajoutez ce useEffect pour gérer le défilement vers l'ancre
     useEffect(() => {
         if (location.hash) {
@@ -42,24 +44,24 @@ const Home = () => {
         }
     }, [location, services]);
 
-    // Get contents on component mount
-    useEffect(() => {
-        const fetchContents = async () => {
-            try {
-                const response = await getAllContents();
-                setContents(response.data);
-                setEvents(await getEvents());
-                setCerificates(await getCertificates());
+    // // Get contents on component mount
+    // useEffect(() => {
+    //     const fetchContents = async () => {
+    //         try {
+    //             const response = await getAllContents();
+    //             setContents(response.data);
+    //             setEvents(await getEvents());
+    //             setCerificates(await getCertificates());
 
-                setServices(await getServices());
-                setEvents(await getEvents());
-                setCerificates(await getCertificates());
-            } catch (error) {
-                console.error('Failed to fetch contents:', error.message || error);
-            }
-        };
-        fetchContents();
-    }, []);
+    //             setServices(await getServices());
+    //             setEvents(await getEvents());
+    //             setCerificates(await getCertificates());
+    //         } catch (error) {
+    //             console.error('Failed to fetch contents:', error.message || error);
+    //         }
+    //     };
+    //     fetchContents();
+    // }, []);
 
     const [activeSection, setActiveSection] = useState(null);
 
@@ -80,8 +82,8 @@ const Home = () => {
             setLoading(false);
         }, 2000);
     }, [setLoading]);
-
     return (
+
         <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
             <div><Navbar /></div>
             <section className="mt-4 position-relative" style={{ backgroundColor: '#17416F', padding: '100px 0' }}>

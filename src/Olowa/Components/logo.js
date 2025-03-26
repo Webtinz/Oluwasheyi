@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import "../index";
 // import Img from '../../assets/image 7.png';
@@ -7,8 +7,9 @@ import "../index";
 // import Img3 from '../../assets/image 10.png';
 // import Img4 from '../../assets/image 9.png';
 // import Img5 from '../../assets/image 11.png';
-import { getAllContents } from '../../services/content.service';
+// import { getAllContents } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
+import { useLoader } from '../../context/LoaderContext';
 
 // const logos = [
 //   { id: 1, src: Img, alt: 'Red Circle Logo' },
@@ -47,27 +48,29 @@ const LogoCarousel = ({ logos }) => {
   };
 
   const { selectedLanguage } = useContext(LanguageContext);
-  const [contents, setContents] = useState();
+  // const [contents, setContents] = useState();
 
-  // Get contents on component mount
-  useEffect(() => {
-    const fetchContents = async () => {
-      try {
-        // const savedContents = localStorage.getItem("contents");
-        // if (savedContents) {
-        //   setContents(JSON.parse(savedContents));
-        // } else {
-        // Fetch contents if not in localStorage
-        const response = await getAllContents();
-        setContents(response.data);
-        //   localStorage.setItem("contents", JSON.stringify(response.data));
-        // }
-      } catch (error) {
-        console.error('Failed to fetch contents:', error.message || error);
-      }
-    };
-    fetchContents();
-  }, []);
+  const { appData } = useLoader();
+  const { contents } = appData;
+  // // Get contents on component mount
+  // useEffect(() => {
+  //   const fetchContents = async () => {
+  //     try {
+  //       // const savedContents = localStorage.getItem("contents");
+  //       // if (savedContents) {
+  //       //   setContents(JSON.parse(savedContents));
+  //       // } else {
+  //       // Fetch contents if not in localStorage
+  //       const response = await getAllContents();
+  //       setContents(response.data);
+  //       //   localStorage.setItem("contents", JSON.stringify(response.data));
+  //       // }
+  //     } catch (error) {
+  //       console.error('Failed to fetch contents:', error.message || error);
+  //     }
+  //   };
+  //   fetchContents();
+  // }, []);
 
   return (
     <div className="container meetteam">
@@ -76,13 +79,14 @@ const LogoCarousel = ({ logos }) => {
           className="position-relative title-certifications"
           style={{ textTransform: "uppercase", fontSize: '30px', fontWeight: '700' }}
         >
-          {selectedLanguage === 'fr' ? contents?.home_page_certificates_title.content_fr : contents?.home_page_certificates_title.content_en}
+          {selectedLanguage === 'fr' ? contents?.data.home_page_certificates_title.content_fr : contents?.data.home_page_certificates_title.content_en}
         </h1>
       </div>
       <br />
       <div className="mt-8">
         <div className="relative px-4">
           <button
+            role="none"
             onClick={prev}
             className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2`}
             style={{
@@ -113,7 +117,7 @@ const LogoCarousel = ({ logos }) => {
                     src={logo.photo}
                     alt={logo.name}
                     className="img-fluid"
-                    style={{ objectFit: 'contain', width: '120px', height: '120px', margin:"0 auto" }}
+                    style={{ objectFit: 'contain', width: '120px', height: '120px', margin: "0 auto" }}
                   />
                 </div>
               ))}
@@ -121,6 +125,7 @@ const LogoCarousel = ({ logos }) => {
           </div>
 
           <button
+            role="none"
             onClick={next}
             className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2`}
             style={{
