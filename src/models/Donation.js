@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
     //MTN Momo
     referenceId: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     externalId: {
       type: DataTypes.STRING,

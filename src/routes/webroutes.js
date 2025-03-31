@@ -13,9 +13,9 @@ const ServiceController = require('../controllers/ServiceController');
 const DepartmentController = require('../controllers/DepartmentController');
 const EventController = require('../controllers/EventController');
 const Patientappointment = require('../controllers/PatientappointmentController');
-const { getDonations, addDonation, getDonation, getAllDonations, getDonationById, initiateMomoPayment, checkMomoStatus } = require('../controllers/DonationController');
-const { createOrder, captureOrder } = require('../controllers/PaypalController');
-const { initiatePayment, checkStatus } = require('../controllers/PaymentController');
+const { addDonation, getAllDonations, getDonationById, initiateMomoPayment, checkMomoStatus, createPaypalOrder, capturePaypalOrder } = require('../controllers/DonationController');
+// const { createOrder, captureOrder } = require('../controllers/PaypalController');
+// const { initiatePayment, checkStatus } = require('../controllers/PaymentController');
 const { getSuscribers, getSuscriber, addSuscriber } = require('../controllers/SuscriberController');
 
 
@@ -122,8 +122,8 @@ router.put('/updatecertification/:id', uploadCertification.single('photo'), Cert
 router.delete('/deletecertification/:id', CertificationController.deleteCertification);
 
 //Paypal
-router.post('/paypal/create-order', createOrder);
-router.post('/paypal/capture-order', captureOrder);
+router.post('/paypal/create-order', createPaypalOrder);
+router.post('/paypal/capture-order', capturePaypalOrder);
 
 //MTN momom
 router.post('/momo/create-payment', initiateMomoPayment);

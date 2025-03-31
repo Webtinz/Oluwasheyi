@@ -82,24 +82,24 @@ exports.createPaypalOrder = async (req, res) => {
         const order = await paypalService.createOrder(amount, currency);
 
         // Store the pending donation with PayPal order ID
-        if (medicalProgramId) {
-            await Donation.create({
-                type: donationType || 'once',
-                amount,
-                medicalProgramId,
-                paymentMethod: 'paypal',
-                paymentStatus: 'pending',
-                paypalOrderId: order.id
-            });
-        }
+        // if (medicalProgramId) {
+        const donation = await Donation.create({
+            type: donationType || 'once',
+            amount,
+            medicalProgramId,
+            paymentMethod: 'paypal',
+            paymentStatus: 'pending',
+            paypalOrderId: order.id
+        });
+        // }
 
-        res.json(order);
+        res.json({ order: order, donation: donation });
     } catch (error) {
         console.error('Error creating PayPal order:', error);
         res.status(500).json({ error: 'Failed to create order' });
     }
 };
- 
+
 
 // Capture payment for an approved PayPal order
 exports.capturePaypalOrder = async (req, res) => {
