@@ -9,9 +9,9 @@ import Feedback from "./Components/Feedback";
 import Subscription from "./Components/subscription";
 import Footer from "./Components/footer";
 import Group1 from '../assets/Group1.png';
-import Img1 from '../assets/donate.png';
+// import Img1 from '../assets/donate.png';
 import Mask2 from '../assets/Fr1.png';
-import { getAllContents, getPrograms } from '../services/content.service';
+// import { getAllContents, getPrograms } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
 import { useLocation } from 'react-router-dom';
 import { useLoader } from '../context/LoaderContext';
@@ -48,11 +48,11 @@ const Donate = () => {
     }, [location.pathname]);
 
     const steps = useMemo(() => contents ? [
-        { number: '01', text: selectedLanguage === 'fr' ? contents.donation_step_1.content_fr : contents.donation_step_1.content_en },
-        { number: '02', text: selectedLanguage === 'fr' ? contents.donation_step_2.content_fr : contents.donation_step_2.content_en },
-        { number: '03', text: selectedLanguage === 'fr' ? contents.donation_step_3.content_fr : contents.donation_step_3.content_en },
-        { number: '04', text: selectedLanguage === 'fr' ? contents.donation_step_4.content_fr : contents.donation_step_4.content_en },
-        { number: '05', text: selectedLanguage === 'fr' ? contents.donation_step_5.content_fr : contents.donation_step_5.content_en }
+        { number: '01', text: selectedLanguage === 'fr' ? contents?.data.donation_step_1.content_fr : contents?.data.donation_step_1.content_en },
+        { number: '02', text: selectedLanguage === 'fr' ? contents?.data.donation_step_2.content_fr : contents?.data.donation_step_2.content_en },
+        { number: '03', text: selectedLanguage === 'fr' ? contents?.data.donation_step_3.content_fr : contents?.data.donation_step_3.content_en },
+        { number: '04', text: selectedLanguage === 'fr' ? contents?.data.donation_step_4.content_fr : contents?.data.donation_step_4.content_en },
+        { number: '05', text: selectedLanguage === 'fr' ? contents?.data.donation_step_5.content_fr : contents?.data.donation_step_5.content_en }
     ] : [], [contents, selectedLanguage]);
 
     const [visibleSteps, setVisibleSteps] = useState(steps);
@@ -168,7 +168,7 @@ const Donate = () => {
                     </div>
                     <div className="col-md-6 mx-auto">
                         <div className='p-4'>
-                            <div><img src={Img1} /></div>
+                            <div><img src={contents?.data.donate_page_support_small_img.image} /></div>
                             <h2 className='mt-4' style={{ textTransform: 'uppercase', color: '#17416F', fontWeight: '700', fontSize: '30px' }}> {selectedLanguage === 'fr' ? contents?.data.donate_page_support_title.content_fr : contents?.data.donate_page_support_title.content_en}</h2>
                             <div className='mt-3' style={{ color: '#17416F' }}>
                                 {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{

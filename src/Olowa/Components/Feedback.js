@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useContext, useState } from 'react';
 import "../index.css"; // Fichier CSS pour les styles
-import nurseImage from "../../assets/male-nurse-working-clinic-b 1.png"; // Importation de l'image
+// import nurseImage from "../../assets/male-nurse-working-clinic-b 1.png"; // Importation de l'image
 // import { Star } from "lucide-react";
 // import Select from './select';
 import { addFeedback } from '../../services/content.service';
@@ -96,7 +96,7 @@ const FeedbackSection = () => {
                   e.preventDefault();
                   setSelectedDoctor({
                     name: "Dr. John Doe",
-                    image: nurseImage,
+                    image: contents?.data.home_page_feedback_img.image,
                     specialty: "Cardiologist, MD, 10+ years experience.",
                     description:
                       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla maximus pellentesque ultrices. Morbi rutrum accumsan mauris ut commodo.",

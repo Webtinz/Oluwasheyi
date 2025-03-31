@@ -1,13 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { React, useState, useContext } from "react";
 import "../index.css"; // Fichier CSS pour les styles
-import chatbotIcon from "../../assets/chatbot.png";
-import whatsappIcon from "../../assets/whatsapp.png";
+// import chatbotIcon from "../../assets/chatbot.png";
+// import whatsappIcon from "../../assets/whatsapp.png";
 import { addSuscriber } from '../../services/content.service';
 import LanguageContext from '../../context/LanguageContext';
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { useLoader } from "../../context/LoaderContext";
+// import { data } from "jquery";
 
 
 const Footer = () => {
@@ -171,8 +172,8 @@ const Footer = () => {
         <div className="position-relative">
           <span className="d-block my-4 separator"></span>
           <div className="d-flex flex-column ppos">
-            <a href="#"><img src={chatbotIcon} alt="Chatbot" className="chat-icon" /></a>
-            <a href={"https://wa.me/" + contents?.data.footer_whatsapp_number.content_fr}><img src={whatsappIcon} alt="WhatsApp" className="chat-icon mt-2" /></a>
+            <a href="#"><img src={contents?.data.footer_about_chat_img.image} alt="Chatbot" className="chat-icon" /></a>
+            <a href={"https://wa.me/" + contents?.data.footer_whatsapp_number.content_fr}><img src={contents?.data.footer_about_whatsapp_img.image} alt="WhatsApp" className="chat-icon mt-2" /></a>
           </div>
         </div>
 

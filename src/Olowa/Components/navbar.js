@@ -129,7 +129,7 @@ const Navbar = () => {
   // const [contents, setContents] = useState();
 
   const { appData } = useLoader();
-        const { contents } = appData;
+  const { contents } = appData;
   // Handle language change and store the selected language in localStorage
   const handleLanguageChange = (language) => {
     setSelectedLanguage(language);
