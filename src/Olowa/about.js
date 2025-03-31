@@ -173,7 +173,7 @@ const Home = () => {
                 <iframe
                     width="100%"
                     height="505"
-                    src="https://www.youtube.com/embed/mH81Q9Dtodc"
+                    src="https://www.youtube.com/embed/BbfxBeefLb4?autoplay=1&rel=0&modestbranding=1&fs=1&iv_load_policy=3"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen

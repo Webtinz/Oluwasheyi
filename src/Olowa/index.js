@@ -251,7 +251,7 @@ const Home = () => {
             <div>
                 <h2 className="text-center mb-4"
                     style={{ textTransform: 'uppercase', color: '#17416F', fontWeight: '700', fontSize: '36px' }}>
-                    {selectedLanguage === 'fr' ? contents?.data.home_page_equipment_title.content_fr : contents?.data.home_page_equipment_title.content_en}
+                    {selectedLanguage === 'fr' ? contents?.data.home_page_team_title.content_fr : contents?.home_page_team_title.content_en}
                 </h2>
                 <Smeet doctors={teamMembers} />
             </div>

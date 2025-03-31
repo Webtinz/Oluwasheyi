@@ -15,10 +15,17 @@ body {
   }
 
 }
-
+@media (max-width: 950px) {
+.designsvg{
+  display: none;
+}
+}
 @media (max-width: 800px) {
   .comm {
     padding: 0;
+  }
+  .designsvg{
+    display: none;
   }
 
   .mybanner .mybannercontent {
@@ -89,7 +96,9 @@ body {
   margin-left: 10px;
   margin-right: -30px;
 }
-
+.ro {
+  overflow-x: hidden;
+}
 @media (max-width: 745px) {
   .braca {
     padding: 100px 30px;
@@ -1140,7 +1149,6 @@ button:hover .rotating-svg {
   color: #333 !important;
   /* Couleur du texte dans le dropdown */
 }
-
 
 .custom-phone {
   width: 100%;
