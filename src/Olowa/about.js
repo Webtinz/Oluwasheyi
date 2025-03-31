@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 // import { Link } from "react-router-dom";
 import './index.css';
 import './about.css';
@@ -20,6 +20,28 @@ const Home = () => {
     // const [contents, setContents] = useState();
     const { appData } = useLoader();
     const { contents } = appData;
+
+    useEffect(() => {
+        window.onYouTubeIframeAPIReady = () => {
+            new window.YT.Player('youtube-player', {
+                videoId: 'BbfxBeefLb4',
+                playerVars: {
+                    autoplay: 1,
+                    rel: 0,             // Désactiver les vidéos suggérées
+                    modestbranding: 1,  // Moins de branding
+                    fs: 1,              // Permet le plein écran
+                    iv_load_policy: 3,  // Désactive les annotations
+                    loop: 1,            // Rejouer la vidéo après la fin
+                    playlist: 'BbfxBeefLb4'  // Rejoue la même vidéo en boucle
+                }
+            });
+        };
+
+        // Charger l'API YouTube
+        const script = document.createElement('script');
+        script.src = "https://www.youtube.com/iframe_api";
+        document.body.appendChild(script);
+    }, []);
 
     const values = [
         {
@@ -170,15 +192,7 @@ const Home = () => {
             </section>
             <br />
             <section className="container-fluid" style={{ padding: '0px' }}>
-                <iframe
-                    width="100%"
-                    height="505"
-                    src="https://www.youtube.com/embed/mH81Q9Dtodc"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    title="YouTube Video"
-                ></iframe>
+                <div id="youtube-player" style={{ width: '100%', height: '505px' }}></div>
             </section>
             <br />
             <section className="container-fluid py-5" style={{ backgroundColor: '#17416F', marginTop: '-1.5rem' }}>

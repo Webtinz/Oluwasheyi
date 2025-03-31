@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import '../index.css'
 // import Mask1Image from '../../assets/Mask1.png';
 import { Link } from "react-router-dom";
@@ -10,11 +10,24 @@ import { useLoader } from '../../context/LoaderContext';
 
 const About = () => {
     const { selectedLanguage } = useContext(LanguageContext);
+    const [step, setStep] = useState('select');
     // const [contents, setContents] = useState();
     // const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     // const [BookAppointmentmodal, setBookAppointmentmodal] = useState(null);
     const { appData } = useLoader();
     const { contents } = appData;
+
+    const [isModalbookappointmentOpen, setIsModalbookappointmentOpen] = useState(false); // État pour afficher/masquer le modal
+
+    // Fonction pour ouvrir le modal
+    const openModal = () => {
+        setIsModalbookappointmentOpen(true);
+    };
+
+    // Fonction pour fermer le modal
+    const closeModal = () => {
+        setIsModalbookappointmentOpen(false);
+    };
 
     // const [formData, setFormData] = useState({
     //     name: '',
@@ -86,7 +99,28 @@ const About = () => {
                                                         {/* <a href="#" onClick={(e) => { e.preventDefault(); setBookAppointmentmodal(); }} className="btn btn-outline-light" style={{ padding: '10px 15px' }}>
                                                             {selectedLanguage === 'fr' ? contents?.data.home_page_banner_book_appointment.content_fr : contents?.data.home_page_banner_book_appointment.content_en}
                                                         </a> */}
-                                                        < Bookpatientappointment className="fontWeight:700" />
+                                                        <a
+                                                            href="#"
+                                                            onClick={(e) => {
+                                                                e.preventDefault(); // Empêche le comportement par défaut de l'ancre
+                                                                openModal(); // Ouvre le modal
+                                                            }}
+                                                            className="btn btn-outline-light"
+                                                            style={{ padding: '10px 15px' }}
+                                                        >
+                                                            {selectedLanguage === 'fr'
+                                                                ? contents?.data.home_page_banner_book_appointment.content_fr
+                                                                : contents?.data.home_page_banner_book_appointment.content_en}
+                                                        </a>
+
+                                                        {isModalbookappointmentOpen && (
+                                                            <Bookpatientappointment
+                                                            step={step} 
+                                                            setStep={setStep}
+                                                            closeModal={closeModal}
+                                                        />
+                                                        )}
+                                                        {/* < Bookpatientappointment className="fontWeight:700" /> */}
                                                     </div>
                                                 </div>
                                             </div>

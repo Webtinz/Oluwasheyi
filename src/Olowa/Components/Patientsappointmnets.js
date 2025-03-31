@@ -12,11 +12,11 @@ import { BsArrowLeftCircle } from "react-icons/bs";
 import { useLoader } from "../../context/LoaderContext";
 
 // import api from '../../../service/caller';
+import axios from 'axios';
 
-const BookAppointment = () => {
+const BookAppointment = ({ step, setStep, closeModal }) => {
     const { selectedLanguage } = useContext(LanguageContext);
     // const [contents, setContents] = useState();
-    const [step, setStep] = useState(null);
     const [phone, setPhone] = useState("");
     const [formData, setFormData] = useState({ firstname: "", lastname: "", birthdate: "", qrCode: "" });
     const [showModalSuccess, setShowModalSuccess] = useState(false);
@@ -31,10 +31,10 @@ const BookAppointment = () => {
     const [cameraActive, setCameraActive] = useState(false);
     const [facingMode, setFacingMode] = useState("environment");
     const [scannerKey, setScannerKey] = useState(Date.now());
-    const [activeTab, setActiveTab] = useState("scan");
     const [isProcessing, setIsProcessing] = useState(false);
     const [authError, setAuthError] = useState("");
     const [authSuccess, setAuthSuccess] = useState(false);
+    const [phoneError, setPhoneError] = useState("");
 
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
@@ -64,6 +64,8 @@ const BookAppointment = () => {
                         setManualTabResult(qrCode.data);
                         setFormData({ ...formData, qrCode: qrCode.data });
                         setIsProcessing(false);
+
+                        setStep("personal-info");
                     } else {
                         setAuthError("QR Code non détecté dans l'image.");
                         setIsProcessing(false);
@@ -86,23 +88,8 @@ const BookAppointment = () => {
 
     // Initialiser ou arrêter la caméra selon l'onglet actif et l'état du composant
     useEffect(() => {
-        // Si nous ne sommes plus à l'étape d'authentification, arrêter toutes les caméras
-        if (step !== "existing") {
-            stopAllVideoStreams();
-            setCameraActive(false);
-            return;
-        }
-
-        // Gérer l'activation/désactivation des caméras selon l'onglet actif
-        if (activeTab === "scan") {
-            // Arrêter la caméra manuelle si elle est active
-            stopAllVideoStreams();
-            // Activer le scanner QR
-            setCameraActive(true);
-        } else if (activeTab === "manual") {
-            // Désactiver le scanner QR
-            setCameraActive(false);
-            // Initialiser la caméra manuelle
+        if (step === "existing") {
+            // Initialiser la caméra pour la capture de photo
             navigator.mediaDevices.getUserMedia({
                 video: {
                     facingMode: facingMode,
@@ -121,13 +108,12 @@ const BookAppointment = () => {
                 });
         }
 
-        // Nettoyage
         return () => {
-            if (activeTab === "manual") {
-                stopAllVideoStreams();
-            }
+            // Arrêter la caméra lorsqu'on quitte l'étape ou l'écran
+            stopAllVideoStreams();
         };
-    }, [activeTab, facingMode, step]);
+    }, [step, facingMode]); // L'effet se déclenche selon l'état de l'étape
+
 
     // Capturer une photo avec la caméra
     const capturePhoto = () => {
@@ -154,6 +140,8 @@ const BookAppointment = () => {
                 setManualTabResult(qrCode.data);
                 setFormData({ ...formData, qrCode: qrCode.data });
                 setIsProcessing(false);
+
+                setStep("personal-info");
             } else {
                 setAuthError("QR Code non détecté. Veuillez réessayer.");
                 setIsProcessing(false);
@@ -161,95 +149,78 @@ const BookAppointment = () => {
         }
     };
 
-    // Gestion du scan continu dans l'onglet "scan"
-    const handleScan = (data) => {
-        if (data) {
-            setScanTabResult(data);
-            setFormData({ ...formData, qrCode: data });
-        }
-    };
-
-    const handleError = (err) => {
-        console.error("Erreur de scan QR Code :", err);
-        setAuthError("Erreur d'accès à la caméra. Veuillez vérifier les permissions.");
-    };
-
     // Fonction améliorée pour changer de caméra
     const toggleCamera = () => {
         const newFacingMode = facingMode === "environment" ? "user" : "environment";
         setFacingMode(newFacingMode);
 
-        // Forcer le re-rendu du scanner QR
-        setScannerKey(Date.now());
-
         // Pour l'onglet manuel, réinitialiser le flux vidéo
-        if (activeTab === "manual") {
-            stopAllVideoStreams();
+        stopAllVideoStreams();
 
-            // Initialiser un nouveau flux avec le mode de caméra mis à jour
-            navigator.mediaDevices.getUserMedia({
-                video: {
-                    facingMode: newFacingMode,
-                    width: { ideal: 720 },
-                    height: { ideal: 480 }
+        // Initialiser un nouveau flux avec le mode de caméra mis à jour
+        navigator.mediaDevices.getUserMedia({
+            video: {
+                facingMode: newFacingMode,
+                width: { ideal: 720 },
+                height: { ideal: 480 }
+            }
+        })
+            .then(stream => {
+                if (videoRef.current) {
+                    videoRef.current.srcObject = stream;
                 }
             })
-                .then(stream => {
-                    if (videoRef.current) {
-                        videoRef.current.srcObject = stream;
-                    }
-                })
-                .catch(err => {
-                    console.error("Erreur d'accès à la caméra :", err);
-                    setAuthError("Impossible d'accéder à la caméra. Veuillez vérifier les permissions.");
-                });
+            .catch(err => {
+                console.error("Erreur d'accès à la caméra :", err);
+                setAuthError("Impossible d'accéder à la caméra. Veuillez vérifier les permissions.");
+            });
+    };
+
+    const handleExistingPatient = async (e) => {
+        e.preventDefault();
+        // Vérifier que tous les champs requis sont remplis
+        if (!formData.qrCode) {
+            setAuthError("Veuillez scanner un QR code ou télécharger une image contenant un QR code.");
+            return;
+        }
+
+        if (!formData.birthdate || !formData.phone) {
+            setAuthError("Veuillez compléter tous les champs obligatoires.");
+            return;
+        }
+
+        setIsProcessing(true);
+        setAuthError("");
+        setAuthSuccess(false);
+
+        try {
+            const response = await axios.post("https://kali.medtinz.com/clinic/authenticatePatient", formData);
+            setAuthSuccess(true);
+            setIsProcessing(false);
+            const accessToken = response.data.token;
+            if (accessToken) {
+                window.location.href = `https://medtinz.com/hospitaladmin/dashboard?token=${accessToken}`;
+            } else {
+                alert("Informations incorrectes ou erreur de connexion");
+                throw new Error('Access token manquant dans la réponse');
+            }
+
+        } catch (error) {
+            setIsProcessing(false);
+            alert("Informations incorrectes ou erreur de connexion");
+            setAuthError(error.response ? error.response.data.message : "Erreur de connexion au serveur");
         }
     };
 
-    // Fonction de soumission du formulaire
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Logique de soumission du formulaire
-        // Par exemple, envoyer les données au serveur ou toute autre action
-        // Puis, affichez le modal de confirmation
-        setotherinfoModal(true);
-    };
-
-    // const handleExistingPatient = async () => {
-    //     // Vérifier que tous les champs requis sont remplis
-    //     if (!formData.qrCode) {
-    //         setAuthError("Veuillez scanner un QR code ou télécharger une image contenant un QR code.");
-    //         return;
-    //     }
-
-    //     if (!formData.birthdate || !formData.phone) {
-    //         setAuthError("Veuillez compléter tous les champs obligatoires.");
-    //         return;
-    //     }
-
-    //     setIsProcessing(true);
-    //     setAuthError("");
-    //     setAuthSuccess(false);
-
-    //     try {
-    //         const response = await api.post("/clinic/authenticatePatient", formData);
-    //         setAuthSuccess(true);
-    //         setIsProcessing(false);
-
-    //         // Rediriger ou afficher les informations du patient
-    //         console.log("Patient authentifié :", response.data.patient);
-
-    //         // Vous pouvez stocker les informations du patient dans un état ou rediriger
-    //         // vers une autre page ici
-    //     } catch (error) {
-    //         setIsProcessing(false);
-    //         setAuthError(error.response ? error.response.data.message : "Erreur de connexion au serveur");
-    //     }
-    // };
 
     // New patient register
     const handleNewPatient = async (e) => {
         e.preventDefault();
+
+        if (!phone) {
+            alert('Phone number is required');
+            return;
+        }
 
         const formData = {
             lastName: e.target.elements.lastName.value,
@@ -257,6 +228,7 @@ const BookAppointment = () => {
             birthDate: e.target.elements.birthDate.value,
             phoneNumber: phone, // Utilise l'état du téléphone
         };
+        setPhoneError(""); // Clear error if valid
 
         try {
             const response = await addNewpatient(formData)
@@ -283,23 +255,18 @@ const BookAppointment = () => {
     };
 
     const handleStepChange = (newStep) => {
-        setStep(newStep);
-        setShowModal(false);
+        setStep(newStep); // Change l'étape quand l'utilisateur clique sur un bouton
     };
 
-    const handleTabChange = (tab) => {
-        // Sauvegarder le QR code actuel si présent dans l'onglet courant
-        if (activeTab === "scan" && scanTabResult) {
-            // Garder le code QR dans formData même en changeant d'onglet
-            setFormData(prev => ({ ...prev, qrCode: scanTabResult }));
-        } else if (activeTab === "manual" && manualTabResult) {
-            // Garder le code QR dans formData même en changeant d'onglet
-            setFormData(prev => ({ ...prev, qrCode: manualTabResult }));
-        }
+    const handleCloseModal = (e) => {
+        e.preventDefault();
+        closeModal(); // Ferme le modal en appelant la fonction passée depuis le parent
+    };
 
-        setActiveTab(tab);
-        // Réinitialiser les messages d'erreur lors du changement d'onglet
-        setAuthError("");
+    const handleScanResult = (result) => {
+        if (result) {
+            // console.log(result); // Traitez le résultat ici
+        }
     };
 
     // Récupérer le résultat du QR code en fonction de l'onglet actif
@@ -320,69 +287,61 @@ const BookAppointment = () => {
     // }, []);
 
     const { appData } = useLoader();
-          const { contents } = appData;
+    const { contents } = appData;
 
     return (
         <div>
-            <a className="btn btn-outline-light" style={{ padding: '10px 15px' }} href="#"
-                onClick={handleModalOpen}>
-                {/* {selectedLanguage === 'fr' ? contents?.data.home_page_banner_book_appointment.content_fr : contents?.data.home_page_banner_book_appointment.content_en} */}
-                {selectedLanguage === 'fr' ? contents?.data.home_page_banner_book_appointment.content_fr : contents?.data.home_page_banner_book_appointment.content_en}
-            </a>
-            {showModal && (
-                <div className="choosestagepatientbtn modal fade show d-block" tabIndex="-1">
-                    <div className="modal-dialog modal-dialog-centered">
-                        <div className="modal-content">
-                            <div className="modal-body position-relative">
-                                <div className="d-flex justify-content-center">
-                                    <div className="col">
-                                        <div className="color">
-                                            <div className="mb-6">
-                                                <h1 className="text-2xl font-bold text-blue-900 text-center">
-                                                    PATIENT  PORTAL
-                                                </h1>
-                                                <p className='text-center'>Choose who you are </p>
-                                                <br></br>
-                                                <a href="#" className="goback" onClick={(e) => {
-                                                    e.preventDefault();
-                                                    setShowModal(false);
-                                                }}>
-                                                    <span style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'underline' }}>
-                                                        <BsArrowLeftCircle style={{ marginRight: '8px' }} />
-                                                        Back
-                                                    </span>
-                                                </a>
-                                            </div>
-
-                                            <div>
-                                                {step === "select" && (
-                                                    <div className="d-grid gap-2">
-                                                        <Button className="newbtn" onClick={() => handleStepChange("new")}>
-                                                            New Patient
-                                                        </Button>
-                                                        <Button className="existbtn" onClick={() => handleStepChange("existing")}>
-                                                            Existing Patient
-                                                        </Button>
-                                                    </div>
-                                                )}
-                                            </div>
-
+            <div className="choosestagepatientbtn modal fade show d-block" tabIndex="-1">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-body position-relative">
+                            <div className="d-flex justify-content-center">
+                                <div className="col">
+                                    <div className="color" style={{ padding: '60px' }}>
+                                        <div className="mb-6">
+                                            <h1 className="text-2xl font-bold text-blue-900 text-center">
+                                                PATIENT  PORTAL
+                                            </h1>
+                                            <p className='text-center'>Choose who you are </p>
+                                            <br></br>
+                                            <a
+                                                href="#"
+                                                className="goback"
+                                                onClick={handleCloseModal} // Utiliser la fonction pour fermer le modal
+                                            >
+                                                <span
+                                                    style={{
+                                                        display: 'inline-flex',
+                                                        alignItems: 'center',
+                                                        textDecoration: 'underline',
+                                                    }}
+                                                >
+                                                    <BsArrowLeftCircle style={{ marginRight: '8px' }} />
+                                                    Back
+                                                </span>
+                                            </a>
                                         </div>
+
+                                        <div>
+                                            {step === "select" && (
+                                                <div className="d-grid gap-2">
+                                                    <Button className="newbtn" onClick={() => handleStepChange("new")}>
+                                                        New Patient
+                                                    </Button>
+                                                    <Button className="existbtn" onClick={() => handleStepChange("existing")}>
+                                                        Existing Patient
+                                                    </Button>
+                                                </div>
+                                            )}
+                                        </div>
+
                                     </div>
-                                    {/* <div className="col">
-                                        <button
-                                            onClick={(showModal) => (false)}
-                                            className="btn-close"
-                                        ></button>
-                                    </div> */}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            )}
-            {/* {showModal && <div className="modal-backdrop fade show" onClick={() => setShowModal(false)}></div>} */}
-
+            </div>
             {/* Modal d'authentification */}
             {step === "existing" && (
                 <div className="choosestagepatientbtn modal fade show d-block" tabIndex="-1">
@@ -391,7 +350,7 @@ const BookAppointment = () => {
                             <div className="modal-body position-relative">
                                 <div className="d-flex justify-content-center">
                                     <div className="col">
-                                        <div className="color">
+                                        <div className="color" style={{ padding: '60px' }}>
                                             <div className="mb-6">
                                                 <h1 className="text-2xl font-bold text-blue-900 text-center">
                                                     EXISTING PATIENT
@@ -417,102 +376,64 @@ const BookAppointment = () => {
                                             )}
 
                                             <div>
-                                                <form className="space-y-8" onSubmit={handleSubmit}>
+                                                <form className="space-y-8">
                                                     <div className="space-y-2">
-                                                        <Tabs
-                                                            activeKey={activeTab}
-                                                            onSelect={handleTabChange}
-                                                            className="mb-3"
-                                                        >
-                                                            <Tab eventKey="scan" title="Scanner QR Code">
-                                                                <div className="mb-4 scanner-container">
-                                                                    {cameraActive && (
-                                                                        <div className="position-relative">
-                                                                            <div className="qr-reader-container mt-3" style={{
-                                                                                width: "100%", height: "300px",
-                                                                                border: "2px solid #13AB9C",
-                                                                                backgroundColor: '#D8D8D838'
-                                                                            }}>
-                                                                                <QrReader
-                                                                                    key={scannerKey}
-                                                                                    delay={300}
-                                                                                    onError={handleError}
-                                                                                    onScan={handleScan}
-                                                                                    style={{ width: "100%" }}
-                                                                                    constraints={{
-                                                                                        facingMode,
-                                                                                        width: { ideal: 720 },
-                                                                                        height: { ideal: 480 }
-                                                                                    }}
-                                                                                // videoId="videoElement"
-                                                                                />
-                                                                            </div>
-                                                                            <button
-                                                                                className="btn btn-sm btn-light position-absolute top-0 end-0 m-2"
-                                                                                onClick={toggleCamera}
-                                                                            >
-                                                                                <i className="bi bi-camera-switch"></i> Changer de caméra
-                                                                            </button>
-                                                                        </div>
-                                                                    )}
-
-                                                                    <div className="text-center mt-3">
-                                                                        <p className="text-muted">
-                                                                            Placez le QR code dans le cadre pour le scanner automatiquement
-                                                                        </p>
-                                                                    </div>
-
-                                                                    {scanTabResult && activeTab === "scan" && (
-                                                                        <div className="alert alert-success mt-2">
-                                                                            QR Code détecté avec succès
-                                                                        </div>
-                                                                    )}
-                                                                </div>
-                                                            </Tab>
-                                                            <Tab eventKey="manual" title="Photo / Upload">
-                                                                <div className="mb-4">
-                                                                    <div className="mb-3">
-                                                                        <label className="form-label">Prendre une photo de la carte</label>
-                                                                        <div className="d-flex flex-column align-items-center">
-                                                                            <div className="position-relative" style={{
+                                                        {/* Affichage de la section pour la caméra */}
+                                                        <div className="mb-4">
+                                                            <div className="mb-3">
+                                                                <label className="form-label">Prendre une photo de la carte</label>
+                                                                <div className="d-flex flex-column align-items-center">
+                                                                    <div className="position-relative" style={{
+                                                                        width: "100%", height: "auto",
+                                                                        border: "2px solid #13AB9C",
+                                                                        backgroundColor: '#D8D8D838'
+                                                                    }}>
+                                                                        <video
+                                                                            ref={videoRef}
+                                                                            style={{
                                                                                 width: "100%", height: "auto",
-                                                                                border: "2px solid #13AB9C",
-                                                                            }}>
-                                                                                <video
-                                                                                    ref={videoRef}
-                                                                                    style={{
-                                                                                        width: "100%", height: "auto",
-                                                                                        borderRadius: "4px",
-                                                                                    }}
-                                                                                    autoPlay
-                                                                                    playsInline
-                                                                                ></video>
-                                                                                <button
-                                                                                    className="btn btn-sm btn-light position-absolute top-0 end-0 m-2"
-                                                                                    onClick={toggleCamera}
-                                                                                >
-                                                                                    <i className="bi bi-camera-switch"></i> Changer de caméra
-                                                                                </button>
-                                                                            </div>
-                                                                            <Button
-                                                                                variant="primary"
-                                                                                onClick={capturePhoto}
-                                                                                className="mb-3"
-                                                                            >
-                                                                                Capturer
-                                                                            </Button>
-                                                                            <canvas
-                                                                                ref={canvasRef}
-                                                                                style={{ display: "none" }}
-                                                                            ></canvas>
-                                                                        </div>
+                                                                                borderRadius: "4px",
+                                                                            }}
+                                                                            autoPlay
+                                                                            playsInline
+                                                                        ></video>
+                                                                        <button
+                                                                            className="btn btn-sm btn-light position-absolute top-0 end-0 m-2"
+                                                                            onClick={toggleCamera}
+                                                                        >
+                                                                            <i className="bi bi-camera-switch"></i> Changer de caméra
+                                                                        </button>
                                                                     </div>
+                                                                    <Button
+                                                                        variant="primary"
+                                                                        onClick={capturePhoto}
+                                                                        className="mb-3 mt-3"
+                                                                    >
+                                                                        Capturer
+                                                                    </Button>
+                                                                    <canvas
+                                                                        ref={canvasRef}
+                                                                        style={{ display: "none" }}
+                                                                    ></canvas>
                                                                 </div>
-                                                            </Tab>
-                                                        </Tabs>
+                                                            </div>
+                                                        </div>
+
+                                                        {/* Affichage des erreurs ou du résultat du scan */}
+                                                        {/* {authError && (
+                                                            <div className="alert alert-danger">
+                                                                {authError}
+                                                            </div>
+                                                        )}
+
+                                                        {manualTabResult && (
+                                                            <div className="alert alert-success">
+                                                                QR Code détecté avec succès: {manualTabResult}
+                                                            </div>
+                                                        )} */}
                                                     </div>
 
-                                                    <p class="divider-text text-center">
+                                                    <p className="divider-text text-center">
                                                         <span>&nbsp;&nbsp; OR &nbsp;&nbsp;</span>
                                                     </p>
 
@@ -534,11 +455,15 @@ const BookAppointment = () => {
                                                         )}
                                                     </div>
 
-                                                    <div className="d-flex justify-content-center">
-                                                        <button type="submit" className="btn btn-primary" style={{ padding: '15px 40px' }}>
+                                                    {/* <div className="d-flex justify-content-center">
+                                                        <button
+                                                            onClick={() => handleStepChange("personal-info")}
+                                                            className="btn btn-primary"
+                                                            style={{ padding: '15px 40px' }}
+                                                        >
                                                             Submit
                                                         </button>
-                                                    </div>
+                                                    </div> */}
                                                 </form>
                                             </div>
                                         </div>
@@ -548,7 +473,6 @@ const BookAppointment = () => {
                         </div>
                     </div>
                 </div>
-
             )}
 
             {step === "new" && (
@@ -558,7 +482,7 @@ const BookAppointment = () => {
                             <div className="modal-body position-relative">
                                 <div className="d-flex justify-content-center">
                                     <div className="col">
-                                        <div className="color">
+                                        <div className="color" style={{ padding: '60px' }}>
                                             <div className="mb-6">
                                                 <h1 className="text-2xl font-bold text-blue-900 text-center">
                                                     NEW PATIENT
@@ -637,8 +561,6 @@ const BookAppointment = () => {
                                                             required
                                                         />
                                                     </div>
-
-
                                                     <div className="d-flex justify-content-center">
                                                         <button type="submit" className="btn btn-primary" style={{ padding: '15px 40px' }}>
                                                             Submit
@@ -688,14 +610,14 @@ const BookAppointment = () => {
             )}
 
 
-            {otherinfoModal && (
+            {step === "personal-info" && (
                 <div className="choosestagepatientbtn modal fade show d-block" tabIndex="-1">
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-body position-relative">
                                 <div className="d-flex justify-content-center">
                                     <div className="col">
-                                        <div className="color">
+                                        <div className="color" style={{ padding: '60px' }}>
                                             <div className="mb-6">
                                                 <h1 className="text-2xl font-bold text-blue-900 text-center">
                                                     EXISTING PATIENT
@@ -717,14 +639,14 @@ const BookAppointment = () => {
 
                                             </div>
 
-                                            {manualTabResult && activeTab === "manual" && (
+                                            {manualTabResult && (
                                                 <div className="alert alert-success mt-2">
                                                     QR Code détecté avec succès
                                                 </div>
                                             )}
 
                                             <div>
-                                                <form className="space-y-8">
+                                                <form className="space-y-8" onSubmit={handleExistingPatient}>
                                                     <div className="space-y-2">
                                                         <label className="block text-blue-900">
                                                             Birth Date<span className="text-red-500">*</span>
@@ -732,7 +654,9 @@ const BookAppointment = () => {
                                                         <input
                                                             max={new Date().toISOString().split("T")[0]}
                                                             type="date"
-                                                            name="name"
+                                                            name="birthdate"
+                                                            value={formData.birthdate} // Lier la valeur du champ au state
+                                                            onChange={(e) => setFormData({ ...formData, birthdate: e.target.value })} // Mettre à jour l'état
                                                             required
                                                             placeholder="Birth Date"
                                                             className="form-control"
@@ -744,10 +668,10 @@ const BookAppointment = () => {
                                                             Phone Number<span className="text-red-500">*</span>
                                                         </label>
                                                         <PhoneInput
-                                                            country={"bj"} // Définit le pays par défaut (France ici)
-                                                            value={phone} // Stocke la valeur saisie
-                                                            onChange={setPhone} // Met à jour l’état avec le numéro sélectionné
-                                                            inputStyle={{ width: "100%" }} // Styles personnalisés si besoin
+                                                            country="bj"
+                                                            value={formData.phone} // Lier la valeur du champ au state
+                                                            onChange={(phone) => setFormData({ ...formData, phone })} // Mettre à jour l'état
+                                                            inputStyle={{ width: "100%" }}
                                                             required
                                                         />
                                                     </div>
