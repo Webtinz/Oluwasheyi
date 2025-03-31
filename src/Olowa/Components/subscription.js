@@ -78,7 +78,7 @@ const DonationForm = ({ programs, preselectedProgram }) => {
               donationType: donationType,
               medicalProgramId: selectedProgram
             });
-            const orderId = response.id;
+            const orderId = response.order.id;
             setOrderId(orderId);
             return orderId;
           } catch (error) {
@@ -211,7 +211,7 @@ const DonationForm = ({ programs, preselectedProgram }) => {
 
   const validatePhoneNumber = (phone) => {
     // Basic validation for Cameroon phone numbers (example)
-    const phoneRegex = /^(237|\+237)?[6-9][0-9]{8}$/;
+    const phoneRegex = /[0-9]{10}$/;
     return phoneRegex.test(phone);
   };
 

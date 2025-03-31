@@ -9,7 +9,7 @@ import Feedback from "./Components/Feedback";
 import Subscription from "./Components/subscription";
 import Footer from "./Components/footer";
 import Group1 from '../assets/Group1.png';
-// import Img1 from '../assets/donate.png';
+// import Img1 fro m '../assets/donate.png';
 import Mask2 from '../assets/Fr1.png';
 // import { getAllContents, getPrograms } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
