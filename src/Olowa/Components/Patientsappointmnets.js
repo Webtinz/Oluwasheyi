@@ -14,10 +14,9 @@ import { useLoader } from "../../context/LoaderContext";
 // import api from '../../../service/caller';
 import axios from 'axios';
 
-const BookAppointment = () => {
+const BookAppointment = ({ step, setStep, closeModal }) => {
     const { selectedLanguage } = useContext(LanguageContext);
     // const [contents, setContents] = useState();
-    const [step, setStep] = useState(null);
     const [phone, setPhone] = useState("");
     const [formData, setFormData] = useState({ firstname: "", lastname: "", birthdate: "", qrCode: "" });
     const [showModalSuccess, setShowModalSuccess] = useState(false);
@@ -177,9 +176,9 @@ const BookAppointment = () => {
             });
     };
 
-    const handleExistingPatient = async () => {
+    const handleExistingPatient = async (e) => {
+        e.preventDefault();
         // Vérifier que tous les champs requis sont remplis
-
         if (!formData.qrCode) {
             setAuthError("Veuillez scanner un QR code ou télécharger une image contenant un QR code.");
             return;
@@ -202,23 +201,24 @@ const BookAppointment = () => {
             if (accessToken) {
                 window.location.href = `https://medtinz.com/hospitaladmin/dashboard?token=${accessToken}`;
             } else {
-                throw new Error('Access token manquant dans la réponse');
                 alert("Informations incorrectes ou erreur de connexion");
+                throw new Error('Access token manquant dans la réponse');
             }
 
         } catch (error) {
             setIsProcessing(false);
-            setAuthError(error.response ? error.response.data.message : "Erreur de connexion au serveur");
             alert("Informations incorrectes ou erreur de connexion");
+            setAuthError(error.response ? error.response.data.message : "Erreur de connexion au serveur");
         }
     };
+
 
     // New patient register
     const handleNewPatient = async (e) => {
         e.preventDefault();
 
         if (!phone) {
-            setPhoneError("Phone number is required.");
+            alert('Phone number is required');
             return;
         }
 
@@ -255,8 +255,12 @@ const BookAppointment = () => {
     };
 
     const handleStepChange = (newStep) => {
-        setStep(newStep);
-        setShowModal(false);
+        setStep(newStep); // Change l'étape quand l'utilisateur clique sur un bouton
+    };
+
+    const handleCloseModal = (e) => {
+        e.preventDefault();
+        closeModal(); // Ferme le modal en appelant la fonction passée depuis le parent
     };
 
     const handleScanResult = (result) => {
@@ -283,62 +287,61 @@ const BookAppointment = () => {
     // }, []);
 
     const { appData } = useLoader();
-          const { contents } = appData;
+    const { contents } = appData;
 
     return (
         <div>
-            <a className="btn btn-outline-light" style={{ padding: '10px 15px' }} href="#"
-                onClick={handleModalOpen}>
-                {/* {selectedLanguage === 'fr' ? contents?.data.home_page_banner_book_appointment.content_fr : contents?.data.home_page_banner_book_appointment.content_en} */}
-                {selectedLanguage === 'fr' ? contents?.data.home_page_banner_book_appointment.content_fr : contents?.data.home_page_banner_book_appointment.content_en}
-            </a>
-            {showModal && (
-                <div className="choosestagepatientbtn modal fade show d-block" tabIndex="-1">
-                    <div className="modal-dialog modal-dialog-centered">
-                        <div className="modal-content">
-                            <div className="modal-body position-relative">
-                                <div className="d-flex justify-content-center">
-                                    <div className="col">
-                                        <div className="color">
-                                            <div className="mb-6">
-                                                <h1 className="text-2xl font-bold text-blue-900 text-center">
-                                                    PATIENT  PORTAL
-                                                </h1>
-                                                <p className='text-center'>Choose who you are </p>
-                                                <br></br>
-                                                <a href="#" className="goback" onClick={(e) => {
-                                                    e.preventDefault();
-                                                    setShowModal(false);
-                                                }}>
-                                                    <span style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'underline' }}>
-                                                        <BsArrowLeftCircle style={{ marginRight: '8px' }} />
-                                                        Back
-                                                    </span>
-                                                </a>
-                                            </div>
-
-                                            <div>
-                                                {step === "select" && (
-                                                    <div className="d-grid gap-2">
-                                                        <Button className="newbtn" onClick={() => handleStepChange("new")}>
-                                                            New Patient
-                                                        </Button>
-                                                        <Button className="existbtn" onClick={() => handleStepChange("existing")}>
-                                                            Existing Patient
-                                                        </Button>
-                                                    </div>
-                                                )}
-                                            </div>
-
+            <div className="choosestagepatientbtn modal fade show d-block" tabIndex="-1">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-body position-relative">
+                            <div className="d-flex justify-content-center">
+                                <div className="col">
+                                    <div className="color" style={{ padding: '60px' }}>
+                                        <div className="mb-6">
+                                            <h1 className="text-2xl font-bold text-blue-900 text-center">
+                                                PATIENT  PORTAL
+                                            </h1>
+                                            <p className='text-center'>Choose who you are </p>
+                                            <br></br>
+                                            <a
+                                                href="#"
+                                                className="goback"
+                                                onClick={handleCloseModal} // Utiliser la fonction pour fermer le modal
+                                            >
+                                                <span
+                                                    style={{
+                                                        display: 'inline-flex',
+                                                        alignItems: 'center',
+                                                        textDecoration: 'underline',
+                                                    }}
+                                                >
+                                                    <BsArrowLeftCircle style={{ marginRight: '8px' }} />
+                                                    Back
+                                                </span>
+                                            </a>
                                         </div>
+
+                                        <div>
+                                            {step === "select" && (
+                                                <div className="d-grid gap-2">
+                                                    <Button className="newbtn" onClick={() => handleStepChange("new")}>
+                                                        New Patient
+                                                    </Button>
+                                                    <Button className="existbtn" onClick={() => handleStepChange("existing")}>
+                                                        Existing Patient
+                                                    </Button>
+                                                </div>
+                                            )}
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            )}
-
+            </div>
             {/* Modal d'authentification */}
             {step === "existing" && (
                 <div className="choosestagepatientbtn modal fade show d-block" tabIndex="-1">
@@ -347,7 +350,7 @@ const BookAppointment = () => {
                             <div className="modal-body position-relative">
                                 <div className="d-flex justify-content-center">
                                     <div className="col">
-                                        <div className="color">
+                                        <div className="color" style={{ padding: '60px' }}>
                                             <div className="mb-6">
                                                 <h1 className="text-2xl font-bold text-blue-900 text-center">
                                                     EXISTING PATIENT
@@ -452,7 +455,7 @@ const BookAppointment = () => {
                                                         )}
                                                     </div>
 
-                                                    <div className="d-flex justify-content-center">
+                                                    {/* <div className="d-flex justify-content-center">
                                                         <button
                                                             onClick={() => handleStepChange("personal-info")}
                                                             className="btn btn-primary"
@@ -460,7 +463,7 @@ const BookAppointment = () => {
                                                         >
                                                             Submit
                                                         </button>
-                                                    </div>
+                                                    </div> */}
                                                 </form>
                                             </div>
                                         </div>
@@ -479,7 +482,7 @@ const BookAppointment = () => {
                             <div className="modal-body position-relative">
                                 <div className="d-flex justify-content-center">
                                     <div className="col">
-                                        <div className="color">
+                                        <div className="color" style={{ padding: '60px' }}>
                                             <div className="mb-6">
                                                 <h1 className="text-2xl font-bold text-blue-900 text-center">
                                                     NEW PATIENT
@@ -558,8 +561,6 @@ const BookAppointment = () => {
                                                             required
                                                         />
                                                     </div>
-
-
                                                     <div className="d-flex justify-content-center">
                                                         <button type="submit" className="btn btn-primary" style={{ padding: '15px 40px' }}>
                                                             Submit
@@ -616,7 +617,7 @@ const BookAppointment = () => {
                             <div className="modal-body position-relative">
                                 <div className="d-flex justify-content-center">
                                     <div className="col">
-                                        <div className="color">
+                                        <div className="color" style={{ padding: '60px' }}>
                                             <div className="mb-6">
                                                 <h1 className="text-2xl font-bold text-blue-900 text-center">
                                                     EXISTING PATIENT
@@ -638,7 +639,7 @@ const BookAppointment = () => {
 
                                             </div>
 
-                                            {manualTabResult  && (
+                                            {manualTabResult && (
                                                 <div className="alert alert-success mt-2">
                                                     QR Code détecté avec succès
                                                 </div>

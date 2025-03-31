@@ -25,12 +25,13 @@ import LanguageContext from '../context/LanguageContext';
 import { useLoader } from "../context/LoaderContext";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import Bookpatientappointment from './Components/Patientsappointmnets';
 
 const Home = () => {
     const { selectedLanguage } = useContext(LanguageContext);
     const { appData } = useLoader();
     const { contents, services, events, testimonials, certificates, advices, teamMembers } = appData;
-
+    const [step, setStep] = useState('select');
     const [isOpen, setIsOpen] = useState(false);
 
     const openVirtualTour = () => {
@@ -40,6 +41,19 @@ const Home = () => {
     const closeVirtualTour = () => {
         setIsOpen(false);
     };
+
+    const [isModalbookappointmentOpen, setIsModalbookappointmentOpen] = useState(false); // État pour afficher/masquer le modal
+
+    // Fonction pour ouvrir le modal
+    const openModal = () => {
+        setIsModalbookappointmentOpen(true);
+    };
+
+    // Fonction pour fermer le modal
+    const closeModal = () => {
+        setIsModalbookappointmentOpen(false);
+    };
+
 
 
     // Get contents on component mount
@@ -230,13 +244,34 @@ const Home = () => {
                                     }} />)}
                                 </div>
                                 <div className=" d-flex justify-content-start justify-content-lg-start" style={{ margin: "20px 0" }}>
-                                    <button
+                                    {/* <button
                                         className="btn btn-t text-white"
                                         style={{ backgroundColor: "#13AB9C", padding: "10px 25px", fontWeight: "600" }}
                                     // onClick={() => (window.location.href = "Meet.html")}
                                     >
                                         {selectedLanguage === 'fr' ? contents?.data.home_page_patient_portal_button.content_fr : contents?.data.home_page_patient_portal_button.content_en}
-                                    </button>
+                                    </button> */}
+                                    <a
+                                        href="#"
+                                        onClick={(e) => {
+                                            e.preventDefault(); // Empêche le comportement par défaut de l'ancre
+                                            openModal(); // Ouvre le modal
+                                        }}
+                                        className="btn btn-t text-white"
+                                        style={{ backgroundColor: "#13AB9C", padding: "10px 25px", fontWeight: "600" }}
+                                    >
+                                        {selectedLanguage === 'fr'
+                                            ? contents?.data.home_page_banner_book_appointment.content_fr
+                                            : contents?.data.home_page_banner_book_appointment.content_en}
+                                    </a>
+
+                                    {isModalbookappointmentOpen && (
+                                        <Bookpatientappointment
+                                            step={step}
+                                            setStep={setStep}
+                                            closeModal={closeModal}
+                                        />
+                                    )}
                                 </div>
                             </div>
                         </div>
