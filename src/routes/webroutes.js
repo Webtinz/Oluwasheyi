@@ -8,7 +8,8 @@ const AdviceController = require('../controllers/AdviceController');
 const ContentController = require('../Controllers/ContentController');
 const MedicalProgramController = require('../controllers/MedicalProgramController');
 const CertificationController = require('../controllers/CertificationController');
-const { uploadService, uploadDepartment, uploadTemoigne, uploadMedicalProgram, uploadCertification, uploadContent, uploadEvent, uploadMember, uploadAdvice } = require('../middleware/fileupload');
+const GalleryController = require('../controllers/GalleryController');
+const { uploadService, uploadGallery, uploadDepartment, uploadTemoigne, uploadMedicalProgram, uploadCertification, uploadContent, uploadEvent, uploadMember, uploadAdvice } = require('../middleware/fileupload');
 const ServiceController = require('../controllers/ServiceController');
 const DepartmentController = require('../controllers/DepartmentController');
 const EventController = require('../controllers/EventController');
@@ -120,6 +121,13 @@ router.get('/getallcertifications', CertificationController.getAllCertifications
 router.get('/getcertification/:id', CertificationController.getCertification);
 router.put('/updatecertification/:id', uploadCertification.single('photo'), CertificationController.updateCertification);
 router.delete('/deletecertification/:id', CertificationController.deleteCertification);
+
+// galleries
+router.post('/addgallery', uploadGallery.single('photo'), GalleryController.addGallery);
+router.get('/getallgalleries', GalleryController.getAllGalleries);
+router.get('/getgallery/:id', GalleryController.getGallery);
+router.put('/updategallery/:id', uploadGallery.single('photo'), GalleryController.updateGallery);
+router.delete('/deletegallery/:id', GalleryController.deleteGallery);
 
 //Paypal
 router.post('/paypal/create-order', createPaypalOrder);

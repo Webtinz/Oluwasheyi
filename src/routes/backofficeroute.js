@@ -94,6 +94,14 @@ router.get('/addcertification', (req, res) => {
   res.render('certifications/addcertification', { title: 'certifications Page' });
 });
 
+// gallery
+router.get('/listgalleries', (req, res) => {
+  res.render('galleries/listgallery', { title: 'galleries Page' });
+});
+router.get('/addgallery', (req, res) => {
+  res.render('galleries/addgallery', { title: 'galleries Page' });
+});
+
 // Feedbacks
 router.get('/feedbacks', (req, res) => {
   res.render('feedback', { title: 'Feedback Page' });

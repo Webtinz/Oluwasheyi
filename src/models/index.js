@@ -18,6 +18,7 @@ const Patientappointment = require("./Patientappointment")(sequelize, DataTypes)
 const Transaction = require("./Transaction")(sequelize, DataTypes);
 const Suscriber = require("./Suscriber")(sequelize, DataTypes);
 const InterestedUser = require("./InterestedUser")(sequelize, DataTypes);
+const Gallery = require("./Gallery")(sequelize, DataTypes);
 
 
 
@@ -39,6 +40,7 @@ const models = {
   Transaction,
   Suscriber,
   InterestedUser,
+  Gallery
 };
 
 // **Define associations**

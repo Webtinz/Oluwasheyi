@@ -38,7 +38,7 @@ exports.addSuscriber = async (req, res) => {
             return res.status(400).json({ message: "Cette adresse e-mail est déjà abonnée." });
         }
 
-        const suscriber = await Suscriber.create({email});
+        const suscriber = await Suscriber.create({ email });
 
         res.status(201).json({
             message: "Suscriber créée avec succès!",
