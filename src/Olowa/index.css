@@ -5,6 +5,7 @@ body {
 .comm {
   padding: 0 10rem;
 }
+
 /* .ibb {
   margin-left: -20px !important;
 } */
@@ -91,10 +92,7 @@ body {
 }
 
 @media (max-width: 745px) {
-  .braca {
-    padding: 100px 30px;
 
-  }
 
   .ro {
     overflow-x: hidden;
@@ -107,7 +105,8 @@ body {
   .rom {
     padding: 0 20px;
   }
-  .nam{
+
+  .nam {
     padding: 0 25px;
   }
 }
@@ -704,7 +703,7 @@ button:hover .rotating-svg {
 
 .flx {
   width: 45vw;
-  height: 60vh;
+  max-height: 60vh;
 }
 
 .vpc {
@@ -721,7 +720,7 @@ button:hover .rotating-svg {
     width: unset;
     height: 35vh;
     padding: 20px !important;
-}
+  }
 
   .flx p {
     font-size: clamp(18px, 8vw, 19px) !important;
@@ -1273,7 +1272,7 @@ button:hover .rotating-svg {
     justify-content: space-between;
     flex-direction: column;
     align-items: flex-start;
-    
+
   }
 
   .modal-dialog {
@@ -1306,14 +1305,61 @@ button:hover .rotating-svg {
 @media (max-height: 686px) {
 
   .mybanner .mybannercontent {
-    height: 100vh;
-}
-.carousel-content{
-  height: 100vh;
-}
-.carousel-content .carrousseltextcont h2{
-  font-size: 39px;
+    height: unset !important;
+  }
+
+  .braca {
+    height: 100%;
+    /* padding: 30px; */
+  }
+
+  .carousel-content .carrousseltextcont h2 {
+    font-size: 39px;
     line-height: 60px;
     text-transform: uppercase;
+  }
+
+  .hhe {
+    background-size: cover !important;
+    background-position: center;
+    width: 100vw;
+    height: 100%;
+    color: white;
+    padding: 40px 10px !important;
+    display: flex;
+  }
+
+  .hhe h3 {
+    font-size: 20px;
+  }
+  .main-img1 {
+    height: unset;
+    max-height: 80vh;
+
 }
+.flx {
+  width: 50%;
+  scrollbar-width: none;
+  height: 61%;
+  overflow-y: scroll;
+  display: block;
+  padding: 20px 20px !important;
+}
+}
+
+@media (max-width: 992px) {
+  .cuso {
+    margin-bottom: 0 !important;
+  }
+  .ibb{
+    display: none;
+  }
+  .braca {
+    padding: 100px 30px;
+
+  }
+  .neww {
+    font-size: x-large;
+    margin-bottom: 20px;
+  }
 }

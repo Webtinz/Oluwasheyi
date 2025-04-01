@@ -92,7 +92,7 @@ const About = () => {
                                                     <br />
                                                     {/* <br /> */}
                                                     <div className='mnt d-flex flex-wrap mt-3'>
-                                                        <Link to="/about" className="btn btn-cus text-white me-2 mb-3 mb-lg-0" style={{ backgroundColor: '#13AB9C', padding: '10px 15px', fontWeight: "700" }}>
+                                                        <Link to="/about" className="btn btn-cus text-white me-2 mb-3 mb-lg-0 cuso" style={{ backgroundColor: '#13AB9C', padding: '10px 15px', fontWeight: "700" }}>
                                                             {selectedLanguage === 'fr' ? contents?.data.home_page_banner_about_us.content_fr : contents?.data.home_page_banner_about_us.content_en}
                                                         </Link>
 

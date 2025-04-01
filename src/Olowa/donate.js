@@ -311,7 +311,7 @@ const Donate = () => {
                             }
 
                             } style={{ backgroundColor: "rgb(19, 171, 156)" }}>
-                                {selectedLanguage === 'fr' ? 'Donation' : 'Donate'}
+                                {selectedLanguage === 'fr' ? 'Faire un don' : 'Donate'}
                             </button>
                         </div>
                     </div>
