@@ -24,6 +24,15 @@ const ServicesCarousel = ({ services }) => {
   // const [contents, setContents] = useState();
   const { appData } = useLoader();
   const { contents } = appData;
+  const [maxButtons, setMaxButtons] = useState(window.innerWidth < 640 ? 4 : 6);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setMaxButtons(window.innerWidth < 640 ? 4 : 6);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Get contents on component mount
   useEffect(() => {
@@ -452,23 +461,55 @@ const ServicesCarousel = ({ services }) => {
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-center gap-2" style={{ marginTop: "50px" }}>
-        {Array.from({ length: totalPages }).map((_, index) => (
-          <button
-            key={index}
-            onClick={() => goToPage(index)}
-            className="w-3 h-3 rounded-full transition-colors focus:outline-none"
-            style={{
-              backgroundColor: currentIndex === index ? '#13AB9C' : 'unset',
-              border: currentIndex === index ? 'unset' : '2px solid rgb(23, 65, 111)',
-              cursor: isAnimating || currentIndex === index ? 'not-allowed' : 'pointer',
-              opacity: isAnimating ? 0.6 : 1
-            }}
-            aria-label={`Go to page ${index + 1}`}
-            aria-current={currentIndex === index ? 'page' : undefined}
-            disabled={isAnimating || currentIndex === index}
-          />
-        ))}
+      <div className="flex justify-center gap-2 mt-5">
+        {(() => {
+          const getPaginationButtons = () => {
+            if (totalPages <= maxButtons) {
+              return Array.from({ length: totalPages }, (_, i) => i);
+            }
+
+            const buttons = [];
+            let start = Math.max(0, currentIndex - Math.floor(maxButtons / 2));
+            let end = Math.min(totalPages - 1, start + maxButtons - 1);
+
+            if (end - start + 1 < maxButtons) {
+              start = Math.max(0, end - maxButtons + 1);
+            }
+
+            if (start > 0) {
+              buttons.push(0);
+              if (start > 1) buttons.push("...");
+            }
+
+            for (let i = start; i <= end; i++) {
+              buttons.push(i);
+            }
+
+            if (end < totalPages - 1) {
+              if (end < totalPages - 2) buttons.push("...");
+              buttons.push(totalPages - 1);
+            }
+
+            return buttons;
+          };
+
+          return getPaginationButtons().map((page, index) =>
+
+            <button
+              key={page}
+              onClick={() => goToPage(page)}
+              className={`w-3 h-3 rounded-full transition-colors ${currentIndex === page ? "" : "border-2 border-[#17416F]"}`}
+              style={{
+                backgroundColor: currentIndex === page ? "#13AB9C" : "transparent",
+                cursor: currentIndex === page ? "not-allowed" : "pointer",
+                opacity: currentIndex === page ? 0.6 : 1
+              }}
+              disabled={currentIndex === page}
+            />
+
+
+          );
+        })()}
       </div>
     </div>
   );
