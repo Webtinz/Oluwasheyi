@@ -224,11 +224,12 @@ const Donate = () => {
                             // const randomColor = getRandomColor();
                             return (
                                 <div key={index} className='col-12 col-md-6 col-lg-4 mb-4'>
-                                    <div className='p-3' style={{ background: randomColor, borderTopRightRadius: '30px', height: '250px' }}>
+                                    <div className='p-3'
+                                        onClick={() => handleOpenModal(card)}
+                                        style={{ background: randomColor, borderTopRightRadius: '30px', height: '250px', cursor: 'pointer' }}>
                                         <div
+                                            style={{ borderTopRightRadius: '30px' }}
                                             className='p-3 bg-white d-flex justify-content-center'
-                                            style={{ borderTopRightRadius: '30px', cursor: 'pointer' }}
-                                            onClick={() => handleOpenModal(card)}
                                             data-bs-toggle="modal"
                                             data-bs-target="#programModal"
                                         >
