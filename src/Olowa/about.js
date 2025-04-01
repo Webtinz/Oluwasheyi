@@ -114,7 +114,7 @@ const Home = () => {
             imageUrl: contents?.data.about_year_img_4.image,
             title: selectedLanguage === 'fr' ? contents?.data.about_year_title_4.content_fr : contents?.data.about_year_title_4.content_en,
             description: selectedLanguage === 'fr' ? contents?.data.about_year_descp_4.content_fr : contents?.data.about_year_descp_4.content_en,
-            color: contents?.data.about_year_color_4.content_fr
+            // color: contents?.data.about_year_color_4.content_fr
         },
         "2024": {
             imageUrl: contents?.data.about_year_img_5.image,
