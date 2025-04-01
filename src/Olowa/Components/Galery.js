@@ -95,7 +95,7 @@ const CustomCarousel = () => {
               key={index}
               className="custom-carousel-item"
               src={src}
-              style={{ width: '500px', height: '150px' }}
+              style={{ width: '200px', height: '150px' }}
               alt="logo"
               onClick={() => changeMainImage(src)}
             />

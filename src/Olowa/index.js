@@ -27,6 +27,8 @@ import { useLoader } from "../context/LoaderContext";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Bookpatientappointment from './Components/Patientsappointmnets';
+import videoSrc from "../assets/video360.mp4"; // Remplace par le lien de ta vidéo
+
 
 const Home = () => {
     const { selectedLanguage } = useContext(LanguageContext);
@@ -54,7 +56,6 @@ const Home = () => {
     const closeModal = () => {
         setIsModalbookappointmentOpen(false);
     };
-
 
 
     // Get contents on component mount
@@ -180,11 +181,11 @@ const Home = () => {
                             className="absolute sticker transform shadow -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 bg-white rounded-full p-1 transition-transform hover:scale-110 focus:outline-none"
                             aria-label="Open 360 Virtual Tour"
                         >
-                            <div className="bg-teal-500 rounded-full w-16 h-16 md:w-20 md:h-20 flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgb(19, 171, 156)" className="w-15 h-15 rotating-svg">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
-                                </svg>
-                                <span className="absolute font-bold text-white text-center text-sm">360</span>
+                            <div className="bg-teal-500 rounded-full w-16 h-16 md:w-20 md:h-20 flex items-center justify-center overflow-hidden">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgb(19, 171, 156)" class="w-15 h-15 rotating-svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"></path></svg>
+                                {/* <span className="absolute font-bold text-center text-sm text-blue-500">
+                                    Click
+                                </span> */}
                             </div>
                         </button>
                     </div>
@@ -202,15 +203,20 @@ const Home = () => {
                                 ✕
                             </button>
 
-                            {/* Here you can embed your 360 tour or video */}
-                            {/* <iframe
-                                src="https://www.youtube.com/watch?v=wiJA4_jdX9E&t=6s"
-                                title="360 Virtual Tour"
-                                className="w-full h-full rounded-lg"
+                            {/* Contenu du Virtual Tour */}
+                            <iframe
+                                id="360images_iframe"
+                                width="100%"
+                                height="100%"
+                                src={contents.data.video_360.image}
+                                frameBorder="0"
+                                marginHeight="0"
+                                marginWidth="0"
+                                scrolling="no"
                                 allowFullScreen
-                            ></iframe> */}
+                            ></iframe> 
                             {/* <iframe width="560" height="315" src="https://bitmovin.com/demos/vr-360/" frameborder="0" allowfullscreen></iframe> */}
-                            <iframe id="360images_iframe" width="100%" height="100%" src={contents.data.video_360.image} frameborder="0" marginheight="0" marginwidth="0" scrolling="no" framespacing="0" allowfullscreen> </iframe>
+                            {/* <iframe id="360images_iframe" width="100%" height="100%" src={contents.data.video_360.image} frameborder="0" marginheight="0" marginwidth="0" scrolling="no" framespacing="0" allowfullscreen> </iframe> */}
 
                         </div>
                     </div>
