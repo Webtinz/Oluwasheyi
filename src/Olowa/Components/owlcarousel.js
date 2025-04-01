@@ -492,20 +492,21 @@ const ServicesCarousel = ({ services }) => {
 
           return getPaginationButtons().map((page, index) =>
             page === "..." ? (
-              <span key={index} className="text-gray-500">...</span>
+              <span key={index} style={{ color: 'rgb(11, 0, 0)' }}>...</span>
             ) : (
               <button
                 key={page}
                 onClick={() => goToPage(page)}
-                className={`w-3 h-3 rounded-full transition-colors ${currentIndex === page ? "bg-[#13AB9C]" : "border-2 border-[#17416F]"
-                  }`}
+                className={`w-3 h-3 rounded-full transition-colors ${currentIndex === page ? "" : "border-2 border-[#17416F]"}`}
                 style={{
+                  backgroundColor: currentIndex === page ? "#13AB9C" : "transparent",
                   cursor: currentIndex === page ? "not-allowed" : "pointer",
                   opacity: currentIndex === page ? 0.6 : 1
                 }}
                 disabled={currentIndex === page}
               />
             )
+
           );
         })()}
       </div>

@@ -174,7 +174,7 @@ const Community = () => {
                                             }}>
                                                 {selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_button.content_fr : contents?.data.communoty_page_menu_button.content_en}
                                             </button>
-                                        </div>
+                                        </div> 
                                     </div>
                                 </div>
                             </div>
