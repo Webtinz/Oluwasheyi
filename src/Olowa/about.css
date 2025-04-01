@@ -3,7 +3,7 @@
 }
 
 .hero {
-  background-image: url('../assets/image\ 35.png');
+  /* background-image: url('../assets/image\ 35.png'); */
   background-size: cover;
   background-position: center;
   object-fit: cover;

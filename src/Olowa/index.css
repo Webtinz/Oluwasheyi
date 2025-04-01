@@ -15,17 +15,10 @@ body {
   }
 
 }
-@media (max-width: 950px) {
-.designsvg{
-  display: none;
-}
-}
+
 @media (max-width: 800px) {
   .comm {
     padding: 0;
-  }
-  .designsvg{
-    display: none;
   }
 
   .mybanner .mybannercontent {
@@ -96,9 +89,7 @@ body {
   margin-left: 10px;
   margin-right: -30px;
 }
-.ro {
-  overflow-x: hidden;
-}
+
 @media (max-width: 745px) {
   .braca {
     padding: 100px 30px;
@@ -712,8 +703,8 @@ button:hover .rotating-svg {
 }
 
 .flx {
-  width: 33vw;
-  height: 50vh;
+  width: 45vw;
+  height: 60vh;
 }
 
 .vpc {
@@ -728,8 +719,8 @@ button:hover .rotating-svg {
 
   .flx {
     width: unset;
-    height: 20vh;
-    padding: 10px;
+    height: 35vh;
+    padding: 20px !important;
 }
 
   .flx p {
@@ -1150,6 +1141,7 @@ button:hover .rotating-svg {
   /* Couleur du texte dans le dropdown */
 }
 
+
 .custom-phone {
   width: 100%;
   height: 80vh;
@@ -1309,4 +1301,19 @@ button:hover .rotating-svg {
   .evene {
     width: 80%;
   }
+}
+
+@media (max-height: 686px) {
+
+  .mybanner .mybannercontent {
+    height: 100vh;
+}
+.carousel-content{
+  height: 100vh;
+}
+.carousel-content .carrousseltextcont h2{
+  font-size: 39px;
+    line-height: 60px;
+    text-transform: uppercase;
+}
 }

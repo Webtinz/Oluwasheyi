@@ -95,27 +95,32 @@ const Home = () => {
         "2011": {
             imageUrl: contents?.data.about_year_img_1.image,
             title: selectedLanguage === 'fr' ? contents?.data.about_year_title_1.content_fr : contents?.data.about_year_title_1.content_en,
-            description: selectedLanguage === 'fr' ? contents?.data.about_year_descp_1.content_fr : contents?.data.about_year_descp_1.content_en
+            description: selectedLanguage === 'fr' ? contents?.data.about_year_descp_1.content_fr : contents?.data.about_year_descp_1.content_en,
+            // color: contents?.data.about_year_color_1.content_fr
         },
         "2015": {
-            imageUrl: contents?.data.about_year_img_1.image,
-            title: selectedLanguage === 'fr' ? contents?.data.about_year_title_1.content_fr : contents?.data.about_year_title_1.content_en,
-            description: selectedLanguage === 'fr' ? contents?.data.about_year_descp_1.content_fr : contents?.data.about_year_descp_1.content_en
+            imageUrl: contents?.data.about_year_img_2.image,
+            title: selectedLanguage === 'fr' ? contents?.data.about_year_title_2.content_fr : contents?.data.about_year_title_2.content_en,
+            description: selectedLanguage === 'fr' ? contents?.data.about_year_descp_2.content_fr : contents?.data.about_year_descp_2.content_en,
+            // color: contents?.data.about_year_color_2.content_fr
         },
         "2019": {
-            imageUrl: contents?.data.about_year_img_1.image,
-            title: selectedLanguage === 'fr' ? contents?.data.about_year_title_1.content_fr : contents?.data.about_year_title_1.content_en,
-            description: selectedLanguage === 'fr' ? contents?.data.about_year_descp_1.content_fr : contents?.data.about_year_descp_1.content_en
+            imageUrl: contents?.data.about_year_img_3.image,
+            title: selectedLanguage === 'fr' ? contents?.data.about_year_title_3.content_fr : contents?.data.about_year_title_3.content_en,
+            description: selectedLanguage === 'fr' ? contents?.data.about_year_descp_3.content_fr : contents?.data.about_year_descp_3.content_en,
+            // color: contents?.data.about_year_color_3.content_fr
         },
         "2022": {
-            imageUrl: contents?.data.about_year_img_1.image,
-            title: selectedLanguage === 'fr' ? contents?.data.about_year_title_1.content_fr : contents?.data.about_year_title_1.content_en,
-            description: selectedLanguage === 'fr' ? contents?.data.about_year_descp_1.content_fr : contents?.data.about_year_descp_1.content_en
+            imageUrl: contents?.data.about_year_img_4.image,
+            title: selectedLanguage === 'fr' ? contents?.data.about_year_title_4.content_fr : contents?.data.about_year_title_4.content_en,
+            description: selectedLanguage === 'fr' ? contents?.data.about_year_descp_4.content_fr : contents?.data.about_year_descp_4.content_en,
+            color: contents?.data.about_year_color_4.content_fr
         },
         "2024": {
-            imageUrl: contents?.data.about_year_img_1.image,
-            title: selectedLanguage === 'fr' ? contents?.data.about_year_title_1.content_fr : contents?.data.about_year_title_1.content_en,
-            description: selectedLanguage === 'fr' ? contents?.data.about_year_descp_1.content_fr : contents?.data.about_year_descp_1.content_en
+            imageUrl: contents?.data.about_year_img_5.image,
+            title: selectedLanguage === 'fr' ? contents?.data.about_year_title_5.content_fr : contents?.data.about_year_title_5.content_en,
+            description: selectedLanguage === 'fr' ? contents?.data.about_year_descp_5.content_fr : contents?.data.about_year_descp_5.content_en,
+            // color: contents?.data.about_year_color_5.content_fr
         }
     };
 
@@ -238,7 +243,10 @@ const Home = () => {
                     {selectedLanguage === 'fr' ? contents?.data.about_page_history_title.content_fr : contents?.data.about_page_history_title.content_en}
                 </h2>
                 <br />
-                <div className="mt-4 hero">
+                <div className="mt-4 hero"
+                    style={{
+                        backgroundImage: `url(${yearsData[currentYear].imageUrl})`
+                    }}>
                     <div className="p-5 flx" style={{ borderTopRightRadius: '30px', backgroundColor: '#17416F' }}>
                         <div className='position-relative'>
                             <p style={{ color: '#13AB9C', fontWeight: '700', fontSize: 'clamp(22px, 8vw, 28px)' }}>{currentYear}</p>

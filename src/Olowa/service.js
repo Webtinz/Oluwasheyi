@@ -73,21 +73,12 @@ const Home = () => {
         }
     };
 
-    const { setLoading } = useLoader();
-
-    useEffect(() => {
-        setLoading(true);
-        // Simulate loading data
-        setTimeout(() => {
-            setLoading(false);
-        }, 2000);
-    }, [setLoading]);
     return (
 
         <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
             <div><Navbar /></div>
             <section className="mt-4 position-relative" style={{ backgroundColor: '#17416F', padding: '100px 0' }}>
-                <h1 className="text-center text-white" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '40px' }}>{selectedLanguage === 'fr' ? contents?.support_page_title1.content_fr : contents?.support_page_title1.content_en}</h1>
+                <h1 className="text-center text-white" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '40px' }}>{selectedLanguage === 'fr' ? contents?.data.support_page_title1.content_fr : contents?.data.support_page_title1.content_en}</h1>
                 <div className="position-absolute bottom-0 start-0">
                     <img src={Group1} alt="" />
                 </div>
@@ -100,15 +91,15 @@ const Home = () => {
                 <div className="row">
                     <div className="col-md-2 mx-auto mb-3">
                         <h2 className='text-start' style={{ color: '#17416F', textTransform: 'uppercase', fontWeight: 700, fontSize: 'clamp(20px, 6vw, 30px)' }}>
-                            {selectedLanguage === 'fr' ? contents?.support_page_title1.content_fr : contents?.support_page_title1.content_en}
+                            {selectedLanguage === 'fr' ? contents?.data.support_page_title1.content_fr : contents?.data.support_page_title1.content_en}
                         </h2>
                     </div>
                     <div className="col-md-8 mx-auto">
                         <div style={{ color: '#17416F' }}>
                             {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
-                                __html: contents?.service_descp.content_fr
+                                __html: contents?.data.service_descp.content_fr
                             }} />) : (<div dangerouslySetInnerHTML={{
-                                __html: contents?.service_descp.content_en
+                                __html: contents?.data.service_descp.content_en
                             }} />)}
                         </div>
                     </div>
@@ -147,7 +138,7 @@ const Home = () => {
                                                 <div className="d-flex">
                                                     <div><img src={Img6} alt="" /></div>
                                                     <div className="ms-2">
-                                                        <p style={{ color: '#17416F' }}>{selectedLanguage === 'fr' ? contents?.call_now.content_fr : contents?.call_now.content_en}</p>
+                                                        <p style={{ color: '#17416F' }}>{selectedLanguage === 'fr' ? contents?.data.call_now.content_fr : contents?.data.call_now.content_en}</p>
                                                         <br />
                                                         <p style={{ color: '#17416F', fontSize: '20px', marginTop: '-1rem' }}><strong>{section.phone}</strong></p>
                                                     </div>
@@ -172,8 +163,8 @@ const Home = () => {
                                                 onClick={() => toggleContent(index)}
                                             >
                                                 {activeSection === index
-                                                    ? (selectedLanguage === 'fr' ? contents?.button_read_less.content_fr : contents?.button_read_less.content_en)
-                                                    : (selectedLanguage === 'fr' ? contents?.button_learn_more.content_fr : contents?.button_learn_more.content_en)}
+                                                    ? (selectedLanguage === 'fr' ? contents?.data.button_read_less.content_fr : contents?.data.button_read_less.content_en)
+                                                    : (selectedLanguage === 'fr' ? contents?.data.button_learn_more.content_fr : contents?.data.button_learn_more.content_en)}
                                                 <i className={`bi ${activeSection === index ? 'bi-chevron-up' : 'bi-chevron-down'} ms-1`}></i>
                                             </button>
                                         </div>
