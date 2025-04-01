@@ -42,6 +42,15 @@ const Meet = () => {
     //     fetchContents();
     // }, []);
 
+    const scrollToSection = (sectionId) => {
+        setTimeout(() => {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }, 300); // Délai de 300 ms
+    };
+
     return (
         <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
             <div><Navbar /></div>
@@ -187,14 +196,14 @@ const Meet = () => {
                             {selectedLanguage === 'fr' ? contents?.data.team_page_staff_desc.content_fr : contents?.data.team_page_staff_desc.content_en}
                         </p>
                         <div className="mt-3">
-                            <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }}>
+                            <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }}  onClick={() => scrollToSection("feedback-section")}>
                                 {selectedLanguage === 'fr' ? contents?.data.team_page_staff_button.content_fr : contents?.data.team_page_staff_button.content_en}
                             </button>
                         </div>
                     </div>
                 </div>
             </section>
-            <div>
+            <div id='feedback-section'>
                 <Feedback />
             </div>
             <div>
