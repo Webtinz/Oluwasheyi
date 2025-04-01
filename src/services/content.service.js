@@ -57,6 +57,18 @@ export const getCertificates = async () => {
   }
 }
 
+
+//Get galleries
+export const getGalleries = async () => {
+  try {
+    const response = await api.get(`/getallgalleries`);
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch certificates:', error.message || error);
+    return null;
+  }
+}
+
 //Get Events
 export const getEvents = async () => {
   try {

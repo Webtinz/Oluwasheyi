@@ -10,7 +10,7 @@ import "../index.css"; // Ajoute un fichier CSS pour le style
 import { useLoader } from '../../context/LoaderContext';
 // import LanguageContext from '../../context/LanguageContext';
 
-const CustomCarousel = () => {
+const CustomCarousel = ({ images }) => {
 
   // const { selectedLanguage } = useContext(LanguageContext);
   // const [contents, setContents] = useState({}); // Initialisation avec un objet vide
@@ -60,16 +60,18 @@ const CustomCarousel = () => {
   };
 
   // Liste des images avec filtrage pour éviter les valeurs undefined
-  const images = [
-    contents?.data.gallery_img_2?.image,
-    contents?.data.gallery_img_3?.image,
-    contents?.data.gallery_img_4?.image,
-    contents?.data.gallery_img_5?.image,
-    contents?.data.gallery_img_6?.image,
-    contents?.data.gallery_img_1?.image,
-    contents?.data.gallery_img_2?.image,
-    contents?.data.gallery_img_3?.image
-  ].filter(Boolean); // Supprime les valeurs undefined ou null
+  // const images = [
+  //   contents?.data.gallery_img_2?.image,
+  //   contents?.data.gallery_img_3?.image,
+  //   contents?.data.gallery_img_4?.image,
+  //   contents?.data.gallery_img_5?.image,
+  //   contents?.data.gallery_img_6?.image,
+  //   contents?.data.gallery_img_1?.image,
+  //   contents?.data.gallery_img_2?.image,
+  //   contents?.data.gallery_img_3?.image
+  // ].filter(Boolean); // Supprime les valeurs undefined ou null
+
+  images?.filter(Boolean)
 
   // Affiche les boutons de navigation si le nombre d'images est >= 6
   const showButtons = images.length >= 6;
@@ -90,14 +92,14 @@ const CustomCarousel = () => {
       {/* Container du carrousel des miniatures */}
       <div className="custom-carousel-container position-relative">
         <div className="custom-flex custom-carousel" ref={carouselRef}>
-          {images.map((src, index) => (
+          {images?.map((src, index) => (
             <img
               key={index}
               className="custom-carousel-item"
-              src={src}
+              src={src.photo}
               style={{ width: '200px', height: '150px' }}
               alt="logo"
-              onClick={() => changeMainImage(src)}
+              onClick={() => changeMainImage(src.photo)}
             />
           ))}
         </div>

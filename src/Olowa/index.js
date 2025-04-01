@@ -27,13 +27,13 @@ import { useLoader } from "../context/LoaderContext";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Bookpatientappointment from './Components/Patientsappointmnets';
-import videoSrc from "../assets/video360.mp4"; // Remplace par le lien de ta vidéo
+// import videoSrc from "../assets/video360.mp4"; // Remplace par le lien de ta vidéo
 
 
 const Home = () => {
     const { selectedLanguage } = useContext(LanguageContext);
     const { appData } = useLoader();
-    const { contents, services, events, testimonials, certificates, advices, teamMembers } = appData;
+    const { contents, services, events, testimonials, certificates, advices, teamMembers, galleries } = appData;
     const [step, setStep] = useState('select');
     const [isOpen, setIsOpen] = useState(false);
 
@@ -60,29 +60,6 @@ const Home = () => {
 
     // Get contents on component mount
     useEffect(() => {
-        // const fetchContents = async () => {
-        //     try {
-        //         // const savedContents = localStorage.getItem("contents");
-        //         // if (savedContents) {
-        //         //     setContents(JSON.parse(savedContents));
-        //         // } else {
-        //         // Fetch contents if not in localStorage
-        //         const response = await getAllContents();
-        //         setContents(response.data);
-        //         //     localStorage.setItem("contents", JSON.stringify(response.data));
-        //         // }
-        //         // Fetch others data
-        //         setServices(await getServices());
-        //         setEvents(await getEvents());
-        //         setCerificates(await getCertificates());
-        //         setAdvices(await getAdvices());
-        //         setTeamMembers(await getTeamMembers())
-        //         setTestimonials(await getTestimonials())
-        //     } catch (error) {
-        //         console.error('Failed to fetch contents:', error.message || error);
-        //     }
-        // };
-        // fetchContents();
         AOS.init();
     }, []);
 
@@ -214,7 +191,7 @@ const Home = () => {
                                 marginWidth="0"
                                 scrolling="no"
                                 allowFullScreen
-                            ></iframe> 
+                            ></iframe>
                             {/* <iframe width="560" height="315" src="https://bitmovin.com/demos/vr-360/" frameborder="0" allowfullscreen></iframe> */}
                             {/* <iframe id="360images_iframe" width="100%" height="100%" src={contents.data.video_360.image} frameborder="0" marginheight="0" marginwidth="0" scrolling="no" framespacing="0" allowfullscreen> </iframe> */}
 
@@ -293,7 +270,7 @@ const Home = () => {
             <div>
                 <h2 className="text-center mb-4"
                     style={{ textTransform: 'uppercase', color: '#17416F', fontWeight: '700', fontSize: '36px' }}>
-                    {selectedLanguage === 'fr' ? contents?.data.home_page_team_title.content_fr : contents?.home_page_team_title.content_en}
+                    {selectedLanguage === 'fr' ? contents?.data.home_page_team_title.content_fr : contents?.data.home_page_team_title.content_en}
                 </h2>
                 <Smeet doctors={teamMembers} />
             </div>
@@ -303,7 +280,7 @@ const Home = () => {
                     style={{ textTransform: 'uppercase', color: '#17416F', fontWeight: '700', fontSize: '36px' }}>
                     {selectedLanguage === 'fr' ? contents?.data.home_page_equipment_title.content_fr : contents?.data.home_page_equipment_title.content_en}
                 </h2>
-                <Galery />
+                <Galery images={galleries} />
             </div>
             <div className='mt-5'>
                 <Event events={events} />
