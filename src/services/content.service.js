@@ -64,7 +64,7 @@ export const getGalleries = async () => {
     const response = await api.get(`/getallgalleries`);
     return response.data;
   } catch (error) {
-    console.error('Failed to fetch certificates:', error.message || error);
+    console.error('Failed to fetch galleries:', error.message || error);
     return null;
   }
 }
