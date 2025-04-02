@@ -87,33 +87,65 @@ const BookAppointment = ({ step, setStep, closeModal }) => {
     };
 
     // Initialiser ou arrêter la caméra selon l'onglet actif et l'état du composant
+    // useEffect(() => {
+    //     if (step === "existing") {
+    //         // Initialiser la caméra pour la capture de photo
+    //         navigator.mediaDevices.getUserMedia({
+    //             video: {
+    //                 facingMode: facingMode,
+    //                 width: { ideal: 720 },
+    //                 height: { ideal: 480 }
+    //             }
+    //         })
+    //             .then(stream => {
+    //                 if (videoRef.current) {
+    //                     videoRef.current.srcObject = stream;
+    //                 }
+    //             })
+    //             .catch(err => {
+    //                 console.error("Erreur d'accès à la caméra :", err);
+    //                 setAuthError("Impossible d'accéder à la caméra. Veuillez vérifier les permissions.");
+    //             });
+    //     }
+
+    //     return () => {
+    //         // Arrêter la caméra lorsqu'on quitte l'étape ou l'écran
+    //         stopAllVideoStreams();
+    //     };
+    // }, [step, facingMode]); // L'effet se déclenche selon l'état de l'étape
+
+
     useEffect(() => {
         if (step === "existing") {
-            // Initialiser la caméra pour la capture de photo
-            navigator.mediaDevices.getUserMedia({
-                video: {
-                    facingMode: facingMode,
-                    width: { ideal: 720 },
-                    height: { ideal: 480 }
-                }
-            })
-                .then(stream => {
-                    if (videoRef.current) {
-                        videoRef.current.srcObject = stream;
+            // Only initialize camera if it's not already running
+            if (!videoRef.current || !videoRef.current.srcObject) {
+                navigator.mediaDevices.getUserMedia({
+                    video: {
+                        facingMode: facingMode,
+                        width: { ideal: 720 },
+                        height: { ideal: 480 }
                     }
                 })
-                .catch(err => {
-                    console.error("Erreur d'accès à la caméra :", err);
-                    setAuthError("Impossible d'accéder à la caméra. Veuillez vérifier les permissions.");
-                });
+                    .then(stream => {
+                        if (videoRef.current) {
+                            videoRef.current.srcObject = stream;
+                        }
+                    })
+                    .catch(err => {
+                        console.error("Erreur d'accès à la caméra :", err);
+                        setAuthError("Impossible d'accéder à la caméra. Veuillez vérifier les permissions.");
+                    });
+            }
+        } else {
+            // Stop camera when leaving the step
+            stopAllVideoStreams();
         }
 
         return () => {
-            // Arrêter la caméra lorsqu'on quitte l'étape ou l'écran
+            // Cleanup function to stop the stream when component unmounts
             stopAllVideoStreams();
         };
-    }, [step, facingMode]); // L'effet se déclenche selon l'état de l'étape
-
+    }, [step]); // Remove facingMode from the dependency array
 
     // Capturer une photo avec la caméra
     const capturePhoto = () => {
@@ -150,14 +182,41 @@ const BookAppointment = ({ step, setStep, closeModal }) => {
     };
 
     // Fonction améliorée pour changer de caméra
+    // const toggleCamera = () => {
+    //     const newFacingMode = facingMode === "environment" ? "user" : "environment";
+    //     setFacingMode(newFacingMode);
+
+    //     // Pour l'onglet manuel, réinitialiser le flux vidéo
+    //     stopAllVideoStreams();
+
+    //     // Initialiser un nouveau flux avec le mode de caméra mis à jour
+    //     navigator.mediaDevices.getUserMedia({
+    //         video: {
+    //             facingMode: newFacingMode,
+    //             width: { ideal: 720 },
+    //             height: { ideal: 480 }
+    //         }
+    //     })
+    //         .then(stream => {
+    //             if (videoRef.current) {
+    //                 videoRef.current.srcObject = stream;
+    //             }
+    //         })
+    //         .catch(err => {
+    //             console.error("Erreur d'accès à la caméra :", err);
+    //             setAuthError("Impossible d'accéder à la caméra. Veuillez vérifier les permissions.");
+    //         });
+    // };
+
     const toggleCamera = () => {
+        // First stop the current stream
+        stopAllVideoStreams();
+
+        // Update the facing mode state
         const newFacingMode = facingMode === "environment" ? "user" : "environment";
         setFacingMode(newFacingMode);
 
-        // Pour l'onglet manuel, réinitialiser le flux vidéo
-        stopAllVideoStreams();
-
-        // Initialiser un nouveau flux avec le mode de caméra mis à jour
+        // Create new stream with updated facing mode
         navigator.mediaDevices.getUserMedia({
             video: {
                 facingMode: newFacingMode,
@@ -289,6 +348,14 @@ const BookAppointment = ({ step, setStep, closeModal }) => {
     const { appData } = useLoader();
     const { contents } = appData;
 
+
+    const rendershortContent = (content) => {
+        if (!content) return null;
+
+        const text = selectedLanguage === 'fr' ? content.content_fr : content.content_en;
+        return <span>{text}</span>;
+    }
+
     return (
         <div>
             <div className="choosestagepatientbtn modal fade show d-block" tabIndex="-1">
@@ -300,9 +367,9 @@ const BookAppointment = ({ step, setStep, closeModal }) => {
                                     <div className="color" style={{ padding: '60px' }}>
                                         <div className="mb-6">
                                             <h1 className="text-2xl font-bold text-blue-900 text-center">
-                                                PATIENT  PORTAL
+                                                {rendershortContent(contents?.data.book_patient_portal)}
                                             </h1>
-                                            <p className='text-center'>Choose who you are </p>
+                                            <p className='text-center'>{rendershortContent(contents?.data.book_choose)}</p>
                                             <br></br>
                                             <a
                                                 href="#"
@@ -317,7 +384,7 @@ const BookAppointment = ({ step, setStep, closeModal }) => {
                                                     }}
                                                 >
                                                     <BsArrowLeftCircle style={{ marginRight: '8px' }} />
-                                                    Back
+                                                    {rendershortContent(contents?.data.book_back)}
                                                 </span>
                                             </a>
                                         </div>
@@ -326,10 +393,10 @@ const BookAppointment = ({ step, setStep, closeModal }) => {
                                             {step === "select" && (
                                                 <div className="d-grid gap-2">
                                                     <Button className="newbtn" onClick={() => handleStepChange("new")}>
-                                                        New Patient
+                                                        {rendershortContent(contents?.data.book_new)}
                                                     </Button>
                                                     <Button className="existbtn" onClick={() => handleStepChange("existing")}>
-                                                        Existing Patient
+                                                        {rendershortContent(contents?.data.book_old)}
                                                     </Button>
                                                 </div>
                                             )}
@@ -353,9 +420,11 @@ const BookAppointment = ({ step, setStep, closeModal }) => {
                                         <div className="color" style={{ padding: '60px' }}>
                                             <div className="mb-6">
                                                 <h1 className="text-2xl font-bold text-blue-900 text-center">
-                                                    EXISTING PATIENT
+                                                    {rendershortContent(contents?.data.book_old)}
                                                 </h1>
-                                                <p className='text-center'>Fill the form to register</p>
+                                                <p className='text-center'>
+                                                    {rendershortContent(contents?.data.book_fill)}
+                                                </p>
                                                 <br></br>
                                                 <br></br>
                                                 {/* Bouton Back */}
@@ -366,7 +435,7 @@ const BookAppointment = ({ step, setStep, closeModal }) => {
                                                 }}>
                                                     <span style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'underline' }}>
                                                         <BsArrowLeftCircle style={{ marginRight: '8px' }} />
-                                                        Back
+                                                        {rendershortContent(contents?.data.book_back)}
                                                     </span>
                                                 </a>
                                             </div>
@@ -381,7 +450,7 @@ const BookAppointment = ({ step, setStep, closeModal }) => {
                                                         {/* Affichage de la section pour la caméra */}
                                                         <div className="mb-4">
                                                             <div className="mb-3">
-                                                                <label className="form-label">Prendre une photo de la carte</label>
+                                                                <label className="form-label">{rendershortContent(contents?.data.book_take_photo)}</label>
                                                                 <div className="d-flex flex-column align-items-center">
                                                                     <div className="position-relative" style={{
                                                                         width: "100%", height: "auto",
@@ -398,10 +467,12 @@ const BookAppointment = ({ step, setStep, closeModal }) => {
                                                                             playsInline
                                                                         ></video>
                                                                         <button
+                                                                            type="button"
                                                                             className="btn btn-sm btn-light position-absolute top-0 end-0 m-2"
                                                                             onClick={toggleCamera}
                                                                         >
-                                                                            <i className="bi bi-camera-switch"></i> Changer de caméra
+                                                                            <i className="bi bi-camera-switch"></i>
+                                                                            {selectedLanguage === 'fr' ? contents?.data.book_toggle.content_fr : contents?.data.book_toggle.content_en}
                                                                         </button>
                                                                     </div>
                                                                     <Button
@@ -409,7 +480,7 @@ const BookAppointment = ({ step, setStep, closeModal }) => {
                                                                         onClick={capturePhoto}
                                                                         className="mb-3 mt-3"
                                                                     >
-                                                                        Capturer
+                                                                        {rendershortContent(contents?.data.book_capture)}
                                                                     </Button>
                                                                     <canvas
                                                                         ref={canvasRef}
@@ -434,7 +505,7 @@ const BookAppointment = ({ step, setStep, closeModal }) => {
                                                     </div>
 
                                                     <p className="divider-text text-center">
-                                                        <span>&nbsp;&nbsp; OR &nbsp;&nbsp;</span>
+                                                        <span>&nbsp;&nbsp; {rendershortContent(contents?.data.book_or)} &nbsp;&nbsp;</span>
                                                     </p>
 
                                                     <div className="space-y-2 existingpatientfile">
@@ -445,12 +516,12 @@ const BookAppointment = ({ step, setStep, closeModal }) => {
                                                                 onChange={handleImageUpload}
                                                                 id="file-upload"
                                                             />
-                                                            <label htmlFor="file-upload" className="file-label">Choose a file</label>
+                                                            <label htmlFor="file-upload" className="file-label">{rendershortContent(contents?.data.book_choose_file)}</label>
                                                         </div>
 
                                                         {selectedImage && (
                                                             <p className="text-muted mt-1">
-                                                                Image sélectionnée : {selectedImage.name}
+                                                                {rendershortContent(contents?.data.book_file_selected)} : {selectedImage.name}
                                                             </p>
                                                         )}
                                                     </div>
@@ -485,9 +556,9 @@ const BookAppointment = ({ step, setStep, closeModal }) => {
                                         <div className="color" style={{ padding: '60px' }}>
                                             <div className="mb-6">
                                                 <h1 className="text-2xl font-bold text-blue-900 text-center">
-                                                    NEW PATIENT
+                                                    {rendershortContent(contents?.data.book_new)}
                                                 </h1>
-                                                <p className='text-center'>Fill the form to register</p>
+                                                <p className='text-center'>{rendershortContent(contents?.data.book_new_fill)}</p>
                                                 <br></br>
                                                 <br></br>
                                                 <a href="#" className="goback" onClick={(e) => {
@@ -497,7 +568,7 @@ const BookAppointment = ({ step, setStep, closeModal }) => {
                                                 }}>
                                                     <span style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'underline' }}>
                                                         <BsArrowLeftCircle style={{ marginRight: '8px' }} />
-                                                        Back
+                                                        {rendershortContent(contents?.data.book_back)}
                                                     </span>
                                                 </a>
                                             </div>
@@ -506,47 +577,47 @@ const BookAppointment = ({ step, setStep, closeModal }) => {
                                                 <form className="space-y-8" onSubmit={handleNewPatient}>
                                                     <div className="space-y-2">
                                                         <label className="block text-blue-900">
-                                                            Last Name <span className="text-red-500">*</span>
+                                                            {selectedLanguage === 'fr' ? contents?.data.book_new_lastname.content_fr : contents?.data.book_new_lastname.content_en} <span className="text-red-500">*</span>
                                                         </label>
                                                         <input
                                                             type="text"
                                                             name="lastName"
                                                             required
-                                                            placeholder="last Name"
+                                                            placeholder={selectedLanguage === 'fr' ? contents?.data.book_new_lastname.content_fr : contents?.data.book_new_lastname.content_en}
                                                             className="form-control"
                                                         />
                                                     </div>
 
                                                     <div className="space-y-2">
                                                         <label className="block text-blue-900">
-                                                            First Name <span className="text-red-500">*</span>
+                                                            {selectedLanguage === 'fr' ? contents?.data.book_new_firstname.content_fr : contents?.data.book_new_firstname.content_en} <span className="text-red-500">*</span>
                                                         </label>
                                                         <input
                                                             type="text"
                                                             name="firstName"
                                                             required
-                                                            placeholder="first Name"
+                                                            placeholder={selectedLanguage === 'fr' ? contents?.data.book_new_firstname.content_fr : contents?.data.book_new_firstname.content_en}
                                                             className="form-control"
                                                         />
                                                     </div>
 
                                                     <div className="space-y-2">
                                                         <label className="block text-blue-900">
-                                                            Birth Date<span className="text-red-500">*</span>
+                                                            {selectedLanguage === 'fr' ? contents?.data.book_new_birthdate.content_fr : contents?.data.book_new_birthdate.content_en}<span className="text-red-500">*</span>
                                                         </label>
                                                         <input
                                                             max={new Date().toISOString().split("T")[0]}
                                                             type="date"
                                                             name="birthDate"
                                                             required
-                                                            placeholder="Birth Date"
+                                                            placeholder={selectedLanguage === 'fr' ? contents?.data.book_new_birthdate.content_fr : contents?.data.book_new_birthdate.content_en}
                                                             className="form-control"
                                                         />
                                                     </div>
 
                                                     <div className="space-y-2">
                                                         <label className="block text-blue-900">
-                                                            Phone Number<span className="text-red-500">*</span>
+                                                            {selectedLanguage === 'fr' ? contents?.data.book_new_phone.content_fr : contents?.data.book_new_phone.content_en}<span className="text-red-500">*</span>
                                                         </label>
                                                         <PhoneInput
                                                             country={"bj"} // Définit le pays par défaut (France ici)
@@ -563,7 +634,7 @@ const BookAppointment = ({ step, setStep, closeModal }) => {
                                                     </div>
                                                     <div className="d-flex justify-content-center">
                                                         <button type="submit" className="btn btn-primary" style={{ padding: '15px 40px' }}>
-                                                            Submit
+                                                            {selectedLanguage === 'fr' ? contents?.data.book_new_submit.content_fr : contents?.data.book_new_submit.content_en}
                                                         </button>
                                                     </div>
                                                 </form>
@@ -589,15 +660,15 @@ const BookAppointment = ({ step, setStep, closeModal }) => {
                                     <div className="col">
                                         <div className="color">
                                             <div className="mb-6 text-center">
-                                                <h1 className="text-success">Success!</h1>
-                                                <p className="text-success">The patient has been successfully registered.</p>
+                                                <h1 className="text-success">{selectedLanguage === 'fr' ? contents?.data.book_new_success.content_fr : contents?.data.book_new_success.content_en}</h1>
+                                                <p className="text-success">{selectedLanguage === 'fr' ? contents?.data.book_new_success_msg.content_fr : contents?.data.book_new_success_msg.content_en}</p>
                                                 <br></br>
                                                 <button
                                                     className="btn btn-success"
                                                     onClick={() => setShowModalSuccess(false)}
                                                     style={{ padding: '10px 20px' }}
                                                 >
-                                                    Close
+                                                    {selectedLanguage === 'fr' ? contents?.data.book_new_success_close.content_fr : contents?.data.book_new_success_close.content_en}
                                                 </button>
                                             </div>
                                         </div>
@@ -620,9 +691,11 @@ const BookAppointment = ({ step, setStep, closeModal }) => {
                                         <div className="color" style={{ padding: '60px' }}>
                                             <div className="mb-6">
                                                 <h1 className="text-2xl font-bold text-blue-900 text-center">
-                                                    EXISTING PATIENT
+                                                    {rendershortContent(contents?.data.book_old)}
                                                 </h1>
-                                                <p className='text-center'>Fill the form to register</p>
+                                                <p className='text-center'>
+                                                {rendershortContent(contents?.data.book_fill)}
+                                                </p>
                                                 <br></br>
                                                 <br></br>
                                                 <a href="#" className="goback" onClick={(e) => {
@@ -632,7 +705,7 @@ const BookAppointment = ({ step, setStep, closeModal }) => {
                                                 }}>
                                                     <span style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'underline' }}>
                                                         <BsArrowLeftCircle style={{ marginRight: '8px' }} />
-                                                        Back
+                                                        {rendershortContent(contents?.data.book_back)}
                                                     </span>
 
                                                 </a>
@@ -641,7 +714,7 @@ const BookAppointment = ({ step, setStep, closeModal }) => {
 
                                             {manualTabResult && (
                                                 <div className="alert alert-success mt-2">
-                                                    QR Code détecté avec succès
+                                                    {selectedLanguage === 'fr' ? contents?.data.book_qr_detected.content_fr : contents?.data.book_qr_detected.content_en}
                                                 </div>
                                             )}
 
@@ -649,7 +722,7 @@ const BookAppointment = ({ step, setStep, closeModal }) => {
                                                 <form className="space-y-8" onSubmit={handleExistingPatient}>
                                                     <div className="space-y-2">
                                                         <label className="block text-blue-900">
-                                                            Birth Date<span className="text-red-500">*</span>
+                                                            {selectedLanguage === 'fr' ? contents?.data.book_new_birthdate.content_fr : contents?.data.book_new_birthdate.content_en}<span className="text-red-500">*</span>
                                                         </label>
                                                         <input
                                                             max={new Date().toISOString().split("T")[0]}
@@ -658,14 +731,14 @@ const BookAppointment = ({ step, setStep, closeModal }) => {
                                                             value={formData.birthdate} // Lier la valeur du champ au state
                                                             onChange={(e) => setFormData({ ...formData, birthdate: e.target.value })} // Mettre à jour l'état
                                                             required
-                                                            placeholder="Birth Date"
+                                                            placeholder={selectedLanguage === 'fr' ? contents?.data.book_new_birthdate.content_fr : contents?.data.book_new_birthdate.content_en}
                                                             className="form-control"
                                                         />
                                                     </div>
 
                                                     <div className="space-y-2">
                                                         <label className="block text-blue-900">
-                                                            Phone Number<span className="text-red-500">*</span>
+                                                            {selectedLanguage === 'fr' ? contents?.data.book_new_phone.content_fr : contents?.data.book_new_phone.content_en}<span className="text-red-500">*</span>
                                                         </label>
                                                         <PhoneInput
                                                             country="bj"
@@ -677,7 +750,7 @@ const BookAppointment = ({ step, setStep, closeModal }) => {
                                                     </div>
                                                     <div className="d-flex justify-content-center">
                                                         <button type="submit" className="btn btn-primary" style={{ padding: '15px 40px' }}>
-                                                            Submit
+                                                            {selectedLanguage === 'fr' ? contents?.data.book_new_submit.content_fr : contents?.data.book_new_submit.content_en}
                                                         </button>
                                                     </div>
                                                 </form>
