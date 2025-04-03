@@ -133,7 +133,7 @@ const Home = () => {
                     {/* Left side - Blue box with text */}
                     <div className="bbl text-white p-8 md:p-12 flex items-center justify-center md:w-2/5" style={{ width: "50%", borderTopRightRadius: "15px", zIndex: "2", backgroundColor: "#00426f" }} >
                         <h3 data-aos="flip-left" className="text-2xl md:text-3xl lg:text-4xl font-bold">
-                            {selectedLanguage === 'fr' ? contents?.data.home_page_virtual_tour_title.content_fr : contents?.data.home_page_virtual_tour_title.content_en}
+                            {selectedLanguage === 'fr' ? contents?.data.home_page_virtual_tour_desc.content_fr : contents?.data.home_page_virtual_tour_desc.content_en}
                             {/* TAKE A VIRTUAL TOUR OF OUR FACILITIES */}
                         </h3>
                         <svg className='designsvg2' width="153" height="141" viewBox="0 0 153 141" fill="none" xmlns="http://www.w3.org/2000/svg">
