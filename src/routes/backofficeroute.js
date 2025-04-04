@@ -102,6 +102,14 @@ router.get('/addgallery', (req, res) => {
   res.render('galleries/addgallery', { title: 'galleries Page' });
 });
 
+// history
+router.get('/listhistories', (req, res) => {
+  res.render('histories/listhistory', { title: 'histories Page' });
+});
+router.get('/addhistory', (req, res) => {
+  res.render('histories/addhistory', { title: 'histories Page' });
+});
+
 // Feedbacks
 router.get('/feedbacks', (req, res) => {
   res.render('feedback', { title: 'Feedback Page' });

@@ -1,0 +1,189 @@
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+<link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"
+    rel="stylesheet">
+<script
+    src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Historys</h3>
+            <div class="card-tools">
+                <a href="/backoffice/addhistory"
+                    class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter
+                    une history</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <table id="historyTable"
+                class="display table table-striped projects">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Year</th>
+                        <th>Nom history</th>
+                        <th>Nom history (Anglais)</th>
+                        <th>Description</th>
+                        <th>Description (Anglais)</th>
+                        <th>Photo</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Les lignes seront insérées ici via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- View/Edit Modal -->
+<div class="modal fade" id="historyModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Détails de la history</h5>
+                <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="historyForm">
+                    <input type="hidden" id="historyId">
+                    <div class="form-group">
+                        <label>Titre history</label>
+                        <input type="text" id="historyNom"
+                            class="form-control" required>  
+                    </div>
+                    <div class="form-group">
+                        <label>Titre history (Anglais)</label>
+                        <input type="text" id="historyName"
+                            class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Annee</label>
+                        <input type="text" id="historyYear"
+                            class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="historyDescriptionFr"
+                            class="form-control" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Description (Anglais)</label>
+                        <textarea id="historyDescriptionEn"
+                            class="form-control" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Photo</label>
+                        <input type="file" id="historyPhoto"
+                            class="form-control">
+                        <img id="currentHistoryPhoto" src="#"
+                            alt="Photo de la history" width="100"
+                            style="margin-top: 10px; display: none;">
+                    </div>
+                    <button type="submit"
+                        class="btn btn-primary">Enregistrer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Récupérer toutes les histories et afficher dans le tableau
+        axios.get('/api/getallhistories')
+            .then(response => {
+                const data = response.data;
+                const tableBody = document.querySelector('#historyTable tbody');
+                tableBody.innerHTML = '';
+
+                data.forEach(history => {
+                    const row = `
+                    <tr>
+                        <td>${history.id}</td>
+                        <td>${history.year}</td>
+                        <td>${history.nom}</td>
+                        <td>${history.name}</td>
+                        <td>${history.description_fr}</td>
+                        <td>${history.description_en}</td>
+                        <td><img src="${history.photo}" width="50" height="50" alt="Photo de la history"></td>
+                        <td>
+                            <button class="btn btn-primary btn-sm view-btn" data-id="${history.id}">Edit</button>
+                            <button class="btn btn-danger btn-sm delete-btn" data-id="${history.id}">Delete</button>
+                        </td>
+                    </tr>`;
+                    tableBody.innerHTML += row;
+                });
+
+                // Initialiser DataTable
+                $('#historyTable').DataTable({
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/1.13.7/i18n/fr-FR.json"
+                    }
+                });
+            })
+            .catch(error => console.error('Erreur lors de la récupération des histories :', error));
+
+        // Clic sur le bouton "Modifier"
+        $(document).on('click', '.view-btn', function () {
+            const id = $(this).data('id');
+            axios.get(`/api/gethistory/${id}`)
+                .then(response => {
+                    const history = response.data;
+                    $('#historyId').val(history.id);
+                    $('#historyName').val(history.name);
+                    $('#historyName').val(history.nom);
+                    $('#historyYear').val(history.year);
+                    $('#historyDescriptionFr').val(history.description_fr);
+                    $('#historyDescriptionEn').val(history.description_en);
+                    const photoElement = $('#currentHistoryPhoto');
+                    if (history.photo) {
+                        photoElement.attr('src', `${history.photo}`).show();
+                    } else {
+                        photoElement.hide();
+                    }
+                    $('#historyModal').modal('show');
+                })
+                .catch(error => console.error('Erreur lors de la récupération de la history :', error));
+        });
+
+        // Mettre à jour la history
+        $('#historyForm').on('submit', function (e) {
+            e.preventDefault();
+            const id = $('#historyId').val();
+            const formData = new FormData();
+            formData.append('nom', $('#historyNom').val());
+            formData.append('name', $('#historyName').val());
+            formData.append('year', $('#historyYear').val());
+            formData.append('description_fr', $('#historyDescriptionFr').val());
+            formData.append('description_en', $('#historyDescriptionEn').val());
+            if ($('#historyPhoto')[0].files[0]) {
+                formData.append('photo', $('#historyPhoto')[0].files[0]);
+            }
+
+            axios.put(`/api/updatehistory/${id}`, formData)
+                .then(() => {
+                    $('#historyModal').modal('hide');
+                    location.reload();
+                })
+                .catch(error => console.error('Erreur lors de la mise à jour de la history :', error));
+        });
+
+        // Clic sur le bouton "Supprimer"
+        $(document).on('click', '.delete-btn', function () {
+            const id = $(this).data('id');
+            if (confirm('Voulez-vous vraiment supprimer cette history ?')) {
+                axios.delete(`/api/deletehistory/${id}`)
+                    .then(() => location.reload())
+                    .catch(error => console.error('Erreur lors de la suppression de la history :', error));
+            }
+        });
+    });
+</script>

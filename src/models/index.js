@@ -19,6 +19,7 @@ const Transaction = require("./Transaction")(sequelize, DataTypes);
 const Suscriber = require("./Suscriber")(sequelize, DataTypes);
 const InterestedUser = require("./InterestedUser")(sequelize, DataTypes);
 const Gallery = require("./Gallery")(sequelize, DataTypes);
+const History = require("./History")(sequelize, DataTypes);
 
 
 
@@ -40,7 +41,8 @@ const models = {
   Transaction,
   Suscriber,
   InterestedUser,
-  Gallery
+  Gallery,
+  History,
 };
 
 // **Define associations**
