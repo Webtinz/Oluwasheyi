@@ -10,6 +10,7 @@ import {
     getAdvices,
     getTeamMembers,
     getTestimonials,
+    getHistories,
 } from "../services/content.service";
 
 export const fetchInitialData = async () => {
@@ -22,6 +23,7 @@ export const fetchInitialData = async () => {
             programs,
             certificates,
             galleries,
+            histories,
             events,
             advices,
             teamMembers,
@@ -33,6 +35,7 @@ export const fetchInitialData = async () => {
             getPrograms(),
             getCertificates(),
             getGalleries(),
+            getHistories(),
             getEvents(),
             getAdvices(),
             getTeamMembers(),
@@ -47,6 +50,7 @@ export const fetchInitialData = async () => {
             programs,
             certificates,
             galleries,
+            histories,
             events,
             advices,
             teamMembers,

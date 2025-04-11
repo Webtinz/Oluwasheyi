@@ -19,7 +19,7 @@ const Home = () => {
     const { selectedLanguage } = useContext(LanguageContext);
     // const [contents, setContents] = useState();
     const { appData } = useLoader();
-    const { contents } = appData;
+    const { contents, histories } = appData;
 
     useEffect(() => {
         window.onYouTubeIframeAPIReady = () => {
@@ -77,55 +77,23 @@ const Home = () => {
             description: selectedLanguage === 'fr' ? contents?.data.about_table_descp_8.content_fr : contents?.data.about_table_descp_8.content_en
         }
     ];
-    // // Get contents on component mount
-    // useEffect(() => {
-    //     const fetchContents = async () => {
-    //         try {
-    //             const response = await getAllContents();
-    //             setContents(response.data);
-    //         } catch (error) {
-    //             console.error('Failed to fetch contents:', error.message || error);
-    //         }
-    //     };
-    //     fetchContents();
-    // }, []);
 
-
-    const yearsData = {
-        "2011": {
-            imageUrl: contents?.data.about_year_img_1.image,
-            title: selectedLanguage === 'fr' ? contents?.data.about_year_title_1.content_fr : contents?.data.about_year_title_1.content_en,
-            description: selectedLanguage === 'fr' ? contents?.data.about_year_descp_1.content_fr : contents?.data.about_year_descp_1.content_en,
-            // color: contents?.data.about_year_color_1.content_fr
-        },
-        "2015": {
-            imageUrl: contents?.data.about_year_img_2.image,
-            title: selectedLanguage === 'fr' ? contents?.data.about_year_title_2.content_fr : contents?.data.about_year_title_2.content_en,
-            description: selectedLanguage === 'fr' ? contents?.data.about_year_descp_2.content_fr : contents?.data.about_year_descp_2.content_en,
-            // color: contents?.data.about_year_color_2.content_fr
-        },
-        "2019": {
-            imageUrl: contents?.data.about_year_img_3.image,
-            title: selectedLanguage === 'fr' ? contents?.data.about_year_title_3.content_fr : contents?.data.about_year_title_3.content_en,
-            description: selectedLanguage === 'fr' ? contents?.data.about_year_descp_3.content_fr : contents?.data.about_year_descp_3.content_en,
-            // color: contents?.data.about_year_color_3.content_fr
-        },
-        "2022": {
-            imageUrl: contents?.data.about_year_img_4.image,
-            title: selectedLanguage === 'fr' ? contents?.data.about_year_title_4.content_fr : contents?.data.about_year_title_4.content_en,
-            description: selectedLanguage === 'fr' ? contents?.data.about_year_descp_4.content_fr : contents?.data.about_year_descp_4.content_en,
-            // color: contents?.data.about_year_color_4.content_fr
-        },
-        "2024": {
-            imageUrl: contents?.data.about_year_img_5.image,
-            title: selectedLanguage === 'fr' ? contents?.data.about_year_title_5.content_fr : contents?.data.about_year_title_5.content_en,
-            description: selectedLanguage === 'fr' ? contents?.data.about_year_descp_5.content_fr : contents?.data.about_year_descp_5.content_en,
-            // color: contents?.data.about_year_color_5.content_fr
-        }
-    };
-
-    const years = Object.keys(yearsData);
-    const [currentYear, setCurrentYear] = useState(years[0]);
+    // Process histories data to create a yearData-like structure
+    const processedHistories = histories?.reduce((acc, history) => {
+        const year = history.year.toString();
+        acc[year] = {
+            imageUrl: history.photo,
+            title: selectedLanguage === 'fr' ? history.nom : history.name,
+            description: selectedLanguage === 'fr' ? history.description_fr : history.description_en,
+            // You can also include color if available in history objects
+            // color: history.color
+        };
+        return acc;
+    }, {}) || {};
+    
+    // Sort years to ensure chronological order
+    const years = Object.keys(processedHistories).sort();
+    const [currentYear, setCurrentYear] = useState(years.length > 0 ? years[0] : '');
 
     const changeYear = (year) => {
         setCurrentYear(year);
@@ -238,47 +206,49 @@ const Home = () => {
                 </section>
             </>
             <br />
-            <section className="container mt-5">
-                <h2 className="text-center" style={{ color: '#17416F', fontSize: '36px', fontWeight: '700', textTransform: 'uppercase' }}>
-                    {selectedLanguage === 'fr' ? contents?.data.about_page_history_title.content_fr : contents?.data.about_page_history_title.content_en}
-                </h2>
-                <br />
-                <div className="mt-4 hero"
-                    style={{
-                        backgroundImage: `url(${yearsData[currentYear].imageUrl})`
-                    }}>
-                    <div className="p-5 flx" style={{ borderTopRightRadius: '30px', backgroundColor: '#17416F' }}>
-                        <div className='position-relative'>
-                            <p style={{ color: '#13AB9C', fontWeight: '700', fontSize: 'clamp(22px, 8vw, 28px)' }}>{currentYear}</p>
-                            <p className="text-white" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: 'clamp(30px, 8vw, 40px)' }}>
-                                {yearsData[currentYear].title}
-                            </p>
-                            <p style={{ fontWeight: '200', color: 'white', fontSize: 'clamp(18px, 8vw, 25px)' }}>{yearsData[currentYear].description}</p>
-                            <div className='contpos1'>
-                                <img src={Mask2} alt="Wellness Programs" className="img-fluid" style={{ width: '80%' }} />
+            {years.length > 0 && (
+                <section className="container mt-5">
+                    <h2 className="text-center" style={{ color: '#17416F', fontSize: '36px', fontWeight: '700', textTransform: 'uppercase' }}>
+                        {selectedLanguage === 'fr' ? contents?.data.about_page_history_title.content_fr : contents?.data.about_page_history_title.content_en}
+                    </h2>
+                    <br />
+                    <div className="mt-4 hero"
+                        style={{
+                            backgroundImage: `url(${processedHistories[currentYear]?.imageUrl})`
+                        }}>
+                        <div className="p-5 flx" style={{ borderTopRightRadius: '30px', backgroundColor: '#17416F' }}>
+                            <div className='position-relative'>
+                                <p style={{ color: '#13AB9C', fontWeight: '700', fontSize: 'clamp(22px, 8vw, 28px)' }}>{currentYear}</p>
+                                <p className="text-white" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: 'clamp(30px, 8vw, 40px)' }}>
+                                    {processedHistories[currentYear]?.title}
+                                </p>
+                                <p style={{ fontWeight: '200', color: 'white', fontSize: 'clamp(18px, 8vw, 25px)' }}>{processedHistories[currentYear]?.description}</p>
+                                <div className='contpos1'>
+                                    <img src={Mask2} alt="Wellness Programs" className="img-fluid" style={{ width: '80%' }} />
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <br /><br />
-                <div className="d-flex justify-content-center align-items-center timeline-container">
-                    <div className="arrow" onClick={() => navigate(-1)}><i className="bi bi-chevron-left"></i></div>
-                    <div className="timeline d-flex align-items-center">
-                        <div className="line"></div>
-                        {years.map((year) => (
-                            <div
-                                key={year}
-                                className={`year ${currentYear === year ? 'active' : ''}`}
-                                onClick={() => changeYear(year)}
-                                data-year={year}
-                            >
-                                <span>{year}</span>
-                            </div>
-                        ))}
+                    <br /><br />
+                    <div className="d-flex justify-content-center align-items-center timeline-container">
+                        <div className="arrow" onClick={() => navigate(-1)}><i className="bi bi-chevron-left"></i></div>
+                        <div className="timeline d-flex align-items-center">
+                            <div className="line"></div>
+                            {years.map((year) => (
+                                <div
+                                    key={year}
+                                    className={`year ${currentYear === year ? 'active' : ''}`}
+                                    onClick={() => changeYear(year)}
+                                    data-year={year}
+                                >
+                                    <span>{year}</span>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="arrow" onClick={() => navigate(1)}><i className="bi bi-chevron-right"></i></div>
                     </div>
-                    <div className="arrow" onClick={() => navigate(1)}><i className="bi bi-chevron-right"></i></div>
-                </div>
-            </section>
+                </section>
+            )}
             <br /><br />
             <div>
                 <Feedback />

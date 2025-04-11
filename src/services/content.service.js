@@ -69,6 +69,17 @@ export const getGalleries = async () => {
   }
 }
 
+//Get histories
+export const getHistories = async () => {
+  try {
+    const response = await api.get(`/getallhistories`);
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch histories:', error.message || error);
+    return null;
+  }
+}
+
 //Get Events
 export const getEvents = async () => {
   try {
