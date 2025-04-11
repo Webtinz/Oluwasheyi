@@ -48,9 +48,9 @@ exports.addservice = async (req, res) => {
 exports.updateservice = async (req, res) => {
   const { id } = req.params;
   const { nom, nom_en, phone, email, description, description_en } = req.body;
-
-  const smallPhoto = req.files.smallPhoto[0]?.location || null;
-  const bigPhoto = req.files.bigPhoto[0]?.location || null;
+  console.log(req.files)
+  const smallPhoto = req.files?.smallPhoto?.[0]?.location;
+  const bigPhoto = req.files?.bigPhoto?.[0]?.location;
 
   try {
     const service = await Service.findByPk(id);

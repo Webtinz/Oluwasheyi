@@ -51,8 +51,8 @@ exports.updateDepartment = async (req, res) => {
   const { nom, nom_en, phone, email, description, description_en } = req.body;
   // const photo = req.file ? req.file.location : null;
 
-  const smallPhoto = req.files.smallPhoto[0]?.location || null;
-  const bigPhoto = req.files.bigPhoto[0]?.location || null;
+  const smallPhoto = req.files?.smallPhoto?.[0]?.location || null;
+  const bigPhoto = req.files?.bigPhoto?.[0]?.location || null;
   // let imageUrls = null;
   // // ✅ Ensure files are uploaded
   // if (req.files) {
