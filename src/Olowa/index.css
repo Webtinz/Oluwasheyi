@@ -29,7 +29,7 @@ body {
 
 @media (max-width: 400px) {
   .mybanner .mybannercontent {
-    height: 70vh !important;
+    height: 65vh !important;
   }
 
   .ibb {
@@ -38,7 +38,7 @@ body {
 }
 
 .mybanner .mybannercontent {
-  height: 70vh;
+  height: 65vh;
 }
 
 .carousel-control-next,
@@ -81,7 +81,7 @@ body {
   /* width: 100%; */
   background: #17416F;
   color: white;
-  height: 70vh;
+  height: 65vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -627,7 +627,7 @@ button:hover .rotating-svg {
 @media (max-width: 800px) {
   .main-img {
     border-top-right-radius: 30px;
-    height: 50vh;
+    height: 45vh;
     object-fit: cover;
   }
 }
@@ -636,14 +636,14 @@ button:hover .rotating-svg {
 .main-img1 {
   /* height: 70vh; */
   object-fit: cover;
-  height: 55vh;
+  height: 45vh;
   width: 25vw;
 }
 
 @media (max-width: 1368px) {
   .main-img1 {
     /* height: 80vh; */
-    height: 55vh;
+    height: 45vh;
     width: 25vw;
     object-fit: cover;
   }
@@ -1310,7 +1310,11 @@ button:hover .rotating-svg {
 
   .braca {
     height: 100%;
-    /* padding: 30px; */
+    width: 98%;
+    padding: 40px;
+  }
+  .designsvg{
+    display: none;
   }
 
   .carousel-content .carrousseltextcont h2 {
@@ -1355,11 +1359,24 @@ button:hover .rotating-svg {
     display: none;
   }
   .braca {
-    padding: 100px 30px;
+    padding: 90px 30px;
+    /* height: unset; */
+    width: 98%;
 
   }
   .neww {
     font-size: x-large;
     margin-bottom: 20px;
   }
+
+}
+
+@media (max-width: 630px) {
+
+  .designsvg{
+    display: none;
+  }
+}
+.camo{
+  width: 70%;
 }
