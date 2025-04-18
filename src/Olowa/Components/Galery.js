@@ -77,7 +77,7 @@ const CustomCarousel = ({ images }) => {
   const showButtons = images.length >= 6;
 
   return (
-    <div className="container" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
+    <div className="container camo" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
       {/* Container de l'image principale avec boutons de navigation */}
       <div className="mt-4">
         {/* Image principale */}
@@ -85,7 +85,7 @@ const CustomCarousel = ({ images }) => {
           src={mainImage}
           alt=""
           className="custom-phone img-fluid"
-          style={{ width: "100%", height: "80vh", objectFit: "cover" }}
+          style={{ width: "100%", height: "70vh", objectFit: "cover" }}
         />
       </div>
 

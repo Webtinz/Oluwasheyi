@@ -90,8 +90,6 @@ const StyledLanguageSelect = ({ selectedLanguage, handleLanguageChange }) => {
     pointerEvents: 'none'
   };
 
-
-
   return (
     <div style={containerStyle}>
       {/* Affiche le drapeau de la langue sélectionnée */}
@@ -115,7 +113,7 @@ const StyledLanguageSelect = ({ selectedLanguage, handleLanguageChange }) => {
         style={selectStyle}
         aria-label="Small select example"
       >
-        <option value="en">en</option>
+        <option value="en">En</option>
         <option value="fr">Fr</option>
       </select>
     </div>
@@ -125,36 +123,15 @@ const StyledLanguageSelect = ({ selectedLanguage, handleLanguageChange }) => {
 const Navbar = () => {
   const [isMenuActive, setIsMenuActive] = useState(false);
   const languageSelectRef = useRef(null);
+  const menuRef = useRef(null);
   const { selectedLanguage, setSelectedLanguage } = useContext(LanguageContext);
-  // const [contents, setContents] = useState();
-
   const { appData } = useLoader();
   const { contents } = appData;
+
   // Handle language change and store the selected language in localStorage
   const handleLanguageChange = (language) => {
     setSelectedLanguage(language);
   };
-
-  // Get contents on component mount
-  // useEffect(() => {
-  //   const fetchContents = async () => {
-  //     try {
-  //       // const savedContents = localStorage.getItem("contents");
-  //       // if (savedContents) {
-  //       //   setContents(JSON.parse(savedContents));
-  //       // } else {
-  //       // Fetch contents if not in localStorage
-  //       const response = await getAllContents();
-  //       setContents(response.data);
-  //       //   localStorage.setItem("contents", JSON.stringify(response.data));
-  //       // }
-  //     } catch (error) {
-  //       console.error('Failed to fetch contents:', error.message || error);
-  //     }
-  //   };
-  //   fetchContents();
-  // }, []);
-
 
   useEffect(() => {
     if (languageSelectRef.current) {
@@ -174,10 +151,35 @@ const Navbar = () => {
     }
   }, []);
 
+  // Fonction pour gérer les clics à l'extérieur du menu
+  useEffect(() => {
+    function handleClickOutside(event) {
+      // Si le menu est actif et que le clic n'est pas sur le menu ni sur le bouton qui l'ouvre
+      if (
+        isMenuActive && 
+        menuRef.current && 
+        !menuRef.current.contains(event.target) &&
+        // Vérifie que le clic n'est pas sur l'élément qui ouvre le menu
+        !event.target.closest('.menu-trigger')
+      ) {
+        setIsMenuActive(false);
+      }
+    }
+
+    // Ajouter l'écouteur d'événement quand le menu est actif
+    if (isMenuActive) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    // Nettoyage de l'écouteur d'événement
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMenuActive]);
+
   const toggleMenu = () => {
     setIsMenuActive(!isMenuActive);
   };
-  // const navigate = useNavigate();
 
   return (
     <section className="container-fluid">
@@ -186,24 +188,22 @@ const Navbar = () => {
           {/* Logo Section */}
           <div className='d-flex' style={{ gap: "10px" }}>
             <div className='align-self-center'>
-              <span onClick={toggleMenu} className='d-flex' style={{ cursor: 'pointer', gap: "10px" }}>
+              <span onClick={toggleMenu} className='d-flex menu-trigger' style={{ cursor: 'pointer', gap: "10px" }}>
                 <img src={Img1} alt="" className="menu-icon ms-2" /> <span className='mt-3' style={{ fontWeight: "700", color: "#17416f" }}>Menu</span>
               </span>
             </div>
             <div>
-              <Link aria-label='Go to home page' to="/index">
-                <img loading='lazy' src={contents?.data.home_page_header_logo.image} alt=""
-                // onClick={() => { navigate('/index') }} 
-                />
+              <Link aria-label='Go to home page' to="/">
+                <img loading='lazy' src={contents?.data.home_page_header_logo.image} alt="" />
               </Link>
             </div>
           </div>
 
           {/* Menu Section */}
-          <div className={`menu ${isMenuActive ? 'active' : ''}`} id="menu">
+          <div ref={menuRef} className={`menu ${isMenuActive ? 'active' : ''}`} id="menu">
             <ul className='list-unstyled' style={{ lineHeight: '45px' }}>
               <li>
-                <Link to="/index" className="text-white" style={{ fontWeight: '700', fontSize: '20px', textTransform: 'uppercase' }}>{selectedLanguage === 'fr' ? contents?.data.home_page_home.content_fr : contents?.data.home_page_home.content_en}
+                <Link to="/" className="text-white" style={{ fontWeight: '700', fontSize: '20px', textTransform: 'uppercase' }}>{selectedLanguage === 'fr' ? contents?.data.home_page_home.content_fr : contents?.data.home_page_home.content_en}
                 </Link>
               </li>
               <li>
@@ -224,9 +224,6 @@ const Navbar = () => {
               <li>
                 <Link to="/service" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '20px', }}>{selectedLanguage === 'fr' ? contents?.data.home_page_menu_Service.content_fr : contents?.data.home_page_menu_Service.content_en}</Link>
               </li>
-              {/* <li>
-                <Link to="/sugery" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '24px', }}>{selectedLanguage === 'fr' ? contents?.data.home_page_menu_Sugery.content_fr : contents?.data.home_page_menu_Sugery.content_en}</Link>
-              </li> */}
               <li className='d-lg-none'>
                 <Link to="/donate"
                   className="btn btn-white don px-5"
@@ -242,29 +239,7 @@ const Navbar = () => {
                 />
               </li>
             </ul>
-
-            {/* <div className="d-lg-none">
-              <div className="d-flex flex-column">
-                <div className="d-flex mt-4">
-                  <div>
-                    <Link to="/donate"
-                      className="btn btn-white px-5"
-                      style={{ backgroundColor: '#13AB9C', color: 'white', fontWeight: 700, fontSize: '22px' }}
-                    >
-                      {selectedLanguage === 'fr' ? contents?.data.home_page_header_donate.content_fr : contents?.data.home_page_header_donate.content_en}
-                    </Link>
-                  </div>
-                  <div className="ms-2">
-                    <StyledLanguageSelect
-                      selectedLanguage={selectedLanguage}
-                      handleLanguageChange={handleLanguageChange}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div> */}
           </div>
-
 
           {/* Desktop View */}
           <div className="d-none d-lg-block">

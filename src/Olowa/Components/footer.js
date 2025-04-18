@@ -112,7 +112,7 @@ const Footer = () => {
               {selectedLanguage === 'fr' ? contents?.data.footer_contact_col_title.content_fr : contents?.data.footer_contact_col_title.content_en}
             </h5>
             <p className="footer-text mt-3 d-flex">
-              <i className="bi bi-telephone me-2 ocn"></i>
+              <i className="bi bi-telephone px-2 me-2 ocn"></i>
               {selectedLanguage === 'fr' ? contents?.data.footer_contact_col_number.content_fr : contents?.data.footer_contact_col_number.content_en}
             </p>
             <p className="footer-text mt-3">

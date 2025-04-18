@@ -253,12 +253,15 @@ const BookAppointment = ({ step, setStep, closeModal }) => {
         setAuthSuccess(false);
 
         try {
-            const response = await axios.post("https://kali.medtinz.com/clinic/authenticatePatient", formData);
+            // const response = await axios.post("https://kali.medtinz.com/clinic/authenticatePatient", formData);
+            const response = await axios.post("http://localhost:5000/clinic/authenticatePatient", formData);
+
             setAuthSuccess(true);
             setIsProcessing(false);
             const accessToken = response.data.token;
             if (accessToken) {
-                window.location.href = `https://medtinz.com/hospitaladmin/dashboard?token=${accessToken}`;
+                // window.location.href =  `https://medtinz.com/hospitaladmin/Appointmentlist?token=${accessToken}&showModal=true`;
+                window.location.href = `http://localhost:3000/hospitaladmin/Appointmentlist?token=${accessToken}&showModal=true`;
             } else {
                 alert("Informations incorrectes ou erreur de connexion");
                 throw new Error('Access token manquant dans la réponse');

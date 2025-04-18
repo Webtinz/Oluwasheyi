@@ -14,11 +14,20 @@ const WelcomeSection = () => {
     setIsExpanded(!isExpanded);
   };
 
+  const getShortText = (text) => {
+    const maxLength = 300; // Limite de caractères
+    if (!text) return '';
+    return isExpanded || text.length <= maxLength
+      ? text
+      : text.substring(0, maxLength) + '...'; // Ajoute des "..." si le texte est coupé
+  };
+
+
   const { selectedLanguage } = useContext(LanguageContext);
   // const [contents, setContents] = useState();
 
   const { appData } = useLoader();
-      const { contents } = appData;
+  const { contents } = appData;
   // // Get contents on component mount
   // useEffect(() => {
   //   const fetchContents = async () => {
@@ -46,9 +55,9 @@ const WelcomeSection = () => {
         {/* Image principale avec l'image circulaire en superposition */}
         <div className="col-lg-5 mb-3 mx-auto" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
           <div className="position-relative">
-            <img  loading='lazy' src={contents?.data.welcoms_img.image}  alt="" className="image-fluid w-100 main-img" style={{objectFit: 'cover'}} />
+            <img loading='lazy' src={contents?.data.welcoms_img.image} alt="" className="image-fluid w-100 main-img" style={{ objectFit: 'cover' }} />
             <div className="position-absolute overlay-img">
-              <img  loading='lazy' src={img2} alt="" className="image-fluid small-img" />
+              <img loading='lazy' src={img2} alt="" className="image-fluid small-img" />
             </div>
             <div className="abso">
               <img loading='lazy' src={Mask2} alt="" style={{ width: '80%' }} />
@@ -60,34 +69,34 @@ const WelcomeSection = () => {
         <div className="col-lg-6 mb-3 mx-auto px-3">
           <div className="p-2 p-lg-4 trt">
             <h2 className="mt-3 section-title" style={{ fontSize: '36px' }}>
-              {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
-                __html: contents?.data.home_page_welcome_title.content_fr
-              }} />) : (<div dangerouslySetInnerHTML={{
-                __html: contents?.data.home_page_welcome_title.content_en
-              }} />)}
-              {/* Welcome to <br/> Clinique Polyvalente <br/> OLUWA SHEYI */}
+              {selectedLanguage === 'fr' ? (
+                <div dangerouslySetInnerHTML={{
+                  __html: contents?.data.home_page_welcome_title.content_fr
+                }} />
+              ) : (
+                <div dangerouslySetInnerHTML={{
+                  __html: contents?.data.home_page_welcome_title.content_en
+                }} />
+              )}
             </h2>
             <br />
-            <div className="section-text">
-              {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
-                __html: contents?.data.welcom_desp_2.content_fr
-              }} />) : (<div dangerouslySetInnerHTML={{
-                __html: contents?.data.welcom_desp_2.content_en
-              }} />)}
-            </div>
 
-            {/* Contenu supplémentaire affiché uniquement si isExpanded est true */}
-            {isExpanded && (
-              <div className="extra-content">
-                <div className="section-text">
-                  {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
-                    __html: contents?.data.welcom_desp_2.content_fr
-                  }} />) : (<div dangerouslySetInnerHTML={{
-                    __html: contents?.data.welcom_desp_2.content_en
-                  }} />)}
-                </div>
-              </div>
-            )}
+            <div className="section-text">
+  {selectedLanguage === 'fr' ? (
+    <div dangerouslySetInnerHTML={{
+      __html: isExpanded
+        ? contents?.data.welcom_desp_2.content_fr
+        : getShortText(contents?.data.welcom_desp_2.content_fr)
+    }} />
+  ) : (
+    <div dangerouslySetInnerHTML={{
+      __html: isExpanded
+        ? contents?.data.welcom_desp_2.content_en
+        : getShortText(contents?.data.welcom_desp_2.content_en)
+    }} />
+  )}
+</div>
+
 
             {/* Bouton Learn More / Read Less */}
             <div className="mt-3">
@@ -105,6 +114,7 @@ const WelcomeSection = () => {
             </div>
           </div>
         </div>
+
       </div>
     </section>
   );

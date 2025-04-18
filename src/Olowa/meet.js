@@ -25,7 +25,7 @@ const Meet = () => {
 
     const directors = [
         { id: 1, image: contents?.data.doct_img_1.image, name: contents?.data.director_1.content_fr, title_fr: contents?.data.director_1_title.content_fr, title_en: contents?.data.director_1_title.content_en },
-        { id: 2, image: contents?.data.doct_img_2.image, name: contents?.data.director_2.content_fr, title_fr: contents?.data.director_2_title.content_fr, title_en: contents?.data.director_2_title.content_en },
+        // { id: 2, image: contents?.data.doct_img_2.image, name: contents?.data.director_2.content_fr, title_fr: contents?.data.director_2_title.content_fr, title_en: contents?.data.director_2_title.content_en },
     ];
 
     // Get contents on component mount
@@ -85,7 +85,7 @@ const Meet = () => {
                 </div>
             </section>
             <br /><br /><br />
-            <section className="container my-4" style={{ backgroundColor: "#13AB9C", padding: "80px 0px" }}>
+            <section className="container my-4" style={{ backgroundColor: "#13AB9C", padding: "40px 0px" }}>
                 <h2 className="text-center" style={{ color: "white", fontWeight: 700, textTransform: "uppercase", fontSize: 'clamp(25px, 8vw, 36px)' }}>
                     {selectedLanguage === 'fr' ? contents?.data.team_page_directors.content_fr : contents?.data.team_page_directors.content_en}
                 </h2>
@@ -105,6 +105,7 @@ const Meet = () => {
                         </div>
                     ))}
                     <div className="col-lg-2"></div>
+
                 </div>
             </section>
             <br /><br /><br />
@@ -117,7 +118,7 @@ const Meet = () => {
                     {teamMembers.map((doctor) => (
                         <div key={doctor.id} className="col-12 col-md-6 col-lg-3 mb-4">
                             <a href="#" onClick={(e) => { e.preventDefault(); setSelectedDoctor(doctor); }}>
-                                <img src={doctor.photo} alt={doctor.nom} className="img-fluid w-100" style={{ borderTopRightRadius: "30px", height: "40vh", objectFit: "cover" }} />
+                                <img src={doctor.photo} alt={doctor.nom} className="img-fluid w-100" style={{ borderTopRightRadius: "30px", height: "50vh", objectFit: "cover" }} />
                             </a>
                             <h3 className="text-center mt-3" style={{ color: "#17416F", fontWeight: 700, textTransform: "uppercase", fontSize: 'clamp(18px, 8vw, 25px)' }}>
                                 {doctor.nom} {doctor.prenom}
@@ -196,7 +197,7 @@ const Meet = () => {
                             {selectedLanguage === 'fr' ? contents?.data.team_page_staff_desc.content_fr : contents?.data.team_page_staff_desc.content_en}
                         </p>
                         <div className="mt-3">
-                            <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }}  onClick={() => scrollToSection("feedback-section")}>
+                            <button className="btn btn-cont text-white px-4" style={{ backgroundColor: "#13AB9C" }} onClick={() => scrollToSection("feedback-section")}>
                                 {selectedLanguage === 'fr' ? contents?.data.team_page_staff_button.content_fr : contents?.data.team_page_staff_button.content_en}
                             </button>
                         </div>

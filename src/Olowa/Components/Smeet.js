@@ -6,6 +6,8 @@ const DoctorCarousel = ({ doctors }) => {
   const [cardsPerView, setCardsPerView] = useState(4);
   const carouselInnerRef = useRef(null);
 
+
+
   // Mettre à jour le nombre de cartes par vue selon la taille d'écran
   useEffect(() => {
     const updateLayout = () => {
@@ -19,6 +21,7 @@ const DoctorCarousel = ({ doctors }) => {
         setCardsPerView(1);
       }
     };
+
 
     // Initialisation
     updateLayout();
@@ -36,6 +39,10 @@ const DoctorCarousel = ({ doctors }) => {
   useEffect(() => {
     if (currentIndex > doctors.length - cardsPerView) {
       setCurrentIndex(Math.max(0, doctors.length - cardsPerView));
+    }
+    // ✅ Protection contre les données nulles
+    if (!Array.isArray(doctors)) {
+      return null; // ou <p>Chargement en cours...</p>
     }
   }, [cardsPerView, currentIndex, doctors.length]);
 
