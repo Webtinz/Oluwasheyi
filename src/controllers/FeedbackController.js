@@ -3,8 +3,8 @@ const { Feedback } = require("../models");
 // Ajouter un feedback
 exports.createFeedback = async (req, res) => {
     try {
-        const { name, email, yoursuggestions, yourexperience } = req.body;
-        const feedback = await Feedback.create({ name, email, yoursuggestions, yourexperience });
+        const { name, email, yoursuggestions, experience } = req.body;
+        const feedback = await Feedback.create({ name, email, yoursuggestions, experience });
         res.status(201).json({ message: "Feedback ajouté avec succès", feedback });
     } catch (error) {
         res.status(500).json({ message: "Erreur lors de l'ajout du feedback", error: error.message });
@@ -35,11 +35,11 @@ exports.getFeedbackById = async (req, res) => {
 // Mettre à jour un feedback
 exports.updateFeedback = async (req, res) => {
     try {
-        const { name, email, yoursuggestions, yourexperience } = req.body;
+        const { name, email, yoursuggestions, experience } = req.body;
         const feedback = await Feedback.findByPk(req.params.id);
         if (!feedback) return res.status(404).json({ message: "Feedback non trouvé" });
 
-        await feedback.update({ name, email, yoursuggestions, yourexperience });
+        await feedback.update({ name, email, yoursuggestions, experience });
         res.status(200).json({ message: "Feedback mis à jour avec succès", feedback });
     } catch (error) {
         res.status(500).json({ message: "Erreur lors de la mise à jour", error: error.message });

@@ -8,11 +8,11 @@
 <section class="content">
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">TeamMembers</h3>
+            <h3 class="card-title">Membres</h3>
             <div class="card-tools">
                 <a href="/backoffice/addteamMember" class="btn btn-primary"><i
                         class="fas fa-plus"></i>
-                    Ajouter un TeamMember
+                    Ajouter un Membre
                 </a>
             </div>
         </div>
@@ -120,8 +120,8 @@
                         <td>${teamMember.description}</td>
                         <td>${teamMember.description_en}</td>
                         <td>
-                            <button class="btn btn-primary btn-sm view-btn" data-id="${teamMember.id}">Edit</button>
-                            <button class="btn btn-danger btn-sm delete-btn" data-id="${teamMember.id}">Delete</button>
+                            <button class="btn btn-primary btn-sm view-btn" data-id="${teamMember.id}">Editer</button>
+                            <button class="btn btn-danger btn-sm delete-btn" data-id="${teamMember.id}">Supprimer</button>
                         </td>
                     </tr>`;
                     tableBody.innerHTML += row;

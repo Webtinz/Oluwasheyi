@@ -9,10 +9,12 @@
 <section class="content">
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Events</h3>
+            <h3 class="card-title">Evenement</h3>
             <div class="card-tools">
                 <a href="/backoffice/addevent" class="btn btn-primary"><i
-                        class="fas fa-plus"></i> Add Event</a>
+                        class="fas fa-plus"></i>
+                    Ajouter un evenement
+                    </a>
             </div>
         </div>
         <div class="card-body">
@@ -129,8 +131,8 @@
                         <td>${event.description_en}</td>
                         <td><img src="${event.photo}" width="50" height="50" alt="Event Photo"></td>
                         <td>
-                            <button class="btn btn-primary btn-sm view-btn" data-id="${event.id}">Edit</button>
-                            <button class="btn btn-danger btn-sm delete-btn" data-id="${event.id}">Delete</button>
+                            <button class="btn btn-primary btn-sm view-btn" data-id="${event.id}">Editer</button>
+                            <button class="btn btn-danger btn-sm delete-btn" data-id="${event.id}">Supprimer</button>
                         </td>
                     </tr>`;
                     tableBody.innerHTML += row;
