@@ -42,7 +42,7 @@
                 tableBody.innerHTML = '';
 
                 data.forEach(feedback => {
-                    const experienceStars = '★'.repeat(feedback.yourexperience) + '☆'.repeat(5 - feedback.yourexperience);
+                    const experienceStars = '★'.repeat(feedback.experience) + '☆'.repeat(5 - feedback.experience);
                     const formattedDate = new Date(feedback.createdAt).toLocaleDateString('fr-FR');
                     const row = `
                     <tr>

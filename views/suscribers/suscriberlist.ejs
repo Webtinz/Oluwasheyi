@@ -30,7 +30,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Détails du suscripteur</h5>
+                <h5 class="modal-title">Détails de l'abonné </h5>
                 <button type="button" class="close" data-dismiss="modal"
                     aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -45,8 +45,9 @@
                             class="form-control" required>
                     </div>
 
-                    <button data-bs-dismiss="modal"
-                        class="btn btn-danger">Close</button>
+                    <button data-bs-dismiss="modal" class="btn btn-danger">
+                        Fermer
+                    </button>
                 </form>
             </div>
         </div>
@@ -69,7 +70,7 @@
                         <td>${suscriber.id}</td>
                         <td>${suscriber.email}</td>
                         <td>
-                            <button class="btn btn-primary btn-sm view-btn" data-id="${suscriber.id}">Veiw</button>
+                            <button class="btn btn-primary btn-sm view-btn" data-id="${suscriber.id}">Voir</button>
                         </td>
                     </tr>`;
                     tableBody.innerHTML += row;

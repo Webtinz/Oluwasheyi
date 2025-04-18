@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.TEXT,
             allowNull: false
         },
-        yourexperience: {
+        experience: {
             type: DataTypes.STRING,
             allowNull: true,
         }
