@@ -38,6 +38,14 @@ router.get('/addadvice', (req, res) => {
   res.render('advices/addadvice', { title: 'Addadvice Page' });
 });
 
+// Community
+router.get('/listcommunities', (req, res) => {
+  res.render('communities/listcommunity', { title: 'Listcommunity Page' });
+});
+router.get('/addcommunity', (req, res) => {
+  res.render('communities/addcommunity', { title: 'Addcommunity Page' });
+});
+
 // content
 router.get('/listcontents', (req, res) => {
   res.render('contents/listcontent', { title: 'Listcontent Page' });

@@ -10,15 +10,14 @@ const MedicalProgramController = require('../controllers/MedicalProgramControlle
 const CertificationController = require('../controllers/CertificationController');
 const GalleryController = require('../controllers/GalleryController');
 const HistoryController = require('../controllers/HistoryController');
-const { uploadService, uploadGallery, uploadHistory, uploadDepartment, uploadTemoigne, uploadMedicalProgram, uploadCertification, uploadContent, uploadEvent, uploadMember, uploadAdvice } = require('../middleware/fileupload');
+const { uploadService, uploadCommunity, uploadGallery, uploadHistory, uploadDepartment, uploadTemoigne, uploadMedicalProgram, uploadCertification, uploadContent, uploadEvent, uploadMember, uploadAdvice } = require('../middleware/fileupload');
 const ServiceController = require('../controllers/ServiceController');
 const DepartmentController = require('../controllers/DepartmentController');
 const EventController = require('../controllers/EventController');
 const Patientappointment = require('../controllers/PatientappointmentController');
 const { addDonation, getAllDonations, getDonationById, initiateMomoPayment, checkMomoStatus, createPaypalOrder, capturePaypalOrder } = require('../controllers/DonationController');
-// const { createOrder, captureOrder } = require('../controllers/PaypalController');
-// const { initiatePayment, checkStatus } = require('../controllers/PaymentController');
 const { getSuscribers, getSuscriber, addSuscriber } = require('../controllers/SuscriberController');
+const CommunityController = require('../controllers/CommunityController');
 
 
 // Authentification
@@ -51,6 +50,13 @@ router.put('/updateadvice/:id', uploadAdvice.single('photo'), AdviceController.u
 router.get('/getalladvices', AdviceController.getAllAdvices);
 router.delete('/deleteadvice/:id', AdviceController.deleteAdvice);
 router.get('/getadvice/:id', AdviceController.getAdvice);
+
+// Communities
+router.post('/addcommunity', uploadCommunity.single('photo'), CommunityController.addCommunity); // Middleware upload utilisé ici
+router.put('/updatecommunity/:id', uploadCommunity.single('photo'), CommunityController.updateCommunity);
+router.get('/getallcommunities', CommunityController.getAllCommunities);
+router.delete('/deletecommunity/:id', CommunityController.deleteCommunity);
+router.get('/getcommunity/:id', CommunityController.getCommunity);
 
 // Content
 router.post('/addcontent', uploadContent.single('image'), ContentController.addcontent); // Middleware upload utilisé ici

@@ -8,11 +8,11 @@
 <section class="content">
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Conseils</h3>
+            <h3 class="card-title">Communautés</h3>
             <div class="card-tools">
-                <a href="/backoffice/addadvice" class="btn btn-primary"><i
+                <a href="/backoffice/addcommunity" class="btn btn-primary"><i
                         class="fas fa-plus"></i>Add
-                    Conseils</a>
+                    Communautés</a>
             </div>
         </div>
         <div class="card-body">
@@ -20,11 +20,11 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Sujet</th>
-                        <th>Sujet Anglais</th>
+                        <th>Titre</th>
+                        <th>Titre Anglais</th>
                         <th>Image</th>
-                        <th>Conseil</th>
-                        <th>Conseil Anglais</th>
+                        <th>Description</th>
+                        <th>Description Anglais</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -38,44 +38,46 @@
 
 <!-- View/Edit Modal -->
 <!-- View/Edit Modal -->
-<div class="modal fade" id="adviceModal" tabindex="-1" role="dialog">
+<div class="modal fade" id="communityModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Conseil Details</h5>
+                <h5 class="modal-title">Community Details</h5>
                 <button type="button" class="close" data-dismiss="modal"
                     aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form id="adviceForm">
-                    <input type="hidden" id="adviceId">
+                <form id="communityForm">
+                    <input type="hidden" id="communityId">
                     <div class="form-group">
-                        <label>Sujet</label>
-                        <input type="text" id="adviceSujet" class="form-control"
+                        <label>Titre</label>
+                        <input type="text" id="communityTitre"
+                            class="form-control"
                             required>
                     </div>
                     <div class="form-group">
-                        <label>Sujet Anglais</label>
-                        <input type="text" id="adviceSujetEn"
+                        <label>Titre Anglais</label>
+                        <input type="text" id="communityTitreEn"
                             class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label>Conseil</label>
-                        <textarea id="adviceConseilText" class="form-control"
+                        <label>Community</label>
+                        <textarea id="communityDescription" class="form-control"
                             required></textarea>
                     </div>
                     <div class="form-group">
-                        <label>Conseil Anglais</label>
-                        <textarea id="adviceConseilTextEn" class="form-control"
+                        <label>Community Anglais</label>
+                        <textarea id="communityDescriptionEn"
+                            class="form-control"
                             required></textarea>
                     </div>
                     <div class="form-group">
                         <label>Image</label>
                         <input type="file" class="form-control"
                             name="photo" id="newPhoto">
-                        <div id="adviceImage">
+                        <div id="communityImage">
                             <!-- Image preview will go here -->
                         </div>
                     </div>
@@ -90,24 +92,24 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        axios.get('/api/getalladvices')
+        axios.get('/api/getallcommunities')
             .then(response => {
                 const data = response.data;
                 const tableBody = document.querySelector('#myTable tbody');
                 tableBody.innerHTML = '';
 
-                data.forEach(advice => {
+                data.forEach(community => {
                     const row = `
                     <tr>
-                        <td>${advice.id}</td>
-                        <td>${advice.topic}</td>
-                        <td>${advice.topic_en}</td>
-                        <td><img src="${advice.photo}" width="50" height="50" alt="Image"></td>
-                        <td>${advice.advice_text}</td>
-                        <td>${advice.advice_text_en}</td>
+                        <td>${community.id}</td>
+                        <td>${community.title}</td>
+                        <td>${community.title_en}</td>
+                        <td><img src="${community.photo}" width="50" height="50" alt="Image"></td>
+                        <td>${community.description}</td>
+                        <td>${community.description_en}</td>
                         <td>
-                            <button class="btn btn-primary btn-sm view-btn" data-id="${advice.id}">Edit</button>
-                            <button class="btn btn-danger btn-sm delete-btn" data-id="${advice.id}">Delete</button>
+                            <button class="btn btn-primary btn-sm view-btn" data-id="${community.id}">Edit</button>
+                            <button class="btn btn-danger btn-sm delete-btn" data-id="${community.id}">Delete</button>
                         </td>
                     </tr>`;
                     tableBody.innerHTML += row;
@@ -120,66 +122,66 @@
                     }
                 });
             })
-            .catch(error => console.error('Error fetching advices:', error));
+            .catch(error => console.error('Error fetching communities:', error));
 
-        // View advice details in modal
+        // View community details in modal
         document.body.addEventListener('click', function (e) {
             if (e.target.classList.contains('view-btn')) {
                 const id = e.target.dataset.id;
-                axios.get(`/api/getadvice/${id}`)
+                axios.get(`/api/getcommunity/${id}`)
                     .then(response => {
-                        const advice = response.data;
-                        document.getElementById('adviceId').value = advice.id;
-                        document.getElementById('adviceSujet').value = advice.topic;
-                        document.getElementById('adviceSujetEn').value = advice.topic_en;
-                        document.getElementById('adviceConseilText').value = advice.advice_text;
-                        document.getElementById('adviceConseilTextEn').value = advice.advice_text_en;
+                        const community = response.data;
+                        document.getElementById('communityId').value = community.id;
+                        document.getElementById('communityTitre').value = community.title;
+                        document.getElementById('communityTitreEn').value = community.title_en;
+                        document.getElementById('communityDescription').value = community.description;
+                        document.getElementById('communityDescriptionEn').value = community.description_en;
 
                         // Display the current image in the modal
-                        const imageUrl = `${advice.photo}`;
-                        document.getElementById('adviceImage').innerHTML = `
-                    <img src="${imageUrl}" width="100" height="100" alt="Conseil Image" class="img-thumbnail">
+                        const imageUrl = `${community.photo}`;
+                        document.getElementById('communityImage').innerHTML = `
+                    <img src="${imageUrl}" width="100" height="100" alt="Community Image" class="img-thumbnail">
                     <p>Current Image</p>
                 `;
 
-                        $('#adviceModal').modal('show');
+                        $('#communityModal').modal('show');
                     })
-                    .catch(error => console.error('Error fetching advice:', error));
+                    .catch(error => console.error('Error fetching community:', error));
             }
         });
 
-        // Update advice
-        document.getElementById('adviceForm').addEventListener('submit', function (e) {
+        // Update community
+        document.getElementById('communityForm').addEventListener('submit', function (e) {
             e.preventDefault();
-            const id = document.getElementById('adviceId').value;
+            const id = document.getElementById('communityId').value;
             const data = {
-                topic: document.getElementById('adviceSujet').value,
-                topic_en: document.getElementById('adviceSujetEn').value,
-                advice_text: document.getElementById('adviceConseilText').value,
-                advice_text_en: document.getElementById('adviceConseilTextEn').value,
+                title: document.getElementById('communityTitre').value,
+                title_en: document.getElementById('communityTitreEn').value,
+                description: document.getElementById('communityDescription').value,
+                description_en: document.getElementById('communityDescriptionEn').value,
                 photo: document.getElementById('newPhoto').files[0]
             };
 
-            axios.put(`/api/updateadvice/${id}`, data, {
+            axios.put(`/api/updatecommunity/${id}`, data, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             })
                 .then(() => {
-                    $('#adviceModal').modal('hide');
+                    $('#communityModal').modal('hide');
                     location.reload();
                 })
-                .catch(error => console.error('Error updating advice:', error));
+                .catch(error => console.error('Error updating community:', error));
         });
 
-        // Delete advice
+        // Delete community
         document.body.addEventListener('click', function (e) {
             if (e.target.classList.contains('delete-btn')) {
                 const id = e.target.dataset.id;
-                if (confirm('Are you sure you want to delete this advice?')) {
-                    axios.delete(`/api/deleteadvice/${id}`)
+                if (confirm('Etes-vous sûr de vouloir supprimer cette communauté ?')) {
+                    axios.delete(`/api/deletecommunity/${id}`)
                         .then(() => location.reload())
-                        .catch(error => console.error('Error deleting advice:', error));
+                        .catch(error => console.error('Error deleting community:', error));
                 }
             }
         });

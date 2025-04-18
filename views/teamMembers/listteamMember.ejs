@@ -1,6 +1,8 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet">
-<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"
+    rel="stylesheet">
+<script
+    src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <section class="content">
@@ -8,8 +10,10 @@
         <div class="card-header">
             <h3 class="card-title">TeamMembers</h3>
             <div class="card-tools">
-                <a href="/backoffice/addteamMember" class="btn btn-primary"><i class="fas fa-plus"></i>Add
-                    TeamMembers</a>
+                <a href="/backoffice/addteamMember" class="btn btn-primary"><i
+                        class="fas fa-plus"></i>
+                    Ajouter un TeamMember
+                </a>
             </div>
         </div>
         <div class="card-body">
@@ -17,7 +21,9 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
+                        <th>
+                            Nom
+                        </th>
                         <th>Image</th>
                         <th>Titre</th>
                         <th>Titre Anglais</th>
@@ -34,16 +40,17 @@
     </div>
 </section>
 
-
-
 <!-- View/Edit Modal -->
 <!-- View/Edit Modal -->
 <div class="modal fade" id="teamMemberModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">TeamMember Details</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title">
+                    Details du membre
+                </h5>
+                <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -51,24 +58,31 @@
                 <form id="teamMemberForm">
                     <input type="hidden" id="teamMemberId">
                     <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" id="teamMemberName" class="form-control" required>
+                        <label>
+                            Nom
+                        </label>
+                        <input type="text" id="teamMemberName"
+                            class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Title</label>
-                        <input type="text" id="teamMemberTitle" class="form-control" required>
+                        <input type="text" id="teamMemberTitle"
+                            class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Title Anglais</label>
-                        <input type="text" id="teamMemberTitleEn" class="form-control" required>
+                        <input type="text" id="teamMemberTitleEn"
+                            class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Description</label>
-                        <textarea id="teamMemberDescription" class="form-control" required></textarea>
+                        <textarea id="teamMemberDescription"
+                            class="form-control" required></textarea>
                     </div>
                     <div class="form-group">
                         <label>Description Anglais</label>
-                        <textarea id="teamMemberDescriptionEn" class="form-control" required></textarea>
+                        <textarea id="teamMemberDescriptionEn"
+                            class="form-control" required></textarea>
                     </div>
                     <div class="form-group">
                         <label>Image</label>
@@ -78,13 +92,14 @@
                             <!-- Image preview will go here -->
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="submit" class="btn btn-primary">
+                        Enregistrer
+                    </button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {

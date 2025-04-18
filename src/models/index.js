@@ -20,6 +20,7 @@ const Suscriber = require("./Suscriber")(sequelize, DataTypes);
 const InterestedUser = require("./InterestedUser")(sequelize, DataTypes);
 const Gallery = require("./Gallery")(sequelize, DataTypes);
 const History = require("./History")(sequelize, DataTypes);
+const Community = require("./Community")(sequelize, DataTypes);
 
 
 
@@ -43,6 +44,7 @@ const models = {
   InterestedUser,
   Gallery,
   History,
+  Community
 };
 
 // **Define associations**

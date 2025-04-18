@@ -6,9 +6,11 @@
 <section class="content">
   <div class="card">
     <div class="card-header">
-      <h3 class="card-title">Departments</h3>
+      <h3 class="card-title">Departements</h3>
       <div class="card-tools">
-        <a href="/backoffice/adddepartment" class="btn btn-primary"><i class="fas fa-plus"></i> Add Department</a>
+        <a href="/backoffice/adddepartment" class="btn btn-primary"><i class="fas fa-plus"></i> 
+          Ajouter un departement
+        </a>
       </div>
     </div>
     <div class="card-body">
@@ -16,14 +18,20 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>French Name</th>
-            <th>English Name</th>
-            <th>Phone</th>
+            <th>
+              Nom
+            </th>
+            <th> 
+              Nom Anglais
+            </th>
+            <th>
+              Telephone
+            </th>
             <th>Email</th>
-            <th>French Description</th>
-            <th>English Description</th>
-            <th>Small Photo</th>
-            <th>Big Photo</th>
+            <th>Description</th>
+            <th>Description Anglaise</th>
+            <th>Petite Photo</th>
+            <th>Grande Photo</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -37,10 +45,10 @@
 
 <!-- View/Edit Modal -->
 <div class="modal fade" id="departmentModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Department Details</h5>
+        <h5 class="modal-title">Details du departement</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -49,15 +57,15 @@
         <form id="departmentForm">
           <input type="hidden" id="departmentId">
           <div class="form-group">
-            <label>French Name</label>
+            <label>Nom</label>
             <input type="text" id="departmentName" class="form-control" required>
           </div>
           <div class="form-group">
-            <label>English Name</label>
+            <label>Nom Anglais</label>
             <input type="text" id="departmentNameEn" class="form-control" required>
           </div>
           <div class="form-group">
-            <label>Phone</label>
+            <label>Telephone</label>
             <input type="text" id="departmentPhone" class="form-control" required>
           </div>
           <div class="form-group">
@@ -69,21 +77,22 @@
             <textarea id="departmentDescription" class="form-control" required></textarea>
           </div>
           <div class="form-group">
-            <label>English Description</label>
+            <label>Description Anglaise</label>
             <textarea id="departmentDescriptionEn" class="form-control" required></textarea>
           </div>
           <div class="form-group">
-            <label>Small Photo</label>
+            <label>Petite Photo</label>
             <input type="file" id="departmentSmallPhoto" class="form-control">
             <img id="currentSmallPhoto" width="100" style="margin-top: 10px; display: none;">
           </div>
           <div class="form-group">
-            <label>Big Photo</label>
+            <label>Grande Photo</label>
             <input type="file" id="departmentBigPhoto" class="form-control">
             <img id="currentBigPhoto" width="100" style="margin-top: 10px; display: none;">
           </div>
-          <button type="submit" class="btn btn-primary">Save
-            Changes</button>
+          <button type="submit" class="btn btn-primary">
+            Enregistrer
+          </button>
         </form>
       </div>
     </div>

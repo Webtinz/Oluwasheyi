@@ -12,7 +12,7 @@
             <h3 class="card-title">Services</h3>
             <div class="card-tools">
                 <a href="/backoffice/addservice" class="btn btn-primary"><i
-                        class="fas fa-plus"></i> Add Service</a>
+                        class="fas fa-plus"></i> Ajouter un Service</a>
             </div>
         </div>
         <div class="card-body">
@@ -21,14 +21,20 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>French Name</th>
-                        <th>English Name</th>
-                        <th>Phone</th>
+                        <th>
+                            Nom
+                        </th>
+                        <th>
+                            Nom Anglais
+                        </th>
+                        <th>
+                            Telephone
+                        </th>
                         <th>Email</th>
-                        <th>French Description</th>
-                        <th>English Description</th>
-                        <th>Small Photo</th>
-                        <th>Big Photo</th>
+                        <th> Description</th>
+                        <th> Description Anglaise</th>
+                        <th>Petite Photo</th>
+                        <th>Grande Photo</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -42,10 +48,12 @@
 
 <!-- View/Edit Modal -->
 <div class="modal fade" id="serviceModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Service Details</h5>
+                <h5 class="modal-title">
+                    Details du service
+                </h5>
                 <button type="button" class="close" data-dismiss="modal"
                     aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -55,17 +63,23 @@
                 <form id="serviceForm">
                     <input type="hidden" id="serviceId">
                     <div class="form-group">
-                        <label>French Name</label>
+                        <label>
+                            Nom
+                        </label>
                         <input type="text" id="serviceName" class="form-control"
                             required>
                     </div>
                     <div class="form-group">
-                        <label>English Name</label>
+                        <label>
+                            Nom Anglais
+                        </label>
                         <input type="text" id="serviceNameEn"
                             class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label>Phone</label>
+                        <label>
+                            Telephone
+                        </label>
                         <input type="text" id="servicePhone"
                             class="form-control" required>
                     </div>
@@ -80,26 +94,29 @@
                             required></textarea>
                     </div>
                     <div class="form-group">
-                        <label>English Description</label>
+                        <label>
+                            Description Anglaise
+                        </label>
                         <textarea id="serviceDescriptionEn" class="form-control"
                             required></textarea>
                     </div>
                     <div class="form-group">
-                        <label>Small Photo</label>
+                        <label>Petite Photo</label>
                         <input type="file" id="serviceSmallPhoto"
                             class="form-control">
                         <img id="currentSmallPhoto" width="100"
                             style="margin-top: 10px; display: none;">
                     </div>
                     <div class="form-group">
-                        <label>Big Photo</label>
+                        <label>Grande Photo</label>
                         <input type="file" id="serviceBigPhoto"
                             class="form-control">
                         <img id="currentBigPhoto" width="100"
                             style="margin-top: 10px; display: none;">
                     </div>
-                    <button type="submit" class="btn btn-primary">Save
-                        Changes</button>
+                    <button type="submit" class="btn btn-primary">
+                        Enregistrer
+                    </button>
                 </form>
             </div>
         </div>

@@ -3,34 +3,18 @@
     <div class="row">
       <div class="col p-5">
         <div class="card card-primary p-4">
-          <h3>Ajouter Membre</h3>
+          <h3>Ajouter Communauté</h3>
           <div class="card-body">
-            <form id="teamMemberForm">
+            <form id="communityForm">
               <div class="form-group mb-3">
-                <label for="nom">
-                  Prenom
-                </label>
-                <input type="text" class="form-control" name="nom" id="nom"
+                <label for="title">Titre</label>
+                <input type="text" class="form-control" name="title" id="title"
                   required />
               </div>
               <div class="form-group mb-3">
-                <label for="prenom">
-                  Nom de famille
-                </label>
-                <input type="text" class="form-control" name="prenom"
-                  id="prenom" required />
-              </div>
-              <div class="form-group mb-3">
-                <label for="titre">
-                  Titre
-                </label>
-                <input type="text" class="form-control" name="titre" id="titre"
+                <label for="title_en">Titre Anglais</label>
+                <input type="text" class="form-control" name="title_en" id="title_en"
                   required />
-              </div>
-              <div class="form-group mb-3">
-                <label for="titre">Titre Anglais</label>
-                <input type="text" class="form-control" name="titre_en"
-                  id="titre" required />
               </div>
               <div class="form-group mb-3">
                 <label for="description">Description</label>
@@ -38,18 +22,17 @@
                   id="description" required></textarea>
               </div>
               <div class="form-group mb-3">
-                <label for="description_en">Description Anglais</label>
+                <label for="description">Description Anglais</label>
                 <textarea class="form-control" name="description_en"
-                  id="description_en" required></textarea>
+                  id="description" required></textarea>
               </div>
               <div class="form-group mb-3">
                 <label for="photo">Photo</label>
                 <input type="file" class="form-control" name="photo"
                   id="photo" />
               </div>
-              <button type="submit" class="btn btn-primary">
-                Ajouter
-              </button>
+              <button type="submit" class="btn btn-primary">Ajouter
+                Communauté</button>
             </form>
           </div>
         </div>
@@ -60,7 +43,7 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
   // Récupérer le formulaire
-  const form = document.getElementById('teamMemberForm');  // Ajout de la récupération du formulaire
+  const form = document.getElementById('communityForm');  // Ajout de la récupération du formulaire
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();  // Empêcher la soumission classique du formulaire
@@ -68,10 +51,10 @@
     const formData = new FormData(form);
 
     // Log les données du formulaire avant de les envoyer
-    console.log('FormData:', [...formData.entries()]);
+    console.log('FormData:', [...formData]);
 
     try {
-      const response = await axios.post('/api/addteamMember', formData, {
+      const response = await axios.post('/api/addcommunity', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -80,14 +63,14 @@
       console.log('Réponse de l\'API:', response);
       if (response.status === 201) {
         alert(response.data.message);  // Afficher un message de succès
-        window.location.href = '/backoffice/listteamMembers';
+        window.location.href = '/backoffice/listcommunities';
         form.reset();  // Réinitialiser le formulaire
       } else {
         alert('Error: ' + response.data.message);  // Afficher un message d'erreur
       }
     } catch (error) {
-      console.log('Erreur lors de l\'ajout du témoignage:', error.response || error);
-      alert('Erreur lors de l\'ajout du témoignage');
+      console.log('Erreur lors de l\'ajout du communaute:', error.response || error);
+      alert('Erreur lors de l\'ajout du communaute');
     }
   });
 </script>

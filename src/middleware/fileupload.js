@@ -26,6 +26,7 @@ const uploadAdvice = multer({ storage: s3Storage("advices") });
 const uploadDepartment = multer({ storage: s3Storage("departments") });
 const uploadGallery = multer({ storage: s3Storage("galleries") });
 const uploadHistory = multer({ storage: s3Storage("histories") });
+const uploadCommunity = multer({ storage: s3Storage("communities") });
 
 module.exports = {
   uploadService,
@@ -38,7 +39,8 @@ module.exports = {
   uploadAdvice,
   uploadDepartment,
   uploadGallery,
-  uploadHistory
+  uploadHistory,
+  uploadCommunity
 };
 
 
