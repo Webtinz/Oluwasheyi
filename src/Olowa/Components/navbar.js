@@ -193,7 +193,7 @@ const Navbar = () => {
               </span>
             </div>
             <div>
-              <Link aria-label='Go to home page' to="/index">
+              <Link aria-label='Go to home page' to="/">
                 <img loading='lazy' src={contents?.data.home_page_header_logo.image} alt="" />
               </Link>
             </div>
@@ -203,7 +203,7 @@ const Navbar = () => {
           <div ref={menuRef} className={`menu ${isMenuActive ? 'active' : ''}`} id="menu">
             <ul className='list-unstyled' style={{ lineHeight: '45px' }}>
               <li>
-                <Link to="/index" className="text-white" style={{ fontWeight: '700', fontSize: '20px', textTransform: 'uppercase' }}>{selectedLanguage === 'fr' ? contents?.data.home_page_home.content_fr : contents?.data.home_page_home.content_en}
+                <Link to="/" className="text-white" style={{ fontWeight: '700', fontSize: '20px', textTransform: 'uppercase' }}>{selectedLanguage === 'fr' ? contents?.data.home_page_home.content_fr : contents?.data.home_page_home.content_en}
                 </Link>
               </li>
               <li>
