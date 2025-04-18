@@ -11,6 +11,7 @@ import {
     getTeamMembers,
     getTestimonials,
     getHistories,
+    getCommunities
 } from "../services/content.service";
 
 export const fetchInitialData = async () => {
@@ -28,6 +29,7 @@ export const fetchInitialData = async () => {
             advices,
             teamMembers,
             testimonials,
+            communities
         ] = await Promise.all([
             getAllContents(),
             getServices(),
@@ -40,6 +42,7 @@ export const fetchInitialData = async () => {
             getAdvices(),
             getTeamMembers(),
             getTestimonials(),
+            getCommunities()
         ]);
 
         // Return all fetched data
@@ -55,6 +58,7 @@ export const fetchInitialData = async () => {
             advices,
             teamMembers,
             testimonials,
+            communities
         };
     } catch (error) {
         console.error("Error loading initial data:", error);

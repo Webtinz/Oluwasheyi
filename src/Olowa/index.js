@@ -77,49 +77,6 @@ const Home = () => {
             <div><Community /></div>
             <br />
 
-            {/* <div className="container  virtualtoursect">
-                <h1
-                    className="text-center"
-                    style={{ color: '#17416F', textTransform: 'uppercase', fontWeight: '700', fontSize: '36px', marginBottom: '2%' }}
-                >
-                    {selectedLanguage === 'fr' ? contents?.data.home_page_virtual_tour_title.content_fr : contents?.data.home_page_virtual_tour_title.content_en}
-                </h1>
-                <br />
-                <br />
-                <div className="row rass">
-                    <div className="col-md-5 order-2 order-md-1" style={{ paddingLeft: 0, paddingRight: 0 }}>
-                        <div className="carousel-content carousel-content1 d-flex justify-content-center align-items-center" style={{
-                            background: '#17416F',
-                            borderTopRightRadius: '50px',
-                            position: 'relative'
-                        }}>
-                            <div className="wm" style={{ textAlign: 'start' }}>
-                                <h2 className="text-white">
-                                    {selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
-                                        __html: contents?.data.home_page_virtual_tour_desc.content_fr
-                                    }} />) : (<div dangerouslySetInnerHTML={{
-                                        __html: contents?.data.home_page_virtual_tour_desc.content_en
-                                    }} />)}
-                                </h2>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col-md-7 order-1 order-md-2" style={{
-                        // paddingLeft: 0,
-                        paddingRight: 0,
-                        backgroundImage: `url(${contents?.data.home_page_virtual_tour_img.image})`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                        marginLeft: '-50px', // Pour couvrir l'espace créé par le radius
-                        paddingLeft: '50px'  // Pour compenser le margin négatif
-                    }}>
-                        <div style={{ Height: '100px' }}></div>
-                    </div>
-                </div>
-
-            </div> */}
-
             <section className="relative w-full loo container">
 
                 <h1
@@ -133,7 +90,10 @@ const Home = () => {
                     {/* Left side - Blue box with text */}
                     <div className="bbl text-white p-8 md:p-12 flex items-center justify-center md:w-2/5" style={{ width: "50%", borderTopRightRadius: "15px", zIndex: "2", backgroundColor: "#00426f" }} >
                         <h3 data-aos="flip-left" className="text-2xl md:text-3xl lg:text-4xl font-bold">
-                            {selectedLanguage === 'fr' ? contents?.data.home_page_virtual_tour_desc.content_fr : contents?.data.home_page_virtual_tour_desc.content_en}
+                            {/* {selectedLanguage === 'fr' ? contents?.data.home_page_virtual_tour_desc.content_fr : contents?.data.home_page_virtual_tour_desc.content_en} */}
+                            {selectedLanguage === 'fr'
+                                ? (<div dangerouslySetInnerHTML={{ __html: contents?.data.home_page_virtual_tour_desc.content_fr }} />)
+                                : (<div dangerouslySetInnerHTML={{ __html: contents?.data.home_page_virtual_tour_desc.content_en }} />)}
                             {/* TAKE A VIRTUAL TOUR OF OUR FACILITIES */}
                         </h3>
                         <svg className='designsvg2' width="153" height="141" viewBox="0 0 153 141" fill="none" xmlns="http://www.w3.org/2000/svg">

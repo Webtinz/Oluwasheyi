@@ -102,6 +102,16 @@ export const getAdvices = async () => {
   }
 }
 
+// Get Communities
+export const getCommunities = async () => {
+  try {
+    const response = await api.get(`/getallcommunities`);
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch Communities:', error.message || error);
+    return null;
+  }
+}
 
 //Get Team Members
 export const getTeamMembers = async () => {

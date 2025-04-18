@@ -9,75 +9,90 @@ const CommunityEngagement = () => {
   const { selectedLanguage } = useContext(LanguageContext);
 
   const { appData } = useLoader();
-  const { contents } = appData;
+  const { contents, communities } = appData;
 
-  const contentData = [
-    {
-      anchor: "section1",
-      title: selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_1_title.content_fr : contents?.data.communoty_page_menu_1_title.content_en,
-      description: selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
-        __html: contents?.data.communoty_page_menu_1_desc.content_fr
-      }} />) : (<div dangerouslySetInnerHTML={{
-        __html: contents?.data.communoty_page_menu_1_desc.content_en
-      }} />),
-      image: selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_1_img.image : contents?.data.communoty_page_menu_1_img.image,
-      borderRadius: "0 30px 0 0",
-      positionClass: "position",
-      imageFirst: true,
-    },
-    {
-      anchor: "section2",
-      title: selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_2_title.content_fr : contents?.data.communoty_page_menu_2_title.content_en,
-      description: selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
-        __html: contents?.data.communoty_page_menu_2_desc.content_fr
-      }} />) : (<div dangerouslySetInnerHTML={{
-        __html: contents?.data.communoty_page_menu_2_desc.content_en
-      }} />),
-      image: selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_2_img.image : contents?.data.communoty_page_menu_2_img.image,
-      borderRadius: "30px 0 0 0",
-      positionClass: "position1",
-      imageFirst: false,
-    },
-    {
-      anchor: "section3",
-      title: selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_3_title.content_fr : contents?.data.communoty_page_menu_3_title.content_en,
-      description: selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
-        __html: contents?.data.communoty_page_menu_3_desc.content_fr
-      }} />) : (<div dangerouslySetInnerHTML={{
-        __html: contents?.data.communoty_page_menu_3_desc.content_en
-      }} />),
-      image: selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_3_img.image : contents?.data.communoty_page_menu_3_img.image,
-      borderRadius: "0 30px  0 0",
-      positionClass: "position",
-      imageFirst: true,
-    },
-    {
-      anchor: "section4",
-      title: selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_4_title.content_fr : contents?.data.communoty_page_menu_4_title.content_en,
-      description: selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
-        __html: contents?.data.communoty_page_menu_4_desc.content_fr
-      }} />) : (<div dangerouslySetInnerHTML={{
-        __html: contents?.data.communoty_page_menu_4_desc.content_en
-      }} />),
-      image: selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_4_img.image : contents?.data.communoty_page_menu_4_img.image,
-      borderRadius: "30px 0 0 0",
-      positionClass: "position1",
-      imageFirst: false,
-    },
-    {
-      anchor: "section5",
-      title: selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_5_title.content_fr : contents?.data.communoty_page_menu_5_title.content_en,
-      description: selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
-        __html: contents?.data.communoty_page_menu_5_desc.content_fr
-      }} />) : (<div dangerouslySetInnerHTML={{
-        __html: contents?.data.communoty_page_menu_5_desc.content_en
-      }} />),
-      image: selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_5_img.image : contents?.data.communoty_page_menu_5_img.image,
-      borderRadius: "0 30px  0 0",
-      positionClass: "position",
-      imageFirst: true,
-    },
-  ];
+  // const contentData = [
+  //   {
+  //     anchor: "section1",
+  //     title: selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_1_title.content_fr : contents?.data.communoty_page_menu_1_title.content_en,
+  //     description: selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+  //       __html: contents?.data.communoty_page_menu_1_desc.content_fr
+  //     }} />) : (<div dangerouslySetInnerHTML={{
+  //       __html: contents?.data.communoty_page_menu_1_desc.content_en
+  //     }} />),
+  //     image: selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_1_img.image : contents?.data.communoty_page_menu_1_img.image,
+  //     borderRadius: "0 30px 0 0",
+  //     positionClass: "position",
+  //     imageFirst: true,
+  //   },
+  //   {
+  //     anchor: "section2",
+  //     title: selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_2_title.content_fr : contents?.data.communoty_page_menu_2_title.content_en,
+  //     description: selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+  //       __html: contents?.data.communoty_page_menu_2_desc.content_fr
+  //     }} />) : (<div dangerouslySetInnerHTML={{
+  //       __html: contents?.data.communoty_page_menu_2_desc.content_en
+  //     }} />),
+  //     image: selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_2_img.image : contents?.data.communoty_page_menu_2_img.image,
+  //     borderRadius: "30px 0 0 0",
+  //     positionClass: "position1",
+  //     imageFirst: false,
+  //   },
+  //   {
+  //     anchor: "section3",
+  //     title: selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_3_title.content_fr : contents?.data.communoty_page_menu_3_title.content_en,
+  //     description: selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+  //       __html: contents?.data.communoty_page_menu_3_desc.content_fr
+  //     }} />) : (<div dangerouslySetInnerHTML={{
+  //       __html: contents?.data.communoty_page_menu_3_desc.content_en
+  //     }} />),
+  //     image: selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_3_img.image : contents?.data.communoty_page_menu_3_img.image,
+  //     borderRadius: "0 30px  0 0",
+  //     positionClass: "position",
+  //     imageFirst: true,
+  //   },
+  //   {
+  //     anchor: "section4",
+  //     title: selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_4_title.content_fr : contents?.data.communoty_page_menu_4_title.content_en,
+  //     description: selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+  //       __html: contents?.data.communoty_page_menu_4_desc.content_fr
+  //     }} />) : (<div dangerouslySetInnerHTML={{
+  //       __html: contents?.data.communoty_page_menu_4_desc.content_en
+  //     }} />),
+  //     image: selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_4_img.image : contents?.data.communoty_page_menu_4_img.image,
+  //     borderRadius: "30px 0 0 0",
+  //     positionClass: "position1",
+  //     imageFirst: false,
+  //   },
+  //   {
+  //     anchor: "section5",
+  //     title: selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_5_title.content_fr : contents?.data.communoty_page_menu_5_title.content_en,
+  //     description: selectedLanguage === 'fr' ? (<div dangerouslySetInnerHTML={{
+  //       __html: contents?.data.communoty_page_menu_5_desc.content_fr
+  //     }} />) : (<div dangerouslySetInnerHTML={{
+  //       __html: contents?.data.communoty_page_menu_5_desc.content_en
+  //     }} />),
+  //     image: selectedLanguage === 'fr' ? contents?.data.communoty_page_menu_5_img.image : contents?.data.communoty_page_menu_5_img.image,
+  //     borderRadius: "0 30px  0 0",
+  //     positionClass: "position",
+  //     imageFirst: true,
+  //   },
+  // ];
+
+  const processedCommunities = communities?.map((community, index) => {
+    const isEven = index % 2 === 0;
+    return {
+      anchor: `section${index + 1}`,
+      title: selectedLanguage === 'fr' ? community.title : community.title_en,
+      description: selectedLanguage === 'fr' 
+        ? (<div dangerouslySetInnerHTML={{ __html: community.description }} />) 
+        : (<div dangerouslySetInnerHTML={{ __html: community.description_en }} />),
+      image: community.photo,
+      borderRadius: isEven ? "0 30px 0 0" : "30px 0 0 0",
+      positionClass: isEven ? "position" : "position1",
+      imageFirst: isEven,
+    };
+  }) || [];
 
   return (
     <div className="container dir">
@@ -88,9 +103,9 @@ const CommunityEngagement = () => {
               {selectedLanguage === 'fr' ? contents?.data.communoty_page_title.content_fr : contents?.data.communoty_page_title.content_en}
             </h1>
           </div>
-          {contentData.map((item, index) => (
+          {processedCommunities.map((item, index) => (
             <div className="row mt-4" key={index}>
-              {index % 2 === 0 ? (
+              {item.imageFirst ? (
                 <>
                   <div
                     data-aos="fade-right" data-aos-duration="500"
