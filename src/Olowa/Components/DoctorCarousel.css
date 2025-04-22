@@ -34,7 +34,9 @@
   width: 100%;
   height: 18em;
   border-top-right-radius: 30px;
-  object-fit: cover;
+  /* object-fit: cover; */
+  object-fit: contain;
+
 }
 
 .doc55-doctor-info {
@@ -128,7 +130,12 @@
     object-fit: contain;
     max-height: 50vh; 
   }
-  
+
+  .doto{
+    object-fit: contain !important;
+
+  }
+
   /* Ajustement pour les boutons en mode mobile */
   .doc55-nav-btn {
     width: 50px;
@@ -143,5 +150,40 @@
   
   .doc55-next-btn {
     right: 0;
+  }
+}
+
+@media screen and (max-width: 780px) {
+.doto{
+  object-fit: contain !important;
+
+}
+}
+@media screen and (max-width: 1280px) {
+.dot {
+  flex: 0 0 auto;
+  width: 50%;
+}
+.doto{
+  object-fit: contain !important;
+
+}
+}
+.appt{
+  /* overflow-y: hidden; */
+}
+@media screen and (max-width: 780px) {
+  .camo{
+    width: 96%;
+    
+  }.porta{
+    height: 50vh !important;
+  }
+  .petit-img{
+    width: 70px !important;
+    height: 70px !important;
+  }
+  .mod-ev{
+    margin: 0;
   }
 }

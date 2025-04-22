@@ -20,7 +20,7 @@ import HealthCarousel from "./Components/healthCarousel";
 // import Img from '../assets/Mask1.png';
 // import G3Image from "../assets/G3.png"; // Assure-toi d’avoir les images dans le bon dossier
 import Group1Image from "../assets/Group1.png";
-import im360 from "../assets/image 35.png";
+import im360 from "../assets/IMG_0022 (1).JPEG";
 // import { getAdvices, getAllContents, getCertificates, getEvents, getServices, getTeamMembers, getTestimonials } from '../services/content.service';
 import LanguageContext from '../context/LanguageContext';
 import { useLoader } from "../context/LoaderContext";
@@ -168,7 +168,7 @@ const Home = () => {
             <div>
                 <Logo logos={certificates} />
             </div>
-            <br /><br /><br /><br />
+            <br /><br />
             <section data-aos="zoom-in-right" className="container-fluid mt-4 position-relative" style={{ backgroundColor: "#17416F" }}>
                 <div className="container pt-4">
                     <div className="row">

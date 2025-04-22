@@ -172,7 +172,7 @@ const EventsCarousel = ({ events }) => {
                   <div className="row">
                     <div className="col-lg-12 mb-4">
                       <div className="position-relative">
-                        <img src={event.photo} alt={selectedLanguage === 'fr' ? event.nom : event.name} className="image-fluid w-100" style={{ height: '250px', objectFit: 'cover' }} />
+                        <img src={event.photo} alt={selectedLanguage === 'fr' ? event.nom : event.name} className="image-fluid w-100" style={{ height: '250px', objectFit: 'contain', backgroundColor:'#17416f1c' }} />
                         <div className="ppo1">
                           <span className="event-day">{format(new Date(event.dateevent), "dd")}</span>
                           <span className="event-date upper py-3">{format(new Date(event.dateevent), "MMM.yy")}</span>
@@ -209,7 +209,7 @@ const EventsCarousel = ({ events }) => {
 
         {selectedEvent && (
           <div className="modal fade show d-block" tabIndex="-1">
-            <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-dialog modal-dialog-centered mod-ev">
               <div className="modal-content">
                 <div className="modal-body position-relative">
                   <div className='color1'>

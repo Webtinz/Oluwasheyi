@@ -484,7 +484,7 @@ button:hover .rotating-svg {
   align-items: center;
   width: 100%;
   overflow: hidden;
-  opacity: 0.7;
+  /* opacity: 0.8; */
 }
 
 .custom-carousel {
@@ -494,6 +494,7 @@ button:hover .rotating-svg {
   scroll-behavior: smooth;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  opacity: 0.7;
 }
 
 .custom-carousel::-webkit-scrollbar {
@@ -1006,8 +1007,8 @@ button:hover .rotating-svg {
 .choosestagepatientbtn h1 {
   font-family: Open Sans;
   font-weight: 700;
-  font-size: 34px;
-  line-height: 40px;
+  /* font-size: 34px; */
+  /* line-height: 40px; */
   text-align: center;
   text-transform: uppercase;
 }
@@ -1016,10 +1017,10 @@ button:hover .rotating-svg {
 .choosestagepatientbtn .goback {
   font-family: Roboto;
   font-weight: 700;
-  font-size: 26px;
-  line-height: 18px;
+  /* font-size: 26px; */
+  /* line-height: 18px; */
   text-align: center;
-  margin-top: 40px;
+  margin-top: 20px;
   color: #17416F !important;
 }
 
@@ -1032,7 +1033,7 @@ button:hover .rotating-svg {
 .choosestagepatientbtn .newbtn,
 .choosestagepatientbtn .existbtn {
   padding: 30px 20px;
-  margin-top: 30px;
+  margin-top: 10px;
   font-family: Open Sans;
   font-weight: 700;
   font-size: 19px;
@@ -1056,7 +1057,9 @@ button:hover .rotating-svg {
   border: 2px solid #17416F !important;
   padding: 10px 20px;
 }
-
+.newbtn:hover{
+  color: white !important;
+}
 .choosestagepatientbtn .color {
   width: 40vw !important;
   margin: 0 auto;
@@ -1150,16 +1153,16 @@ button:hover .rotating-svg {
 /* RESPONSIVES BOOKAPPOINTMENT */
 @media (max-width: 1200px) {
   .choosestagepatientbtn .color {
-    padding: 80px 50px !important;
+    padding: 60px 50px !important;
     width: 50vw !important;
   }
 
   .choosestagepatientbtn h1 {
-    font-size: 32px;
+    /* font-size: 32px; */
   }
 
   .choosestagepatientbtn p {
-    font-size: 20px;
+    /* font-size: 20px; */
   }
 }
 
@@ -1169,7 +1172,7 @@ button:hover .rotating-svg {
   }
 
   .choosestagepatientbtn h1 {
-    font-size: 28px;
+    /* font-size: 28px; */
   }
 
   .choosestagepatientbtn .goback {
@@ -1178,14 +1181,14 @@ button:hover .rotating-svg {
 
   .choosestagepatientbtn .newbtn,
   .choosestagepatientbtn .existbtn {
-    font-size: 17px;
+    /* font-size: 17px; */
   }
 
 }
 
 @media (max-width: 768px) {
   .choosestagepatientbtn .color {
-    padding: 80px 30px !important;
+    padding: 40px 30px !important;
     width: 80vw !important;
   }
 
@@ -1195,26 +1198,26 @@ button:hover .rotating-svg {
   }
 
   .choosestagepatientbtn h1 {
-    font-size: 25px;
+    /* font-size: 25px; */
   }
 
   .choosestagepatientbtn p {
-    font-size: 18px;
+    /* font-size: 18px; */
   }
 }
 
 @media (max-width: 480px) {
   .choosestagepatientbtn .color {
-    padding: 80px 20px !important;
-    width: 95vw !important;
+    padding: 40px 20px !important;
+    width: 92vw !important;
   }
 
   .choosestagepatientbtn h1 {
-    font-size: 20px;
+    /* font-size: 20px; */
   }
 
   .choosestagepatientbtn p {
-    font-size: 15px;
+    /* font-size: 15px; */
   }
 }
 
@@ -1276,7 +1279,7 @@ button:hover .rotating-svg {
   }
 
   .modal-dialog {
-    margin: 20px 50px
+    margin: 20px 20px
   }
 
   .pxc {
@@ -1342,7 +1345,7 @@ button:hover .rotating-svg {
 
 }
 .flx {
-  width: 50%;
+  width: 75%;
   scrollbar-width: none;
   height: 61%;
   overflow-y: scroll;

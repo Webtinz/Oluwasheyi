@@ -361,14 +361,14 @@ const BookAppointment = ({ step, setStep, closeModal }) => {
 
     return (
         <div>
-            <div className="choosestagepatientbtn modal fade show d-block" tabIndex="-1">
+            <div className="choosestagepatientbtn appt modal fade show d-block" tabIndex="-1">
                 <div className="modal-dialog modal-dialog-centered">
                     <div className="modal-content">
                         <div className="modal-body position-relative">
                             <div className="d-flex justify-content-center">
                                 <div className="col">
                                     <div className="color" style={{ padding: '60px' }}>
-                                        <div className="mb-6">
+                                        <div className="mb-3">
                                             <h1 className="text-2xl font-bold text-blue-900 text-center">
                                                 {rendershortContent(contents?.data.book_patient_portal)}
                                             </h1>
@@ -428,7 +428,7 @@ const BookAppointment = ({ step, setStep, closeModal }) => {
                                                 <p className='text-center'>
                                                     {rendershortContent(contents?.data.book_fill)}
                                                 </p>
-                                                <br></br>
+                                                {/* <br></br> */}
                                                 <br></br>
                                                 {/* Bouton Back */}
                                                 <a href="#" className="goback" onClick={(e) => {

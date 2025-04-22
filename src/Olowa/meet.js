@@ -116,9 +116,9 @@ const Meet = () => {
                 <br />
                 <div className="row mt-4">
                     {teamMembers.map((doctor) => (
-                        <div key={doctor.id} className="col-12 col-md-6 col-lg-3 mb-4">
+                        <div key={doctor.id} className="col-12 col-md-6 col-lg-3 mb-4 dot">
                             <a href="#" onClick={(e) => { e.preventDefault(); setSelectedDoctor(doctor); }}>
-                                <img src={doctor.photo} alt={doctor.nom} className="img-fluid w-100" style={{ borderTopRightRadius: "30px", height: "50vh", objectFit: "cover" }} />
+                                <img src={doctor.photo} alt={doctor.nom} className="img-fluid w-100 doto" style={{ borderTopRightRadius: "30px", height: "50vh", objectFit: "cover" }} />
                             </a>
                             <h3 className="text-center mt-3" style={{ color: "#17416F", fontWeight: 700, textTransform: "uppercase", fontSize: 'clamp(18px, 8vw, 25px)' }}>
                                 {doctor.nom} {doctor.prenom}

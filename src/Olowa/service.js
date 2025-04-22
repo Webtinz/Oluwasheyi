@@ -75,7 +75,7 @@ const Home = () => {
 
     return (
 
-        <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
+        <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px', overflowX: 'hidden' }}>
             <div><Navbar /></div>
             <section className="mt-4 position-relative" style={{ backgroundColor: '#17416F', padding: '100px 0' }}>
                 <h1 className="text-center text-white" style={{ textTransform: 'uppercase', fontWeight: '700', fontSize: '40px' }}>{selectedLanguage === 'fr' ? contents?.data.support_page_title1.content_fr : contents?.data.support_page_title1.content_en}</h1>
@@ -140,7 +140,7 @@ const Home = () => {
                                                     <div className="ms-2">
                                                         <p style={{ color: '#17416F' }}>{selectedLanguage === 'fr' ? contents?.data.call_now.content_fr : contents?.data.call_now.content_en}</p>
                                                         <br />
-                                                        <p style={{ color: '#17416F', fontSize: '20px', marginTop: '-1rem' }}><strong>{section.phone}</strong></p>
+                                                        <p style={{ color: '#17416F', marginTop: '-1rem' }}><strong>{section.phone}</strong></p>
                                                     </div>
                                                 </div>
                                                 <br />
@@ -149,7 +149,7 @@ const Home = () => {
                                                     <div><img src={Img7} alt="" /></div>
                                                     <div className="ms-2">
                                                         <p style={{ color: '#17416F' }}>Email</p> <br />
-                                                        <p style={{ color: '#17416F', fontSize: '20px', marginTop: '-1rem' }}><strong>{section.email}</strong></p>
+                                                        <p style={{ color: '#17416F', marginTop: '-1rem' }}><strong>{section.email}</strong></p>
                                                     </div>
                                                 </div>
                                                 <br />

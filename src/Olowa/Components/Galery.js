@@ -84,8 +84,8 @@ const CustomCarousel = ({ images }) => {
         <img
           src={mainImage}
           alt=""
-          className="custom-phone img-fluid"
-          style={{ width: "100%", height: "70vh", objectFit: "cover" }}
+          className="custom-phone porta img-fluid"
+          style={{ width: "100%", height: "70vh", objectFit: "contain", backgroundColor: "#4c7a9a2e" }}
         />
       </div>
 
@@ -95,9 +95,9 @@ const CustomCarousel = ({ images }) => {
           {images?.map((src, index) => (
             <img
               key={index}
-              className="custom-carousel-item"
+              className="custom-carousel-item petit-img"
               src={src.photo}
-              style={{ width: '200px', height: '150px' }}
+              style={{ width: '150px', height: '150px' }}
               alt="logo"
               onClick={() => changeMainImage(src.photo)}
             />
