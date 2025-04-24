@@ -22,6 +22,7 @@ const CommunityController = require('../controllers/CommunityController');
 
 // Authentification
 router.post('/login', userController.login);
+router.post('/logout', userController.logout);
 
 // Testimonials
 router.post('/addtestimonial', uploadTemoigne.single('photo'), TestimonialController.addtestimonial); // Middleware upload utilisé ici

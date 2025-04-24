@@ -23,4 +23,18 @@ const authMiddleware = (req, res, next) => {
     });
 };
 
-module.exports = authMiddleware;
+const isAuthenticated = (req, res, next) => {
+    if (req.session?.user) return next();
+    // alert('Vous devez être connecté pour accéder à cette page.');
+    return res.redirect('/backoffice/login');
+};
+
+const redirectToDashboard = (req, res, next) => {
+    if (req.session?.user) {
+        return res.redirect('/backoffice/listcontents');
+    }
+    next();
+}
+
+
+module.exports = {authMiddleware, isAuthenticated, redirectToDashboard};

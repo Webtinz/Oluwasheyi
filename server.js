@@ -12,6 +12,24 @@ const backofficeapiRoutes = require('./src/routes/webroutes');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const session = require('express-session');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'supersecret',
+  resave: false,
+  saveUninitialized: false,
+  store: new SequelizeStore({
+    db: sequelize,
+  }),
+  cookie: {
+    maxAge: 8 * 60 * 60 * 1000, 
+    httpOnly: true,
+    secure: false, // true if HTTPS
+  }
+}));
+
+
 // Configurer le moteur de vue EJS
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));

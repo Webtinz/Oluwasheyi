@@ -61,7 +61,7 @@
             // Si l'authentification est réussie
             alert('Connexion réussie');
             // Enregistrez le token JWT (si nécessaire) pour les requêtes suivantes
-            localStorage.setItem('auth_token', data.token);
+            // localStorage.setItem('auth_token', data.token);
             // Rediriger vers une autre page (par exemple, le tableau de bord)
             window.location.href = '/backoffice/listcontents';
           } else {
